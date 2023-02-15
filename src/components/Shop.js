@@ -50,8 +50,8 @@ export function Shop(props) {
   }, [currentFilter]);
 
   return (
-    <div>
-      <div className="botonera">
+    <div id="shop">
+      <div id="botonera">
         <button onClick={changeContent}>Helados</button>
         <button onClick={changeContent}>Galletitas</button>
         <button onClick={changeContent}>Bebidas</button>
@@ -65,7 +65,7 @@ export function Shop(props) {
             <div className="card">
               <img src={product.imgUrl} alt="" />
               <p>{product.name}</p>
-              <p>{product.price}</p>
+              <p>${product.price}</p>
               <button
                 onClick={() => {
                   props.addCartItem(product);

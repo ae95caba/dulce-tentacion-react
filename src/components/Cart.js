@@ -11,8 +11,8 @@ export function Cart(props) {
             <div className="cart-item">
               <img src={item.imgUrl} alt={item.name} />
               <div className="right">
-                <div>{item.name}</div>
-                <div>{item.totalPrice}</div>
+                <p>{item.name}</p>
+                <p>{item.totalPrice}</p>
 
                 <div className="quantity">
                   <button
@@ -36,10 +36,16 @@ export function Cart(props) {
           );
         })}
       </div>
-      <div>
+      <div id="checkout">
         <p>Total ${props.totalPrice()}</p>
         <button>Pagar</button>
-        <button>Cerrar</button>
+        <button
+          onClick={() => {
+            document.getElementById("cart").style.display = "none";
+          }}
+        >
+          Cerrar
+        </button>
       </div>
     </div>
   );

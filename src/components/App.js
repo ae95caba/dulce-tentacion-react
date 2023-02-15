@@ -84,8 +84,17 @@ export const App = () => {
   }
 
   return (
-    <div>
+    <div id="app">
+      <button
+        id="cart-button"
+        onClick={() => {
+          document.getElementById("cart").style.display = "flex";
+        }}
+      >
+        {totalItems()} - $ {totalPrice()}
+      </button>
       <nav>
+        <img src="https://picsum.photos/id/684/600/100" alt=""></img>
         <ul>
           <li>
             <Link to="/">Inicio</Link>
@@ -96,12 +105,9 @@ export const App = () => {
           <li>
             <Link to="/contacto">Contacto</Link>
           </li>
-          <li>
-            items del carrito
-            {totalItems()}- total $ {totalPrice()}
-          </li>
         </ul>
       </nav>
+
       <Cart
         cartItems={cartItems}
         addCartItem={addCartItem}
