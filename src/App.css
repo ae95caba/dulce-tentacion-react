@@ -24,6 +24,26 @@
   color: white;
 }
 
+.cart-item {
+  display: flex;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+}
+
+#cart {
+  position: fixed;
+  right: 0;
+  top: 0;
+  border: 1px solid black;
+  overflow: scroll;
+}
+#cart img {
+  width: 200px;
+}
+
 .App-link {
   color: #61dafb;
 }
