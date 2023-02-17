@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Botonera } from "./botonera";
 
 export function Shop(props) {
   const galletitas = [
@@ -27,7 +28,7 @@ export function Shop(props) {
   ];
   const bebidas = [{}, {}];
 
-  const [currentFilter, setCurrentFilter] = useState("Galletitas");
+  const [currentFilter, setCurrentFilter] = useState("Helados");
   const [content, setContent] = useState(galletitas);
 
   function changeContent(e) {
@@ -51,14 +52,8 @@ export function Shop(props) {
 
   return (
     <div id="shop">
-      <div id="botonera">
-        <button onClick={changeContent}>Helados</button>
-        <button onClick={changeContent}>Galletitas</button>
-        <button onClick={changeContent}>Bebidas</button>
-      </div>
-      <div>
-        <h1>{currentFilter}</h1>
-      </div>
+      <Botonera changeContent={changeContent} currentFilter={currentFilter} />
+      <div>{/*  <h1>{currentFilter}</h1> */}</div>
       <div className="content">
         {content.map((product) => {
           return (
@@ -67,6 +62,7 @@ export function Shop(props) {
               <p>{product.name}</p>
               <p>${product.price}</p>
               <button
+                className="to-cart"
                 onClick={() => {
                   props.addCartItem(product);
                 }}

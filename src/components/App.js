@@ -8,6 +8,7 @@ import { Shop } from "./Shop";
 import { Cart } from "./Cart";
 
 import { useState } from "react";
+import { Navbar } from "./Navbar";
 
 export const App = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -93,20 +94,7 @@ export const App = () => {
       >
         {totalItems()} - $ {totalPrice()}
       </button>
-      <nav>
-        <img src="https://picsum.photos/id/684/600/100" alt=""></img>
-        <ul>
-          <li>
-            <Link to="/">Inicio</Link>
-          </li>
-          <li>
-            <Link to="/tienda">Tienda</Link>
-          </li>
-          <li>
-            <Link to="/contacto">Contacto</Link>
-          </li>
-        </ul>
-      </nav>
+      <Navbar />
 
       <Cart
         cartItems={cartItems}
