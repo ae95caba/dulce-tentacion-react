@@ -6,6 +6,8 @@
   text-align: center;
 }
 
+$primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
+
 .cart-item {
   display: flex;
 }
@@ -28,6 +30,20 @@ a {
   justify-content: center;
 }
 
+#cart-button {
+  border: 1px solid red;
+  position: fixed;
+  bottom: 5%;
+  right: 5%;
+  img {
+    width: 20vw;
+  }
+  #total-price,
+  #total-items {
+    background-color: blue;
+    color: white;
+  }
+}
 #cart {
   z-index: 9;
   display: flex;
@@ -44,6 +60,7 @@ a {
   width: 100vw;
   height: 100vh;
   overflow: scroll;
+
   .cart-body {
     display: flex;
     flex-direction: column;
@@ -92,7 +109,9 @@ nav {
   position: sticky;
   top: 0;
   .active {
-    color: yellow;
+    background-image: $primary;
+    background-clip: text;
+    color: transparent;
   }
 
   ul {
@@ -115,28 +134,87 @@ nav {
     }
   }
 }
+#sign-up-log-in {
+  z-index: 9;
+  grid-template-rows: 1fr 1fr 1fr;
+  position: fixed;
+  display: none;
+  align-items: center;
+  right: 0;
+  top: 0;
+
+  background-color: white;
+  width: 100vw;
+  height: 100vh;
+  .close {
+    width: 100%;
+    border: 1px solid black;
+    background-color: red;
+  }
+  #sign-up,
+  #log-in {
+    padding-top: 1rem;
+    background-color: skyblue;
+    width: 100%;
+    fieldset {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+
+      font-size: 1.5rem;
+
+      input {
+        border: 1px solid black;
+        font-size: 1.5rem;
+      }
+      legend {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+      button {
+        margin-top: -7px;
+      }
+    }
+  }
+
+  #google-auth {
+    display: flex;
+    background-color: orange;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    width: 100%;
+    font-size: 1.5rem;
+    height: 100%;
+    button {
+      width: 100%;
+    }
+  }
+}
 
 #botonera {
-  padding-bottom: 4rem;
   margin: 0 -3rem;
-  display: flex;
+  margin-bottom: 3rem;
+  display: grid;
+  grid-template-columns: 33.3% 33.3% 33.3%;
+  background-image: $primary;
   justify-content: center;
   width: 100vw;
+
   position: sticky;
   top: 10%;
-  height: 8vh;
-  flex-wrap: wrap;
 
   button {
-    width: 33vw;
+    width: 33.3vw;
     font-weight: 900;
+    background-color: transparent;
   }
 }
 
 #shop {
   padding: 0px 3rem;
   padding-bottom: 3rem;
-  background-color: beige;
+  background-color: white;
   h1,
   p {
     margin: 0.5rem 0px;
@@ -144,13 +222,6 @@ nav {
 }
 #app {
   position: relative;
-}
-
-#cart-button {
-  border: 1px solid red;
-  position: fixed;
-  bottom: 5%;
-  right: 5%;
 }
 
 #botonera .active {
@@ -163,7 +234,7 @@ nav {
   p {
     font-size: 1.5rem;
   }
-  background-color: white;
+  background-image: $primary;
   img {
     width: 100%;
   }

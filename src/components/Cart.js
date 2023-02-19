@@ -38,7 +38,14 @@ export function Cart(props) {
       </div>
       <div id="checkout">
         <p>Total ${props.totalPrice()}</p>
-        <button>Pagar</button>
+        <button
+          onClick={() => {
+            document.getElementById("cart").style.display = "none";
+            document.getElementById("sign-up-log-in").style.display = "grid";
+          }}
+        >
+          Pagar
+        </button>
         <button
           onClick={() => {
             document.getElementById("cart").style.display = "none";

@@ -1,12 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+
 import { Route } from "react-router-dom";
 import { Routes } from "react-router-dom";
 import { Home } from "../Home";
 import { Contact } from "./Contact";
 import { Shop } from "./Shop";
 import { Cart } from "./Cart";
-
+import { SignUpLogIn } from "./SignUpLogIn";
 import { useState } from "react";
 import { Navbar } from "./Navbar";
 
@@ -86,15 +86,18 @@ export const App = () => {
 
   return (
     <div id="app">
-      <button
+      <div
         id="cart-button"
         onClick={() => {
           document.getElementById("cart").style.display = "flex";
         }}
       >
-        {totalItems()} - $ {totalPrice()}
-      </button>
+        <img src="/img/cart.svg" alt="shopping cart"></img>
+        <div id="total-items">{totalItems()}</div>
+        <div id="total-price">$ {totalPrice()}</div>
+      </div>
       <Navbar />
+      <SignUpLogIn />
 
       <Cart
         cartItems={cartItems}
