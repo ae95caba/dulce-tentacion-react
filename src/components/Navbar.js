@@ -33,14 +33,14 @@ export function Navbar(props) {
         </li>
         <li>
           <Link
-            to="/contacto"
+            to="/perfil"
             onClick={(e) => {
-              setActiveTab("Contacto");
+              setActiveTab("Profile");
               window.scrollTo(0, 0);
             }}
-            className={activeTab === "Contacto" ? "active" : ""}
+            className={activeTab === "Profile" ? "active" : ""}
           >
-            Contacto
+            Perfil
           </Link>
         </li>
       </ul>

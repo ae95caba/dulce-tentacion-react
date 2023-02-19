@@ -1,9 +1,9 @@
 import React from "react";
-
+import "../App.scss";
 import { Route } from "react-router-dom";
 import { Routes } from "react-router-dom";
 import { Home } from "../Home";
-import { Contact } from "./Contact";
+import { Profile } from "./Profile";
 import { Shop } from "./Shop";
 import { Cart } from "./Cart";
 import { SignUpLogIn } from "./SignUpLogIn";
@@ -107,7 +107,7 @@ export const App = () => {
       />
       <Routes>
         <Route path="/" exact element={<Home />} />
-        <Route path="/contacto" element={<Contact />} />
+        <Route path="/perfil" element={<Profile />} />
         <Route path="/tienda" element={<Shop addCartItem={addCartItem} />} />
       </Routes>
     </div>
