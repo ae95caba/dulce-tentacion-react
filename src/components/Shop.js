@@ -22,7 +22,8 @@ export function Shop(props) {
     },
     {
       name: "1/2kg",
-      imgUrl: "https://picsum.photos/id/1025/400/400",
+      imgUrl:
+        "https://firebasestorage.googleapis.com/v0/b/kiosko-rayito.appspot.com/o/cuarto.jpg?alt=media&token=4ef55cc5-a9f6-4c1f-9e18-afd17992a0aa",
       price: 800,
     },
   ];

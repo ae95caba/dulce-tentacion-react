@@ -9,6 +9,8 @@ import { Cart } from "./Cart";
 import { SignUpLogIn } from "./SignUpLogIn";
 import { useState } from "react";
 import { Navbar } from "./Navbar";
+import { SignUp } from "./SignUp";
+import { LogIn } from "./LogIn";
 
 export const App = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -97,7 +99,6 @@ export const App = () => {
         <div id="total-price">$ {totalPrice()}</div>
       </div>
       <Navbar />
-      <SignUpLogIn />
 
       <Cart
         cartItems={cartItems}
@@ -108,6 +109,8 @@ export const App = () => {
       <Routes>
         <Route path="/" exact element={<Home />} />
         <Route path="/perfil" element={<Profile />} />
+        <Route path="/perfil/crear-cuenta" element={<SignUp />} />
+        <Route path="/perfil/iniciar-sesion" element={<LogIn />} />
         <Route path="/tienda" element={<Shop addCartItem={addCartItem} />} />
       </Routes>
     </div>

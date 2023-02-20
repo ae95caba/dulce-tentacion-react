@@ -134,6 +134,33 @@ nav {
     }
   }
 }
+
+#sign-up,
+#log-in {
+  padding-top: 1rem;
+  background-color: skyblue;
+  width: 100%;
+  fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+
+    font-size: 1.5rem;
+
+    input {
+      border: 1px solid black;
+      font-size: 1.5rem;
+    }
+    legend {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    button {
+      margin-top: -7px;
+    }
+  }
+}
+
 #sign-up-log-in {
   z-index: 9;
   grid-template-rows: 1fr 1fr 1fr;
@@ -150,31 +177,6 @@ nav {
     width: 100%;
     border: 1px solid black;
     background-color: red;
-  }
-  #sign-up,
-  #log-in {
-    padding-top: 1rem;
-    background-color: skyblue;
-    width: 100%;
-    fieldset {
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-
-      font-size: 1.5rem;
-
-      input {
-        border: 1px solid black;
-        font-size: 1.5rem;
-      }
-      legend {
-        font-size: 1.5rem;
-        margin-bottom: 0.5rem;
-      }
-      button {
-        margin-top: -7px;
-      }
-    }
   }
 
   #google-auth {
@@ -265,12 +267,48 @@ button {
   border: 1px solid black;
   display: flex;
   padding: 2rem;
-  gap: 2rem;
+
   flex-direction: column;
   justify-content: center;
   background-color: white;
   width: 100%;
   height: 90vh;
+
+  #user-offline {
+    display: flex;
+    flex-direction: column;
+
+    gap: 2rem;
+
+    button {
+      width: 100%;
+    }
+  }
+  #user-online {
+    border: 1px solid blue;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 3fr 3fr 10%;
+    #user-info {
+      border: 1px solid red;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  #shopping {
+    border: 1px solid black;
+    display: grid;
+
+    grid-template-rows: 20% 80%;
+    .list {
+      border: 1px solid green;
+      overflow-y: scroll;
+    }
+  }
+
   .header {
     font-size: 2rem;
   }
