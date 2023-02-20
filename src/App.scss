@@ -262,8 +262,28 @@ button {
 
 #profile {
   align-items: center;
-
+  border: 1px solid black;
+  display: flex;
+  padding: 2rem;
+  gap: 2rem;
+  flex-direction: column;
+  justify-content: center;
   background-color: white;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 90vh;
+  .header {
+    font-size: 2rem;
+  }
+  button {
+    padding: 1rem;
+    border: 1rem;
+  }
+  img {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+  }
+  p {
+    font-size: 1.5rem;
+  }
 }

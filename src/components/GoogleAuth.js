@@ -16,7 +16,7 @@ export function GoogleAuth() {
           signInWithPopup(auth, provider)
             .then((result) => {
               console.log("te logeaste con google");
-              document.getElementById("log-in").style.display = "none";
+              document.getElementById("sign-up-log-in").style.display = "none";
               // This gives you a Google Access Token. You can use it to access the Google API.
               const credential =
                 GoogleAuthProvider.credentialFromResult(result);
