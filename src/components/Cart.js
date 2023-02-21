@@ -1,6 +1,25 @@
 import { useEffect, useState } from "react";
-
+import { auth } from "../backend/firebase";
+import { useNavigate } from "react-router-dom";
 export function Cart(props) {
+  const navigate = useNavigate();
+  const [isUserOnline, setIsUserOnline] = useState();
+  useEffect(() => {
+    console.log("use effect");
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        console.log("hay un usuario logeado");
+        console.log(user);
+        //alert(Object.getOwnPropertyNames(user));
+
+        setIsUserOnline(true);
+      } else {
+        console.log("no hay un usuario activo");
+        setIsUserOnline(false);
+      }
+    });
+  }, []);
+
   return (
     <div id="cart">
       <h1>Tu carrito</h1>
@@ -46,7 +65,11 @@ export function Cart(props) {
           disabled={props.cartItems.length === 0}
           onClick={() => {
             document.getElementById("cart").style.display = "none";
-            document.getElementById("sign-up-log-in").style.display = "grid";
+            if (isUserOnline) {
+              alert("proceso de compra aca");
+            } else {
+              navigate("/perfil");
+            }
           }}
         >
           Pagar

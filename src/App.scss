@@ -135,10 +135,16 @@ nav {
   }
 }
 
+.form-container {
+  display: flex;
+  align-items: center;
+  height: 90vh;
+}
+
 #sign-up,
 #log-in {
   padding-top: 1rem;
-  background-color: skyblue;
+
   width: 100%;
   fieldset {
     display: flex;
@@ -156,7 +162,9 @@ nav {
       margin-bottom: 0.5rem;
     }
     button {
-      margin-top: -7px;
+      a {
+        color: black;
+      }
     }
   }
 }
@@ -289,39 +297,50 @@ button {
     width: 100%;
     height: 100%;
     display: grid;
+
     grid-template-rows: 3fr 3fr 10%;
     #user-info {
       border: 1px solid red;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      gap: 1rem;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
       align-items: center;
+      img {
+        width: 10rem;
+        height: 10rem;
+        border-radius: 50%;
+        border: 2px solid greenyellow;
+      }
+      button {
+        padding: 1rem;
+        border: 1rem;
+      }
+      p {
+        font-size: 1.5rem;
+      }
+    }
+    #shopping {
+      border: 1px solid black;
+      display: grid;
+
+      grid-template-rows: 20% 80%;
+      .list {
+        border: 1px solid green;
+        overflow-y: scroll;
+      }
     }
   }
-  #shopping {
-    border: 1px solid black;
-    display: grid;
+}
 
-    grid-template-rows: 20% 80%;
-    .list {
-      border: 1px solid green;
-      overflow-y: scroll;
-    }
-  }
-
-  .header {
-    font-size: 2rem;
-  }
-  button {
-    padding: 1rem;
-    border: 1rem;
-  }
-  img {
-    width: 10rem;
-    height: 10rem;
-    border-radius: 50%;
-  }
-  p {
-    font-size: 1.5rem;
-  }
+#botonera-perfil {
+  border: 1px solid black;
+  position: sticky;
+  top: 0;
+  width: 100vw;
+  display: grid;
+  grid-template-columns: 60% 40%;
+  margin-top: -2rem;
 }

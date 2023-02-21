@@ -112,6 +112,7 @@ logout.addEventListener("click", (e) => {
 console.log(docs); */
 
 ////////////////////////////////////
+
 // google login
 
 /* const provider = new GoogleAuthProvider();
