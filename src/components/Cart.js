@@ -70,8 +70,7 @@ export function Cart(props) {
             document.getElementById("cart").style.display = "none";
             if (isUserOnline) {
               props.showThanksMessage();
-
-              alert("show task message");
+              /////add firebase firestore
             } else {
               navigate("/perfil");
             }

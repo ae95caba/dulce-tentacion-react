@@ -27,12 +27,14 @@ a {
   bottom: 5%;
   right: 5%;
   img {
-    width: 20vw;
+    width: 22vw;
   }
   #total-price,
   #total-items {
     background-color: blue;
     color: white;
+    padding: 4px;
+    font-size: 1.2rem;
   }
 }
 #cart {
@@ -335,20 +337,29 @@ button {
   }
 }
 
-#thanks-message {
-  position: absolute;
-
-  width: 40vh;
-  height: 40vh;
-  top: 12%;
-  background-color: pink;
-  color: white;
-  border: 1px solid black;
+#thanks-message-container {
+  position: fixed;
+  width: 100vw;
+  height: 90vh;
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  ol {
-    list-style-type: decimal !important;
+  align-items: center;
+  justify-content: center;
+
+  #thanks-message {
+    padding: 1.5rem;
+    p {
+      font-size: 2rem;
+    }
+
+    background-color: pink;
+    color: white;
+    width: 66.6%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    ol {
+      list-style-type: decimal !important;
+    }
   }
 }
 
