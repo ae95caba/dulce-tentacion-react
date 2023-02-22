@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { auth } from "../backend/firebase";
 import { useNavigate } from "react-router-dom";
+
 export function Cart(props) {
+  console.log(props.showThanksMessage); // check if props.showThanksMessage is defined
   const navigate = useNavigate();
   const [isUserOnline, setIsUserOnline] = useState();
+
   useEffect(() => {
     console.log("use effect");
     auth.onAuthStateChanged((user) => {
@@ -66,7 +69,9 @@ export function Cart(props) {
           onClick={() => {
             document.getElementById("cart").style.display = "none";
             if (isUserOnline) {
-              alert("proceso de compra aca");
+              props.showThanksMessage();
+
+              alert("show task message");
             } else {
               navigate("/perfil");
             }

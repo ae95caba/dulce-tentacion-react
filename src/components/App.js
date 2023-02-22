@@ -11,9 +11,11 @@ import { useState } from "react";
 import { Navbar } from "./Navbar";
 import { SignUp } from "./SignUp";
 import { LogIn } from "./LogIn";
+import { ThanksMessage } from "./ThanksMessage";
 
 export const App = () => {
   const [cartItems, setCartItems] = useState([]);
+  const [showThanksMessage, setShowThanksMessage] = useState(false);
 
   function totalItems() {
     let total = 0;
@@ -99,12 +101,19 @@ export const App = () => {
         <div id="total-price">$ {totalPrice()}</div>
       </div>
       <Navbar />
+      {showThanksMessage ? (
+        <ThanksMessage close={() => setShowThanksMessage(false)} />
+      ) : null}
 
       <Cart
         cartItems={cartItems}
         addCartItem={addCartItem}
         removeCartItem={removeCartItem}
         totalPrice={totalPrice}
+        showThanksMessage={() => {
+          console.log("holaaaaa");
+          setShowThanksMessage(true);
+        }}
       />
       <Routes>
         <Route path="/" exact element={<Home />} />

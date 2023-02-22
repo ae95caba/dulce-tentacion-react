@@ -7,6 +7,7 @@ import {
 export const UserInfo = (props) => {
   return (
     <div id="user-info">
+      <p>Estas conectado</p>
       <img src={props.userData.img} alt="" />
       <p>Bienvenido </p>
       <p>{!props.userName ? props.userData.email : props.userData.name}</p>

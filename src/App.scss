@@ -335,6 +335,23 @@ button {
   }
 }
 
+#thanks-message {
+  position: absolute;
+
+  width: 40vh;
+  height: 40vh;
+  top: 12%;
+  background-color: pink;
+  color: white;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  ol {
+    list-style-type: decimal !important;
+  }
+}
+
 #botonera-perfil {
   border: 1px solid black;
   position: sticky;

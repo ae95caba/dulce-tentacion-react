@@ -2,18 +2,6 @@ import { useState, useEffect } from "react";
 import { Botonera } from "./Botonera";
 
 export function Shop(props) {
-  const galletitas = [
-    {
-      name: "Pituzas",
-      imgUrl: "https://picsum.photos/id/1025/400/400",
-      price: 150,
-    },
-    {
-      name: "Don Satur agridulces",
-      imgUrl: "https://picsum.photos/id/1025/400/400",
-      price: 110,
-    },
-  ];
   const helados = [
     {
       name: "1kg",
@@ -101,7 +89,7 @@ export function Shop(props) {
   ];
 
   const [currentFilter, setCurrentFilter] = useState("Helados");
-  const [content, setContent] = useState(galletitas);
+  const [content, setContent] = useState(helados);
 
   function changeContent(e) {
     setCurrentFilter(e.target.innerText);
@@ -109,9 +97,6 @@ export function Shop(props) {
 
   useEffect(() => {
     switch (currentFilter) {
-      case "Galletitas":
-        setContent(galletitas);
-        break;
       case "Escabio":
         setContent(escabio);
         break;
