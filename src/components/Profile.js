@@ -47,13 +47,12 @@ export function Profile() {
       {isUserOnline ? (
         <>
           <BotoneraPerfil changeFilter={changeFilter} />
-          <div id="user-online">
-            {currentFilter === "Informacion" ? (
-              <UserInfo userData={userData} />
-            ) : (
-              <UserShopping />
-            )}
-          </div>
+
+          {currentFilter === "Informacion" ? (
+            <UserInfo userData={userData} />
+          ) : (
+            <UserShopping />
+          )}
         </>
       ) : (
         <div id="user-offline">

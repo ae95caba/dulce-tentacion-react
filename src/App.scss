@@ -22,7 +22,6 @@ a {
 }
 
 #cart-button {
-  border: 1px solid red;
   position: fixed;
   bottom: 5%;
   right: 5%;
@@ -31,7 +30,7 @@ a {
   }
   #total-price,
   #total-items {
-    background-color: blue;
+    background-color: black;
     color: white;
     padding: 4px;
     font-size: 1.2rem;
@@ -273,16 +272,44 @@ button {
 }
 
 #profile {
-  align-items: center;
-  border: 1px solid black;
-  display: flex;
-  padding: 2rem;
-
-  flex-direction: column;
-  justify-content: center;
+  padding: 0px 3rem;
+  padding-bottom: 3rem;
   background-color: white;
-  width: 100%;
-  height: 90vh;
+  border: 1px solid black;
+
+  #user-info {
+    border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    align-items: center;
+    img {
+      width: 10rem;
+      height: 10rem;
+      border-radius: 50%;
+      border: 2px solid greenyellow;
+    }
+    button {
+      padding: 1rem;
+      border: 1rem;
+    }
+    p {
+      font-size: 1.5rem;
+    }
+  }
+  #shopping {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    min-height: 50vh;
+    .list {
+      border: 1px solid green;
+      overflow-y: scroll;
+    }
+  }
 
   #user-offline {
     display: flex;
@@ -294,50 +321,11 @@ button {
       width: 100%;
     }
   }
-  #user-online {
-    border: 1px solid blue;
-    width: 100%;
-    height: 100%;
-    display: grid;
-
-    grid-template-rows: 3fr 3fr 10%;
-    #user-info {
-      border: 1px solid red;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 1rem;
-      padding-top: 1rem;
-      padding-bottom: 1rem;
-      align-items: center;
-      img {
-        width: 10rem;
-        height: 10rem;
-        border-radius: 50%;
-        border: 2px solid greenyellow;
-      }
-      button {
-        padding: 1rem;
-        border: 1rem;
-      }
-      p {
-        font-size: 1.5rem;
-      }
-    }
-    #shopping {
-      border: 1px solid black;
-      display: grid;
-
-      grid-template-rows: 20% 80%;
-      .list {
-        border: 1px solid green;
-        overflow-y: scroll;
-      }
-    }
-  }
 }
 
 #thanks-message-container {
+  background-color: rgba(0, 0, 0, 0.8);
+
   position: fixed;
   width: 100vw;
   height: 90vh;
@@ -347,6 +335,7 @@ button {
 
   #thanks-message {
     padding: 1.5rem;
+
     p {
       font-size: 2rem;
     }
@@ -364,11 +353,18 @@ button {
 }
 
 #botonera-perfil {
-  border: 1px solid black;
-  position: sticky;
-  top: 0;
-  width: 100vw;
+  margin: 0 -3rem;
+  margin-bottom: 3rem;
   display: grid;
   grid-template-columns: 60% 40%;
-  margin-top: -2rem;
+  background-image: $primary;
+  justify-content: center;
+  width: 100vw;
+
+  position: sticky;
+  top: 10%;
+  button {
+    font-weight: 900;
+    background-color: transparent;
+  }
 }
