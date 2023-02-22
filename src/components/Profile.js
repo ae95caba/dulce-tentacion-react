@@ -43,9 +43,9 @@ export function Profile() {
   }
 
   return (
-    <div id="profile">
+    <>
       {isUserOnline ? (
-        <>
+        <div id="profile-online">
           <BotoneraPerfil changeFilter={changeFilter} />
 
           {currentFilter === "Informacion" ? (
@@ -53,18 +53,20 @@ export function Profile() {
           ) : (
             <UserShopping />
           )}
-        </>
+        </div>
       ) : (
-        <div id="user-offline">
-          <Link to="/perfil/iniciar-sesion">
-            <button>Iniciar session</button>
-          </Link>
-          <p>O</p>
-          <Link to="/perfil/crear-cuenta">
-            <button>Crea una cuenta</button>
-          </Link>
+        <div id="profile-offline-container">
+          <div id="profile-offline">
+            <Link to="/perfil/iniciar-sesion">
+              <button>Iniciar session</button>
+            </Link>
+            <p>O</p>
+            <Link to="/perfil/crear-cuenta">
+              <button>Crea una cuenta</button>
+            </Link>
+          </div>
         </div>
       )}
-    </div>
+    </>
   );
 }

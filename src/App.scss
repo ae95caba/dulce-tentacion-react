@@ -8,19 +8,6 @@
 
 $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
 
-a {
-  text-decoration: none;
-  color: white;
-  font-size: 1.6rem;
-  transform: scale(1, 1.2);
-  font-weight: 900;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 #cart-button {
   position: fixed;
   bottom: 5%;
@@ -113,6 +100,18 @@ nav {
     background-image: $primary;
     background-clip: text;
     color: transparent;
+  }
+  a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.6rem;
+    transform: scale(1, 1.2);
+    font-weight: 900;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   ul {
@@ -241,6 +240,11 @@ nav {
   color: white;
 }
 
+#botonera-perfil .active {
+  background-color: black;
+  color: white;
+}
+
 .card {
   box-shadow: 3px 3px 3px rgb(44, 42, 42);
   p {
@@ -271,14 +275,12 @@ button {
   font-size: 1.5rem;
 }
 
-#profile {
+#profile-online {
   padding: 0px 3rem;
   padding-bottom: 3rem;
   background-color: white;
-  border: 1px solid black;
 
   #user-info {
-    border: 1px solid red;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -290,7 +292,7 @@ button {
       width: 10rem;
       height: 10rem;
       border-radius: 50%;
-      border: 2px solid greenyellow;
+      border: 5px solid greenyellow;
     }
     button {
       padding: 1rem;
@@ -310,19 +312,34 @@ button {
       overflow-y: scroll;
     }
   }
+}
+#profile-offline-container {
+  height: 90vh;
+  border: 1px solid black;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  align-items: center;
+  display: flex;
+  justify-content: center;
 
-  #user-offline {
+  #profile-offline {
+    border: 1px solid red;
+    height: 50%;
+    width: 66.6%;
     display: flex;
     flex-direction: column;
-
-    gap: 2rem;
+    justify-content: center;
+    width: 100vw;
+    gap: 1rem;
+    p {
+      font-size: 1.5rem;
+    }
 
     button {
       width: 100%;
     }
   }
 }
-
 #thanks-message-container {
   background-color: rgba(0, 0, 0, 0.8);
 
@@ -337,17 +354,25 @@ button {
     padding: 1.5rem;
 
     p {
-      font-size: 2rem;
+      font-size: 1.5rem;
+      font-weight: 900;
     }
 
     background-color: pink;
     color: white;
-    width: 66.6%;
+    width: 75%;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.9rem;
     ol {
-      list-style-type: decimal !important;
+      list-style-type: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      li {
+        font-size: 1.5rem;
+        text-align: left;
+      }
     }
   }
 }
