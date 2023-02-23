@@ -44,8 +44,8 @@ export function Cart(props) {
                       }}
                     >
                       +
-                    </button>{" "}
-                    unidades{item.count}{" "}
+                    </button>
+                    {item.count} unidades
                     <button
                       onClick={() => {
                         props.removeCartItem(item);

@@ -33,6 +33,8 @@ export const App = () => {
     return total;
   }
 
+  //increases a cart item count if the item is in the cart
+  //if the item was no in the cart (its just been added) it adds it to cartItems array
   function addCartItem(product) {
     var isProductInCart = false;
     var index = undefined;
@@ -59,6 +61,7 @@ export const App = () => {
         },
       ]);
     } else {
+      // INCREASE COUNT BY 1
       let copy = [...cartItems];
       copy[index].count = copy[index].count + 1;
       console.log(copy[index].count);
@@ -67,6 +70,8 @@ export const App = () => {
     }
   }
 
+  //	decreases a cart item count
+  //if the is only only the removes it entirely
   function removeCartItem(product) {
     var index = undefined;
     for (var i = 0; i < cartItems.length; i++) {
