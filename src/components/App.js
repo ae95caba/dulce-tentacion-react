@@ -93,6 +93,10 @@ export const App = () => {
     }
   }
 
+  function clearCart() {
+    setCartItems([]);
+  }
+
   return (
     <div id="app">
       <div
@@ -114,6 +118,7 @@ export const App = () => {
         cartItems={cartItems}
         addCartItem={addCartItem}
         removeCartItem={removeCartItem}
+        clearCart={clearCart}
         totalPrice={totalPrice}
         showThanksMessage={() => {
           console.log("holaaaaa");

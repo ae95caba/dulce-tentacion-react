@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { auth } from "../backend/firebase";
 import { useNavigate } from "react-router-dom";
+import { addCartToFirestore } from "../backend/addCartToFiresstore";
 
 export function Cart(props) {
-  console.log(props.showThanksMessage); // check if props.showThanksMessage is defined
   const navigate = useNavigate();
   const [isUserOnline, setIsUserOnline] = useState();
 
@@ -45,7 +45,7 @@ export function Cart(props) {
                     >
                       +
                     </button>
-                    {item.count} unidades
+                    unidades: {item.count}
                     <button
                       onClick={() => {
                         props.removeCartItem(item);
@@ -71,6 +71,9 @@ export function Cart(props) {
             if (isUserOnline) {
               props.showThanksMessage();
               /////add firebase firestore
+              addCartToFirestore(props.cartItems, props.totalPrice());
+              //clear cart
+              props.clearCart();
             } else {
               navigate("/perfil");
             }

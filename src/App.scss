@@ -87,6 +87,33 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
   }
 }
 
+#purchase-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  .purchase {
+    display: grid;
+    border: 1px solid black;
+
+    .cart-item {
+      width: 100%;
+      border: 1px solid blue;
+      display: grid;
+      grid-template-columns: 40% 60%;
+      img {
+        width: 100%;
+      }
+
+      .right {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        justify-content: center;
+      }
+    }
+  }
+}
+
 nav {
   display: flex;
   align-items: center;
