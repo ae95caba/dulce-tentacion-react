@@ -1,4 +1,8 @@
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  signInWithRedirect,
+} from "firebase/auth";
 import { auth } from "../backend/firebase";
 import { useNavigate } from "react-router-dom";
 export function GoogleAuth(props) {
@@ -7,9 +11,8 @@ export function GoogleAuth(props) {
     <button
       id="google-auth"
       onClick={(e) => {
-        alert("click google");
         const provider = new GoogleAuthProvider();
-        signInWithPopup(auth, provider)
+        signInWithRedirect(auth, provider)
           .then((result) => {
             console.log("te logeaste con google");
 
