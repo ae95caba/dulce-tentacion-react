@@ -115,7 +115,13 @@ export function Shop(props) {
         {content.map((product) => {
           return (
             <div className="card">
-              <img src={product.imgUrl} alt="" />
+              <div className="img-container">
+                <div className="points">
+                  <p>{(product.price * 5) / 100}</p>
+                  <p>Puntos</p>
+                </div>
+                <img src={product.imgUrl} alt="" />
+              </div>
               <p>{product.name}</p>
               <p>${product.price}</p>
               <button
