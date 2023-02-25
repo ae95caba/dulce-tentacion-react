@@ -6,7 +6,7 @@ import { Home } from "../Home";
 import { Profile } from "./Profile";
 import { Shop } from "./Shop";
 import { Cart } from "./Cart";
-import { SignUpLogIn } from "./SignUpLogIn";
+
 import { useState } from "react";
 import { Navbar } from "./Navbar";
 import { SignUp } from "./SignUp";

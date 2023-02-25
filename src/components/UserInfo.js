@@ -1,5 +1,5 @@
 import { auth } from "../backend/firebase";
-import { getAuth, signOut } from "firebase/auth";
+import { signOut } from "firebase/auth";
 
 export const UserInfo = (props) => {
   return (

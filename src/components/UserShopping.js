@@ -1,6 +1,6 @@
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { db } from "../backend/firebase";
-import { collection, deleteDoc } from "firebase/firestore";
+import { collection } from "firebase/firestore";
 import { auth } from "../backend/firebase";
 export const UserShopping = () => {
   const query = collection(db, `users/${auth.currentUser.uid}/compras`);
