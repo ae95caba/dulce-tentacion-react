@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export function ThanksMessage(props) {
   return (
     <div id="thanks-message-container">
@@ -9,7 +11,16 @@ export function ThanksMessage(props) {
           <li>2-Deciles que compraste por la pag</li>
           <li>3-Paga</li>
         </ol>
-        <button>Ver detalle</button>
+        <button>
+          <Link
+            to="/perfil"
+            onClick={() => {
+              props.close();
+            }}
+          >
+            Ver detalle
+          </Link>
+        </button>
         <button onClick={() => props.close()}>cerrar</button>
       </div>
     </div>

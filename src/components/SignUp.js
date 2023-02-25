@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../backend/firebase";
 import { Link } from "react-router-dom";
 import { GoogleAuth } from "./GoogleAuth";

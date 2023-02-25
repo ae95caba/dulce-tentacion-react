@@ -2,7 +2,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   signInWithRedirect,
-} from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
+} from "firebase/auth";
 import { auth } from "../backend/firebase";
 import { useNavigate } from "react-router-dom";
 export function GoogleAuth(props) {

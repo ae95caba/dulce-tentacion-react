@@ -1,16 +1,18 @@
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { db } from "../backend/firebase";
-import { collection } from "firebase/firestore";
+import { collection, deleteDoc } from "firebase/firestore";
 import { auth } from "../backend/firebase";
 export const UserShopping = () => {
   const query = collection(db, `users/${auth.currentUser.uid}/compras`);
   const [docs, loading, error] = useCollectionData(query);
   console.log(docs);
+  console.log(query);
   return (
     <div id="purchase-list-container">
       <div id="purchase-list">
         {loading && "Cargando ..."}
         {docs?.map((doc) => {
+          console.log(doc.id);
           return (
             <div className="purchase">
               <div>{doc.date.toDate().toString()}</div>
@@ -30,7 +32,17 @@ export const UserShopping = () => {
               </div>
               <div>Total: {doc.totalPrice}</div>
               <div>{doc.completed === true ? "PAGADO" : "NO PAGADO"}</div>
-              <button>Cancelar</button>
+              <button
+                onClick={() => {
+                  const docRef = doc(
+                    db,
+                    `users/${auth.currentUser.uid}/compras`,
+                    ""
+                  );
+                }}
+              >
+                Cancelar
+              </button>
             </div>
           );
         })}
