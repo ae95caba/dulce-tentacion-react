@@ -6,12 +6,13 @@ import { format } from "date-fns";
 export const UserShopping = () => {
   const query = collection(db, `users/${auth.currentUser.uid}/compras`);
   const [docs, loading, error] = useCollectionData(query);
+
   console.log(docs);
   console.log(query);
   return (
     <div id="purchase-list-container">
       <div id="purchase-list">
-        {loading && "Cargando ..."}
+        {loading && null}
         {docs?.map((doc) => {
           const dateObj = doc.date.toDate();
 
@@ -43,7 +44,9 @@ export const UserShopping = () => {
                 <div className="description-total-price">
                   Total: ${doc.totalPrice}
                 </div>
-                <div className="description-total-points">Puntos : 1000</div>
+                <div className="description-total-points">
+                  Puntos : {(doc.totalPrice * 5) / 100}
+                </div>
                 <div className="purchase-state">
                   {doc.completed === true ? "PAGADO" : "NO PAGADO"}
                 </div>

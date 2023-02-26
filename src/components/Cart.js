@@ -36,8 +36,10 @@ export function Cart(props) {
               <div className="cart-item">
                 <img src={item.imgUrl} alt={item.name} />
                 <div className="right">
-                  <p>{item.name}</p>
-                  <p>${item.totalPrice}</p>
+                  <div className="description">
+                    <p className="description-name">{item.name}</p>
+                    <p className="description-price">$ {item.totalPrice}</p>
+                  </div>
 
                   <div className="quantity">
                     <button
@@ -47,7 +49,7 @@ export function Cart(props) {
                     >
                       -
                     </button>
-                    unidades: {item.count}
+                    <p>unidades: {item.count}</p>
                     <button
                       onClick={() => {
                         props.addCartItem(item);
@@ -61,21 +63,27 @@ export function Cart(props) {
             );
           })
         ) : (
-          <p id="empty">Todabia no agregaste nada a tu carrito, que esperas?</p>
+          <p id="empty">No hay nada aca, porque no agregas algo?</p>
         )}
       </div>
       {props.cartItems.length > 0 ? (
         <div className="total-points">
-          Con esta compra obtienes <span>{(props.totalPrice() / 100) * 5}</span>{" "}
+          Con esta compra te damos{" "}
+          <span className="number">{(props.totalPrice() / 100) * 5}</span>{" "}
           puntos !
         </div>
       ) : null}
-      <div id="checkout">
-        <p>Total: </p>
-        <p>${props.totalPrice()}</p>
-        <p>o</p>
-        <p>{props.totalPrice()} puntos</p>
-        <div className="buttons-container">
+      {props.cartItems.length > 0 ? (
+        <div id="checkout">
+          <p id="checkout-tittle">Total a pagar: </p>
+          <div id="summary-container">
+            <div id="summary">
+              <p>${props.totalPrice()}</p>
+              <p> o</p>
+              <p>{props.totalPrice()} puntos</p>
+            </div>
+          </div>
+
           <button
             disabled={props.cartItems.length === 0}
             onClick={() => {
@@ -97,15 +105,17 @@ export function Cart(props) {
           >
             Pagar
           </button>
-          <button
-            onClick={() => {
-              document.getElementById("cart").style.display = "none";
-            }}
-          >
-            Cerrar
-          </button>
         </div>
-      </div>
+      ) : null}
+
+      <button
+        className="close"
+        onClick={() => {
+          document.getElementById("cart").style.display = "none";
+        }}
+      >
+        Cerrar
+      </button>
     </div>
   );
 }

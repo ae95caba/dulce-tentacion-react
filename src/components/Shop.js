@@ -117,13 +117,18 @@ export function Shop(props) {
             <div className="card">
               <div className="img-container">
                 <div className="points">
-                  <p>{(product.price * 5) / 100}</p>
-                  <p>Puntos</p>
+                  <img src="/img/seal.svg" />
+                  <div className="text">
+                    <p className="points-value">{(product.price * 5) / 100}</p>
+                    <p className="points-string">Puntos</p>
+                  </div>
                 </div>
                 <img src={product.imgUrl} alt="" />
               </div>
-              <p>{product.name}</p>
-              <p>${product.price}</p>
+              <div className="product-description">
+                <p className="product-name">{product.name}</p>
+                <p className="product-price">${product.price}</p>
+              </div>
               <button
                 className="to-cart"
                 onClick={() => {

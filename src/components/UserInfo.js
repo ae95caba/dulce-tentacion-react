@@ -4,11 +4,19 @@ import { signOut } from "firebase/auth";
 export const UserInfo = (props) => {
   return (
     <div id="user-info">
-      <p>Estas conectado</p>
+      <p>
+        Estas <span id="conected">conectado</span>
+      </p>
       <img src={props.userData.img} alt="" />
-      <p>Bienvenido </p>
-      <p>{!props.userName ? props.userData.email : props.userData.name}</p>
-      <p>Puntos: 1000</p>
+      <div className="welcome">
+        <p>Bienvenido </p>
+        <p>
+          {!props.userData.name ? props.userData.email : props.userData.name}
+        </p>
+      </div>
+      <p>
+        Tenes <span className="user-points">1000</span> puntos
+      </p>
       <button
         onClick={() => {
           signOut(auth)

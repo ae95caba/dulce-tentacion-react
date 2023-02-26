@@ -1,3 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Lilita+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Mynerve&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap");
+
 * {
   margin: 0;
   padding: 0;
@@ -40,7 +45,10 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
   width: 100vw;
   height: 100vh;
   overflow: scroll;
-
+  h1 {
+    font-family: "Lilita One", cursive;
+    font-size: 2.5rem;
+  }
   .cart-body {
     display: flex;
     flex-direction: column;
@@ -49,8 +57,9 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
     //border: 1px solid red;
 
     #empty {
-      font-size: 1.5rem;
-      padding: 3rem 1rem;
+      font-size: 2rem;
+
+      font-family: "Mynerve", cursive;
     }
     .cart-item {
       width: 100%;
@@ -66,40 +75,87 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
         font-weight: 500;
 
         font-size: 1.2rem;
+        .description {
+          display: flex;
+          flex-direction: column;
+          gap: 0.4rem;
+          font-weight: 900;
+          font-family: "Shadows Into Light", cursive;
+          .description-price {
+            font-size: 1.6rem;
+          }
+        }
+        .quantity {
+          display: grid;
+          grid-template-columns: min-content 1fr min-content;
+          p {
+            padding: 0.3rem;
+            font-size: 1rem;
+            width: max-content;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-self: center;
+          }
+          button {
+            padding: 0;
+            width: 2rem;
+            height: 2rem;
+          }
+        }
       }
     }
   }
   .total-points {
-    padding: 0.5rem;
-    font-size: 1.2rem;
+    padding: 0.5rem 0rem;
+    font-size: 1.6rem;
     background-color: red;
+    box-shadow: 3px 3px 3px grey;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.726);
+    font-family: "Caveat", cursive;
+
+    span {
+      color: white;
+      font-size: 2rem !important;
+    }
   }
+  button {
+    width: 100%;
+    padding: 1rem 0px;
+    font-weight: 500;
+    box-shadow: 0px 2px 2px black;
+  }
+
   #checkout {
     width: 100%;
     //border: 1px solid red;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    p:first-of-type {
-      font-weight: 900;
+    gap: 1.5rem;
+    margin-bottom: -1.6rem;
+    #checkout-tittle {
+      font-weight: 400;
       margin-bottom: 0.4rem;
       text-align: left;
       margin-left: 1rem;
       font-size: 2rem;
+      font-family: "Lilita One", cursive;
     }
-
     p {
       font-size: 1.5rem;
     }
-    button {
-      width: 100%;
-      padding: 1rem 0px;
-    }
-    .buttons-container {
-      margin-top: 1rem;
+    #summary-container {
       display: flex;
-      flex-direction: column;
-      gap: 2px;
+
+      justify-content: center;
+      #summary {
+        display: grid;
+        font-weight: 900;
+        gap: 0.5rem;
+        p:first-of-type {
+          text-align: center;
+        }
+      }
     }
   }
   img {
@@ -115,6 +171,9 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
     display: grid;
     //border: 1px solid black;
     box-shadow: 3px 3px 3px grey;
+    button {
+      box-shadow: 0px 2px 2px black;
+    }
     .time {
       padding: 0.5rem 0.5rem;
       font-size: 1.2rem;
@@ -321,8 +380,10 @@ nav {
 
 .card {
   box-shadow: 3px 3px 3px rgb(44, 42, 42);
+  background-image: $primary;
   .img-container {
     position: relative;
+    aspect-ratio: 1 / 1;
 
     .points {
       width: 4.5rem;
@@ -333,18 +394,66 @@ nav {
       right: 2%;
       bottom: 5%;
       position: absolute;
-      background-color: red;
 
-      p {
-        font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        filter: drop-shadow(0px 3px 3px rgba(0, 0, 0, 1));
+      }
+      .text {
+        height: 100%;
+        // border: 1px solid black;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 50% 50%;
+        gap: 0rem;
+        align-items: center;
+
+        .points-value {
+          font-size: 1.5rem;
+          display: flex;
+          align-items: flex-end;
+          justify-content: center;
+        }
+
+        p {
+          font-size: 1.3rem;
+
+          font-weight: 900;
+          height: 100%;
+
+          position: relative;
+          z-index: 3;
+          font-family: "Caveat", cursive;
+          text-shadow: 1px 1px 1px black;
+
+          //  border: 1px solid black;
+        }
       }
     }
   }
 
-  p {
-    font-size: 1.5rem;
+  .product-description {
+    font-family: "Shadows Into Light", cursive;
+    font-weight: 900;
+    p {
+      margin: 0 !important;
+      font-size: 1.7rem;
+    }
+    .product-price {
+      font-size: 2.2rem;
+    }
   }
-  background-image: $primary;
+
   img {
     width: 100%;
   }
@@ -355,6 +464,9 @@ nav {
   .to-cart {
     color: white;
     background-color: black;
+    font-size: 1.6rem;
+    padding: 0.8rem 0rem;
+    font-weight: 900;
   }
 }
 
@@ -378,22 +490,38 @@ button {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 1rem;
+    gap: 1.5rem;
     padding-top: 1rem;
     padding-bottom: 1rem;
     align-items: center;
+    .user-points {
+      color: red;
+      font-weight: 900;
+    }
     img {
       width: 10rem;
       height: 10rem;
       border-radius: 50%;
       border: 5px solid greenyellow;
     }
+    .welcome {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
     button {
       padding: 1rem;
       border: 1rem;
+      width: 100%;
+
+      box-shadow: 3px 3px 3px grey;
     }
     p {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
+    }
+    #conected {
+      color: green;
+      font-weight: 900;
     }
   }
   #shopping {
@@ -445,28 +573,44 @@ button {
   justify-content: center;
 
   #thanks-message {
-    padding: 1.5rem;
+    padding: 2rem;
+    box-shadow: 3px 3px 3px black;
 
     p {
-      font-size: 1.5rem;
+      font-size: 1.8rem;
       font-weight: 900;
+      font-family: "Caveat", cursive;
     }
 
-    background-color: pink;
-    color: white;
+    background-color: rgb(255, 0, 0);
+    color: black;
     width: 75%;
     display: flex;
     flex-direction: column;
-    gap: 0.9rem;
+    gap: 1.2rem;
+    .buttons-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      button {
+        box-shadow: 3px 3px 3px black;
+      }
+    }
     ol {
       list-style-type: none;
       display: flex;
       flex-direction: column;
       gap: 0.6rem;
       li {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
         text-align: left;
+        font-weight: 600;
+        font-family: "Caveat", cursive;
       }
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
     }
   }
 }
