@@ -27,6 +27,7 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
     color: white;
     padding: 4px;
     font-size: 1.2rem;
+    font-weight: 900;
   }
 }
 #cart {
@@ -267,41 +268,14 @@ nav {
   }
 }
 
-.form-container {
-  display: flex;
-  align-items: center;
-  height: 90vh;
+/* .form-container {
+	display: flex;
+	align-items: center;
+	height: 90vh;
 }
+ */
 
-#sign-up,
-#log-in {
-  padding-top: 1rem;
-
-  width: 100%;
-  fieldset {
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-
-    font-size: 1.5rem;
-
-    input {
-      border: 1px solid black;
-      font-size: 1.5rem;
-    }
-    legend {
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
-    }
-    button {
-      a {
-        color: black;
-      }
-    }
-  }
-}
-
-#sign-up-log-in {
+/* #sign-up-log-in {
   z-index: 9;
   grid-template-rows: 1fr 1fr 1fr;
   position: fixed;
@@ -320,6 +294,7 @@ nav {
   }
 
   #google-auth {
+    border: 1px solid black;
     display: flex;
     background-color: orange;
     flex-direction: column;
@@ -330,9 +305,14 @@ nav {
     height: 100%;
     button {
       width: 100%;
+      border: 1px solid black;
+      img {
+        width: 1.5rem;
+        border: 1px solid black;
+      }
     }
   }
-}
+} */
 
 #botonera {
   z-index: 9;
@@ -374,6 +354,11 @@ nav {
 }
 
 #botonera-perfil .active {
+  background-color: black;
+  color: white;
+}
+
+#botonera-perfil-offline .active {
   background-color: black;
   color: white;
 }
@@ -535,33 +520,77 @@ button {
     }
   }
 }
-#profile-offline-container {
-  height: 90vh;
-  border: 1px solid black;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  align-items: center;
-  display: flex;
-  justify-content: center;
 
-  #profile-offline {
-    border: 1px solid red;
-    height: 50%;
-    width: 66.6%;
+#profile-offline {
+  // border: 1px solid orange;
+  .form-container {
     display: flex;
+    align-items: center;
     flex-direction: column;
-    justify-content: center;
-    width: 100vw;
-    gap: 1rem;
-    p {
-      font-size: 1.5rem;
-    }
+    // border: 2px solid violet;
+    padding: 0px 2.5rem;
+    #sign-up,
+    #log-in {
+      padding-top: 1rem;
 
-    button {
       width: 100%;
+      //border: 1px solid blue;
+      fieldset {
+        display: flex;
+        flex-direction: column;
+        gap: 1.8rem;
+
+        font-size: 1.5rem;
+
+        label {
+          font-size: 1.2rem;
+          text-align: left !important;
+        }
+
+        .email-section,
+        .password-section {
+          //border: 1px solid black;
+          display: flex;
+          flex-direction: column;
+          gap: 0.1rem;
+          input {
+            border: 1px solid black;
+            font-size: 1.5rem;
+            width: 100%;
+            padding: 0.3rem 0px;
+            border-radius: 1rem;
+          }
+        }
+
+        legend {
+          font-size: 1.5rem;
+          margin-bottom: 1.2rem;
+        }
+        button {
+          width: 100%;
+          a {
+            color: black;
+          }
+        }
+        #google-auth {
+          display: grid;
+          padding: 2px;
+          grid-template-columns: 15% 85%;
+          background-color: rgb(0, 119, 255);
+          font-weight: 900;
+          align-items: center;
+          color: white;
+          border-radius: 0.2rem;
+          img {
+            width: 100%;
+            border-radius: 0.1rem;
+          }
+        }
+      }
     }
   }
 }
+
 #thanks-message-container {
   background-color: rgba(0, 0, 0, 0.8);
   z-index: 6;
@@ -620,6 +649,22 @@ button {
   margin-bottom: 3rem;
   display: grid;
   grid-template-columns: 60% 40%;
+  background-image: $primary;
+  justify-content: center;
+  width: 100vw;
+
+  position: sticky;
+  top: 10%;
+  button {
+    font-weight: 900;
+    background-color: transparent;
+  }
+}
+
+#botonera-perfil-offline {
+  margin-bottom: 3rem;
+  display: grid;
+  grid-template-columns: 50% 50%;
   background-image: $primary;
   justify-content: center;
   width: 100vw;

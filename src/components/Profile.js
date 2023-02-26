@@ -2,8 +2,11 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { auth } from "../backend/firebase";
 import { BotoneraPerfil } from "./BotoneraPerfil";
+import { BotoneraPerfilOffline } from "./BotoneraPerfilOffline";
 import { UserInfo } from "./UserInfo";
 import { UserShopping } from "./UserShopping";
+import { LogIn } from "./LogIn.js";
+import { SignUp } from "./SignUp.js";
 
 export function Profile() {
   const [isUserOnline, setIsUserOnline] = useState();
@@ -14,16 +17,13 @@ export function Profile() {
     img: "https://picsum.photos/id/684/400/400",
   });
 
-  const [currentFilter, setCurrentFilter] = useState("Informacion");
+  const [offlineFilter, setOfflineFilter] = useState("Inicia sesion");
+  const [onlineFilter, setOnlineFilter] = useState("Informacion");
 
   //set isUserOnline and userData
   useEffect(() => {
-    console.log("use effect");
     auth.onAuthStateChanged((user) => {
       if (user) {
-        console.log("hay un usuario logeado");
-        console.log(user);
-
         setIsUserOnline(true);
 
         setUserData({
@@ -32,39 +32,36 @@ export function Profile() {
           img: user.photoURL,
         });
       } else {
-        console.log("no hay un usuario activo");
         setIsUserOnline(false);
       }
     });
   }, []);
 
-  function changeFilter(e) {
-    setCurrentFilter(e.target.innerText);
+  function changeOfflineFilter(e) {
+    setOfflineFilter(e.target.innerText);
+  }
+
+  function changeOnlineFilter(e) {
+    setOnlineFilter(e.target.innerText);
   }
 
   return (
     <>
       {isUserOnline ? (
         <div id="profile-online">
-          <BotoneraPerfil changeFilter={changeFilter} />
+          <BotoneraPerfil changeOnlineFilter={changeOnlineFilter} />
 
-          {currentFilter === "Informacion" ? (
+          {onlineFilter === "Informacion" ? (
             <UserInfo userData={userData} />
           ) : (
             <UserShopping />
           )}
         </div>
       ) : (
-        <div id="profile-offline-container">
-          <div id="profile-offline">
-            <Link to="/perfil/iniciar-sesion">
-              <button>Iniciar session</button>
-            </Link>
-            <p>O</p>
-            <Link to="/perfil/crear-cuenta">
-              <button>Crea una cuenta</button>
-            </Link>
-          </div>
+        <div id="profile-offline">
+          <BotoneraPerfilOffline changeOfflineFilter={changeOfflineFilter} />
+
+          {offlineFilter === "Iniciar sesion" ? <LogIn /> : <SignUp />}
         </div>
       )}
     </>

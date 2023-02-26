@@ -28,17 +28,24 @@ export function LogIn() {
         }}
       >
         <fieldset>
-          <legend>Ya tienes cuenta?</legend>
-          <label htmlFor="log-in-email">Email:</label>
-          <input type="email" id="log-in-email" />
-          <label htmlFor="log-in-password">Contrasenia:</label>
-          <input type="password" id="log-in-password" />
-          <button type="submit">Iniciar secion</button>
-          <p>O</p>
-          <GoogleAuth text={"Inicia sesion con Google"} />
-          <button>
-            <Link to="/perfil">Atras</Link>
-          </button>
+          <legend>Ya tenes cuenta?</legend>
+          <div className="email-section">
+            <label htmlFor="log-in-email">Email:</label>
+            <input
+              type="email"
+              id="log-in-email"
+              placeholder="ejemplo@gmail.com"
+            />
+          </div>
+          <div className="password-section">
+            <label htmlFor="log-in-password">Contrasenia:</label>
+            <input type="password" id="log-in-password" />
+          </div>
+          <div className="buttons-section">
+            <button type="submit">Inicia secion</button>
+            <p>- o -</p>
+            <GoogleAuth text={"Entra con Google"} />
+          </div>
         </fieldset>
       </form>
     </div>

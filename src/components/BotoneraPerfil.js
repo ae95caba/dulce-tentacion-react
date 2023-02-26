@@ -2,12 +2,12 @@ import { useState } from "react";
 
 export function BotoneraPerfil(props) {
   const [activeTab, setActiveTab] = useState("Informacion");
-
+  console.log(activeTab);
   return (
     <div id="botonera-perfil">
       <button
         onClick={(e) => {
-          props.changeFilter(e);
+          props.changeOnlineFilter(e);
           window.scrollTo(0, 0);
           setActiveTab("Informacion");
         }}
@@ -18,7 +18,7 @@ export function BotoneraPerfil(props) {
 
       <button
         onClick={(e) => {
-          props.changeFilter(e);
+          props.changeOnlineFilter(e);
           setActiveTab("Compras");
           window.scrollTo(0, 0);
         }}

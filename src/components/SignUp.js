@@ -28,17 +28,24 @@ export function SignUp() {
         }}
       >
         <fieldset>
-          <legend>No tienes cuenta ?</legend>
-          <label htmlFor="sign-up-email">Email:</label>
-          <input type="email" id="sign-up-email" />
-          <label htmlFor="sign-up-password">Contrasenia:</label>
-          <input type="password" id="sign-up-password" />
-          <button type="submit">Crear cuenta</button>
-          <p>O</p>
-          <GoogleAuth text={"Crea una cuenta con Google"} />
-          <button>
-            <Link to="/perfil">Atras</Link>
-          </button>
+          <legend>No tenes cuenta ?</legend>
+          <div className="email-section">
+            <label htmlFor="sign-up-email">Email:</label>
+            <input
+              type="email"
+              id="sign-up-email"
+              placeholder="ejemplo@gmail.com"
+            ></input>
+          </div>
+          <div className="password-section">
+            <label htmlFor="sign-up-password">Contrasenia:</label>
+            <input type="password" id="sign-up-password" />
+          </div>
+          <div className="button-section">
+            <button type="submit">Crear cuenta</button>
+            <p>- o -</p>
+            <GoogleAuth text={"Entra con Google"} />
+          </div>
         </fieldset>
       </form>
     </div>

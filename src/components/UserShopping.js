@@ -7,8 +7,8 @@ export const UserShopping = () => {
   const query = collection(db, `users/${auth.currentUser.uid}/compras`);
   const [docs, loading, error] = useCollectionData(query);
 
-  console.log(docs);
-  console.log(query);
+  /* console.log(docs);
+  console.log(query); */
   return (
     <div id="purchase-list-container">
       <div id="purchase-list">

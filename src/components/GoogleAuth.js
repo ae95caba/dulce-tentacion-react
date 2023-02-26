@@ -39,7 +39,7 @@ export function GoogleAuth(props) {
           });
       }}
     >
-      {props.text}
+      <img src="/img/google.png" alt="Google" /> <span>{props.text}</span>
     </button>
   );
 }
