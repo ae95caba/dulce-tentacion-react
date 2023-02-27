@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { auth } from "../backend/firebase";
 import { useNavigate } from "react-router-dom";
 import { addCartToFirestore } from "../backend/addCartToFiresstore";
+import uniqid from "uniqid";
 
 export function Cart(props) {
   const navigate = useNavigate();
@@ -94,7 +95,8 @@ export function Cart(props) {
                 addCartToFirestore(
                   props.cartItems,
                   props.totalPrice(),
-                  (props.totalPrice() / 100) * 5
+                  (props.totalPrice() / 100) * 5,
+                  uniqid()
                 );
                 //clear cart
                 props.clearCart();

@@ -19,6 +19,9 @@ export function ThanksMessage(props) {
               to="/perfil"
               onClick={() => {
                 props.close();
+                setTimeout(() => {
+                  document.getElementById("compras").click();
+                }, 10);
               }}
             >
               Ver detalle

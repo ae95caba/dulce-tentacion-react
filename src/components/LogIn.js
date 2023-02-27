@@ -31,15 +31,21 @@ export function LogIn() {
           <legend>Ya tenes cuenta?</legend>
           <div className="email-section">
             <label htmlFor="log-in-email">Email:</label>
-            <input
-              type="email"
-              id="log-in-email"
-              placeholder="ejemplo@gmail.com"
-            />
+            <div className="input-container">
+              <img src="/img/email.svg" alt="" />
+              <input
+                type="email"
+                id="log-in-email"
+                placeholder="ejemplo@gmail.com"
+              />
+            </div>
           </div>
           <div className="password-section">
             <label htmlFor="log-in-password">Contrasenia:</label>
-            <input type="password" id="log-in-password" />
+            <div className="input-container">
+              <img src="img/password.svg" alt="icon" />
+              <input type="password" id="log-in-password" />
+            </div>
           </div>
           <div className="buttons-section">
             <button type="submit">Inicia secion</button>

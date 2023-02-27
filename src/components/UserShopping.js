@@ -1,6 +1,6 @@
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { db } from "../backend/firebase";
-import { collection } from "firebase/firestore";
+import { collection, deleteDoc, doc as firebaseDoc } from "firebase/firestore";
 import { auth } from "../backend/firebase";
 import { format } from "date-fns";
 export const UserShopping = () => {
@@ -13,7 +13,7 @@ export const UserShopping = () => {
     <div id="purchase-list-container">
       <div id="purchase-list">
         {loading && null}
-        {docs?.map((doc) => {
+        {docs?.reverse().map((doc) => {
           const dateObj = doc.date.toDate();
 
           // Get the date in the format DD/MM/YYYY
@@ -48,16 +48,17 @@ export const UserShopping = () => {
                   Puntos : {(doc.totalPrice * 5) / 100}
                 </div>
                 <div className="purchase-state">
-                  {doc.completed === true ? "PAGADO" : "NO PAGADO"}
+                  {doc.completed === true ? "PAGADO" : "PENDIENTE DE PAGO"}
                 </div>
               </div>
               <button
                 onClick={() => {
-                  const docRef = doc(
+                  const docRef = firebaseDoc(
                     db,
                     `users/${auth.currentUser.uid}/compras`,
-                    ""
+                    doc.docId
                   );
+                  deleteDoc(docRef);
                 }}
               >
                 Cancelar

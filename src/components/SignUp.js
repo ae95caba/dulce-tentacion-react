@@ -31,17 +31,23 @@ export function SignUp() {
           <legend>No tenes cuenta ?</legend>
           <div className="email-section">
             <label htmlFor="sign-up-email">Email:</label>
-            <input
-              type="email"
-              id="sign-up-email"
-              placeholder="ejemplo@gmail.com"
-            ></input>
+            <div className="input-container">
+              <img src="/img/email.svg" alt="icon" />
+              <input
+                type="email"
+                id="sign-up-email"
+                placeholder="ejemplo@gmail.com"
+              ></input>
+            </div>
           </div>
           <div className="password-section">
             <label htmlFor="sign-up-password">Contrasenia:</label>
-            <input type="password" id="sign-up-password" />
+            <div className="input-container">
+              <img src="/img/password.svg" alt="icon" />
+              <input type="password" id="sign-up-password" />
+            </div>
           </div>
-          <div className="button-section">
+          <div className="buttons-section">
             <button type="submit">Crear cuenta</button>
             <p>- o -</p>
             <GoogleAuth text={"Entra con Google"} />

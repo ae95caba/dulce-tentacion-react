@@ -17,6 +17,7 @@ export function BotoneraPerfil(props) {
       </button>
 
       <button
+        id="compras"
         onClick={(e) => {
           props.changeOnlineFilter(e);
           setActiveTab("Compras");
