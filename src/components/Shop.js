@@ -1,22 +1,29 @@
 import { useState, useEffect } from "react";
 import { Botonera } from "./Botonera";
+import { FormularioHelados } from "./FormularioHelados";
 
 export function Shop(props) {
   const helados = [
     {
-      name: "1kg",
+      name: "1 kg",
       imgUrl: "/img/helados/kilo.jpg",
       price: 1200,
+
+      flavours: 4,
     },
     {
-      name: "1/2kg",
-      imgUrl: "/img/helados.medio.jpg",
+      name: "1/2 kg",
+      imgUrl: "/img/helados/medio.jpg",
       price: 800,
+
+      flavours: 3,
     },
     {
-      name: "1/4kg",
+      name: "1/4 kg",
       imgUrl: "/img/helados/cuarto.jpg",
       price: 800,
+
+      flavours: 2,
     },
   ];
   const escabio = [
@@ -90,6 +97,10 @@ export function Shop(props) {
 
   const [currentFilter, setCurrentFilter] = useState("Helados");
   const [content, setContent] = useState(helados);
+  const [iceCreamForm, setIceCreamForm] = useState({
+    show: false,
+    flavours: undefined,
+  });
 
   function changeContent(e) {
     setCurrentFilter(e.target.innerText);
@@ -107,9 +118,29 @@ export function Shop(props) {
     }
   }, [currentFilter]);
 
+  function closeIceCreamForm() {
+    setIceCreamForm({
+      show: false,
+      flavours: undefined,
+    });
+  }
+
+  function openIceCreamForm(flavours) {
+    setIceCreamForm({
+      show: true,
+      flavours: flavours,
+    });
+  }
+
   return (
     <div id="shop">
       <Botonera changeContent={changeContent} />
+      {iceCreamForm.show ? (
+        <FormularioHelados
+          flavours={iceCreamForm.flavours}
+          close={closeIceCreamForm}
+        />
+      ) : null}
 
       <div className="content">
         {content.map((product) => {
@@ -127,13 +158,15 @@ export function Shop(props) {
               </div>
               <div className="product-description">
                 <p className="product-name">{product.name}</p>
-                <p className="product-price">${product.price}</p>
+                <p className="product-price">$ {product.price}</p>
               </div>
               <button
                 className="to-cart"
-                onClick={() => {
-                  props.addCartItem(product);
-                }}
+                onClick={
+                  product.flavours
+                    ? () => openIceCreamForm(product.flavours)
+                    : () => props.addCartItem(product)
+                }
               >
                 Aniadir al carrito
               </button>

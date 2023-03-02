@@ -79,7 +79,7 @@ export function Cart(props) {
           <p id="checkout-tittle">Total a pagar: </p>
           <div id="summary-container">
             <div id="summary">
-              <p>${props.totalPrice()}</p>
+              <p>$ {props.totalPrice()}</p>
               <p> o</p>
               <p>{props.totalPrice()} puntos</p>
             </div>

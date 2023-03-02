@@ -53,7 +53,7 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
   .cart-body {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 2rem;
     width: 100%;
     //border: 1px solid red;
 
@@ -338,6 +338,14 @@ nav {
   padding: 0px 3rem;
   padding-bottom: 3rem;
   background-color: white;
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    /*  height: 70vh;
+    overflow: hidden; */
+  }
+
   h1,
   p {
     margin: 0.5rem 0px;
@@ -455,12 +463,12 @@ nav {
   }
 }
 
-.content {
+/* .content {
   display: flex;
   flex-direction: column;
   gap: 3rem;
 }
-
+ */
 button {
   padding: 0.5rem;
   font-size: 1.5rem;
@@ -691,5 +699,117 @@ button {
   button {
     font-weight: 900;
     background-color: transparent;
+  }
+}
+
+#contenedor-formulario-helados {
+  position: fixed;
+  top: 10%;
+  left: 0;
+  height: 90vh;
+  width: 100vw;
+  overflow-y: scroll;
+  border: 1px solid black;
+  padding: 3rem 3rem;
+  background-color: white;
+  z-index: 9;
+  select {
+    padding: 0.3rem 0rem;
+  }
+  #formulario-helados {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    .sabores {
+      //border: 1px solid black;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      .sabor {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        .input-container {
+          display: flex;
+          flex-direction: column;
+          gap: 0.2rem;
+          label {
+            text-align: left;
+            font-size: 1.1rem;
+          }
+          select {
+            border: 1px solid black;
+            font-size: 1.2rem;
+            border-radius: 1rem;
+            background-color: transparent;
+          }
+        }
+      }
+    }
+    .extra {
+      //border: 1px solid black;
+
+      legend {
+        font-size: 1.6rem;
+        margin-bottom: 1rem;
+      }
+      .content {
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr;
+
+        gap: 1.5rem;
+        .rocklets,
+        .salsa,
+        .conos {
+          font-size: 1.2rem;
+          display: grid;
+          grid-template-columns: 33.3% 66.6%;
+
+          input {
+            border: 1px solid black;
+          }
+          label,
+          span {
+            text-align: left;
+            display: flex;
+            align-items: center;
+          }
+        }
+        .salsa {
+          select {
+            background-color: transparent;
+            font-size: 1.2rem;
+            border: 1px solid black;
+            border-radius: 1rem;
+          }
+        }
+        .conos {
+          input {
+            height: 100%;
+            width: min-content;
+          }
+
+          .count {
+            display: flex;
+            justify-content: center;
+          }
+
+          button {
+            padding: 0;
+            height: 100%;
+            aspect-ratio: 1/1;
+          }
+        }
+        .rocklets {
+          input {
+            border-radius: 50% !important;
+            border: 3px solid black !important;
+          }
+        }
+      }
+    }
+    .total-helado {
+      font-size: 1.6rem;
+    }
   }
 }
