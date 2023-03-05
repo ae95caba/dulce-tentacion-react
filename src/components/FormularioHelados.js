@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { createFactory, useState } from "react";
 
 export function FormularioHelados(props) {
   const dropDowns = [];
 
-  for (let i = 0; i < props.flavours; i++) {
+  for (let i = 0; i < props.product.flavours; i++) {
     dropDowns.push(<DropDown id={`sabor-${i + 1}`} name={`Sabor ${i + 1}:`} />);
   }
 
@@ -30,7 +30,7 @@ export function FormularioHelados(props) {
 
   return (
     <div id="contenedor-formulario-helados">
-      <form id="formulario-helados">
+      <form id="formulario-helados" onSubmit={(e) => e.preventDefault()}>
         <fieldset className="sabores">{dropDowns}</fieldset>
         <fieldset className="extra">
           <legend>Extra:</legend>
@@ -119,7 +119,36 @@ export function FormularioHelados(props) {
         </fieldset>
 
         <div className="total-helado">Total: $ {totalPrice()}</div>
-        <button>Aceptar</button>
+        <button
+          onClick={() => {
+            console.log(props.product);
+            let flavoursArr = [];
+
+            for (let i = 0; i < props.product.flavours; i++) {
+              flavoursArr[i] = { required: "", optional: "" };
+            }
+
+            //// get inputs ///
+            const requiredSelects = document.querySelectorAll(".required");
+            requiredSelects.forEach((select, index) => {
+              flavoursArr[index].required = select.value;
+            });
+
+            const optionalSelects = document.querySelectorAll(".optional");
+            optionalSelects.forEach((select, index) => {
+              flavoursArr[index].optional = select.value;
+            });
+
+            const fullProduct = {
+              ...props.product,
+              flavoursArr: flavoursArr,
+            };
+
+            props.addIceCream(fullProduct);
+          }}
+        >
+          Aceptar
+        </button>
         <button
           type="button"
           onClick={() => {
@@ -171,6 +200,7 @@ function DropDown(props) {
       <div className="input-container">
         <label htmlFor={`${props.id}`}>{`${props.name}`}</label>
         <select
+          className="required"
           name={`${props.id}`}
           id={`${props.id}`}
           onChange={updateOptions}
@@ -186,6 +216,7 @@ function DropDown(props) {
       <div className="input-container">
         <label htmlFor={`${props.id}-respaldo`}>Si no hay:</label>
         <select
+          className="optional"
           name={`${props.id}-respaldo`}
           id={`${props.id}-respaldo`}
           onChange={updateOptions}

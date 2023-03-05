@@ -16,7 +16,6 @@ export function Cart(props) {
   }, [props.cartItems]);
 
   useEffect(() => {
-    console.log("use effect");
     auth.onAuthStateChanged((user) => {
       if (user) {
         setIsUserOnline(true);

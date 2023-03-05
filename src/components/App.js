@@ -9,8 +9,7 @@ import { Cart } from "./Cart";
 
 import { useState } from "react";
 import { Navbar } from "./Navbar";
-import { SignUp } from "./SignUp";
-import { LogIn } from "./LogIn";
+
 import { ThanksMessage } from "./ThanksMessage";
 
 export const App = () => {
@@ -64,10 +63,25 @@ export const App = () => {
       // INCREASE COUNT BY 1
       let copy = [...cartItems];
       copy[index].count = copy[index].count + 1;
-      console.log(copy[index].count);
 
       setCartItems([...copy]);
     }
+  }
+
+  function addIceCream(product) {
+    setCartItems([
+      ...cartItems,
+      {
+        name: product.name,
+        imgUrl: product.imgUrl,
+        price: product.price,
+        count: 1,
+        flavoursArr: product.flavoursArr,
+        get totalPrice() {
+          return this.price * this.count;
+        },
+      },
+    ]);
   }
 
   //	decreases a cart item count
@@ -130,7 +144,10 @@ export const App = () => {
         <Route path="/perfil" element={<Profile />} />
         {/*   <Route path="/perfil/crear-cuenta" element={<SignUp />} />
         <Route path="/perfil/iniciar-sesion" element={<LogIn />} /> */}
-        <Route path="/tienda" element={<Shop addCartItem={addCartItem} />} />
+        <Route
+          path="/tienda"
+          element={<Shop addCartItem={addCartItem} addIceCream={addIceCream} />}
+        />
       </Routes>
     </div>
   );

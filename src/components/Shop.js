@@ -99,7 +99,8 @@ export function Shop(props) {
   const [content, setContent] = useState(helados);
   const [iceCreamForm, setIceCreamForm] = useState({
     show: false,
-    flavours: undefined,
+
+    product: undefined,
   });
 
   function changeContent(e) {
@@ -121,14 +122,16 @@ export function Shop(props) {
   function closeIceCreamForm() {
     setIceCreamForm({
       show: false,
-      flavours: undefined,
+
+      product: undefined,
     });
   }
 
-  function openIceCreamForm(flavours) {
+  function openIceCreamForm(product) {
     setIceCreamForm({
       show: true,
-      flavours: flavours,
+
+      product: product,
     });
   }
 
@@ -137,8 +140,9 @@ export function Shop(props) {
       <Botonera changeContent={changeContent} />
       {iceCreamForm.show ? (
         <FormularioHelados
-          flavours={iceCreamForm.flavours}
+          product={iceCreamForm.product}
           close={closeIceCreamForm}
+          addIceCream={props.addIceCream}
         />
       ) : null}
 
@@ -164,7 +168,7 @@ export function Shop(props) {
                 className="to-cart"
                 onClick={
                   product.flavours
-                    ? () => openIceCreamForm(product.flavours)
+                    ? () => openIceCreamForm(product)
                     : () => props.addCartItem(product)
                 }
               >
