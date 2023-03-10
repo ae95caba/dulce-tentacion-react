@@ -32,33 +32,55 @@ export function Cart(props) {
       <div className="cart-body">
         {props.cartItems.length > 0 ? (
           props.cartItems.map((item) => {
+            const detailsId = uniqid();
             return (
               <div className="cart-item">
                 <img src={item.imgUrl} alt={item.name} />
                 <div className="right">
+                  <div className="remove" onClick={() => props.removeAll(item)}>
+                    x
+                  </div>
                   <div className="description">
                     <p className="description-name">{item.name}</p>
                     <p className="description-price">$ {item.totalPrice}</p>
                   </div>
+                  {item.flavoursArr ? (
+                    <div
+                      className="details-button"
+                      onClick={() => {
+                        console.log(item.flavoursArr);
+                        const details = document.getElementById(detailsId);
 
-                  <div className="quantity">
-                    <button
-                      onClick={() => {
-                        props.removeCartItem(item);
+                        details.style.display === "flex"
+                          ? (details.style.display = "none")
+                          : (details.style.display = "flex");
                       }}
                     >
-                      -
-                    </button>
-                    <p>unidades: {item.count}</p>
-                    <button
-                      onClick={() => {
-                        props.addCartItem(item);
-                      }}
-                    >
-                      +
-                    </button>
-                  </div>
+                      Detalle
+                    </div>
+                  ) : (
+                    <div className="quantity">
+                      <button
+                        onClick={() => {
+                          props.removeCartItem(item);
+                        }}
+                      >
+                        -
+                      </button>
+                      <p>unidades: {item.count}</p>
+                      <button
+                        onClick={() => {
+                          props.addCartItem(item);
+                        }}
+                      >
+                        +
+                      </button>
+                    </div>
+                  )}
                 </div>
+                {item.flavoursArr ? (
+                  <Details item={item} detailsId={detailsId} />
+                ) : null}
               </div>
             );
           })
@@ -117,6 +139,43 @@ export function Cart(props) {
       >
         Cerrar
       </button>
+    </div>
+  );
+}
+
+export function Details(props) {
+  return (
+    <div className="details" id={props.detailsId}>
+      <div className="flavours">
+        <div className="tittle">Sabores</div>
+        <div className="flavours-body">
+          {props.item.flavoursArr.map((flavour) => {
+            console.log(flavour.required);
+            return (
+              <div>
+                - {flavour.required}
+                {flavour.optional ? `, sino ${flavour.optional}` : null}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      {props.item.extras.rocklets.isChecked ||
+      props.item.extras.salsa.type ||
+      props.item.extras.conos.count ? (
+        <div className="extras">
+          <div className="tittle">Extras</div>
+          <div className="extras-body">
+            {props.item.extras.rocklets.isChecked ? <div>Rocklets</div> : null}
+            {props.item.extras.salsa.type ? (
+              <div>Salsa de {props.item.extras.salsa.type}</div>
+            ) : null}
+            {props.item.extras.conos.count ? (
+              <div> {props.item.extras.conos.count} conos</div>
+            ) : null}
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }

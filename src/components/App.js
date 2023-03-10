@@ -68,18 +68,11 @@ export const App = () => {
     }
   }
 
-  function addIceCream(product) {
+  function addIceCream(iceCream) {
     setCartItems([
       ...cartItems,
       {
-        name: product.name,
-        imgUrl: product.imgUrl,
-        price: product.price,
-        count: 1,
-        flavoursArr: product.flavoursArr,
-        get totalPrice() {
-          return this.price * this.count;
-        },
+        ...iceCream,
       },
     ]);
   }
@@ -107,6 +100,14 @@ export const App = () => {
     }
   }
 
+  function removeAll(product) {
+    let index = cartItems.indexOf(product);
+
+    let copy = [...cartItems];
+    copy.splice(index, 1);
+    setCartItems([...copy]);
+  }
+
   function clearCart() {
     setCartItems([]);
   }
@@ -132,6 +133,7 @@ export const App = () => {
         cartItems={cartItems}
         addCartItem={addCartItem}
         removeCartItem={removeCartItem}
+        removeAll={removeAll}
         clearCart={clearCart}
         totalPrice={totalPrice}
         showThanksMessage={() => {

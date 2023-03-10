@@ -10,11 +10,11 @@ export function FormularioHelados(props) {
   const [extras, setExtras] = useState({
     rocklets: { price: 100, isChecked: false },
     conos: { price: 80, count: 0 },
-    salsa: { price: 110, type: undefined },
+    salsa: { price: 110, type: null },
   });
 
   let totalPrice = () => {
-    let total = 1200; //reemplazar por precio de helados
+    let total = props.product.price; //reemplazar por precio de helados
 
     if (extras.rocklets.isChecked) {
       total += extras.rocklets.price;
@@ -35,12 +35,13 @@ export function FormularioHelados(props) {
         <fieldset className="extra">
           <legend>Extra:</legend>
           <div className="content">
-            <label className="rocklets">
+            <label htmlFor="rocklets" className="rocklets">
               <span>Rocklets:</span>
               <input
                 type="checkbox"
                 name="subscribe"
                 value="yes"
+                id="rocklets"
                 onChange={(e) => {
                   if (e.target.checked) {
                     const copy = { ...extras };
@@ -76,9 +77,9 @@ export function FormularioHelados(props) {
                 <button
                   type="button"
                   onClick={() => {
-                    const input = document.getElementById("count");
+                    const input = document.getElementById("conos");
                     if (input.value > 0) {
-                      document.getElementById("count").value--;
+                      document.getElementById("conos").value--;
                       const copy = { ...extras };
                       copy.conos.count = input.value;
                       setExtras({ ...copy });
@@ -88,7 +89,7 @@ export function FormularioHelados(props) {
                   -
                 </button>
                 <input
-                  id="count"
+                  id="conos"
                   type="number"
                   min="1"
                   max="15"
@@ -104,7 +105,7 @@ export function FormularioHelados(props) {
                 <button
                   type="button"
                   onClick={() => {
-                    const input = document.getElementById("count");
+                    const input = document.getElementById("conos");
                     input.value++;
                     const copy = { ...extras };
                     copy.conos.count = input.value;
@@ -121,14 +122,15 @@ export function FormularioHelados(props) {
         <div className="total-helado">Total: $ {totalPrice()}</div>
         <button
           onClick={() => {
-            console.log(props.product);
+            ///////////////////////////////////
+            //add flavours
+
             let flavoursArr = [];
 
             for (let i = 0; i < props.product.flavours; i++) {
               flavoursArr[i] = { required: "", optional: "" };
             }
 
-            //// get inputs ///
             const requiredSelects = document.querySelectorAll(".required");
             requiredSelects.forEach((select, index) => {
               flavoursArr[index].required = select.value;
@@ -139,9 +141,19 @@ export function FormularioHelados(props) {
               flavoursArr[index].optional = select.value;
             });
 
+            ///////////////////////////////////
+            //add extras
+
+            ///////////////////////////////////
+
             const fullProduct = {
-              ...props.product,
+              name: props.product.name,
+              imgUrl: props.product.imgUrl,
+              count: 1,
+              extras: extras,
               flavoursArr: flavoursArr,
+              price: totalPrice(),
+              totalPrice: totalPrice(),
             };
 
             props.addIceCream(fullProduct);
