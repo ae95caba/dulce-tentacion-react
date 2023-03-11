@@ -5,7 +5,7 @@ export function ThanksMessage(props) {
     <div id="thanks-message-container">
       <div id="thanks-message">
         <div className="introduction">
-          <p>Gracias por tu compra</p>
+          <p>Gracias!</p>
           <p>Para terminar: </p>
         </div>
         <ol>
