@@ -12,7 +12,7 @@ export function GoogleAuth(props) {
       id="google-auth"
       onClick={(e) => {
         const provider = new GoogleAuthProvider();
-        signInWithPopup(auth, provider)
+        signInWithRedirect(auth, provider)
           .then((result) => {
             console.log("te logeaste con google");
 
