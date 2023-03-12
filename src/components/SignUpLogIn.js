@@ -1,4 +1,4 @@
-import { SignUp } from "./SignUp";
+/* import { SignUp } from "./SignUp";
 import { LogIn } from "./LogIn";
 import { GoogleAuth } from "./GoogleAuth";
 
@@ -20,3 +20,4 @@ export function SignUpLogIn() {
     </div>
   );
 }
+ */

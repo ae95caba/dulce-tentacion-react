@@ -8,6 +8,7 @@ export function Cart(props) {
   const navigate = useNavigate();
   const [isUserOnline, setIsUserOnline] = useState();
   const [isCartEmpty, setIsCartEmpty] = useState();
+  const [showShippingDetails, setShowShippingDetails] = useState(false);
 
   useEffect(() => {
     if (props.cartItems.length === 0) {
@@ -26,89 +27,101 @@ export function Cart(props) {
   }, []);
 
   return (
-    <div id="cart">
-      <h1>Tu carrito</h1>
+    <>
+      {showShippingDetails ? (
+        <div id="cart">"details"</div>
+      ) : (
+        <div id="cart">
+          <h1>Tu carrito</h1>
 
-      <div className="cart-body">
-        {props.cartItems.length > 0 ? (
-          props.cartItems.map((item) => {
-            const detailsId = uniqid();
-            return (
-              <div className="cart-item">
-                <img src={item.imgUrl} alt={item.name} />
-                <div className="right">
-                  <div className="remove" onClick={() => props.removeAll(item)}>
-                    x
-                  </div>
-                  <div className="description">
-                    <p className="description-name">{item.name}</p>
-                    <p className="description-price">$ {item.totalPrice}</p>
-                  </div>
-                  {item.flavoursArr ? (
-                    <div
-                      className="details-button"
-                      onClick={() => {
-                        console.log(item.flavoursArr);
-                        const details = document.getElementById(detailsId);
+          <div className="cart-body">
+            {props.cartItems.length > 0 ? (
+              props.cartItems.map((item) => {
+                const detailsId = uniqid();
+                return (
+                  <div className="cart-item">
+                    <img src={item.imgUrl} alt={item.name} />
+                    <div className="right">
+                      <div
+                        className="remove"
+                        onClick={() => props.removeAll(item)}
+                      >
+                        x
+                      </div>
+                      <div className="description">
+                        <p className="description-name">{item.name}</p>
+                        <p className="description-price">$ {item.totalPrice}</p>
+                      </div>
+                      {item.flavoursArr ? (
+                        <div
+                          className="details-button"
+                          onClick={() => {
+                            console.log(item.flavoursArr);
+                            const details = document.getElementById(detailsId);
 
-                        details.style.display === "flex"
-                          ? (details.style.display = "none")
-                          : (details.style.display = "flex");
-                      }}
-                    >
-                      Detalle
+                            details.style.display === "flex"
+                              ? (details.style.display = "none")
+                              : (details.style.display = "flex");
+                          }}
+                        >
+                          Detalle
+                        </div>
+                      ) : (
+                        <div className="quantity">
+                          <button
+                            onClick={() => {
+                              props.removeCartItem(item);
+                            }}
+                          >
+                            -
+                          </button>
+                          <p>unidades: {item.count}</p>
+                          <button
+                            onClick={() => {
+                              props.addCartItem(item);
+                            }}
+                          >
+                            +
+                          </button>
+                        </div>
+                      )}
                     </div>
-                  ) : (
-                    <div className="quantity">
-                      <button
-                        onClick={() => {
-                          props.removeCartItem(item);
-                        }}
-                      >
-                        -
-                      </button>
-                      <p>unidades: {item.count}</p>
-                      <button
-                        onClick={() => {
-                          props.addCartItem(item);
-                        }}
-                      >
-                        +
-                      </button>
-                    </div>
-                  )}
-                </div>
-                {item.flavoursArr ? (
-                  <Details item={item} detailsId={detailsId} />
-                ) : null}
-              </div>
-            );
-          })
-        ) : (
-          <p id="empty">No hay nada aca, porque no agregas algo?</p>
-        )}
-      </div>
-      {props.cartItems.length > 0 ? (
-        <div className="total-points">
-          Con esta compra te damos{" "}
-          <span className="number">{(props.totalPrice() / 100) * 5}</span>{" "}
-          puntos !
-        </div>
-      ) : null}
-      {props.cartItems.length > 0 ? (
-        <div id="checkout">
-          <p id="checkout-tittle">Total a pagar: </p>
-          <div id="summary-container">
-            <div id="summary">
-              <p>$ {props.totalPrice()}</p>
-              <p> o</p>
-              <p>{props.totalPrice()} puntos</p>
-            </div>
+                    {item.flavoursArr ? (
+                      <Details item={item} detailsId={detailsId} />
+                    ) : null}
+                  </div>
+                );
+              })
+            ) : (
+              <p id="empty">No hay nada aca, porque no agregas algo?</p>
+            )}
           </div>
+          {props.cartItems.length > 0 ? (
+            <div className="total-points">
+              Ganas{" "}
+              <span className="number">{(props.totalPrice() / 100) * 5}</span>{" "}
+              puntos !
+            </div>
+          ) : null}
 
-          <button
-            disabled={props.cartItems.length === 0}
-            onClick={() => {
+          {props.cartItems.length > 0 ? <DeliveryForm /> : null}
+
+          {props.cartItems.length > 0 ? (
+            <div id="checkout">
+              <p id="checkout-tittle">Total: </p>
+              <div id="summary-container">
+                <div id="summary">
+                  <p>
+                    $ {props.totalPrice()} / {props.totalPrice()} puntos{" "}
+                  </p>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                form="delivery-form"
+                disabled={props.cartItems.length === 0}
+                /* onClick={() => {
               document.getElementById("cart").style.display = "none";
               if (isUserOnline) {
                 props.showThanksMessage();
@@ -124,22 +137,25 @@ export function Cart(props) {
               } else {
                 navigate("/perfil");
               }
+            }} */
+                onClick={() => {}}
+              >
+                Comprar
+              </button>
+            </div>
+          ) : null}
+
+          <button
+            className="close"
+            onClick={() => {
+              document.getElementById("cart").style.display = "none";
             }}
           >
-            Pagar
+            Cerrar
           </button>
         </div>
-      ) : null}
-
-      <button
-        className="close"
-        onClick={() => {
-          document.getElementById("cart").style.display = "none";
-        }}
-      >
-        Cerrar
-      </button>
-    </div>
+      )}
+    </>
   );
 }
 
@@ -177,5 +193,102 @@ export function Details(props) {
         </div>
       ) : null}
     </div>
+  );
+}
+
+function DeliveryForm() {
+  const [isPickupChecked, setIsPickupChecked] = useState(false);
+  const [isDeliveryChecked, setIsDeliveryChecked] = useState(false);
+
+  function autoResize(textarea) {
+    textarea.style.height = "auto";
+    textarea.style.height = textarea.scrollHeight + 5 + "px";
+  }
+
+  return (
+    <form id="delivery-form" autoComplete="on">
+      <div className="options">
+        <div className="option">
+          <label
+            onClick={() => {
+              if (isPickupChecked) {
+                setIsPickupChecked(false);
+              } else {
+                setIsPickupChecked(true);
+                setIsDeliveryChecked(false);
+              }
+            }}
+          >
+            <span>Retiro en el local</span>
+            <input
+              type="radio"
+              name="pickup-delivery"
+              value="pickup"
+              id="option-1"
+              checked={isPickupChecked}
+              required
+            />
+          </label>
+        </div>
+        <div className="option">
+          <label
+            onClick={() => {
+              if (isDeliveryChecked) {
+                setIsDeliveryChecked(false);
+              } else {
+                setIsDeliveryChecked(true);
+                setIsPickupChecked(false);
+              }
+            }}
+          >
+            <span>Envio a domicilio</span>
+            <input
+              type="radio"
+              name="pickup-delivery"
+              value="delivery"
+              id="option-2"
+              checked={isDeliveryChecked}
+              required
+            />
+          </label>
+        </div>
+      </div>
+
+      {isDeliveryChecked ? (
+        <fieldset id="delivery-info">
+          <div className="input-container">
+            <select name="" id="" required>
+              <option value="">Barrio</option>
+              <option value="Rayito de sol">Rayito de sol</option>
+            </select>
+          </div>
+          <div className="input-container">
+            <input
+              type="text"
+              placeholder="Direccion"
+              autocomplete="street-address"
+              required
+            />
+          </div>
+          <div className="input-container">
+            <input type="text" placeholder="Entre calles" required />
+          </div>
+          <div className="input-container">
+            <textarea
+              id="aditional-info"
+              onInput={(e) => autoResize(e.target)}
+              placeholder="Informacion adicional, ejemplo: frente rojo, puerta negra de chapa."
+            ></textarea>
+            {/*  <button
+            onClick={() =>
+              autoResize(document.getElementById("aditional-info"))
+            }
+          >
+            button
+          </button> */}
+          </div>
+        </fieldset>
+      ) : null}
+    </form>
   );
 }
