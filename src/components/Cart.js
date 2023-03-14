@@ -3,6 +3,8 @@ import { auth } from "../backend/firebase";
 import { useNavigate } from "react-router-dom";
 import { addCartToFirestore } from "../backend/addCartToFiresstore";
 import uniqid from "uniqid";
+import { barriosMP, options } from "../logic/barrios";
+import Select from "react-select";
 
 export function Cart(props) {
   const navigate = useNavigate();
@@ -27,101 +29,93 @@ export function Cart(props) {
   }, []);
 
   return (
-    <>
-      {showShippingDetails ? (
-        <div id="cart">"details"</div>
-      ) : (
-        <div id="cart">
-          <h1>Tu carrito</h1>
+    <div id="cart">
+      <h1>Tu carrito</h1>
 
-          <div className="cart-body">
-            {props.cartItems.length > 0 ? (
-              props.cartItems.map((item) => {
-                const detailsId = uniqid();
-                return (
-                  <div className="cart-item">
-                    <img src={item.imgUrl} alt={item.name} />
-                    <div className="right">
-                      <div
-                        className="remove"
-                        onClick={() => props.removeAll(item)}
-                      >
-                        x
-                      </div>
-                      <div className="description">
-                        <p className="description-name">{item.name}</p>
-                        <p className="description-price">$ {item.totalPrice}</p>
-                      </div>
-                      {item.flavoursArr ? (
-                        <div
-                          className="details-button"
-                          onClick={() => {
-                            console.log(item.flavoursArr);
-                            const details = document.getElementById(detailsId);
-
-                            details.style.display === "flex"
-                              ? (details.style.display = "none")
-                              : (details.style.display = "flex");
-                          }}
-                        >
-                          Detalle
-                        </div>
-                      ) : (
-                        <div className="quantity">
-                          <button
-                            onClick={() => {
-                              props.removeCartItem(item);
-                            }}
-                          >
-                            -
-                          </button>
-                          <p>unidades: {item.count}</p>
-                          <button
-                            onClick={() => {
-                              props.addCartItem(item);
-                            }}
-                          >
-                            +
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                    {item.flavoursArr ? (
-                      <Details item={item} detailsId={detailsId} />
-                    ) : null}
+      <div className="cart-body">
+        {props.cartItems.length > 0 ? (
+          props.cartItems.map((item) => {
+            const detailsId = uniqid();
+            return (
+              <div className="cart-item">
+                <img src={item.imgUrl} alt={item.name} />
+                <div className="right">
+                  <div className="remove" onClick={() => props.removeAll(item)}>
+                    x
                   </div>
-                );
-              })
-            ) : (
-              <p id="empty">No hay nada aca, porque no agregas algo?</p>
-            )}
-          </div>
-          {props.cartItems.length > 0 ? (
-            <div className="total-points">
-              Ganas{" "}
-              <span className="number">{(props.totalPrice() / 100) * 5}</span>{" "}
-              puntos !
-            </div>
-          ) : null}
+                  <div className="description">
+                    <p className="description-name">{item.name}</p>
+                    <p className="description-price">$ {item.totalPrice}</p>
+                  </div>
+                  {item.flavoursArr ? (
+                    <div
+                      className="details-button"
+                      onClick={() => {
+                        console.log(item.flavoursArr);
+                        const details = document.getElementById(detailsId);
 
-          {props.cartItems.length > 0 ? <DeliveryForm /> : null}
-
-          {props.cartItems.length > 0 ? (
-            <div id="checkout">
-              <p id="checkout-tittle">Total: </p>
-              <div id="summary-container">
-                <div id="summary">
-                  <p>
-                    $ {props.totalPrice()} / {props.totalPrice()} puntos{" "}
-                  </p>
+                        details.style.display === "flex"
+                          ? (details.style.display = "none")
+                          : (details.style.display = "flex");
+                      }}
+                    >
+                      Detalle
+                    </div>
+                  ) : (
+                    <div className="quantity">
+                      <button
+                        onClick={() => {
+                          props.removeCartItem(item);
+                        }}
+                      >
+                        -
+                      </button>
+                      <p>unidades: {item.count}</p>
+                      <button
+                        onClick={() => {
+                          props.addCartItem(item);
+                        }}
+                      >
+                        +
+                      </button>
+                    </div>
+                  )}
                 </div>
+                {item.flavoursArr ? (
+                  <Details item={item} detailsId={detailsId} />
+                ) : null}
               </div>
+            );
+          })
+        ) : (
+          <p id="empty">No hay nada aca, porque no agregas algo?</p>
+        )}
+      </div>
+      {props.cartItems.length > 0 ? (
+        <div className="total-points">
+          Ganas <span className="number">{(props.totalPrice() / 100) * 5}</span>{" "}
+          puntos !
+        </div>
+      ) : null}
 
-              <button
-                type="submit"
-                form="delivery-form"
-                disabled={props.cartItems.length === 0}
-                /* onClick={() => {
+      {props.cartItems.length > 0 ? <DeliveryForm /> : null}
+
+      {props.cartItems.length > 0 ? (
+        <div id="checkout">
+          <p id="checkout-tittle">Total: </p>
+          <div id="summary-container">
+            <div id="summary">
+              <p>
+                $ {props.totalPrice()} / {props.totalPrice()} puntos{" "}
+              </p>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            form="delivery-form"
+            disabled={props.cartItems.length === 0}
+            /* onClick={() => {
               document.getElementById("cart").style.display = "none";
               if (isUserOnline) {
                 props.showThanksMessage();
@@ -138,24 +132,22 @@ export function Cart(props) {
                 navigate("/perfil");
               }
             }} */
-                onClick={() => {}}
-              >
-                Comprar
-              </button>
-            </div>
-          ) : null}
-
-          <button
-            className="close"
-            onClick={() => {
-              document.getElementById("cart").style.display = "none";
-            }}
+            onClick={() => {}}
           >
-            Cerrar
+            Comprar
           </button>
         </div>
-      )}
-    </>
+      ) : null}
+
+      <button
+        className="close"
+        onClick={() => {
+          document.getElementById("cart").style.display = "none";
+        }}
+      >
+        Cerrar
+      </button>
+    </div>
   );
 }
 
@@ -257,10 +249,20 @@ function DeliveryForm() {
       {isDeliveryChecked ? (
         <fieldset id="delivery-info">
           <div className="input-container">
-            <select name="" id="" required>
-              <option value="">Barrio</option>
-              <option value="Rayito de sol">Rayito de sol</option>
-            </select>
+            {/* <select name="" id="barrios" required>
+              <option value="" id="asdf123 ">
+                Barrio
+              </option>
+              {barriosMP.sort().map((barrio) => (
+                <option value={barrio}>{barrio}</option>
+              ))}
+            </select> */}
+            <Select
+              options={options}
+              placeholder="Barrio"
+              name="Barrio"
+              required
+            />
           </div>
           <div className="input-container">
             <input

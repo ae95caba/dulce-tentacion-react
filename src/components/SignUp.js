@@ -22,7 +22,7 @@ export function SignUp() {
             .catch((error) => {
               console.log(error.message);
             });
-          document.getElementById("sign-up-log-in").style.display = "none";
+          //document.getElementById("sign-up-log-in").style.display = "none";
           document.getElementById("sign-up-email").value = "";
           document.getElementById("sign-up-password").value = "";
         }}

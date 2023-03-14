@@ -143,6 +143,7 @@ export const App = () => {
       />
       <Routes>
         <Route path="/" exact element={<Home />} />
+
         <Route path="/perfil" element={<Profile />} />
         {/*   <Route path="/perfil/crear-cuenta" element={<SignUp />} />
         <Route path="/perfil/iniciar-sesion" element={<LogIn />} /> */}

@@ -210,7 +210,7 @@ function DropDown(props) {
   return (
     <fieldset className="sabor">
       <div className="input-container">
-        <label htmlFor={`${props.id}`}>{`${props.name}`}</label>
+        {/* <label htmlFor={`${props.id}`}>{`${props.name}`}</label> */}
         <select
           className="required"
           name={`${props.id}`}
@@ -218,7 +218,7 @@ function DropDown(props) {
           onChange={updateOptions}
           required
         >
-          <option value="">Elegi un sabor</option>
+          <option value="">{`${props.name}`}</option>
           {sabores.map((sabor) => (
             <option value={sabor}>{sabor}</option>
           ))}
@@ -226,14 +226,14 @@ function DropDown(props) {
       </div>
 
       <div className="input-container">
-        <label htmlFor={`${props.id}-respaldo`}>Si no hay:</label>
+        {/* <label htmlFor={`${props.id}-respaldo`}>Si no hay:</label> */}
         <select
           className="optional"
           name={`${props.id}-respaldo`}
           id={`${props.id}-respaldo`}
           onChange={updateOptions}
         >
-          <option value="">Opcional</option>
+          <option value="">Respaldo / Opcional</option>
           {sabores.map((sabor) => (
             <option value={sabor}>{sabor}</option>
           ))}
