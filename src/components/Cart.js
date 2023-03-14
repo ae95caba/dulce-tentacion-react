@@ -9,14 +9,33 @@ import Select from "react-select";
 export function Cart(props) {
   const navigate = useNavigate();
   const [isUserOnline, setIsUserOnline] = useState();
-  const [isCartEmpty, setIsCartEmpty] = useState();
-  const [showShippingDetails, setShowShippingDetails] = useState(false);
+  const [method, setMethod] = useState({ delivery: false, pickup: false });
 
-  useEffect(() => {
-    if (props.cartItems.length === 0) {
-      setIsCartEmpty(true);
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    document.getElementById("cart").style.display = "none";
+    if (isUserOnline) {
+      if (method.delivery) {
+        const url =
+          "https://api.whatsapp.com/send?phone=541121690959&text=aasdf";
+        window.open(url, "_blank");
+      } else if (method.pickup) {
+        props.showThanksMessage();
+        /////add firebase firestore
+        addCartToFirestore(
+          props.cartItems,
+          props.totalPrice(),
+          (props.totalPrice() / 100) * 5,
+          uniqid()
+        );
+        //clear cart
+        props.clearCart();
+      }
+    } else {
+      navigate("/perfil");
     }
-  }, [props.cartItems]);
+  }
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -31,7 +50,6 @@ export function Cart(props) {
   return (
     <div id="cart">
       <h1>Tu carrito</h1>
-
       <div className="cart-body">
         {props.cartItems.length > 0 ? (
           props.cartItems.map((item) => {
@@ -97,9 +115,9 @@ export function Cart(props) {
           puntos !
         </div>
       ) : null}
-
-      {props.cartItems.length > 0 ? <DeliveryForm /> : null}
-
+      {props.cartItems.length > 0 ? (
+        <DeliveryForm handleSubmit={handleSubmit} setMethod={setMethod} />
+      ) : null}
       {props.cartItems.length > 0 ? (
         <div id="checkout">
           <p id="checkout-tittle">Total: </p>
@@ -115,30 +133,11 @@ export function Cart(props) {
             type="submit"
             form="delivery-form"
             disabled={props.cartItems.length === 0}
-            /* onClick={() => {
-              document.getElementById("cart").style.display = "none";
-              if (isUserOnline) {
-                props.showThanksMessage();
-                /////add firebase firestore
-                addCartToFirestore(
-                  props.cartItems,
-                  props.totalPrice(),
-                  (props.totalPrice() / 100) * 5,
-                  uniqid()
-                );
-                //clear cart
-                props.clearCart();
-              } else {
-                navigate("/perfil");
-              }
-            }} */
-            onClick={() => {}}
           >
             Comprar
           </button>
         </div>
       ) : null}
-
       <button
         className="close"
         onClick={() => {
@@ -188,7 +187,7 @@ export function Details(props) {
   );
 }
 
-function DeliveryForm() {
+function DeliveryForm(props) {
   const [isPickupChecked, setIsPickupChecked] = useState(false);
   const [isDeliveryChecked, setIsDeliveryChecked] = useState(false);
 
@@ -198,16 +197,29 @@ function DeliveryForm() {
   }
 
   return (
-    <form id="delivery-form" autoComplete="on">
+    <form
+      id="delivery-form"
+      autoComplete="on"
+      onSubmit={(e) => props.handleSubmit(e)}
+    >
       <div className="options">
         <div className="option">
           <label
             onClick={() => {
               if (isPickupChecked) {
                 setIsPickupChecked(false);
+                props.setMethod({
+                  delivery: false,
+                  pickup: false,
+                });
               } else {
                 setIsPickupChecked(true);
+
                 setIsDeliveryChecked(false);
+                props.setMethod({
+                  delivery: false,
+                  pickup: true,
+                });
               }
             }}
           >
@@ -227,9 +239,17 @@ function DeliveryForm() {
             onClick={() => {
               if (isDeliveryChecked) {
                 setIsDeliveryChecked(false);
+                props.setMethod({
+                  delivery: false,
+                  pickup: false,
+                });
               } else {
                 setIsDeliveryChecked(true);
                 setIsPickupChecked(false);
+                props.setMethod({
+                  delivery: true,
+                  pickup: false,
+                });
               }
             }}
           >

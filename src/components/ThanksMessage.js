@@ -5,11 +5,10 @@ export function ThanksMessage(props) {
     <div id="thanks-message-container">
       <div id="thanks-message">
         <div className="introduction">
-          <p>Gracias!</p>
-          <p>Para terminar: </p>
+          <p>Para completar la compra: </p>
         </div>
         <ol>
-          <li>1- Anda al local o manda un whatsapp</li>
+          <li>1- Anda al local</li>
           <li>2- Deciles que compraste por la pag</li>
           <li>3- Paga !</li>
         </ol>
