@@ -7,7 +7,8 @@ export async function addCartToFirestore(
   totalPrice,
   method,
   totalPoints,
-  id
+  id,
+  deliveryDetails = null
 ) {
   //setDoc needs a third parameter, whereas addDoc not: doc(db, path))
   /*   const docRef = doc(db, `users/${auth.currentUser.uid}/compras`, "compra3");
@@ -19,9 +20,10 @@ export async function addCartToFirestore(
     date: new Date(),
     completed: false,
 
-    method: method,
+    orderFulfillment: method,
     totalPrice: totalPrice,
     totalPoints: totalPoints,
     docId: id,
+    deliveryDetails: deliveryDetails,
   });
 }

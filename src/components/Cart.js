@@ -9,7 +9,10 @@ import Select from "react-select";
 export function Cart(props) {
   const navigate = useNavigate();
   const [isUserOnline, setIsUserOnline] = useState();
-  const [method, setMethod] = useState({ delivery: false, pickup: false });
+  const [orderFulfillment, setOrderFulfillment] = useState({
+    delivery: false,
+    pickup: false,
+  });
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -17,8 +20,9 @@ export function Cart(props) {
     document.getElementById("cart").style.display = "none";
 
     if (isUserOnline) {
-      if (method.delivery) {
+      if (orderFulfillment.delivery) {
         //create deliveryDetails
+
         const deliveryDetails = {
           barrio: document.getElementById("barrio").value,
           direccion: document.getElementById("direccion").value,
@@ -26,24 +30,30 @@ export function Cart(props) {
           aditionalInfo: document.getElementById("aditional-info").value,
         };
 
-        setMethod({ ...method, deliveryDetails: deliveryDetails });
+        addCartToFirestore(
+          props.cartItems,
+          props.totalPrice(),
+          orderFulfillment,
+          (props.totalPrice() / 100) * 5,
+          uniqid(),
+          deliveryDetails
+        );
+
         ///////
         const url = `https://api.whatsapp.com/send?phone=541121690959&text=${deliveryDetails.barrio}-${deliveryDetails.direccion}`;
         window.open(url, "_blank");
-      } else if (method.pickup) {
+      } else if (orderFulfillment.pickup) {
         props.showThanksMessage();
+        addCartToFirestore(
+          props.cartItems,
+          props.totalPrice(),
+          orderFulfillment,
+          (props.totalPrice() / 100) * 5,
+          uniqid()
+        );
       }
       //for all online conditions
 
-      /////add firebase firestore
-      addCartToFirestore(
-        props.cartItems,
-        props.totalPrice(),
-        (props.totalPrice() / 100) * 5,
-        uniqid(),
-        method
-      );
-      //clear cart
       props.clearCart();
     } else {
       navigate("/perfil");
@@ -131,8 +141,8 @@ export function Cart(props) {
       {props.cartItems.length > 0 ? (
         <DeliveryForm
           handleSubmit={handleSubmit}
-          setMethod={setMethod}
-          method={method}
+          setOrderFulfillment={setOrderFulfillment}
+          orderFulfillment={orderFulfillment}
         />
       ) : null}
       {props.cartItems.length > 0 ? (
@@ -205,15 +215,13 @@ export function Details(props) {
 }
 
 function DeliveryForm(props) {
-  const [selected, setSelected] = useState(null);
-
   function autoResize(textarea) {
     textarea.style.height = "auto";
     textarea.style.height = textarea.scrollHeight + 5 + "px";
   }
 
   const handleChange = (selectedOption) => {
-    setSelected(selectedOption.label);
+    document.getElementById("barrio").value = selectedOption.label;
   };
 
   return (
@@ -226,8 +234,8 @@ function DeliveryForm(props) {
         <div className="option">
           <label
             onClick={() => {
-              if (!props.method.pickup) {
-                props.setMethod({
+              if (!props.orderFulfillment.pickup) {
+                props.setOrderFulfillment({
                   delivery: false,
                   pickup: true,
                 });
@@ -240,7 +248,7 @@ function DeliveryForm(props) {
               name="pickup-delivery"
               value="pickup"
               id="option-1"
-              checked={props.method.pickup}
+              checked={props.orderFulfillment.pickup}
               required
             />
           </label>
@@ -248,8 +256,8 @@ function DeliveryForm(props) {
         <div className="option">
           <label
             onClick={() => {
-              if (!props.method.delivery) {
-                props.setMethod({
+              if (!props.orderFulfillment.delivery) {
+                props.setOrderFulfillment({
                   delivery: true,
                   pickup: false,
                 });
@@ -262,14 +270,14 @@ function DeliveryForm(props) {
               name="pickup-delivery"
               value="delivery"
               id="option-2"
-              checked={props.method.delivery}
+              checked={props.orderFulfillment.delivery}
               required
             />
           </label>
         </div>
       </div>
 
-      {props.method.delivery ? (
+      {props.orderFulfillment.delivery ? (
         <fieldset id="delivery-info">
           <div className="input-container">
             <Select
@@ -280,6 +288,7 @@ function DeliveryForm(props) {
               required
             />
           </div>
+          <input id="barrio" style={{ display: "none" }} />
           <div className="input-container">
             <input
               type="text"
