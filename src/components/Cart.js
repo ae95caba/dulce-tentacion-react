@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
-import { auth } from "../backend/firebase";
+import { useState } from "react";
+
 import { useNavigate } from "react-router-dom";
 import { addCartToFirestore } from "../backend/addCartToFiresstore";
 import uniqid from "uniqid";
-import { barriosMP, options } from "../logic/barrios";
+
 import Select from "react-select";
 import { link } from "../logic/whatsappLink";
 
 export function Cart(props) {
   const navigate = useNavigate();
-  const [isUserOnline, setIsUserOnline] = useState();
+  /*  const [isUserOnline, setIsUserOnline] = useState(); */
   const [orderFulfillment, setOrderFulfillment] = useState({
     delivery: false,
     pickup: false,
@@ -20,7 +20,7 @@ export function Cart(props) {
 
     document.getElementById("cart").style.display = "none";
 
-    if (isUserOnline) {
+    if (props.isUserOnline) {
       if (orderFulfillment.delivery) {
         //create deliveryDetails
 
@@ -58,16 +58,6 @@ export function Cart(props) {
       navigate("/perfil");
     }
   }
-
-  useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        setIsUserOnline(true);
-      } else {
-        setIsUserOnline(false);
-      }
-    });
-  }, []);
 
   return (
     <div id="cart">

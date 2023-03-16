@@ -6,8 +6,9 @@ import { Home } from "../Home";
 import { Profile } from "./Profile";
 import { Shop } from "./Shop";
 import { Cart } from "./Cart";
+import { auth } from "../backend/firebase";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Navbar } from "./Navbar";
 
 import { ThanksMessage } from "./ThanksMessage";
@@ -15,6 +16,30 @@ import { ThanksMessage } from "./ThanksMessage";
 export const App = () => {
   const [cartItems, setCartItems] = useState([]);
   const [showThanksMessage, setShowThanksMessage] = useState(false);
+  const [isUserOnline, setIsUserOnline] = useState();
+
+  const [userData, setUserData] = useState({
+    name: undefined,
+    email: undefined,
+    img: "https://picsum.photos/id/684/400/400",
+  });
+
+  //set isUserOnline and userData
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        setIsUserOnline(true);
+
+        setUserData({
+          name: user.displayName,
+          email: user.email,
+          img: user.photoURL,
+        });
+      } else {
+        setIsUserOnline(false);
+      }
+    });
+  }, []);
 
   function totalItems() {
     let total = 0;
@@ -144,12 +169,21 @@ export const App = () => {
       <Routes>
         <Route path="/" exact element={<Home />} />
 
-        <Route path="/perfil" element={<Profile />} />
+        <Route
+          path="/perfil"
+          element={<Profile userData={userData} isUserOnline={isUserOnline} />}
+        />
         {/*   <Route path="/perfil/crear-cuenta" element={<SignUp />} />
         <Route path="/perfil/iniciar-sesion" element={<LogIn />} /> */}
         <Route
           path="/tienda"
-          element={<Shop addCartItem={addCartItem} addIceCream={addIceCream} />}
+          element={
+            <Shop
+              addCartItem={addCartItem}
+              addIceCream={addIceCream}
+              isUserOnline={isUserOnline}
+            />
+          }
         />
       </Routes>
     </div>
