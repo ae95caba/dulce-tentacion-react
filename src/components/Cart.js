@@ -5,6 +5,7 @@ import { addCartToFirestore } from "../backend/addCartToFiresstore";
 import uniqid from "uniqid";
 import { barriosMP, options } from "../logic/barrios";
 import Select from "react-select";
+import { link } from "../logic/whatsappLink";
 
 export function Cart(props) {
   const navigate = useNavigate();
@@ -39,9 +40,7 @@ export function Cart(props) {
           deliveryDetails
         );
 
-        ///////
-        const url = `https://api.whatsapp.com/send?phone=541121690959&text=${deliveryDetails.barrio}-${deliveryDetails.direccion}`;
-        window.open(url, "_blank");
+        window.open(link(props.cartItems, deliveryDetails), "_blank");
       } else if (orderFulfillment.pickup) {
         props.showThanksMessage();
         addCartToFirestore(
@@ -293,7 +292,7 @@ function DeliveryForm(props) {
             <input
               type="text"
               placeholder="Direccion"
-              autocomplete="street-address"
+              autoComplete="street-address"
               required
               id="direccion"
             />
