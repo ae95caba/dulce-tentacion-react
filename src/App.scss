@@ -859,8 +859,8 @@ button {
           }
           select {
             border: 1px solid black;
-            font-size: 1.2rem;
-
+            font-size: 1.3rem;
+            padding: 0.5rem 0px;
             border-radius: 1rem;
             background-color: transparent;
           }
@@ -897,12 +897,13 @@ button {
             text-align: left;
             display: flex;
             align-items: center;
+            font-size: 1.3rem;
           }
         }
         .salsa {
           select {
             background-color: transparent;
-            font-size: 1.2rem;
+            font-size: inherit;
             border: 1px solid black;
             border-radius: 1rem;
           }
@@ -911,6 +912,7 @@ button {
           input {
             height: 100%;
             width: min-content;
+            font-size: inherit;
           }
 
           .count {

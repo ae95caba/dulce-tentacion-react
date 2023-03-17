@@ -3,13 +3,14 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { addCartToFirestore } from "../backend/addCartToFiresstore";
 import uniqid from "uniqid";
-
+import { options } from "../logic/barrios";
 import Select from "react-select";
 import { link } from "../logic/whatsappLink";
+import { addLastDeliveryDetails } from "../backend/addLastDeliveryDetails";
 
 export function Cart(props) {
   const navigate = useNavigate();
-  /*  const [isUserOnline, setIsUserOnline] = useState(); */
+
   const [orderFulfillment, setOrderFulfillment] = useState({
     delivery: false,
     pickup: false,
@@ -31,6 +32,8 @@ export function Cart(props) {
           aditionalInfo: document.getElementById("aditional-info").value,
         };
 
+        addLastDeliveryDetails(deliveryDetails);
+
         addCartToFirestore(
           props.cartItems,
           props.totalPrice(),
@@ -40,7 +43,10 @@ export function Cart(props) {
           deliveryDetails
         );
 
-        window.open(link(props.cartItems, deliveryDetails), "_blank");
+        window.open(
+          link(props.cartItems, deliveryDetails, props.userData),
+          "_blank"
+        );
       } else if (orderFulfillment.pickup) {
         props.showThanksMessage();
         addCartToFirestore(
@@ -67,7 +73,7 @@ export function Cart(props) {
           props.cartItems.map((item) => {
             const detailsId = uniqid();
             return (
-              <div className="cart-item">
+              <div className="cart-item" key={uniqid()}>
                 <img src={item.imgUrl} alt={item.name} />
                 <div className="right">
                   <div className="remove" onClick={() => props.removeAll(item)}>
@@ -175,7 +181,7 @@ export function Details(props) {
           {props.item.flavoursArr.map((flavour) => {
             console.log(flavour.required);
             return (
-              <div>
+              <div key={uniqid()}>
                 - {flavour.required}
                 {flavour.optional ? `, sino ${flavour.optional}` : null}
               </div>

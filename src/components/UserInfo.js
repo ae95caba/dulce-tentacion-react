@@ -7,7 +7,7 @@ export const UserInfo = (props) => {
       <p>
         Estas <span id="conected">conectado</span>
       </p>
-      <img src={props.userData.img} alt="" />
+      <img referrerPolicy="no-referrer" src={props.userData.img} alt="" />
       <div className="welcome">
         <p>Bienvenido </p>
         <p>

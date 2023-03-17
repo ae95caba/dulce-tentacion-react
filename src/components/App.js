@@ -27,6 +27,7 @@ export const App = () => {
   //set isUserOnline and userData
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
+      console.log(user);
       if (user) {
         setIsUserOnline(true);
 
@@ -155,6 +156,8 @@ export const App = () => {
       ) : null}
 
       <Cart
+        userData={userData}
+        isUserOnline={isUserOnline}
         cartItems={cartItems}
         addCartItem={addCartItem}
         removeCartItem={removeCartItem}
@@ -177,13 +180,7 @@ export const App = () => {
         <Route path="/perfil/iniciar-sesion" element={<LogIn />} /> */}
         <Route
           path="/tienda"
-          element={
-            <Shop
-              addCartItem={addCartItem}
-              addIceCream={addIceCream}
-              isUserOnline={isUserOnline}
-            />
-          }
+          element={<Shop addCartItem={addCartItem} addIceCream={addIceCream} />}
         />
       </Routes>
     </div>

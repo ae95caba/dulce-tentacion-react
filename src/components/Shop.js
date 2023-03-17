@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Botonera } from "./Botonera";
 import { FormularioHelados } from "./FormularioHelados";
+import uniqid from "uniqid";
 
 export function Shop(props) {
   const helados = [
@@ -149,7 +150,7 @@ export function Shop(props) {
       <div className="content">
         {content.map((product) => {
           return (
-            <div className="card">
+            <div className="card" key={uniqid()}>
               <div className="img-container">
                 <div className="points">
                   <img src="/img/seal.svg" />

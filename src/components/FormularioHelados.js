@@ -1,10 +1,13 @@
 import { createFactory, useState } from "react";
+import uniqid from "uniqid";
 
 export function FormularioHelados(props) {
   const dropDowns = [];
 
   for (let i = 0; i < props.product.flavours; i++) {
-    dropDowns.push(<DropDown id={`sabor-${i + 1}`} name={`Sabor ${i + 1}:`} />);
+    dropDowns.push(
+      <DropDown id={`sabor-${i + 1}`} name={`Sabor ${i + 1}:`} key={uniqid()} />
+    );
   }
 
   const [extras, setExtras] = useState({
@@ -30,7 +33,48 @@ export function FormularioHelados(props) {
 
   return (
     <div id="contenedor-formulario-helados">
-      <form id="formulario-helados" onSubmit={(e) => e.preventDefault()}>
+      <form
+        id="formulario-helados"
+        onSubmit={(e) => {
+          e.preventDefault();
+          ///////////////////////////////////
+          //add flavours
+
+          let flavoursArr = [];
+
+          for (let i = 0; i < props.product.flavours; i++) {
+            flavoursArr[i] = { required: "", optional: "" };
+          }
+
+          const requiredSelects = document.querySelectorAll(".required");
+          requiredSelects.forEach((select, index) => {
+            flavoursArr[index].required = select.value;
+          });
+
+          const optionalSelects = document.querySelectorAll(".optional");
+          optionalSelects.forEach((select, index) => {
+            flavoursArr[index].optional = select.value;
+          });
+
+          ///////////////////////////////////
+          //add extras
+
+          ///////////////////////////////////
+
+          const fullProduct = {
+            name: props.product.name,
+            imgUrl: props.product.imgUrl,
+            count: 1,
+            extras: extras,
+            flavoursArr: flavoursArr,
+            price: totalPrice(),
+            totalPrice: totalPrice(),
+          };
+
+          props.addIceCream(fullProduct);
+          props.close();
+        }}
+      >
         <fieldset className="sabores">{dropDowns}</fieldset>
         <fieldset className="extra">
           <legend>Extra:</legend>
@@ -120,47 +164,7 @@ export function FormularioHelados(props) {
         </fieldset>
 
         <div className="total-helado">Total: $ {totalPrice()}</div>
-        <button
-          onClick={() => {
-            ///////////////////////////////////
-            //add flavours
-
-            let flavoursArr = [];
-
-            for (let i = 0; i < props.product.flavours; i++) {
-              flavoursArr[i] = { required: "", optional: "" };
-            }
-
-            const requiredSelects = document.querySelectorAll(".required");
-            requiredSelects.forEach((select, index) => {
-              flavoursArr[index].required = select.value;
-            });
-
-            const optionalSelects = document.querySelectorAll(".optional");
-            optionalSelects.forEach((select, index) => {
-              flavoursArr[index].optional = select.value;
-            });
-
-            ///////////////////////////////////
-            //add extras
-
-            ///////////////////////////////////
-
-            const fullProduct = {
-              name: props.product.name,
-              imgUrl: props.product.imgUrl,
-              count: 1,
-              extras: extras,
-              flavoursArr: flavoursArr,
-              price: totalPrice(),
-              totalPrice: totalPrice(),
-            };
-
-            props.addIceCream(fullProduct);
-          }}
-        >
-          Aceptar
-        </button>
+        <button type="submit">Aceptar</button>
         <button
           type="button"
           onClick={() => {
@@ -175,7 +179,7 @@ export function FormularioHelados(props) {
 }
 
 function DropDown(props) {
-  const sabores = ["Frutilla", "Vainilla", "Chocolate"];
+  const sabores = ["Frutilla", "Vainilla", "Chocolate", "Mantecol"];
 
   function updateOptions() {
     const select1 = document.getElementById(`${props.id}`);
@@ -220,13 +224,14 @@ function DropDown(props) {
         >
           <option value="">{`${props.name}`}</option>
           {sabores.map((sabor) => (
-            <option value={sabor}>{sabor}</option>
+            <option value={sabor} key={uniqid()}>
+              {sabor}
+            </option>
           ))}
         </select>
       </div>
 
       <div className="input-container">
-        {/* <label htmlFor={`${props.id}-respaldo`}>Si no hay:</label> */}
         <select
           className="optional"
           name={`${props.id}-respaldo`}
@@ -235,8 +240,11 @@ function DropDown(props) {
         >
           <option value="">Respaldo / Opcional</option>
           {sabores.map((sabor) => (
-            <option value={sabor}>{sabor}</option>
+            <option value={sabor} key={uniqid()}>
+              {sabor}
+            </option>
           ))}
+          <option value="asd">asd</option>
         </select>
       </div>
     </fieldset>

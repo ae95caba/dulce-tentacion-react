@@ -15,38 +15,60 @@ export function createWhatsAppLink(phoneNumber, message) {
 // to make a line break use "\n"
 //tabs are visible on whatsapp
 function message(cartItems, deliveryDetails, userData) {
+  console.log(userData.email);
   let itemList = "";
   cartItems.forEach((item) => {
-    itemList += `${item.name} X ${item.count}\n`;
+    if (!item.flavoursArr) {
+      itemList += `* ${item.name} X ${item.count}\n`;
+    } else {
+      //flavours
+      let flavours = "		Sabores:\n";
+      item.flavoursArr.forEach((flavour) => {
+        flavours += `			-${flavour.required}\n`;
+      });
+      //////////
+      //extras
+      let extras = "		Extras:\n";
+      if (item.extras.conos.count > 0) {
+        console.log(item.extras.conos.count);
+        extras += `			-Conos X ${item.extras.conos.count}\n`;
+      }
+      if (item.extras.rocklets.isChecked) {
+        extras += `			-Rocklets\n`;
+      }
+      if (item.extras.salsa.type) {
+        extras += `			-Salsa de ${item.extras.salsa.type}\n`;
+      }
+      //////////
+      itemList += `* ${item.name}:
+${flavours}${extras}`;
+    }
   });
 
   return `Orden:
 		
 ${itemList}	
 Datos para el delivery:
-
-Barrio: ${deliveryDetails.barrio}
-Direccion: ${deliveryDetails.direccion}
-Entrecalles: ${deliveryDetails.entreCalles}
-${
-  deliveryDetails.aditionalInfo
-    ? `Extra: ${deliveryDetails.aditionalInfo}`
-    : null
-}
+		Barrio: ${deliveryDetails.barrio}
+		Direccion: ${deliveryDetails.direccion}
+		Entrecalles: ${deliveryDetails.entreCalles}${
+    deliveryDetails.aditionalInfo
+      ? `\n		Extra: ${deliveryDetails.aditionalInfo}`
+      : ""
+  }
 
 Datos personales:
-
-Nombre:
-Apellido:
-Email:
+		Nombre: ${userData.name}
+		Email: ${userData.email}
 `;
 }
 
 /* export const link = createWhatsAppLink("5491121690959", message);
  */
-export function link(cartItems, deliveryDetails) {
+export function link(cartItems, deliveryDetails, userData) {
+  alert(deliveryDetails.aditionalInfo);
   return createWhatsAppLink(
     "5491121690959",
-    message(cartItems, deliveryDetails)
+    message(cartItems, deliveryDetails, userData)
   );
 }

@@ -25,7 +25,7 @@ export const UserShopping = () => {
           // Get the time in the format HH:MM
           const hour = format(dateObj, "HH:mm");
           return (
-            <div className="purchase">
+            <div className="purchase" key={uniqid()}>
               <div className="time">
                 <span>{date} :</span> <span>{hour}</span>
               </div>
@@ -33,7 +33,7 @@ export const UserShopping = () => {
               {doc.cartItems?.map((item) => {
                 const detailsId = uniqid();
                 return (
-                  <div className="cart-item">
+                  <div className="cart-item" key={uniqid()}>
                     <img src={item.imgUrl} alt={item.name} />
                     <div className="right">
                       <div className="description">

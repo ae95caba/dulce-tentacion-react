@@ -8,33 +8,8 @@ import { LogIn } from "./LogIn.js";
 import { SignUp } from "./SignUp.js";
 
 export function Profile(props) {
-  /*  const [isUserOnline, setIsUserOnline] = useState();
-
-  const [userData, setUserData] = useState({
-    name: undefined,
-    email: undefined,
-    img: "https://picsum.photos/id/684/400/400",
-  }); */
-
   const [offlineFilter, setOfflineFilter] = useState("Inicia sesion");
   const [onlineFilter, setOnlineFilter] = useState("Informacion");
-
-  //set isUserOnline and userData
-  /* useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        setIsUserOnline(true);
-
-        setUserData({
-          name: user.displayName,
-          email: user.email,
-          img: user.photoURL,
-        });
-      } else {
-        setIsUserOnline(false);
-      }
-    });
-  }, []); */
 
   function changeOfflineFilter(e) {
     setOfflineFilter(e.target.innerText);
