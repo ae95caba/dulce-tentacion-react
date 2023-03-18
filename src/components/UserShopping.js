@@ -1,7 +1,7 @@
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import { db } from "../backend/firebase";
+import { db, auth } from "../backend/firebase";
 import { collection, deleteDoc, doc as firebaseDoc } from "firebase/firestore";
-import { auth } from "../backend/firebase";
+
 import { format } from "date-fns";
 import { Details } from "./Cart";
 import uniqid from "uniqid";

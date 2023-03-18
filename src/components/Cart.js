@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 import { addCartToFirestore } from "../backend/addCartToFiresstore";
@@ -7,6 +7,7 @@ import { options } from "../logic/barrios";
 import Select from "react-select";
 import { link } from "../logic/whatsappLink";
 import { addLastDeliveryDetails } from "../backend/addLastDeliveryDetails";
+import { getLastDeliveryDetails } from "../backend/getLastDeliveryDetails";
 
 export function Cart(props) {
   const navigate = useNavigate();
@@ -210,14 +211,38 @@ export function Details(props) {
 }
 
 function DeliveryForm(props) {
+  const [deliveryDetails, setDeliveryDetails] = useState({});
+  const [barrioElegido, setBarrioElegido] = useState(null); // Set default option
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        //this can be one of 3
+        //if user online and has bought : details obj
+        //if user offline : {}
+        //if user online and hasnt bought : {}
+        const details = await getLastDeliveryDetails();
+        setDeliveryDetails({ ...details });
+        if (details.barrio) {
+          const barrioObj = {
+            value: details.barrio.toLowerCase(),
+            label: details.barrio,
+          };
+
+          setBarrioElegido(barrioObj);
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+
+    fetchData();
+  }, []);
+
   function autoResize(textarea) {
     textarea.style.height = "auto";
     textarea.style.height = textarea.scrollHeight + 5 + "px";
   }
-
-  const handleChange = (selectedOption) => {
-    document.getElementById("barrio").value = selectedOption.label;
-  };
 
   return (
     <form
@@ -276,10 +301,14 @@ function DeliveryForm(props) {
         <fieldset id="delivery-info">
           <div className="input-container">
             <Select
-              onChange={handleChange}
+              onChange={(selected) => {
+                setBarrioElegido(selected);
+                document.getElementById("barrio").value = selected.label;
+              }}
               options={options}
               placeholder="Barrio"
               name="Barrio"
+              value={barrioElegido}
               required
             />
           </div>
@@ -291,6 +320,13 @@ function DeliveryForm(props) {
               autoComplete="street-address"
               required
               id="direccion"
+              defaultValue={deliveryDetails.direccion}
+              onChange={(event) => {
+                setDeliveryDetails({
+                  ...deliveryDetails,
+                  direccion: event.target.value,
+                });
+              }}
             />
           </div>
           <div className="input-container">
@@ -299,6 +335,13 @@ function DeliveryForm(props) {
               placeholder="Entre calles"
               required
               id="entre-calles"
+              defaultValue={deliveryDetails.entreCalles}
+              onChange={(event) =>
+                setDeliveryDetails({
+                  ...deliveryDetails,
+                  entreCalles: event.target.value,
+                })
+              }
             />
           </div>
           <div className="input-container">
@@ -306,6 +349,13 @@ function DeliveryForm(props) {
               id="aditional-info"
               onInput={(e) => autoResize(e.target)}
               placeholder="Informacion adicional, ejemplo: frente rojo, puerta negra de chapa."
+              defaultValue={deliveryDetails.aditionalInfo}
+              onChange={(event) =>
+                setDeliveryDetails({
+                  ...deliveryDetails,
+                  aditionalInfo: event.target.value,
+                })
+              }
             ></textarea>
           </div>
         </fieldset>
