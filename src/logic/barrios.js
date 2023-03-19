@@ -35,7 +35,7 @@ export const barriosMP = [
   "Fonavi",
 ];
 
-const zona1 = ["El Hornero", "La Loma"];
+const zona1 = ["El Hornero", "La Loma", "Rayito de Sol"];
 const zona2 = [
   "Los Aromos",
   "San Patricio",
@@ -44,6 +44,7 @@ const zona2 = [
   "El Zorzal",
   "Bicentenario",
   "La Milagrosa",
+  "La Paz",
 ];
 const zona3 = [
   "El Lucero",
@@ -82,3 +83,31 @@ export const options = barriosMP.sort().map((barrio) => ({
   value: barrio.toLowerCase(),
   label: barrio,
 }));
+
+//function to get price from barrio
+export function priceFromBarrio(barrio) {
+  let price = undefined;
+  switch (true) {
+    case zona1.includes(barrio):
+      price = 100;
+      break;
+    case zona2.includes(barrio):
+      price = 200;
+      break;
+    case zona3.includes(barrio):
+      price = 300;
+      break;
+    case zona4.includes(barrio):
+      price = 900;
+      break;
+    case zona5.includes(barrio):
+      price = 1000;
+      break;
+    default:
+      // code to execute if barrio is not in any of the zones
+      break;
+  }
+  console.log(barrio);
+  console.log(price);
+  return price;
+}

@@ -8,14 +8,31 @@ import Select from "react-select";
 import { link } from "../logic/whatsappLink";
 import { addLastDeliveryDetails } from "../backend/addLastDeliveryDetails";
 import { getLastDeliveryDetails } from "../backend/getLastDeliveryDetails";
+import { priceFromBarrio } from "../logic/barrios";
 
 export function Cart(props) {
   const navigate = useNavigate();
+  //the following wil be and object  {value: , label}
+  const [barrioElegido, setBarrioElegido] = useState(null); // Set default option
 
   const [orderFulfillment, setOrderFulfillment] = useState({
     delivery: false,
     pickup: false,
   });
+
+  useEffect(() => {
+    //jorderFulfillment doesnt change when changing grom one Select option to another
+    if (orderFulfillment.delivery === false) {
+      props.setDeliveryPrice(0);
+    }
+  }, [orderFulfillment]);
+
+  useEffect(() => {
+    if (barrioElegido && orderFulfillment.delivery) {
+      props.setDeliveryPrice(priceFromBarrio(barrioElegido.label));
+    }
+    console.log(barrioElegido);
+  }, [barrioElegido, orderFulfillment]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -73,6 +90,9 @@ export function Cart(props) {
         {props.cartItems.length > 0 ? (
           props.cartItems.map((item) => {
             const detailsId = uniqid();
+            if (item.name === "delivery") {
+              return null;
+            }
             return (
               <div className="cart-item" key={uniqid()}>
                 <img src={item.imgUrl} alt={item.name} />
@@ -136,6 +156,8 @@ export function Cart(props) {
       ) : null}
       {props.cartItems.length > 0 ? (
         <DeliveryForm
+          setBarrioElegido={setBarrioElegido}
+          barrioElegido={barrioElegido}
           handleSubmit={handleSubmit}
           setOrderFulfillment={setOrderFulfillment}
           orderFulfillment={orderFulfillment}
@@ -212,7 +234,6 @@ export function Details(props) {
 
 function DeliveryForm(props) {
   const [deliveryDetails, setDeliveryDetails] = useState({});
-  const [barrioElegido, setBarrioElegido] = useState(null); // Set default option
 
   useEffect(() => {
     async function fetchData() {
@@ -229,7 +250,7 @@ function DeliveryForm(props) {
             label: details.barrio,
           };
 
-          setBarrioElegido(barrioObj);
+          props.setBarrioElegido(barrioObj);
         }
       } catch (error) {
         console.log(error.message);
@@ -238,6 +259,11 @@ function DeliveryForm(props) {
 
     fetchData();
   }, []);
+
+  /*  useEffect(() => {
+    const product = { name: "delivery", count: 1, price: 100 };
+    props.setDeliveryPrice();
+  }, [barrioElegido]); */
 
   function autoResize(textarea) {
     textarea.style.height = "auto";
@@ -302,17 +328,20 @@ function DeliveryForm(props) {
           <div className="input-container">
             <Select
               onChange={(selected) => {
-                setBarrioElegido(selected);
-                document.getElementById("barrio").value = selected.label;
+                props.setBarrioElegido(selected);
               }}
               options={options}
               placeholder="Barrio"
               name="Barrio"
-              value={barrioElegido}
+              value={props.barrioElegido}
               required
             />
           </div>
-          <input id="barrio" style={{ display: "none" }} />
+          <input
+            id="barrio"
+            value={props.barrioElegido ? props.barrioElegido.label : ""}
+            style={{ display: "none" }}
+          />
           <div className="input-container">
             <input
               type="text"
@@ -322,6 +351,7 @@ function DeliveryForm(props) {
               id="direccion"
               defaultValue={deliveryDetails.direccion}
               onChange={(event) => {
+                console.log(document.getElementById("barrio").value);
                 setDeliveryDetails({
                   ...deliveryDetails,
                   direccion: event.target.value,

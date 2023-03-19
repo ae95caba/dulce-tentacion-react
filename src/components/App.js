@@ -15,6 +15,7 @@ import { ThanksMessage } from "./ThanksMessage";
 
 export const App = () => {
   const [cartItems, setCartItems] = useState([]);
+  const [deliveryPrice, setDeliveryPrice] = useState(0);
   const [showThanksMessage, setShowThanksMessage] = useState(false);
   const [isUserOnline, setIsUserOnline] = useState();
 
@@ -51,6 +52,8 @@ export const App = () => {
 
   function totalPrice() {
     let total = 0;
+
+    total += deliveryPrice;
     for (var i = 0; i < cartItems.length; i++) {
       total += cartItems[i].totalPrice;
     }
@@ -92,6 +95,8 @@ export const App = () => {
       setCartItems([...copy]);
     }
   }
+
+  function addDelivery(delivery) {}
 
   function addIceCream(iceCream) {
     setCartItems([
@@ -157,6 +162,7 @@ export const App = () => {
       <Cart
         userData={userData}
         isUserOnline={isUserOnline}
+        setDeliveryPrice={setDeliveryPrice}
         cartItems={cartItems}
         addCartItem={addCartItem}
         removeCartItem={removeCartItem}
