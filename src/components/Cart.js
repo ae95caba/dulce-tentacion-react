@@ -36,6 +36,10 @@ export function Cart(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
+    setOrderFulfillment({
+      delivery: false,
+      pickup: false,
+    });
 
     document.getElementById("cart").style.display = "none";
 

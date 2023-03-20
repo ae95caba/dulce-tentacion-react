@@ -11,19 +11,11 @@ export function Profile(props) {
   const [offlineFilter, setOfflineFilter] = useState("Inicia sesion");
   const [onlineFilter, setOnlineFilter] = useState("Informacion");
 
-  function changeOfflineFilter(e) {
-    setOfflineFilter(e.target.innerText);
-  }
-
-  function changeOnlineFilter(e) {
-    setOnlineFilter(e.target.innerText);
-  }
-
   return (
     <>
       {props.isUserOnline ? (
         <div id="profile-online">
-          <BotoneraPerfil changeOnlineFilter={changeOnlineFilter} />
+          <BotoneraPerfil setOnlineFilter={setOnlineFilter} />
 
           {onlineFilter === "Informacion" ? (
             <UserInfo userData={props.userData} />
@@ -33,9 +25,13 @@ export function Profile(props) {
         </div>
       ) : (
         <div id="profile-offline">
-          <BotoneraPerfilOffline changeOfflineFilter={changeOfflineFilter} />
+          <BotoneraPerfilOffline setOfflineFilter={setOfflineFilter} />
 
-          {offlineFilter === "Iniciar sesion" ? <LogIn /> : <SignUp />}
+          {offlineFilter === "Inicia sesion" ? (
+            <LogIn />
+          ) : (
+            <SignUp userData={props.userData} />
+          )}
         </div>
       )}
     </>

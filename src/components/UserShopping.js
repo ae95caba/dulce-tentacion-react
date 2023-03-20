@@ -10,8 +10,6 @@ export const UserShopping = () => {
   const query = collection(db, `users/${auth.currentUser.uid}/compras`);
   const [docs, loading, error] = useCollectionData(query);
 
-  /* console.log(docs);
-  console.log(query); */
   return (
     <div id="purchase-list-container">
       <div id="purchase-list">
@@ -76,6 +74,37 @@ export const UserShopping = () => {
                 </div>
                 <div className="purchase-state">
                   {doc.completed === true ? "PAGADO" : "PENDIENTE DE PAGO"}
+                </div>
+                <div className="order-fulfillment">
+                  {doc.deliveryDetails ? (
+                    <>
+                      <div
+                        onClick={() => {
+                          document.getElementById("delivery-details").style
+                            .display === "none"
+                            ? (document.getElementById(
+                                "delivery-details"
+                              ).style.display = "block")
+                            : (document.getElementById(
+                                "delivery-details"
+                              ).style.display = "none");
+                        }}
+                      >
+                        DELIVERy
+                      </div>
+                      <div id="delivery-details" style={{ display: "none" }}>
+                        <p>Barrio: {doc.deliveryDetails.barrio}</p>
+                        <p>Direccion: {doc.deliveryDetails.direccion}</p>
+                        <p>Entre calles: {doc.deliveryDetails.entreCalles}</p>
+                        <p>
+                          Informacion adicional:
+                          {doc.deliveryDetails.aditionalInfo}
+                        </p>
+                      </div>
+                    </>
+                  ) : (
+                    "RETIRO EN EL LOCAL"
+                  )}
                 </div>
               </div>
               <button

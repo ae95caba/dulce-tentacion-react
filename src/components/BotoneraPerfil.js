@@ -7,7 +7,7 @@ export function BotoneraPerfil(props) {
     <div id="botonera-perfil">
       <button
         onClick={(e) => {
-          props.changeOnlineFilter(e);
+          props.setOnlineFilter(e.target.innerText);
           window.scrollTo(0, 0);
           setActiveTab("Informacion");
         }}
@@ -19,7 +19,7 @@ export function BotoneraPerfil(props) {
       <button
         id="compras"
         onClick={(e) => {
-          props.changeOnlineFilter(e);
+          props.setOnlineFilter(e.target.innerText);
           setActiveTab("Compras");
           window.scrollTo(0, 0);
         }}

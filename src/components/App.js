@@ -1,6 +1,6 @@
 import React from "react";
 import "../App.scss";
-import { Route } from "react-router-dom";
+import { Route, useRevalidator } from "react-router-dom";
 import { Routes } from "react-router-dom";
 import { Home } from "../Home";
 import { Profile } from "./Profile";
@@ -28,6 +28,7 @@ export const App = () => {
   //set isUserOnline and userData
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
+      console.log(user);
       if (user) {
         setIsUserOnline(true);
 
