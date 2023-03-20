@@ -30,7 +30,7 @@ export function Profile(props) {
           {offlineFilter === "Inicia sesion" ? (
             <LogIn />
           ) : (
-            <SignUp userData={props.userData} />
+            <SignUp setUserData={props.setUserData} userData={props.userData} />
           )}
         </div>
       )}

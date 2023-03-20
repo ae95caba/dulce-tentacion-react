@@ -9,11 +9,13 @@ import uniqid from "uniqid";
 export const UserShopping = () => {
   const query = collection(db, `users/${auth.currentUser.uid}/compras`);
   const [docs, loading, error] = useCollectionData(query);
-
+  console.log(docs);
   return (
     <div id="purchase-list-container">
       <div id="purchase-list">
-        {loading && null}
+        {!docs?.length > 0 && !loading && (
+          <div>No has comprado nada aun, que esperas ?</div>
+        )}
         {docs?.reverse().map((doc) => {
           const dateObj = doc.date.toDate();
 

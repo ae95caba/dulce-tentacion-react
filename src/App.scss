@@ -743,6 +743,22 @@ button {
           }
         }
 
+        .img-section {
+          display: flex;
+          flex-direction: column;
+          gap: 0.1rem;
+          .input-container {
+            input {
+              border: 1px solid red;
+              font-size: 1.2rem;
+              width: 100%;
+              padding: 0.3rem 0px;
+
+              border-radius: 1rem;
+            }
+          }
+        }
+
         .buttons-section {
           display: flex;
           flex-direction: column;

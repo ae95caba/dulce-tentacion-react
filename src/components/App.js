@@ -180,7 +180,13 @@ export const App = () => {
 
         <Route
           path="/perfil"
-          element={<Profile userData={userData} isUserOnline={isUserOnline} />}
+          element={
+            <Profile
+              userData={userData}
+              setUserData={setUserData}
+              isUserOnline={isUserOnline}
+            />
+          }
         />
         {/*   <Route path="/perfil/crear-cuenta" element={<SignUp />} />
         <Route path="/perfil/iniciar-sesion" element={<LogIn />} /> */}

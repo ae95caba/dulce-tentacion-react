@@ -7,7 +7,15 @@ export const UserInfo = (props) => {
       <p>
         Estas <span id="conected">conectado</span>
       </p>
-      <img referrerPolicy="no-referrer" src={props.userData.img} alt="" />
+      <img
+        referrerPolicy="no-referrer"
+        src={
+          props.userData.img
+            ? props.userData.img
+            : "https://picsum.photos/id/1025/600/400"
+        }
+        alt=""
+      />
       <div className="welcome">
         <p>Bienvenido </p>
         <p>

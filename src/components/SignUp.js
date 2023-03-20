@@ -15,34 +15,50 @@ export function SignUp(props) {
           const email = document.getElementById("sign-up-email").value;
           const password = document.getElementById("sign-up-password").value;
           const fullName = document.getElementById("sign-up-name").value;
-          const { user } = await createUserWithEmailAndPassword(
-            auth,
-            email,
-            password
-          )
-            .then((userCredential) => {
-              navigate("/perfil");
-
-              alert("sign up");
-            })
-            .catch((error) => {
-              console.log(error.message);
+          try {
+            const { user } = await createUserWithEmailAndPassword(
+              auth,
+              email,
+              password
+            );
+            //onAuthState listener detects user online
+            //here runs a re-render due to 2  updates to the state (isUserOnline and userData)
+            //showing the profile with the email instead of name
+            await updateProfile(user, { displayName: fullName });
+            //this updates the user with no the state so no re-renders
+            props.setUserData({
+              ...props.userData,
+              name: user.displayName,
             });
-          //document.getElementById("sign-up-log-in").style.display = "none";
-          document.getElementById("sign-up-email").value = "";
-          document.getElementById("sign-up-password").value = "";
+            //here we get to see the name now
+          } catch (error) {
+            console.log(error.message);
+          }
+
+          document.getElementById("sign-up").reset();
         }}
       >
         <fieldset>
           <legend>No tenes cuenta ?</legend>
+          <div className="img-section">
+            <label htmlFor="sign-up-img">Foto de perfil:</label>
+            <div className="input-container">
+              <input
+                type="file"
+                id="sign-up-img"
+                /* placeholder="Nombre y Apellido" */
+              />
+            </div>
+          </div>
           <div className="name-section">
             <label htmlFor="sign-up-name">Nombre completo:</label>
             <div className="input-container">
-              <img src="/img/email.svg" alt="icon" />
+              <img src="/img/user.svg" alt="icon" />
               <input
                 type="name"
                 id="sign-up-name"
                 placeholder="Nombre y Apellido"
+                required
               />
             </div>
           </div>
@@ -54,6 +70,7 @@ export function SignUp(props) {
                 type="email"
                 id="sign-up-email"
                 placeholder="ejemplo@gmail.com"
+                required
               />
             </div>
           </div>
@@ -61,7 +78,7 @@ export function SignUp(props) {
             <label htmlFor="sign-up-password">Contrasenia:</label>
             <div className="input-container">
               <img src="/img/password.svg" alt="icon" />
-              <input type="password" id="sign-up-password" />
+              <input type="password" id="sign-up-password" required />
             </div>
           </div>
           <div className="buttons-section">
