@@ -13,17 +13,9 @@ export function SignUp(props) {
     const fileRef = ref(storage, `${currentUser.uid}/profilePic.png`);
     /*  setLoading(true); */
     await uploadBytes(fileRef, file);
+    /*  setLoading(false); */
     const photoURL = await getDownloadURL(fileRef);
 
-    /*  await updateProfile(currentUser, { photoURL }); */
-
-    /*  props.setUserData({
-      ...props.userData,
-      name: user.displayName,
-    }); */
-
-    /*  setLoading(false); */
-    alert("uploader file");
     return photoURL;
   }
 
@@ -68,6 +60,7 @@ export function SignUp(props) {
                 img: user.photoURL,
               });
             }
+            props.setOfflineFilter("Inicia sesion");
           } catch (error) {
             console.log(error.message);
           }

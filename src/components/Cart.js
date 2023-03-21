@@ -31,7 +31,6 @@ export function Cart(props) {
     if (barrioElegido && orderFulfillment.delivery) {
       props.setDeliveryPrice(priceFromBarrio(barrioElegido.label));
     }
-    console.log(barrioElegido);
   }, [barrioElegido, orderFulfillment]);
 
   function handleSubmit(e) {
