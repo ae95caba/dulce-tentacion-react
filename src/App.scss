@@ -734,6 +734,7 @@ button {
             }
             input {
               border: 1px solid black;
+
               font-size: 1.5rem;
               width: 100%;
               padding: 0.3rem 0px;
@@ -746,15 +747,35 @@ button {
         .img-section {
           display: flex;
           flex-direction: column;
-          gap: 0.1rem;
-          .input-container {
-            input {
-              border: 1px solid red;
-              font-size: 1.2rem;
-              width: 100%;
-              padding: 0.3rem 0px;
+          align-items: center;
+          gap: 1rem;
+          input[type="file"] {
+            display: none;
+          }
+          .tittle {
+            font-size: 1.2rem;
+          }
+          .content {
+            border-radius: 50%;
+            height: 40vw;
+            width: 40vw;
+            position: relative;
 
-              border-radius: 1rem;
+            img {
+              width: 100%;
+              aspect-ratio: 1/1;
+              border-radius: 50%;
+            }
+            label {
+              border-radius: 50%;
+              position: absolute;
+
+              right: 0%;
+              width: 50px;
+              height: 50px;
+              bottom: 0%;
+              background-image: $primary;
+              padding: 0.4rem;
             }
           }
         }
@@ -871,7 +892,7 @@ button {
   background-image: $primary;
   justify-content: center;
   width: 100vw;
-
+  z-index: 9;
   position: sticky;
   top: 10%;
   button {

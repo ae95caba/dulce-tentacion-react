@@ -1,10 +1,32 @@
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth } from "../backend/firebase";
-import { Link } from "react-router-dom";
+import { auth, storage } from "../backend/firebase";
+
 import { GoogleAuth } from "./GoogleAuth";
-import { useNavigate } from "react-router-dom";
+
+import { useState } from "react";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 export function SignUp(props) {
-  const navigate = useNavigate();
+  const [photo, setPhoto] = useState(null);
+
+  //storage
+  async function uploadImg(file, currentUser, setLoading) {
+    const fileRef = ref(storage, `${currentUser.uid}/profilePic.png`);
+    /*  setLoading(true); */
+    await uploadBytes(fileRef, file);
+    const photoURL = await getDownloadURL(fileRef);
+
+    /*  await updateProfile(currentUser, { photoURL }); */
+
+    /*  props.setUserData({
+      ...props.userData,
+      name: user.displayName,
+    }); */
+
+    /*  setLoading(false); */
+    alert("uploader file");
+    return photoURL;
+  }
+
   return (
     <div className="form-container">
       <form
@@ -21,16 +43,31 @@ export function SignUp(props) {
               email,
               password
             );
-            //onAuthState listener detects user online
-            //here runs a re-render due to 2  updates to the state (isUserOnline and userData)
-            //showing the profile with the email instead of name
-            await updateProfile(user, { displayName: fullName });
-            //this updates the user with no the state so no re-renders
-            props.setUserData({
-              ...props.userData,
-              name: user.displayName,
-            });
-            //here we get to see the name now
+            if (!photo) {
+              //onAuthState listener detects user online
+              //here runs a re-render due to 2  updates to the state (isUserOnline and userData)
+              //showing the profile with the email instead of name
+              await updateProfile(user, {
+                displayName: fullName,
+              });
+              //this will update the user state, its async, so no re-renders
+              //when it finishes  we get to see the name
+              props.setUserData({
+                ...props.userData,
+                name: user.displayName,
+              });
+            } else {
+              const photoURL = await uploadImg(photo, auth.currentUser);
+              await updateProfile(user, {
+                displayName: fullName,
+                photoURL: photoURL,
+              });
+              props.setUserData({
+                ...props.userData,
+                name: user.displayName,
+                img: user.photoURL,
+              });
+            }
           } catch (error) {
             console.log(error.message);
           }
@@ -40,16 +77,8 @@ export function SignUp(props) {
       >
         <fieldset>
           <legend>No tenes cuenta ?</legend>
-          <div className="img-section">
-            <label htmlFor="sign-up-img">Foto de perfil:</label>
-            <div className="input-container">
-              <input
-                type="file"
-                id="sign-up-img"
-                /* placeholder="Nombre y Apellido" */
-              />
-            </div>
-          </div>
+
+          <ImageSection photo={photo} setPhoto={setPhoto} />
           <div className="name-section">
             <label htmlFor="sign-up-name">Nombre completo:</label>
             <div className="input-container">
@@ -88,6 +117,46 @@ export function SignUp(props) {
           </div>
         </fieldset>
       </form>
+    </div>
+  );
+}
+
+function ImageSection(props) {
+  const [previewSource, setPreviewSource] = useState("/img/anonymous.svg");
+
+  const handleFileInputChange = (e) => {
+    if (e.target.files[0]) {
+      const file = e.target.files[0];
+      previewFile(file);
+      props.setPhoto(file);
+    }
+  };
+
+  const previewFile = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setPreviewSource(reader.result);
+    };
+  };
+
+  return (
+    <div className="img-section">
+      <div className="tittle"> Foto de perfil:</div>
+
+      <div className="content">
+        <img src={previewSource} alt="Preview" />
+        <label htmlFor="sign-up-img">
+          <img src="/img/camera.svg" />
+          <input
+            type="file"
+            id="sign-up-img"
+            onChange={(e) => {
+              handleFileInputChange(e);
+            }}
+          />
+        </label>
+      </div>
     </div>
   );
 }

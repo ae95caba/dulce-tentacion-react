@@ -9,11 +9,7 @@ export const UserInfo = (props) => {
       </p>
       <img
         referrerPolicy="no-referrer"
-        src={
-          props.userData.img
-            ? props.userData.img
-            : "https://picsum.photos/id/1025/600/400"
-        }
+        src={props.userData.img ? props.userData.img : "/img/anonymous.svg"}
         alt=""
       />
       <div className="welcome">

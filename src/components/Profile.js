@@ -25,7 +25,10 @@ export function Profile(props) {
         </div>
       ) : (
         <div id="profile-offline">
-          <BotoneraPerfilOffline setOfflineFilter={setOfflineFilter} />
+          <BotoneraPerfilOffline
+            setOfflineFilter={setOfflineFilter}
+            offlineFilter={offlineFilter}
+          />
 
           {offlineFilter === "Inicia sesion" ? (
             <LogIn />

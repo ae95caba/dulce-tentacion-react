@@ -28,7 +28,6 @@ export const App = () => {
   //set isUserOnline and userData
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
-      console.log(user);
       if (user) {
         setIsUserOnline(true);
 
