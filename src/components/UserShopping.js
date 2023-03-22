@@ -14,7 +14,9 @@ export const UserShopping = () => {
     <div id="purchase-list-container">
       <div id="purchase-list">
         {!docs?.length > 0 && !loading && (
-          <div>No has comprado nada aun, que esperas ?</div>
+          <div id="no-purchases-message">
+            No has comprado nada aun, que esperas ?
+          </div>
         )}
         {docs?.reverse().map((doc) => {
           const dateObj = doc.date.toDate();
@@ -24,6 +26,7 @@ export const UserShopping = () => {
 
           // Get the time in the format HH:MM
           const hour = format(dateObj, "HH:mm");
+          const deliveryDetailsId = uniqid();
           return (
             <div className="purchase" key={uniqid()}>
               <div className="time">
@@ -32,6 +35,7 @@ export const UserShopping = () => {
 
               {doc.cartItems?.map((item) => {
                 const detailsId = uniqid();
+
                 return (
                   <div className="cart-item" key={uniqid()}>
                     <img src={item.imgUrl} alt={item.name} />
@@ -68,12 +72,12 @@ export const UserShopping = () => {
               })}
 
               <div className="description">
-                <div className="description-total-price">
+                <p className="description-total-price">
                   Total: ${doc.totalPrice}
-                </div>
-                <div className="description-total-points">
+                </p>
+                <p className="description-total-points">
                   Puntos : {(doc.totalPrice * 5) / 100}
-                </div>
+                </p>
                 <div className="purchase-state">
                   {doc.completed === true ? "PAGADO" : "PENDIENTE DE PAGO"}
                 </div>
@@ -81,31 +85,36 @@ export const UserShopping = () => {
                   {doc.deliveryDetails ? (
                     <>
                       <div
+                        className="tittle"
                         onClick={() => {
-                          document.getElementById("delivery-details").style
+                          document.getElementById(`${deliveryDetailsId}`).style
                             .display === "none"
                             ? (document.getElementById(
-                                "delivery-details"
-                              ).style.display = "block")
+                                `${deliveryDetailsId}`
+                              ).style.display = "flex")
                             : (document.getElementById(
-                                "delivery-details"
+                                `${deliveryDetailsId}`
                               ).style.display = "none");
                         }}
                       >
-                        DELIVERy
+                        DELIVERY
                       </div>
-                      <div id="delivery-details" style={{ display: "none" }}>
+                      <div
+                        className="delivery-details"
+                        id={`${deliveryDetailsId}`}
+                        style={{ display: "none" }}
+                      >
                         <p>Barrio: {doc.deliveryDetails.barrio}</p>
                         <p>Direccion: {doc.deliveryDetails.direccion}</p>
                         <p>Entre calles: {doc.deliveryDetails.entreCalles}</p>
                         <p>
-                          Informacion adicional:
+                          Informacion adicional:{" "}
                           {doc.deliveryDetails.aditionalInfo}
                         </p>
                       </div>
                     </>
                   ) : (
-                    "RETIRO EN EL LOCAL"
+                    <div className="tittle">RETIRO EN EL LOCAL</div>
                   )}
                 </div>
               </div>

@@ -66,7 +66,6 @@ Datos personales:
 /* export const link = createWhatsAppLink("5491121690959", message);
  */
 export function link(cartItems, deliveryDetails, userData) {
-  alert(deliveryDetails.aditionalInfo);
   return createWhatsAppLink(
     "5491121690959",
     message(cartItems, deliveryDetails, userData)

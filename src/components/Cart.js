@@ -334,7 +334,7 @@ function DeliveryForm(props) {
                 props.setBarrioElegido(selected);
               }}
               options={options}
-              placeholder="Barrio"
+              placeholder="Barrio *"
               name="Barrio"
               value={props.barrioElegido}
               required
@@ -348,7 +348,7 @@ function DeliveryForm(props) {
           <div className="input-container">
             <input
               type="text"
-              placeholder="Direccion"
+              placeholder="Direccion *"
               autoComplete="street-address"
               required
               id="direccion"
@@ -365,7 +365,7 @@ function DeliveryForm(props) {
           <div className="input-container">
             <input
               type="text"
-              placeholder="Entre calles"
+              placeholder="Entre calles *"
               required
               id="entre-calles"
               defaultValue={deliveryDetails.entreCalles}
@@ -381,7 +381,8 @@ function DeliveryForm(props) {
             <textarea
               id="aditional-info"
               onInput={(e) => autoResize(e.target)}
-              placeholder="Informacion adicional, ejemplo: frente rojo, puerta negra de chapa."
+              placeholder="Opcional:
+														Descripcion de la casa, ejemplo: frente rojo, puerta negra de chapa."
               defaultValue={deliveryDetails.aditionalInfo}
               onChange={(event) =>
                 setDeliveryDetails({

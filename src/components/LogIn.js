@@ -17,7 +17,6 @@ export function LogIn() {
           const password = document.getElementById("log-in-password").value;
           signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-              alert("sign up");
               navigate("/perfil");
             })
             .catch((error) => {
@@ -37,6 +36,7 @@ export function LogIn() {
                 type="email"
                 id="log-in-email"
                 placeholder="ejemplo@gmail.com"
+                required
               />
             </div>
           </div>
@@ -44,7 +44,7 @@ export function LogIn() {
             <label htmlFor="log-in-password">Contrasenia:</label>
             <div className="input-container">
               <img src="img/password.svg" alt="icon" />
-              <input type="password" id="log-in-password" />
+              <input type="password" id="log-in-password" required />
             </div>
           </div>
           <div className="buttons-section">

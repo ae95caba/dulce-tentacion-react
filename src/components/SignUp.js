@@ -73,7 +73,7 @@ export function SignUp(props) {
 
           <ImageSection photo={photo} setPhoto={setPhoto} />
           <div className="name-section">
-            <label htmlFor="sign-up-name">Nombre completo:</label>
+            <label htmlFor="sign-up-name">Nombre completo *</label>
             <div className="input-container">
               <img src="/img/user.svg" alt="icon" />
               <input
@@ -85,7 +85,7 @@ export function SignUp(props) {
             </div>
           </div>
           <div className="email-section">
-            <label htmlFor="sign-up-email">Email:</label>
+            <label htmlFor="sign-up-email">Email *</label>
             <div className="input-container">
               <img src="/img/email.svg" alt="icon" />
               <input
@@ -97,7 +97,7 @@ export function SignUp(props) {
             </div>
           </div>
           <div className="password-section">
-            <label htmlFor="sign-up-password">Contrasenia:</label>
+            <label htmlFor="sign-up-password">Contrasenia *</label>
             <div className="input-container">
               <img src="/img/password.svg" alt="icon" />
               <input type="password" id="sign-up-password" required />
@@ -135,7 +135,7 @@ function ImageSection(props) {
 
   return (
     <div className="img-section">
-      <div className="tittle"> Foto de perfil:</div>
+      <div className="tittle"> Foto de perfil (opcional)</div>
 
       <div className="content">
         <img src={previewSource} alt="Preview" />

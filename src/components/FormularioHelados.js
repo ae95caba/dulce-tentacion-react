@@ -77,7 +77,7 @@ export function FormularioHelados(props) {
       >
         <fieldset className="sabores">{dropDowns}</fieldset>
         <fieldset className="extra">
-          <legend>Extra:</legend>
+          <legend>Opcional:</legend>
           <div className="content">
             <label htmlFor="rocklets" className="rocklets">
               <span>Rocklets:</span>
@@ -222,7 +222,7 @@ function DropDown(props) {
           onChange={updateOptions}
           required
         >
-          <option value="">{`${props.name}`}</option>
+          <option value="">{`${props.name} *`}</option>
           {sabores.map((sabor) => (
             <option value={sabor} key={uniqid()}>
               {sabor}
@@ -241,7 +241,7 @@ function DropDown(props) {
           <option value="">Respaldo / Opcional</option>
           {sabores.map((sabor) => (
             <option value={sabor} key={uniqid()}>
-              {sabor}
+              {`Sino: ${sabor}`}
             </option>
           ))}
           <option value="asd">asd</option>

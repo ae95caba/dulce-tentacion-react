@@ -22,7 +22,7 @@ export const App = () => {
   const [userData, setUserData] = useState({
     name: undefined,
     email: undefined,
-    img: "https://picsum.photos/id/684/400/400",
+    img: "/img/anonymous.svg",
   });
 
   //set isUserOnline and userData
