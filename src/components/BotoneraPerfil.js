@@ -2,7 +2,7 @@ import { useState } from "react";
 
 export function BotoneraPerfil(props) {
   const [activeTab, setActiveTab] = useState("Informacion");
-  console.log(activeTab);
+
   return (
     <div id="botonera-perfil">
       <button

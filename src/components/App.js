@@ -147,6 +147,7 @@ export const App = () => {
       <div
         id="cart-button"
         onClick={() => {
+          document.body.style.overflow = "hidden";
           document.getElementById("cart").style.display = "flex";
         }}
       >

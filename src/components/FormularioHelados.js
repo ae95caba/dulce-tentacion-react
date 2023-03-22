@@ -6,15 +6,21 @@ export function FormularioHelados(props) {
 
   for (let i = 0; i < props.product.flavours; i++) {
     dropDowns.push(
-      <DropDown id={`sabor-${i + 1}`} name={`Sabor ${i + 1}:`} key={uniqid()} />
+      <DropDown id={`sabor-${i + 1}`} name={`Sabor ${i + 1}`} key={uniqid()} />
     );
   }
 
-  const [extras, setExtras] = useState({
+  /*   const [extras, setExtras] = useState({
     rocklets: { price: 100, isChecked: false },
     conos: { price: 80, count: 0 },
     salsa: { price: 110, type: null },
-  });
+  }); */
+
+  let extras = {
+    rocklets: { price: 100, isChecked: false },
+    conos: { price: 80, count: 0 },
+    salsa: { price: 110, type: null },
+  };
 
   let totalPrice = () => {
     let total = props.product.price; //reemplazar por precio de helados
@@ -90,11 +96,13 @@ export function FormularioHelados(props) {
                   if (e.target.checked) {
                     const copy = { ...extras };
                     copy.rocklets.isChecked = true;
-                    setExtras({ ...copy });
+                    //setExtras({ ...copy });
+                    extras = { ...copy };
                   } else {
                     const copy = { ...extras };
                     copy.rocklets.isChecked = false;
-                    setExtras({ ...copy });
+                    // setExtras({ ...copy });
+                    extras = { ...copy };
                   }
                 }}
               />
@@ -107,7 +115,8 @@ export function FormularioHelados(props) {
                 onChange={(e) => {
                   const copy = { ...extras };
                   copy.salsa.type = e.target.value;
-                  setExtras({ ...copy });
+                  /*  setExtras({ ...copy }); */
+                  extras = { ...copy };
                 }}
               >
                 <option value="">Eligue una salsa</option>
@@ -118,20 +127,21 @@ export function FormularioHelados(props) {
             <div className="conos">
               <label htmlFor="conos">Conos:</label>
               <div className="count">
-                <button
-                  type="button"
+                <div
+                  className="decrease"
                   onClick={() => {
                     const input = document.getElementById("conos");
                     if (input.value > 0) {
                       document.getElementById("conos").value--;
                       const copy = { ...extras };
                       copy.conos.count = input.value;
-                      setExtras({ ...copy });
+                      /* setExtras({ ...copy }); */
+                      extras = { ...copy };
                     }
                   }}
                 >
                   -
-                </button>
+                </div>
                 <input
                   id="conos"
                   type="number"
@@ -143,36 +153,40 @@ export function FormularioHelados(props) {
                     console.log("onchange");
                     const copy = { ...extras };
                     copy.conos.count = e.target.value;
-                    setExtras({ ...copy });
+                    /*  setExtras({ ...copy }); */
+                    extras = { ...copy };
                   }}
                 />
-                <button
-                  type="button"
+                <div
+                  className="increase"
                   onClick={() => {
                     const input = document.getElementById("conos");
                     input.value++;
                     const copy = { ...extras };
                     copy.conos.count = input.value;
-                    setExtras({ ...copy });
+                    /* setExtras({ ...copy }); */
+                    extras = { ...copy };
                   }}
                 >
                   +
-                </button>
+                </div>
               </div>
             </div>
           </div>
         </fieldset>
 
         <div className="total-helado">Total: $ {totalPrice()}</div>
-        <button type="submit">Aceptar</button>
-        <button
-          type="button"
-          onClick={() => {
-            props.close();
-          }}
-        >
-          Cancelar
-        </button>
+        <div className="buttons-container">
+          <button type="submit">Aceptar</button>
+          <button
+            type="button"
+            onClick={() => {
+              props.close();
+            }}
+          >
+            Cancelar
+          </button>
+        </div>
       </form>
     </div>
   );

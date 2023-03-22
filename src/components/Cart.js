@@ -189,6 +189,7 @@ export function Cart(props) {
       <button
         className="close"
         onClick={() => {
+          document.body.style.overflow = "auto";
           document.getElementById("cart").style.display = "none";
         }}
       >

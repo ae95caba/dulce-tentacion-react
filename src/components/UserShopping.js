@@ -9,7 +9,7 @@ import uniqid from "uniqid";
 export const UserShopping = () => {
   const query = collection(db, `users/${auth.currentUser.uid}/compras`);
   const [docs, loading, error] = useCollectionData(query);
-  console.log(docs);
+
   return (
     <div id="purchase-list-container">
       <div id="purchase-list">
