@@ -181,6 +181,9 @@ export function Cart(props) {
             type="submit"
             form="delivery-form"
             disabled={props.cartItems.length === 0}
+            onClick={() => {
+              console.log(props.cartItems);
+            }}
           >
             Comprar
           </button>

@@ -1,26 +1,22 @@
-import { createFactory, useState } from "react";
+import { createFactory, useEffect, useState } from "react";
 import uniqid from "uniqid";
 
 export function FormularioHelados(props) {
-  const dropDowns = [];
+  const [dropDowns, setDropDowns] = useState([]);
 
-  for (let i = 0; i < props.product.flavours; i++) {
-    dropDowns.push(
-      <DropDown id={`sabor-${i + 1}`} name={`Sabor ${i + 1}`} key={uniqid()} />
-    );
-  }
+  useEffect(() => {
+    let arr = [];
+    for (let i = 0; i < props.product.flavours; i++) {
+      arr.push({ index: i, value: null });
+    }
+    setDropDowns(arr);
+  }, []);
 
-  /*   const [extras, setExtras] = useState({
+  const [extras, setExtras] = useState({
     rocklets: { price: 100, isChecked: false },
     conos: { price: 80, count: 0 },
     salsa: { price: 110, type: null },
-  }); */
-
-  let extras = {
-    rocklets: { price: 100, isChecked: false },
-    conos: { price: 80, count: 0 },
-    salsa: { price: 110, type: null },
-  };
+  });
 
   let totalPrice = () => {
     let total = props.product.price; //reemplazar por precio de helados
@@ -36,6 +32,12 @@ export function FormularioHelados(props) {
     }
     return total;
   };
+
+  function addFlavour() {
+    const copy = [...dropDowns];
+    copy.push({ index: dropDowns.length, value: null });
+    setDropDowns(copy);
+  }
 
   return (
     <div id="contenedor-formulario-helados">
@@ -81,10 +83,38 @@ export function FormularioHelados(props) {
           props.close();
         }}
       >
-        <fieldset className="sabores">{dropDowns}</fieldset>
+        <fieldset className="sabores">
+          {dropDowns.map((dropDown, index) => (
+            <DropDown
+              dropDowns={dropDowns}
+              setDropDowns={setDropDowns}
+              name={`Sabor ${index + 1}`}
+              key={uniqid()}
+              index={index}
+            />
+          ))}
+          {dropDowns.length < props.product.flavours ? (
+            <p
+              onClick={() => {
+                addFlavour();
+              }}
+            >
+              Agregar sabor
+            </p>
+          ) : null}
+        </fieldset>
         <fieldset className="extra">
-          <legend>Opcional:</legend>
-          <div className="content">
+          <legend
+            onClick={() => {
+              const content = document.querySelector(".content");
+              content.style.display === "none"
+                ? (content.style.display = "grid")
+                : (content.style.display = "none");
+            }}
+          >
+            Opcional: <img src="/img/arrow-down.svg" />
+          </legend>
+          <div className="content" style={{ display: "none" }}>
             <label htmlFor="rocklets" className="rocklets">
               <span>Rocklets:</span>
               <input
@@ -96,13 +126,13 @@ export function FormularioHelados(props) {
                   if (e.target.checked) {
                     const copy = { ...extras };
                     copy.rocklets.isChecked = true;
-                    //setExtras({ ...copy });
-                    extras = { ...copy };
+                    setExtras({ ...copy });
+                    // extras = { ...copy };
                   } else {
                     const copy = { ...extras };
                     copy.rocklets.isChecked = false;
-                    // setExtras({ ...copy });
-                    extras = { ...copy };
+                    setExtras({ ...copy });
+                    // extras = { ...copy };
                   }
                 }}
               />
@@ -115,8 +145,8 @@ export function FormularioHelados(props) {
                 onChange={(e) => {
                   const copy = { ...extras };
                   copy.salsa.type = e.target.value;
-                  /*  setExtras({ ...copy }); */
-                  extras = { ...copy };
+                  setExtras({ ...copy });
+                  //extras = { ...copy };
                 }}
               >
                 <option value="">Eligue una salsa</option>
@@ -135,8 +165,8 @@ export function FormularioHelados(props) {
                       document.getElementById("conos").value--;
                       const copy = { ...extras };
                       copy.conos.count = input.value;
-                      /* setExtras({ ...copy }); */
-                      extras = { ...copy };
+                      setExtras({ ...copy });
+                      // extras = { ...copy };
                     }
                   }}
                 >
@@ -153,8 +183,8 @@ export function FormularioHelados(props) {
                     console.log("onchange");
                     const copy = { ...extras };
                     copy.conos.count = e.target.value;
-                    /*  setExtras({ ...copy }); */
-                    extras = { ...copy };
+                    setExtras({ ...copy });
+                    // extras = { ...copy };
                   }}
                 />
                 <div
@@ -164,8 +194,8 @@ export function FormularioHelados(props) {
                     input.value++;
                     const copy = { ...extras };
                     copy.conos.count = input.value;
-                    /* setExtras({ ...copy }); */
-                    extras = { ...copy };
+                    setExtras({ ...copy });
+                    // extras = { ...copy };
                   }}
                 >
                   +
@@ -195,71 +225,38 @@ export function FormularioHelados(props) {
 function DropDown(props) {
   const sabores = ["Frutilla", "Vainilla", "Chocolate", "Mantecol"];
 
-  function updateOptions() {
-    const select1 = document.getElementById(`${props.id}`);
-    const select2 = document.getElementById(`${props.id}-respaldo`);
-
-    // Enable all options
-    for (let i = 0; i < select1.options.length; i++) {
-      select1.options[i].disabled = false;
-    }
-    for (let i = 0; i < select2.options.length; i++) {
-      select2.options[i].disabled = false;
-    }
-
-    // Disable selected option in other select element
-    const selectedOptionValue1 = select1.value;
-    const selectedOptionValue2 = select2.value;
-
-    for (let i = 0; i < select1.options.length; i++) {
-      if (select1.options[i].value === selectedOptionValue2) {
-        select1.options[i].disabled = true;
-        break;
-      }
-    }
-    for (let i = 0; i < select2.options.length; i++) {
-      if (select2.options[i].value === selectedOptionValue1) {
-        select2.options[i].disabled = true;
-        break;
-      }
-    }
-  }
-
   return (
     <fieldset className="sabor">
       <div className="input-container">
-        {/* <label htmlFor={`${props.id}`}>{`${props.name}`}</label> */}
         <select
           className="required"
-          name={`${props.id}`}
-          id={`${props.id}`}
-          onChange={updateOptions}
+          name={props.name}
+          value={props.dropDowns[props.index].value}
+          onChange={(e) => {
+            const copy = [...props.dropDowns];
+            copy[props.index].value = e.target.value;
+            props.setDropDowns(copy);
+
+            console.log(props.dropDowns);
+          }}
           required
         >
-          <option value="">{`${props.name} *`}</option>
+          <option value="">Elegi un sabor</option>
           {sabores.map((sabor) => (
             <option value={sabor} key={uniqid()}>
               {sabor}
             </option>
           ))}
         </select>
-      </div>
-
-      <div className="input-container">
-        <select
-          className="optional"
-          name={`${props.id}-respaldo`}
-          id={`${props.id}-respaldo`}
-          onChange={updateOptions}
+        <span
+          onClick={() => {
+            const copy = [...props.dropDowns];
+            copy.splice(props.index, 1);
+            props.setDropDowns(copy);
+          }}
         >
-          <option value="">Respaldo / Opcional</option>
-          {sabores.map((sabor) => (
-            <option value={sabor} key={uniqid()}>
-              {`Sino: ${sabor}`}
-            </option>
-          ))}
-          <option value="asd">asd</option>
-        </select>
+          X
+        </span>
       </div>
     </fieldset>
   );

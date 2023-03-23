@@ -121,6 +121,7 @@ export function Shop(props) {
   }, [currentFilter]);
 
   function closeIceCreamForm() {
+    document.body.style.overflow = "auto";
     setIceCreamForm({
       show: false,
 
@@ -129,6 +130,7 @@ export function Shop(props) {
   }
 
   function openIceCreamForm(product) {
+    document.body.style.overflow = "hidden";
     setIceCreamForm({
       show: true,
 
