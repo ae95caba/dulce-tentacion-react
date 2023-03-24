@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import classNames from "classnames";
 
 export function Navbar(props) {
   const [activeTab, setActiveTab] = useState("Inicio");
@@ -38,7 +39,12 @@ export function Navbar(props) {
               setActiveTab("Profile");
               window.scrollTo(0, 0);
             }}
-            className={activeTab === "Profile" ? "active" : ""}
+            /* className={activeTab === "Profile" ? "active" : ""} */
+            className={`container 
+    ${activeTab === "Profile" ? "active" : ""}
+    ${activeTab !== "Profile" && props.isUserOnline ? "inactive" : ""}
+    
+`}
           >
             Perfil
           </Link>

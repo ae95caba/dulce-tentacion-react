@@ -155,7 +155,7 @@ export const App = () => {
         <div id="total-items">{totalItems()}</div>
         <div id="total-price">$ {totalPrice()}</div>
       </div>
-      <Navbar />
+      <Navbar isUserOnline={isUserOnline} />
       {showThanksMessage ? (
         <ThanksMessage close={() => setShowThanksMessage(false)} />
       ) : null}
