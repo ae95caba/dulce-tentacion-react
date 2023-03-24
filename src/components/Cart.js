@@ -187,7 +187,15 @@ export function Cart(props) {
             </div>
           </div>
 
-          <button type="submit" form="delivery-form">
+          <button
+            type="submit"
+            className={
+              props.isUserOnline
+                ? "animate__animated animate__pulse animate__infinite	animate__slow	"
+                : "offline"
+            }
+            form="delivery-form"
+          >
             Comprar
           </button>
         </div>
