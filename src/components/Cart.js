@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 import { useNavigate } from "react-router-dom";
 import { addCartToFirestore } from "../backend/addCartToFiresstore";
@@ -35,10 +35,6 @@ export function Cart(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    setOrderFulfillment({
-      delivery: false,
-      pickup: false,
-    });
 
     document.getElementById("cart").style.display = "none";
 
@@ -79,10 +75,24 @@ export function Cart(props) {
         );
       }
       //for all online conditions
+      setOrderFulfillment({
+        delivery: false,
+        pickup: false,
+      });
 
       props.clearCart();
     } else {
       navigate("/perfil");
+      document.body.style.overflow = "auto";
+    }
+  }
+
+  //
+  const containerRef = useRef(null);
+  function handleClick(e) {
+    if (e.target === containerRef.current.querySelector("button[disabled]")) {
+      // Run your code here
+      console.log("Clicked on disabled button");
     }
   }
 
@@ -177,27 +187,20 @@ export function Cart(props) {
             </div>
           </div>
 
-          <button
-            type="submit"
-            form="delivery-form"
-            disabled={props.cartItems.length === 0}
-            onClick={() => {
-              console.log(props.cartItems);
-            }}
-          >
+          <button type="submit" form="delivery-form">
             Comprar
           </button>
         </div>
       ) : null}
-      <button
+      <img
+        src="/img/return.svg"
+        alt="return"
         className="close"
         onClick={() => {
           document.body.style.overflow = "auto";
           document.getElementById("cart").style.display = "none";
         }}
-      >
-        Cerrar
-      </button>
+      />
     </div>
   );
 }

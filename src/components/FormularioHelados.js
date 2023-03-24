@@ -84,6 +84,7 @@ export function FormularioHelados(props) {
         }}
       >
         <fieldset className="sabores">
+          <legend>Podes elegir hasta {props.product.flavours} sabores</legend>
           {dropDowns.map((dropDown, index) => (
             <DropDown
               dropDowns={dropDowns}
