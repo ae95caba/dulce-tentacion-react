@@ -94,13 +94,16 @@ export function FormularioHelados(props) {
             />
           ))}
           {dropDowns.length < props.product.flavours ? (
-            <p
+            <div
+              className="add-flavour"
               onClick={() => {
                 addFlavour();
               }}
             >
-              Agregar sabor
-            </p>
+              <p>
+                AGREGAR <span>+</span>
+              </p>
+            </div>
           ) : null}
         </fieldset>
         <fieldset className="extra">
@@ -248,15 +251,17 @@ function DropDown(props) {
             </option>
           ))}
         </select>
-        <span
-          onClick={() => {
-            const copy = [...props.dropDowns];
-            copy.splice(props.index, 1);
-            props.setDropDowns(copy);
-          }}
-        >
-          X
-        </span>
+        {props.index !== 0 ? (
+          <span
+            onClick={() => {
+              const copy = [...props.dropDowns];
+              copy.splice(props.index, 1);
+              props.setDropDowns(copy);
+            }}
+          >
+            X
+          </span>
+        ) : null}
       </div>
     </fieldset>
   );
