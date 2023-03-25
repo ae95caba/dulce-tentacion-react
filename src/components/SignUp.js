@@ -135,7 +135,7 @@ function ImageSection(props) {
 
   return (
     <div className="img-section">
-      <div className="tittle"> Foto de perfil (opcional)</div>
+      <div className="tittle"> Foto de perfil (OPCIONAL)</div>
 
       <div className="content">
         <img src={previewSource} alt="Preview" />

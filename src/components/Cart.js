@@ -35,8 +35,9 @@ export function Cart(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-
+    const perfil = document.getElementById("profile-button");
     document.getElementById("cart").style.display = "none";
+    document.body.style.overflow = "auto";
 
     if (props.isUserOnline) {
       if (orderFulfillment.delivery) {
@@ -75,6 +76,7 @@ export function Cart(props) {
         );
       }
       //for all online conditions
+
       setOrderFulfillment({
         delivery: false,
         pickup: false,
@@ -82,8 +84,7 @@ export function Cart(props) {
 
       props.clearCart();
     } else {
-      navigate("/perfil");
-      document.body.style.overflow = "auto";
+      perfil.click();
     }
   }
 
@@ -187,17 +188,24 @@ export function Cart(props) {
             </div>
           </div>
 
-          <button
-            type="submit"
-            className={
-              props.isUserOnline
-                ? "animate__animated animate__pulse animate__infinite	animate__slow	"
-                : "offline"
-            }
-            form="delivery-form"
-          >
-            Comprar
-          </button>
+          <div>
+            <button
+              style={{ marginBottom: "1.2rem" }}
+              type="submit"
+              className={props.isUserOnline ? "font-effect-fire	" : "offline"}
+              form="delivery-form"
+            >
+              Comprar
+            </button>
+            <button
+              onClick={() => {
+                document.body.style.overflow = "auto";
+                document.getElementById("cart").style.display = "none";
+              }}
+            >
+              Atras
+            </button>
+          </div>
         </div>
       ) : null}
       <img

@@ -34,13 +34,14 @@ export function Navbar(props) {
         </li>
         <li>
           <Link
+            id="profile-button"
             to="/perfil"
             onClick={(e) => {
               setActiveTab("Profile");
               window.scrollTo(0, 0);
             }}
             /* className={activeTab === "Profile" ? "active" : ""} */
-            className={`container 
+            className={`
     ${activeTab === "Profile" ? "active" : ""}
     ${activeTab !== "Profile" && props.isUserOnline ? "inactive" : ""}
     

@@ -211,16 +211,26 @@ export function FormularioHelados(props) {
 
         <div className="total-helado">Total: $ {totalPrice()}</div>
         <div className="buttons-container">
-          <button type="submit">Aceptar</button>
+          <button type="submit" className="binary-buttons font-effect-fire">
+            Aceptar
+          </button>
           <button
             type="button"
             onClick={() => {
               props.close();
             }}
           >
-            Cancelar
+            Atras
           </button>
         </div>
+        <img
+          className="close"
+          src="/img/return.svg"
+          alt="return"
+          onClick={() => {
+            props.close();
+          }}
+        />
       </form>
     </div>
   );
@@ -262,7 +272,9 @@ function DropDown(props) {
           >
             X
           </span>
-        ) : null}
+        ) : (
+          <span style={{ opacity: "0.4" }}>X</span>
+        )}
       </div>
     </fieldset>
   );
