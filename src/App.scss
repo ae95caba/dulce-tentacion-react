@@ -667,10 +667,50 @@ nav {
   }
 
   .to-cart {
+    position: relative;
     color: white;
     background-color: black;
 
     font-weight: 900;
+  }
+  .active:after {
+    content: "";
+    display: block;
+    position: absolute;
+
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: all 0.5s;
+    box-shadow: 0 0 10px 30px black;
+    animation: animate 1s;
+  }
+  @keyframes animate {
+    from {
+      box-shadow: 0 0 0 0 black;
+      position: absolute;
+
+      left: 0;
+      top: 0;
+      opacity: 1;
+      transition: 0s;
+    }
+    to {
+      content: "";
+      display: block;
+      position: absolute;
+
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: all 0.5s;
+      box-shadow: 0 0 10px 30px black;
+      animation: animate 1s;
+    }
   }
 }
 

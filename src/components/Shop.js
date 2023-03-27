@@ -189,6 +189,7 @@ function Card({ product, addCartItem, openIceCreamForm }) {
             : () => {
                 addCartItem(product);
                 setActive(true);
+                console.log("ani start");
               }
         }
       >
