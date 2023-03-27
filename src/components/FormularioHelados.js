@@ -118,6 +118,7 @@ export function FormularioHelados(props) {
         </fieldset>
         <fieldset className="extra">
           <legend
+            className="dropdown-button"
             onClick={() => {
               const content = document.querySelector(".content");
               content.style.display === "none"
@@ -125,7 +126,7 @@ export function FormularioHelados(props) {
                 : (content.style.display = "none");
             }}
           >
-            Opcional: <img src="/img/arrow-down.svg" />
+            Adicionales <img src="/img/arrow-down.svg" />
           </legend>
           <div className="content" style={{ display: "none" }}>
             <label htmlFor="rocklets" className="rocklets">

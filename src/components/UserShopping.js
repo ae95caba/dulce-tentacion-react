@@ -86,7 +86,7 @@ export const UserShopping = () => {
                   {doc.deliveryDetails ? (
                     <>
                       <p
-                        className="tittle delivery"
+                        className="dropdown-button"
                         onClick={() => {
                           document.getElementById(`${deliveryDetailsId}`).style
                             .display === "none"

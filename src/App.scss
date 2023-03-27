@@ -386,25 +386,11 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
         color: white;
       }
       .order-fulfillment {
-        .tittle.delivery {
-          font-size: 1.6rem;
-
-          box-shadow: 3px 3px 3px grey;
-          width: 100%;
+        .dropdown-button {
           color: black;
-          font-weight: 900;
 
           background-color: white;
           background-image: $primary;
-          display: grid;
-          align-items: center;
-          justify-items: center;
-          padding: 0.5rem;
-          grid-template-columns: 66.6% 33.3%;
-          img {
-            width: 50%;
-            filter: invert(1);
-          }
         }
         .tittle.pickup {
           background-color: white;
@@ -714,8 +700,28 @@ nav {
   }
 }
 
+//acept cancel
 .binary-buttons {
   background-color: white;
+}
+
+.dropdown-button {
+  font-size: 1.5rem;
+
+  box-shadow: 3px 3px 3px grey;
+  width: 100%;
+
+  font-weight: 900;
+
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  padding: 0.4rem;
+  grid-template-columns: 66.6% 33.3%;
+  img {
+    width: 50%;
+    filter: invert(1);
+  }
 }
 
 button {
@@ -788,11 +794,16 @@ button {
     // border: 2px solid violet;
     padding: 0px 2.5rem;
     padding-bottom: 2rem;
-    .create-account {
-      color: white;
+    /* 		padding: 0.5rem;
+					 background-color: black;
+      color: white; */
+    .dropdown-button {
+      padding: 0.5rem;
       background-color: black;
-
-      font-weight: 900;
+      color: white;
+      img {
+        filter: invert(0);
+      }
     }
     .or {
       margin: 1rem 0px;
@@ -891,7 +902,7 @@ button {
             width: 100%;
             text-align: left;
           }
-          .content {
+          .img-content {
             border-radius: 50%;
             height: 40vw;
             width: 40vw;
@@ -1119,7 +1130,7 @@ button {
     .extra {
       //border: 1px solid black;
 
-      legend {
+      /*  legend {
         font-size: 1.6rem;
 
         box-shadow: 3px 3px 3px grey;
@@ -1134,7 +1145,17 @@ button {
         img {
           width: 50%;
         }
+      } */
+
+      .dropdown-button {
+        padding: 0.6rem !important;
+        background-color: black;
+        color: white;
+        img {
+          filter: invert(0);
+        }
       }
+
       .content {
         margin-top: 1.5rem;
 

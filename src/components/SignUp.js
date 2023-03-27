@@ -14,14 +14,14 @@ export function SignUp(props) {
       <div className="content">
         <div className="tittle">No tenes cuenta ?</div>
         <div className="body">
-          <button
-            className="create-account"
+          <p
+            className="dropdown-button"
             onClick={() => {
               showForm ? setShowForm(false) : setShowForm(true);
             }}
           >
-            Crear cuenta
-          </button>
+            Crear cuenta <img src="/img/arrow-down.svg" />
+          </p>
           {showForm ? (
             <SignUpForm
               setUserData={props.setUserData}
@@ -166,7 +166,7 @@ function ImageSection(props) {
     <div className="img-section">
       <div className="tittle"> Foto de perfil (OPCIONAL)</div>
 
-      <div className="content">
+      <div className="img-content">
         <img src={previewSource} alt="Preview" />
         <label htmlFor="sign-up-img">
           <img src="/img/camera.svg" />
