@@ -1,8 +1,10 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import classNames from "classnames";
 
 export function Navbar(props) {
+  const location = useLocation();
+  const isProfileActive = location.pathname === "/perfil";
   return (
     <nav>
       <ul>
@@ -30,11 +32,12 @@ export function Navbar(props) {
           <NavLink
             id="profile-button"
             to="/perfil"
-            activeClassName="Profile"
             onClick={(e) => {
               window.scrollTo(0, 0);
             }}
-            /* className={activeTab === "Profile" ? "active" : ""} */
+            className={`${
+              props.isUserOnline && !isProfileActive ? "inactive" : ""
+            } ${isProfileActive ? "active" : ""}`}
           >
             Perfil
           </NavLink>
