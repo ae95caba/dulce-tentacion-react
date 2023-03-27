@@ -364,9 +364,6 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
     //border: 1px solid black;
     box-shadow: 3px 3px 3px grey;
 
-    button {
-      box-shadow: 0px 2px 2px black;
-    }
     .time {
       padding: 0.5rem 0.5rem;
       font-size: 1.2rem;
@@ -384,19 +381,35 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
         padding: 0.5rem;
         font-size: 1.3rem;
       }
-      .purchase-state,
-      .tittle {
-        padding: 0.8rem;
-        font-size: 1.4rem;
+      .purchase-state {
         background-color: black;
         color: white;
-        font-weight: 900;
       }
       .order-fulfillment {
-        .tittle {
-          background-color: white;
+        .tittle.delivery {
+          font-size: 1.6rem;
+
+          box-shadow: 3px 3px 3px grey;
+          width: 100%;
           color: black;
+          font-weight: 900;
+
+          background-color: white;
           background-image: $primary;
+          display: grid;
+          align-items: center;
+          justify-items: center;
+          padding: 0.5rem;
+          grid-template-columns: 66.6% 33.3%;
+          img {
+            width: 50%;
+            filter: invert(1);
+          }
+        }
+        .tittle.pickup {
+          background-color: white;
+          background-image: $primary;
+          color: black;
         }
         .delivery-details {
           display: flex;
@@ -727,13 +740,48 @@ button {
 
 #profile-offline {
   // border: 1px solid orange;
-  .form-container {
+  .form-container,
+  .container {
     display: flex;
     align-items: center;
+    justify-content: center;
+
     flex-direction: column;
     // border: 2px solid violet;
     padding: 0px 2.5rem;
     padding-bottom: 2rem;
+    .create-account {
+      margin-top: 1rem;
+      color: white;
+      background-color: black;
+
+      font-weight: 900;
+    }
+    .or {
+      margin: 1rem 0px;
+      font-size: 1.5rem;
+    }
+    #google-auth {
+      display: grid;
+      grid-template-rows: 100%;
+      grid-template-columns: 20% 80%;
+      background-color: rgb(0, 119, 255);
+      font-weight: 900;
+      align-items: center;
+      color: white;
+      padding: 0;
+      border-radius: 0.2rem;
+      img {
+        width: 100%;
+        border-radius: 0.1rem;
+      }
+
+      span {
+        padding: 1rem;
+        font-size: 1.3rem;
+      }
+    }
+
     #sign-up,
     #log-in {
       padding-top: 1rem;
@@ -815,33 +863,6 @@ button {
               bottom: 0%;
               background-image: $primary;
               padding: 0.4rem;
-            }
-          }
-        }
-
-        .buttons-section {
-          display: flex;
-          flex-direction: column;
-          gap: 0.6rem;
-
-          #google-auth {
-            display: grid;
-            grid-template-rows: 100%;
-            grid-template-columns: 20% 80%;
-            background-color: rgb(0, 119, 255);
-            font-weight: 900;
-            align-items: center;
-            color: white;
-            padding: 0;
-            border-radius: 0.2rem;
-            img {
-              width: 100%;
-              border-radius: 0.1rem;
-            }
-
-            span {
-              padding: 1rem;
-              font-size: 1.3rem;
             }
           }
         }
@@ -1057,7 +1078,6 @@ button {
       legend {
         font-size: 1.6rem;
 
-        border: 1px solid black;
         box-shadow: 3px 3px 3px grey;
         width: 100%;
         color: white;

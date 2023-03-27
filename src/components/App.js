@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import "../App.scss";
 import { Route, useRevalidator } from "react-router-dom";
 import { Routes } from "react-router-dom";
@@ -8,16 +8,18 @@ import { Shop } from "./Shop";
 import { Cart } from "./Cart";
 import { auth } from "../backend/firebase";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Navbar } from "./Navbar";
 
 import { ThanksMessage } from "./ThanksMessage";
+import { set } from "date-fns/esm";
 
 export const App = () => {
   const [cartItems, setCartItems] = useState([]);
   const [deliveryPrice, setDeliveryPrice] = useState(0);
   const [showThanksMessage, setShowThanksMessage] = useState(false);
   const [isUserOnline, setIsUserOnline] = useState();
+  const [isABuyPending, setIsABuyPending] = useState(false);
 
   const [userData, setUserData] = useState({
     name: undefined,
@@ -25,9 +27,24 @@ export const App = () => {
     img: "/img/anonymous.svg",
   });
 
+  //
+  useEffect(() => {
+    if (isABuyPending) {
+      document.getElementById("cart").style.display = "flex";
+      document.body.style.overflow = "hidden";
+      setIsABuyPending(false);
+    }
+  }, [isUserOnline]);
+
   //set isUserOnline and userData
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
+      if (user) {
+        console.log("there is a user online");
+      } else {
+        console.log("no user online");
+      }
+
       if (user) {
         setIsUserOnline(true);
 
@@ -62,50 +79,51 @@ export const App = () => {
 
   //increases a cart item count if the item is in the cart
   //if the item was no in the cart (its just been added) it adds it to cartItems array
-  function addCartItem(product) {
-    var isProductInCart = false;
-    var index = undefined;
-    for (var i = 0; i < cartItems.length; i++) {
-      if (cartItems[i].name === product.name) {
-        isProductInCart = true;
-        index = i;
-        break;
+  const addCartItem = useCallback(
+    (product) => {
+      var isProductInCart = false;
+      var index = undefined;
+      for (var i = 0; i < cartItems.length; i++) {
+        if (cartItems[i].name === product.name) {
+          isProductInCart = true;
+          index = i;
+          break;
+        }
       }
-    }
 
-    if (!isProductInCart) {
-      setCartItems([
-        ...cartItems,
-        {
-          name: product.name,
-          imgUrl: product.imgUrl,
-          price: product.price,
-          count: 1,
+      if (!isProductInCart) {
+        setCartItems([
+          ...cartItems,
+          {
+            name: product.name,
+            imgUrl: product.imgUrl,
+            price: product.price,
+            count: 1,
 
-          get totalPrice() {
-            return this.price * this.count;
+            get totalPrice() {
+              return this.price * this.count;
+            },
           },
-        },
-      ]);
-    } else {
-      // INCREASE COUNT BY 1
-      let copy = [...cartItems];
-      copy[index].count = copy[index].count + 1;
+        ]);
+      } else {
+        // INCREASE COUNT BY 1
+        let copy = [...cartItems];
+        copy[index].count = copy[index].count + 1;
 
-      setCartItems([...copy]);
-    }
-  }
+        setCartItems([...copy]);
+      }
+    },
+    [cartItems]
+  );
 
-  function addDelivery(delivery) {}
-
-  function addIceCream(iceCream) {
+  const addIceCream = useCallback((iceCream) => {
     setCartItems([
       ...cartItems,
       {
         ...iceCream,
       },
     ]);
-  }
+  }, []);
 
   //	decreases a cart item count
   //if the is only only the removes it entirely
@@ -147,6 +165,7 @@ export const App = () => {
       <div
         id="cart-button"
         onClick={() => {
+          console.log(isABuyPending);
           document.body.style.overflow = "hidden";
           document.getElementById("cart").style.display = "flex";
         }}
@@ -161,6 +180,7 @@ export const App = () => {
       ) : null}
 
       <Cart
+        setIsABuyPending={setIsABuyPending}
         userData={userData}
         isUserOnline={isUserOnline}
         setDeliveryPrice={setDeliveryPrice}
@@ -188,8 +208,7 @@ export const App = () => {
             />
           }
         />
-        {/*   <Route path="/perfil/crear-cuenta" element={<SignUp />} />
-        <Route path="/perfil/iniciar-sesion" element={<LogIn />} /> */}
+
         <Route
           path="/tienda"
           element={<Shop addCartItem={addCartItem} addIceCream={addIceCream} />}

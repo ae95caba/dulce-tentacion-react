@@ -1,10 +1,11 @@
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { db, auth } from "../backend/firebase";
 import { collection, deleteDoc, doc as firebaseDoc } from "firebase/firestore";
-
+import { getPoints } from "../backend/getPoints";
 import { format } from "date-fns";
 import { Details } from "./Cart";
 import uniqid from "uniqid";
+import { useEffect } from "react";
 
 export const UserShopping = () => {
   const query = collection(db, `users/${auth.currentUser.uid}/compras`);
@@ -78,14 +79,14 @@ export const UserShopping = () => {
                 <p className="description-total-points">
                   Puntos : {(doc.totalPrice * 5) / 100}
                 </p>
-                <div className="purchase-state">
-                  {doc.completed === true ? "PAGADO" : "PENDIENTE DE PAGO"}
-                </div>
+                <button className="purchase-state">
+                  {doc.completed === true ? "Pagado" : "Pendiente de pago"}
+                </button>
                 <div className="order-fulfillment">
                   {doc.deliveryDetails ? (
                     <>
-                      <div
-                        className="tittle"
+                      <p
+                        className="tittle delivery"
                         onClick={() => {
                           document.getElementById(`${deliveryDetailsId}`).style
                             .display === "none"
@@ -97,8 +98,9 @@ export const UserShopping = () => {
                               ).style.display = "none");
                         }}
                       >
-                        DELIVERY
-                      </div>
+                        Delivery
+                        <img src="/img/arrow-down.svg" />
+                      </p>
                       <div
                         className="delivery-details"
                         id={`${deliveryDetailsId}`}
@@ -114,7 +116,9 @@ export const UserShopping = () => {
                       </div>
                     </>
                   ) : (
-                    <div className="tittle">RETIRO EN EL LOCAL</div>
+                    <button className="tittle pickup">
+                      RETIRO EN EL LOCAL
+                    </button>
                   )}
                 </div>
               </div>

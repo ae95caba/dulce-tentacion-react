@@ -6,8 +6,8 @@ export function Botonera(props) {
   return (
     <div id="botonera">
       <button
-        onClick={(e) => {
-          props.changeContent(e);
+        onClick={() => {
+          props.setContent(props.catalog.helados);
           window.scrollTo(0, 0);
           setActiveTab("Helados");
         }}
@@ -17,8 +17,8 @@ export function Botonera(props) {
       </button>
 
       <button
-        onClick={(e) => {
-          props.changeContent(e);
+        onClick={() => {
+          props.setContent(props.catalog.escabio);
           setActiveTab("Escabio");
           window.scrollTo(0, 0);
         }}
@@ -27,8 +27,8 @@ export function Botonera(props) {
         Escabio
       </button>
       <button
-        onClick={(e) => {
-          props.changeContent(e);
+        onClick={() => {
+          props.setContent(props.catalog.helados);
           setActiveTab("Kiosko");
           window.scrollTo(0, 0);
         }}

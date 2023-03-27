@@ -5,7 +5,39 @@ import { GoogleAuth } from "./GoogleAuth";
 
 import { useState } from "react";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
 export function SignUp(props) {
+  const [showForm, setShowForm] = useState(false);
+
+  return (
+    <div className="container">
+      <div className="content">
+        <div className="tittle">No tenes cuenta ?</div>
+        <div className="body">
+          <button
+            className="create-account"
+            onClick={() => {
+              showForm ? setShowForm(false) : setShowForm(true);
+            }}
+          >
+            Crear cuenta
+          </button>
+          {showForm ? (
+            <SignUpForm
+              setUserData={props.setUserData}
+              userData={props.userData}
+              setOfflineFilter={props.setOfflineFilter}
+            />
+          ) : null}
+          <p className="or">- o -</p>
+          <GoogleAuth text={"Entra con Google"} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function SignUpForm(props) {
   const [photo, setPhoto] = useState(null);
 
   //storage
@@ -20,97 +52,94 @@ export function SignUp(props) {
   }
 
   return (
-    <div className="form-container">
-      <form
-        id="sign-up"
-        action=""
-        onSubmit={async (e) => {
-          e.preventDefault();
-          const email = document.getElementById("sign-up-email").value;
-          const password = document.getElementById("sign-up-password").value;
-          const fullName = document.getElementById("sign-up-name").value;
-          try {
-            const { user } = await createUserWithEmailAndPassword(
-              auth,
-              email,
-              password
-            );
-            if (!photo) {
-              //onAuthState listener detects user online
-              //here runs a re-render due to 2  updates to the state (isUserOnline and userData)
-              //showing the profile with the email instead of name
-              await updateProfile(user, {
-                displayName: fullName,
-              });
-              //this will update the user state, its async, so no re-renders
-              //when it finishes  we get to see the name
-              props.setUserData({
-                ...props.userData,
-                name: user.displayName,
-              });
-            } else {
-              const photoURL = await uploadImg(photo, auth.currentUser);
-              await updateProfile(user, {
-                displayName: fullName,
-                photoURL: photoURL,
-              });
-              props.setUserData({
-                ...props.userData,
-                name: user.displayName,
-                img: user.photoURL,
-              });
-            }
-            props.setOfflineFilter("Inicia sesion");
-          } catch (error) {
-            console.log(error.message);
+    <form
+      id="sign-up"
+      action=""
+      onSubmit={async (e) => {
+        e.preventDefault();
+        const email = document.getElementById("sign-up-email").value;
+        const password = document.getElementById("sign-up-password").value;
+        const fullName = document.getElementById("sign-up-name").value;
+        try {
+          const { user } = await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+          );
+
+          if (!photo) {
+            //onAuthState listener detects user online
+            //here runs a re-render due to 2  updates to the state (isUserOnline and userData)
+            //showing the profile with the email instead of name
+            await updateProfile(user, {
+              displayName: fullName,
+            });
+            //this will update the user state, its async, so no re-renders
+            //when it finishes  we get to see the name
+            props.setUserData({
+              ...props.userData,
+              name: user.displayName,
+              //add this incase there was a previous user signed in with a photo
+              img: null,
+            });
+          } else {
+            const photoURL = await uploadImg(photo, auth.currentUser);
+            await updateProfile(user, {
+              displayName: fullName,
+              photoURL: photoURL,
+            });
+            props.setUserData({
+              ...props.userData,
+              name: user.displayName,
+              img: user.photoURL,
+            });
           }
 
-          document.getElementById("sign-up").reset();
-        }}
-      >
-        <fieldset>
-          <legend>No tenes cuenta ?</legend>
+          props.setOfflineFilter("Inicia sesion");
+        } catch (error) {
+          console.log(error.message);
+        }
+      }}
+    >
+      <fieldset>
+        {/*   <legend>No tenes cuenta ?</legend> */}
 
-          <ImageSection photo={photo} setPhoto={setPhoto} />
-          <div className="name-section">
-            <label htmlFor="sign-up-name">Nombre completo *</label>
-            <div className="input-container">
-              <img src="/img/user.svg" alt="icon" />
-              <input
-                type="name"
-                id="sign-up-name"
-                placeholder="Nombre y Apellido"
-                required
-              />
-            </div>
+        <ImageSection photo={photo} setPhoto={setPhoto} />
+        <div className="name-section">
+          <label htmlFor="sign-up-name">Nombre completo *</label>
+          <div className="input-container">
+            <img src="/img/user.svg" alt="icon" />
+            <input
+              type="name"
+              id="sign-up-name"
+              placeholder="Nombre y Apellido"
+              required
+            />
           </div>
-          <div className="email-section">
-            <label htmlFor="sign-up-email">Email *</label>
-            <div className="input-container">
-              <img src="/img/email.svg" alt="icon" />
-              <input
-                type="email"
-                id="sign-up-email"
-                placeholder="ejemplo@gmail.com"
-                required
-              />
-            </div>
+        </div>
+        <div className="email-section">
+          <label htmlFor="sign-up-email">Email *</label>
+          <div className="input-container">
+            <img src="/img/email.svg" alt="icon" />
+            <input
+              type="email"
+              id="sign-up-email"
+              placeholder="ejemplo@gmail.com"
+              required
+            />
           </div>
-          <div className="password-section">
-            <label htmlFor="sign-up-password">Contrasenia *</label>
-            <div className="input-container">
-              <img src="/img/password.svg" alt="icon" />
-              <input type="password" id="sign-up-password" required />
-            </div>
+        </div>
+        <div className="password-section">
+          <label htmlFor="sign-up-password">Contrasenia *</label>
+          <div className="input-container">
+            <img src="/img/password.svg" alt="icon" />
+            <input type="password" id="sign-up-password" required />
           </div>
-          <div className="buttons-section">
-            <button type="submit">Crear cuenta</button>
-            <p>- o -</p>
-            <GoogleAuth text={"Entra con Google"} />
-          </div>
-        </fieldset>
-      </form>
-    </div>
+        </div>
+
+        <button type="submit">Aceptar</button>
+      </fieldset>
+    </form>
   );
 }
 

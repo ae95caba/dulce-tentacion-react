@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { FormularioHelados } from "./components/FormularioHelados";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 

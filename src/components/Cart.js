@@ -85,6 +85,8 @@ export function Cart(props) {
       props.clearCart();
     } else {
       perfil.click();
+      console.log("set buy pending to true");
+      props.setIsABuyPending(true);
     }
   }
 
@@ -192,7 +194,11 @@ export function Cart(props) {
             <button
               style={{ marginBottom: "1.2rem" }}
               type="submit"
-              className={props.isUserOnline ? "font-effect-fire	" : "offline"}
+              className={
+                props.isUserOnline
+                  ? "font-effect-fire  animate__animated animate__pulse animate__infinite animate__slow	"
+                  : "offline"
+              }
               form="delivery-form"
             >
               Comprar

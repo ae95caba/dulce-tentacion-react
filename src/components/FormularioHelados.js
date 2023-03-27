@@ -12,6 +12,15 @@ export function FormularioHelados(props) {
     setDropDowns(arr);
   }, []);
 
+  useEffect(() => {
+    // Code to run on mount
+    document.body.style.overflow = "hidden";
+    return () => {
+      // Code to run on unmount
+      document.body.style.overflow = "auto";
+    };
+  }, []);
+
   const [extras, setExtras] = useState({
     rocklets: { price: 100, isChecked: false },
     conos: { price: 80, count: 0 },
