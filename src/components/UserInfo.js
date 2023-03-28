@@ -32,9 +32,10 @@ export const UserInfo = (props) => {
   return (
     <div id="user-info">
       <p>
-        Estas <span id="conected">conectado</span>
+        Estas <span className="neon-green">conectado</span>
       </p>
       <img
+        className="neon-green-border"
         referrerPolicy="no-referrer"
         src={props.userData.img ? props.userData.img : "/img/anonymous.svg"}
         alt=""

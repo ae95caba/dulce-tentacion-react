@@ -36,7 +36,7 @@ export function Navbar(props) {
               window.scrollTo(0, 0);
             }}
             className={`${
-              props.isUserOnline && !isProfileActive ? "inactive" : ""
+              props.isUserOnline && !isProfileActive ? "neon-green" : ""
             } ${isProfileActive ? "active" : ""}`}
           >
             Perfil

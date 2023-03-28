@@ -221,7 +221,7 @@ export function FormularioHelados(props) {
 
         <div className="total-helado">Total: $ {totalPrice()}</div>
         <div className="buttons-container">
-          <button type="submit" className="binary-buttons font-effect-fire">
+          <button type="submit" className="binary-buttons neon-red">
             Aceptar
           </button>
           <button

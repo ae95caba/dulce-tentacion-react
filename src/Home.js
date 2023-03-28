@@ -62,6 +62,7 @@ function Header() {
     <div id="header">
       <div className="tittle">Bienvenido</div>
       <Carousel
+        showArrows={false}
         autoPlay={true}
         stopOnHover={false}
         infiniteLoop={true}

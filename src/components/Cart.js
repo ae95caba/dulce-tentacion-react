@@ -196,7 +196,7 @@ export function Cart(props) {
               type="submit"
               className={
                 props.isUserOnline
-                  ? "font-effect-fire  animate__animated animate__pulse animate__infinite animate__slow	"
+                  ? "neon-red  animate__animated animate__pulse animate__infinite animate__slow	"
                   : "offline"
               }
               form="delivery-form"
