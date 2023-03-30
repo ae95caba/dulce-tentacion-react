@@ -5,14 +5,25 @@ import { getPoints } from "../backend/getPoints";
 import { format } from "date-fns";
 import { Details } from "./Cart";
 import uniqid from "uniqid";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export const UserShopping = () => {
+  const [confirmMessage, setConfirmMessage] = useState({
+    show: false,
+    docRef: null,
+  });
+
   const query = collection(db, `users/${auth.currentUser.uid}/compras`);
   const [docs, loading, error] = useCollectionData(query);
 
   return (
     <div id="purchase-list-container">
+      {confirmMessage.show ? (
+        <ConfirmMessage
+          confirmMessage={confirmMessage}
+          setConfirmMessage={setConfirmMessage}
+        />
+      ) : null}
       <div id="purchase-list">
         {!docs?.length > 0 && !loading && (
           <div id="no-purchases-message">
@@ -117,19 +128,21 @@ export const UserShopping = () => {
                     </>
                   ) : (
                     <button className="tittle pickup">
-                      RETIRO EN EL LOCAL
+                      Retiro en el local
                     </button>
                   )}
                 </div>
               </div>
               <button
                 onClick={() => {
+                  console.log("hidden");
                   const docRef = firebaseDoc(
                     db,
                     `users/${auth.currentUser.uid}/compras`,
                     doc.docId
                   );
-                  deleteDoc(docRef);
+
+                  setConfirmMessage({ show: true, docRef: docRef });
                 }}
               >
                 Cancelar
@@ -141,3 +154,37 @@ export const UserShopping = () => {
     </div>
   );
 };
+
+function ConfirmMessage(props) {
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
+  return (
+    <div className="message-container">
+      <div className="message">
+        <div>Estas seguro?</div>
+        <div className="buttons-section">
+          <button
+            onClick={() => {
+              deleteDoc(props.confirmMessage.docRef);
+
+              props.setConfirmMessage({ show: false, docRef: null });
+            }}
+          >
+            Aceptar
+          </button>
+          <button
+            onClick={() => {
+              props.setConfirmMessage({ show: false, docRef: null });
+            }}
+          >
+            Cancelar
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
