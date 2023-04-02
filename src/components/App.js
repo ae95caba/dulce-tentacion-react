@@ -1,6 +1,5 @@
-import React, { useRef } from "react";
 import "../App.scss";
-import { Route, useRevalidator } from "react-router-dom";
+import { Route } from "react-router-dom";
 import { Routes } from "react-router-dom";
 import { Home } from "../Home";
 import { Profile } from "./Profile";
@@ -8,7 +7,7 @@ import { Shop } from "./Shop";
 import { Cart } from "./Cart";
 import { auth } from "../backend/firebase";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { Navbar } from "./Navbar";
 
 import { ThanksMessage } from "./ThanksMessage";
@@ -86,51 +85,47 @@ export const App = () => {
 
   //increases a cart item count if the item is in the cart
   //if the item was no in the cart (its just been added) it adds it to cartItems array
-  const addCartItem = useCallback(
-    (product) => {
-      var isProductInCart = false;
-      var index = undefined;
-      for (var i = 0; i < cartItems.length; i++) {
-        if (cartItems[i].name === product.name) {
-          isProductInCart = true;
-          index = i;
-          break;
-        }
+  const addCartItem = (product) => {
+    var isProductInCart = false;
+    var index = undefined;
+    for (var i = 0; i < cartItems.length; i++) {
+      if (cartItems[i].name === product.name) {
+        isProductInCart = true;
+        index = i;
+        break;
       }
+    }
 
-      if (!isProductInCart) {
-        setCartItems([
-          ...cartItems,
-          {
-            name: product.name,
-            imgUrl: product.imgUrl,
-            price: product.price,
-            count: 1,
+    if (!isProductInCart) {
+      setCartItems([
+        ...cartItems,
+        {
+          name: product.name,
+          imgUrl: product.imgUrl,
+          price: product.price,
+          count: 1,
 
-            get totalPrice() {
-              return this.price * this.count;
-            },
+          get totalPrice() {
+            return this.price * this.count;
           },
-        ]);
-      } else {
-        // INCREASE COUNT BY 1
-        let copy = [...cartItems];
-        copy[index].count = copy[index].count + 1;
+        },
+      ]);
+    } else {
+      // INCREASE COUNT BY 1
+      let copy = [...cartItems];
+      copy[index].count = copy[index].count + 1;
 
-        setCartItems([...copy]);
-      }
-    },
-    [cartItems]
-  );
-
-  const addIceCream = useCallback((iceCream) => {
+      setCartItems([...copy]);
+    }
+  };
+  const addIceCream = (iceCream) => {
     setCartItems([
       ...cartItems,
       {
         ...iceCream,
       },
     ]);
-  }, []);
+  };
 
   //	decreases a cart item count
   //if the is only only the removes it entirely

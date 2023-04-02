@@ -107,20 +107,6 @@ export const Shop = React.memo(({ addCartItem, addIceCream }) => {
 
     product: undefined,
   });
-  const [cards, setCards] = useState();
-
-  useEffect(() => {
-    setCards(
-      content.map((product) => (
-        <Card
-          product={product}
-          addCartItem={addCartItem}
-          addIceCream={addIceCream}
-          openIceCreamForm={openIceCreamForm}
-        />
-      ))
-    );
-  }, [content, addCartItem]);
 
   function closeIceCreamForm() {
     setIceCreamForm({
@@ -141,6 +127,7 @@ export const Shop = React.memo(({ addCartItem, addIceCream }) => {
   return (
     <div id="shop">
       <Botonera setContent={setContent} catalog={catalog} />
+      {/* switch to icecream form */}
       {iceCreamForm.show ? (
         <FormularioHelados
           product={iceCreamForm.product}
@@ -149,19 +136,36 @@ export const Shop = React.memo(({ addCartItem, addIceCream }) => {
         />
       ) : null}
 
-      <div className="content">{cards}</div>
+      <div className="content">
+        {content.map((product, index) => (
+          <Card
+            key={index}
+            product={product}
+            //this props changes every time it gets used
+            addCartItem={addCartItem}
+            openIceCreamForm={openIceCreamForm}
+          />
+        ))}
+      </div>
     </div>
   );
 });
 
+//this rerenders every time the addCartItem function gets called
 function Card({ product, addCartItem, openIceCreamForm }) {
   const [active, setActive] = useState(false);
 
   useEffect(() => {
-    return setActive(false);
+    console.log("Component mounted");
+
+    return () => {
+      console.log("Component unmounted");
+      console.log("---------------------");
+    };
   }, []);
+
   return (
-    <div className="card" key={uniqid()}>
+    <div className="card">
       <div className="img-container">
         <div className="points">
           <img src="/img/seal.svg" />
@@ -177,24 +181,27 @@ function Card({ product, addCartItem, openIceCreamForm }) {
         <p className="product-price">$ {product.price}</p>
       </div>
 
-      <button
-        className={`to-cart ${active ? "active" : ""}`}
-        onAnimationEnd={() => {
-          console.log("ani end");
-          setActive(false);
-        }}
-        onClick={
-          product.flavours
-            ? () => openIceCreamForm(product)
-            : () => {
-                addCartItem(product);
-                setActive(true);
-                console.log("ani start");
-              }
-        }
-      >
-        Aniadir al carrito
-      </button>
+      {product.flavours ? (
+        <button className={`to-cart`} onClick={() => openIceCreamForm(product)}>
+          Aniadir al carrito
+        </button>
+      ) : (
+        <button
+          className={`to-cart ${active ? "active" : "inactve"}`}
+          onAnimationEnd={() => {
+            console.log("ani end");
+            setActive(false);
+          }}
+          onClick={() => {
+            setActive(true);
+            addCartItem(product);
+            console.log("ani start");
+            console.log(active);
+          }}
+        >
+          Aniadir al carrito
+        </button>
+      )}
     </div>
   );
 }
