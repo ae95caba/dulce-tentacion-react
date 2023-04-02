@@ -19,6 +19,7 @@ export const App = () => {
   const [showThanksMessage, setShowThanksMessage] = useState(false);
   const [isUserOnline, setIsUserOnline] = useState();
   const [isABuyPending, setIsABuyPending] = useState(false);
+  const [cartDisplayProperty, setCartDisplayProperty] = useState("none");
 
   const [userData, setUserData] = useState({
     name: undefined,
@@ -26,12 +27,17 @@ export const App = () => {
     img: "/img/anonymous.svg",
   });
 
+  useEffect(() => {
+    // Set the overflow of the body element based on the display value
+    document.body.style.overflow =
+      cartDisplayProperty === "none" ? "auto" : "hidden";
+  }, [cartDisplayProperty]);
+
   //after the user logs in, it check if there is a a buy pending to show the cart
   useEffect(() => {
     //no nned to add if(isUserOnline) because if the user was online setIsABuyPending wont be set in the frist place
     if (isABuyPending) {
-      document.getElementById("cart").style.display = "flex";
-      document.body.style.overflow = "hidden";
+      setCartDisplayProperty("flex");
 
       setIsABuyPending(false);
     }
@@ -166,8 +172,9 @@ export const App = () => {
       <div
         id="cart-button"
         onClick={() => {
-          document.body.style.overflow = "hidden";
-          document.getElementById("cart").style.display = "flex";
+          /*   document.body.style.overflow = "hidden";
+           document.getElementById("cart").style.display = "flex";  */
+          setCartDisplayProperty("flex");
         }}
       >
         <img src="/img/cart.svg" alt="shopping cart"></img>
@@ -180,6 +187,8 @@ export const App = () => {
       ) : null}
 
       <Cart
+        cartDisplayProperty={cartDisplayProperty}
+        setCartDisplayProperty={setCartDisplayProperty}
         setIsABuyPending={setIsABuyPending}
         userData={userData}
         isUserOnline={isUserOnline}

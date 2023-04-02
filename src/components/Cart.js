@@ -38,8 +38,8 @@ export function Cart(props) {
   function handleSubmit(e) {
     e.preventDefault();
     const perfil = document.getElementById("profile-button");
-    document.getElementById("cart").style.display = "none";
-    document.body.style.overflow = "auto";
+
+    props.setCartDisplayProperty("none");
 
     if (props.isUserOnline) {
       if (orderFulfillment.delivery) {
@@ -97,17 +97,8 @@ export function Cart(props) {
     }
   }
 
-  //
-  const containerRef = useRef(null);
-  function handleClick(e) {
-    if (e.target === containerRef.current.querySelector("button[disabled]")) {
-      // Run your code here
-      console.log("Clicked on disabled button");
-    }
-  }
-
   return (
-    <div id="cart">
+    <div id="cart" style={{ display: props.cartDisplayProperty }}>
       <h1>Tu carrito</h1>
       <div className="cart-body">
         {props.cartItems.length > 0 ? (
@@ -179,6 +170,7 @@ export function Cart(props) {
       ) : null}
       {props.cartItems.length > 0 ? (
         <DeliveryForm
+          isUserOnline={props.isUserOnline}
           setBarrioElegido={setBarrioElegido}
           barrioElegido={barrioElegido}
           handleSubmit={handleSubmit}
@@ -212,8 +204,7 @@ export function Cart(props) {
             </button>
             <button
               onClick={() => {
-                document.body.style.overflow = "auto";
-                document.getElementById("cart").style.display = "none";
+                props.setCartDisplayProperty("none");
               }}
             >
               Atras
@@ -226,8 +217,7 @@ export function Cart(props) {
         alt="return"
         className="close"
         onClick={() => {
-          document.body.style.overflow = "auto";
-          document.getElementById("cart").style.display = "none";
+          props.setCartDisplayProperty("none");
         }}
       />
     </div>
@@ -298,11 +288,6 @@ function DeliveryForm(props) {
 
     fetchData();
   }, []);
-
-  /*  useEffect(() => {
-    const product = { name: "delivery", count: 1, price: 100 };
-    props.setDeliveryPrice();
-  }, [barrioElegido]); */
 
   function autoResize(textarea) {
     textarea.style.height = "auto";

@@ -24,7 +24,7 @@ export function ThanksMessage(props) {
               Ver detalle
             </Link>
           </button>
-          <button onClick={() => props.close()}>Cerrar</button>
+          <button onClick={() => props.close()}>Aceptar</button>
         </div>
       </div>
     </div>
