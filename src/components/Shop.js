@@ -139,7 +139,8 @@ export const Shop = React.memo(({ addCartItem, addIceCream }) => {
       <div className="content">
         {content.map((product, index) => (
           <Card
-            key={index}
+            //this key props cause useless re-renders if set to uniqid()
+            key={`${index}-${product.name}`}
             product={product}
             //this props changes every time it gets used
             addCartItem={addCartItem}
@@ -174,7 +175,7 @@ function Card({ product, addCartItem, openIceCreamForm }) {
             <p className="points-string">Puntos</p>
           </div>
         </div>
-        <img src={product.imgUrl} alt="" />
+        <img src={product.imgUrl} alt="" loading="lazy" />
       </div>
       <div className="product-description">
         <p className="product-name">{product.name}</p>
