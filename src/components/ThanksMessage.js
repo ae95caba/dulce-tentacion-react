@@ -2,17 +2,15 @@ import { Link } from "react-router-dom";
 
 export function ThanksMessage(props) {
   return (
-    <div id="thanks-message-container">
-      <div id="thanks-message">
-        <div className="introduction">
-          <p>Para completar la compra: </p>
-        </div>
+    <div className="message-container">
+      <div className="message purchase">
+        <div className="text">Pasos a seguir:</div>
         <ol>
-          <li>1- Anda al local</li>
-          <li>2- Deciles que compraste por la pag</li>
-          <li>3- Paga !</li>
+          <li>Anda al local</li>
+          <li>Deciles que compraste por la pag</li>
+          <li>Paga !</li>
         </ol>
-        <div className="buttons-container">
+        <div className="buttons-section">
           <button>
             <Link
               to="/perfil"

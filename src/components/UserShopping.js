@@ -165,7 +165,7 @@ function ConfirmMessage(props) {
   return (
     <div className="message-container">
       <div className="message">
-        <div>Estas seguro?</div>
+        <div className="text">Estas seguro?</div>
         <div className="buttons-section">
           <button
             onClick={() => {

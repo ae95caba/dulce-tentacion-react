@@ -4,9 +4,8 @@ import {
   signInWithRedirect,
 } from "firebase/auth";
 import { auth } from "../backend/firebase";
-import { useNavigate } from "react-router-dom";
+
 export function GoogleAuth(props) {
-  const navigate = useNavigate();
   return (
     <button
       id="google-auth"
@@ -23,8 +22,6 @@ export function GoogleAuth(props) {
             const user = result.user;
             // IdP data available using getAdditionalUserInfo(result)
             // ...
-            navigate("/perfil");
-            console.log("usenavigate previous line");
           })
           .catch((error) => {
             console.log(error.message);

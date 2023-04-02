@@ -350,29 +350,66 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
     }
   }
 }
-#purchase-list-container {
-  .message-container {
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
-    left: 0%;
-    top: 0%;
 
-    z-index: 99;
+.message-container {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  left: 0%;
+  top: 0%;
 
-    background-color: rgba(0, 0, 0, 0.75);
+  z-index: 99;
 
-    width: 100vw;
-    height: 100vh;
+  background-color: rgba(0, 0, 0, 0.75);
 
-    border: 1px solid black;
-    .message {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
+  width: 100vw;
+  height: 100vh;
+
+  .message {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    width: 75%;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    box-shadow: 3px 3px 3px grey;
+    .text {
+      font-weight: 500;
+      font-size: 1.5rem;
+    }
+    .buttons-section {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
     }
   }
+  .message.purchase {
+    font-family: "Mynerve", cursive;
+    .text {
+      font-weight: 900;
+      text-decoration: underline;
+    }
+    ol {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      li {
+        font-size: 1.5rem;
+        font-weight: 500;
+      }
+    }
+    a {
+      text-decoration: none;
+      color: black;
+    }
+  }
+}
+
+#purchase-list-container {
   #purchase-list {
     display: flex;
     flex-direction: column;
@@ -498,6 +535,7 @@ nav {
   background-color: black;
   position: sticky;
   top: 0;
+  border-bottom: solid white 1px;
   .active {
     background-image: $primary;
     background-clip: text;
@@ -871,7 +909,7 @@ button {
     }
 
     legend,
-    .tittle {
+    .header {
       font-size: 1.5rem;
       margin-bottom: 2.5rem;
       text-decoration: underline;
@@ -963,59 +1001,6 @@ button {
           }
         }
       }
-    }
-  }
-}
-
-#thanks-message-container {
-  background-color: rgba(0, 0, 0, 0.8);
-  z-index: 10;
-  position: fixed;
-  width: 100vw;
-  height: 90vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  #thanks-message {
-    padding: 2rem;
-    box-shadow: 3px 3px 3px black;
-
-    p {
-      font-size: 1.8rem;
-      font-weight: 900;
-      font-family: "Caveat", cursive;
-    }
-
-    background-color: rgb(255, 0, 0);
-    color: black;
-    width: 75%;
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
-    .buttons-container {
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
-      button {
-        box-shadow: 3px 3px 3px black;
-      }
-    }
-    ol {
-      list-style-type: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      li {
-        font-size: 1.8rem;
-        text-align: left;
-        font-weight: 600;
-        font-family: "Caveat", cursive;
-      }
-    }
-    a {
-      text-decoration: none;
-      color: inherit;
     }
   }
 }

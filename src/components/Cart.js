@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef } from "react";
 
-import { useNavigate } from "react-router-dom";
 import { addCartToFirestore } from "../backend/addCartToFiresstore";
 import uniqid from "uniqid";
 import { options } from "../logic/barrios";
@@ -10,8 +9,11 @@ import { addLastDeliveryDetails } from "../backend/addLastDeliveryDetails";
 import { getLastDeliveryDetails } from "../backend/getLastDeliveryDetails";
 import { priceFromBarrio } from "../logic/barrios";
 
+import { useNavigate } from "react-router-dom";
+
 export function Cart(props) {
   const navigate = useNavigate();
+
   //the following wil be and object  {value: , label}
   const [barrioElegido, setBarrioElegido] = useState(null); // Set default option
 
@@ -65,6 +67,11 @@ export function Cart(props) {
           link(props.cartItems, deliveryDetails, props.userData),
           "_blank"
         );
+        //open purchase list
+        navigate("/perfil");
+        setTimeout(() => {
+          document.getElementById("compras").click();
+        }, 100);
       } else if (orderFulfillment.pickup) {
         props.showThanksMessage();
         addCartToFirestore(

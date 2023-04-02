@@ -12,7 +12,6 @@ import { useState, useEffect, useCallback } from "react";
 import { Navbar } from "./Navbar";
 
 import { ThanksMessage } from "./ThanksMessage";
-import { set } from "date-fns/esm";
 
 export const App = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -27,11 +26,13 @@ export const App = () => {
     img: "/img/anonymous.svg",
   });
 
-  //
+  //after the user logs in, it check if there is a a buy pending to show the cart
   useEffect(() => {
+    //no nned to add if(isUserOnline) because if the user was online setIsABuyPending wont be set in the frist place
     if (isABuyPending) {
       document.getElementById("cart").style.display = "flex";
       document.body.style.overflow = "hidden";
+
       setIsABuyPending(false);
     }
   }, [isUserOnline]);
@@ -165,7 +166,6 @@ export const App = () => {
       <div
         id="cart-button"
         onClick={() => {
-          console.log(isABuyPending);
           document.body.style.overflow = "hidden";
           document.getElementById("cart").style.display = "flex";
         }}

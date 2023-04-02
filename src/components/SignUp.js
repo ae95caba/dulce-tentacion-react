@@ -12,7 +12,7 @@ export function SignUp(props) {
   return (
     <div className="container">
       <div className="content">
-        <div className="tittle">No tenes cuenta ?</div>
+        <div className="header">No tenes cuenta ?</div>
         <div className="body">
           <p
             className="dropdown-button"
@@ -94,8 +94,6 @@ export function SignUpForm(props) {
               img: user.photoURL,
             });
           }
-
-          props.setOfflineFilter("Inicia sesion");
         } catch (error) {
           console.log(error.message);
         }

@@ -2,12 +2,17 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../backend/firebase";
 import { Link } from "react-router-dom";
 import { GoogleAuth } from "./GoogleAuth";
-import { useNavigate } from "react-router-dom";
+
+import { useState } from "react";
+import { useEffect } from "react";
 
 export function LogIn() {
-  const navigate = useNavigate();
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
   return (
     <div className="form-container">
+      {showErrorMessage ? (
+        <ErrorMessage setShowErrorMessage={setShowErrorMessage} />
+      ) : null}
       <form
         id="log-in"
         action=""
@@ -16,11 +21,10 @@ export function LogIn() {
           const email = document.getElementById("log-in-email").value;
           const password = document.getElementById("log-in-password").value;
           signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-              navigate("/perfil");
-            })
+            .then((userCredential) => {})
             .catch((error) => {
               console.log(error.message);
+              setShowErrorMessage(true);
             });
           document.getElementById("log-in-email").value = "";
           document.getElementById("log-in-password").value = "";
@@ -54,6 +58,29 @@ export function LogIn() {
           </div>
         </fieldset>
       </form>
+    </div>
+  );
+}
+
+function ErrorMessage(props) {
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  });
+  return (
+    <div className="message-container">
+      <div className="message">
+        <div className="text">Contraseñia o e-mail incorrecto</div>
+        <button
+          onClick={() => {
+            props.setShowErrorMessage(false);
+          }}
+        >
+          Aceptar
+        </button>
+      </div>
     </div>
   );
 }
