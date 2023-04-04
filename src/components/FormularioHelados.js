@@ -1,13 +1,18 @@
 import { createFactory, useEffect, useState } from "react";
 import uniqid from "uniqid";
+import { setDoc, doc, getDoc } from "firebase/firestore";
+import { db, auth } from "../backend/firebase";
 
 export function FormularioHelados(props) {
+  //checks how many dropDowns are
+  // every dropDown will be this : { index: index, value: value }
   const [dropDowns, setDropDowns] = useState([]);
 
+  //creates dropDowns representations on state for each flavour avaliable to choose
   useEffect(() => {
     let arr = [];
     for (let i = 0; i < props.product.flavours; i++) {
-      arr.push({ index: i, value: null });
+      arr.push({ index: i, value: undefined });
     }
     setDropDowns(arr);
   }, []);
@@ -42,6 +47,7 @@ export function FormularioHelados(props) {
     return total;
   };
 
+  //adds a dropDown
   function addFlavour() {
     const copy = [...dropDowns];
     copy.push({ index: dropDowns.length, value: null });
@@ -99,7 +105,7 @@ export function FormularioHelados(props) {
               dropDowns={dropDowns}
               setDropDowns={setDropDowns}
               name={`Sabor ${index + 1}`}
-              key={uniqid()}
+              key={`${index}-${dropDown}`}
               index={index}
             />
           ))}
@@ -247,7 +253,30 @@ export function FormularioHelados(props) {
 }
 
 function DropDown(props) {
-  const sabores = ["Frutilla", "Vainilla", "Chocolate", "Mantecol"];
+  const [sabores, setSabores] = useState(null);
+
+  useEffect(() => {
+    async function as() {
+      const docRef = doc(db, "shop", "catalog");
+      const docSnap = await getDoc(docRef);
+
+      setSabores(convertStringToArray(docSnap.data().flavours));
+    }
+    as();
+  }, []);
+
+  function convertStringToArray(string) {
+    // Remove leading and trailing periods and whitespaces
+    string = string.trim().replace(/^\.+|\.+$/g, "");
+
+    // Split the string by periods and whitespaces
+    const items = string.split(/\s*\.\s*/);
+
+    // Filter out any empty items
+    const filteredItems = items.filter((item) => item !== "");
+
+    return filteredItems;
+  }
 
   return (
     <fieldset className="sabor">
@@ -257,16 +286,15 @@ function DropDown(props) {
           name={props.name}
           value={props.dropDowns[props.index].value}
           onChange={(e) => {
+            //updates the dropDown representation in the state
             const copy = [...props.dropDowns];
             copy[props.index].value = e.target.value;
             props.setDropDowns(copy);
-
-            console.log(props.dropDowns);
           }}
           required
         >
           <option value="">Elegi un sabor</option>
-          {sabores.map((sabor) => (
+          {sabores?.map((sabor) => (
             <option value={sabor} key={uniqid()}>
               {sabor}
             </option>

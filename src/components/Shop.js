@@ -63,6 +63,7 @@ export const Shop = ({ addCartItem, addIceCream, catalog }) => {
       ) : null}
 
       <div className="content">
+        {!content ? <div>Cargando ...</div> : null}
         {content?.map((product, index) => (
           <Card
             //this key props cause useless re-renders if set to uniqid()

@@ -25,6 +25,7 @@ export const UserShopping = () => {
         />
       ) : null}
       <div id="purchase-list">
+        {loading ? <div>Cargando...</div> : null}
         {!docs?.length > 0 && !loading && (
           <div id="no-purchases-message">
             No has comprado nada aun, que esperas ?
