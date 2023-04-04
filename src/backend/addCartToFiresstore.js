@@ -1,4 +1,4 @@
-import { addDoc, setDoc, collection, doc } from "firebase/firestore";
+import { setDoc, doc } from "firebase/firestore";
 import { auth, db } from "./firebase";
 
 export async function addCartToFirestore(

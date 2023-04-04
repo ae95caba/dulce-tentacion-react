@@ -1,38 +1,36 @@
+import { useEffect } from "react";
 import { useState } from "react";
 
-export function Botonera(props) {
-  const [activeTab, setActiveTab] = useState("Helados");
-
+export function Botonera({ setContent, content, catalog }) {
   return (
     <div id="botonera">
       <button
         onClick={() => {
-          props.setContent(props.catalog.helados);
+          setContent(catalog?.helados);
           window.scrollTo(0, 0);
-          setActiveTab("Helados");
         }}
-        className={activeTab === "Helados" ? "active" : ""}
+        className={content === catalog?.helados && content ? "active" : ""}
       >
         Helados
       </button>
 
       <button
         onClick={() => {
-          props.setContent(props.catalog.escabio);
-          setActiveTab("Escabio");
+          setContent(catalog?.escabio);
+
           window.scrollTo(0, 0);
         }}
-        className={activeTab === "Escabio" ? "active" : ""}
+        className={content === catalog?.escabio && content ? "active" : ""}
       >
         Escabio
       </button>
       <button
         onClick={() => {
-          props.setContent(props.catalog.helados);
-          setActiveTab("Kiosko");
+          setContent(catalog.helados);
+
           window.scrollTo(0, 0);
         }}
-        className={activeTab === "Kiosko" ? "active" : ""}
+        className={content === catalog?.kiosko && content ? "active" : ""}
       >
         Kiosko
       </button>

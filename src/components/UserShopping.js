@@ -135,7 +135,6 @@ export const UserShopping = () => {
               </div>
               <button
                 onClick={() => {
-                  console.log("hidden");
                   const docRef = firebaseDoc(
                     db,
                     `users/${auth.currentUser.uid}/compras`,

@@ -1,105 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { Botonera } from "./Botonera";
+import { db, auth } from "../backend/firebase";
 import { FormularioHelados } from "./FormularioHelados";
-import uniqid from "uniqid";
+import { collection } from "firebase/firestore";
+import { useCollectionData } from "react-firebase-hooks/firestore";
+import { setDoc, doc, getDoc } from "firebase/firestore";
+import { async } from "@firebase/util";
+import { catalog as catalogObj } from "../logic/catalog";
 
-export const Shop = React.memo(({ addCartItem, addIceCream }) => {
-  const [catalog, setCatalog] = useState({
-    helados: [
-      {
-        name: "1 kg",
-        imgUrl: "/img/helados/kilo.jpg",
-        price: 1200,
+export const Shop = ({ addCartItem, addIceCream, catalog }) => {
+  /*  async function adtoFireDb(data) {
+    const collectionRef = doc(db, `shop/`, "catalog");
 
-        flavours: 4,
-      },
-      {
-        name: "1/2 kg",
-        imgUrl: "/img/helados/medio.jpg",
-        price: 800,
+    await setDoc(collectionRef, {
+      products: data,
+    });
+  }
 
-        flavours: 3,
-      },
-      {
-        name: "1/4 kg",
-        imgUrl: "/img/helados/cuarto.jpg",
-        price: 800,
-
-        flavours: 2,
-      },
-    ],
-    escabio: [
-      { name: "Speed", imgUrl: "/img/escabio/speed.jpg", price: 400 },
-      {
-        name: "Frizze blue",
-        imgUrl: "/img/escabio/frizze-blue.jpg",
-        price: 1200,
-      },
-      {
-        name: "Skyy durazno",
-        imgUrl: "/img/escabio/skyy-durazno.jpg",
-        price: 1200,
-      },
-      {
-        name: "Latas Brahma",
-        imgUrl: "/img/escabio/latas-brahma.jpg",
-        price: 1200,
-      },
-      {
-        name: "Smirnoff",
-        imgUrl: "/img/escabio/smirnoff.png",
-        price: 1200,
-      },
-      {
-        name: "Dr. Lemon",
-        imgUrl: "/img/escabio/dr-lemon.jpg",
-        price: 1200,
-      },
-      {
-        name: "Baggio",
-        imgUrl: "/img/escabio/baggio.jpg",
-        price: 1200,
-      },
-      {
-        name: "Cafe al coñac",
-        imgUrl: "/img/escabio/cafe-al-coñac.png",
-        price: 1200,
-      },
-      {
-        name: "Budweiser 750ml",
-        imgUrl: "/img/escabio/budweiser-750.png",
-        price: 1200,
-      },
-      {
-        name: "Whisky criadores",
-        imgUrl: "/img/escabio/whisky-criadores.jpg",
-        price: 1200,
-      },
-      {
-        name: "Vino Santa Filomena",
-        imgUrl: "/img/escabio/vino-santa-filomena.jpg",
-        price: 1200,
-      },
-      {
-        name: "Porron Miller",
-        imgUrl: "/img/escabio/porron-miller.jpg",
-        price: 1200,
-      },
-      {
-        name: "Iguana 1L",
-        imgUrl: "/img/escabio/iguana-1l.jpg",
-        price: 1200,
-      },
-      {
-        name: "Vino Michel Torino rojo",
-        imgUrl: "/img/escabio/vino-michel-torino-rojo.jpg",
-        price: 1200,
-      },
-    ],
-  });
+  adtoFireDb(catalogObj); */
 
   //content is what will be mapped
-  const [content, setContent] = useState(catalog.helados);
+  const [content, setContent] = useState(catalog?.helados);
+
+  useEffect(() => {
+    setContent(catalog?.helados);
+  }, [catalog]);
+
   //iceCreamForm content
   //{show: true,product: product,}
   const [iceCreamForm, setIceCreamForm] = useState({
@@ -126,7 +52,7 @@ export const Shop = React.memo(({ addCartItem, addIceCream }) => {
 
   return (
     <div id="shop">
-      <Botonera setContent={setContent} catalog={catalog} />
+      <Botonera setContent={setContent} content={content} catalog={catalog} />
       {/* switch to icecream form */}
       {iceCreamForm.show ? (
         <FormularioHelados
@@ -137,7 +63,7 @@ export const Shop = React.memo(({ addCartItem, addIceCream }) => {
       ) : null}
 
       <div className="content">
-        {content.map((product, index) => (
+        {content?.map((product, index) => (
           <Card
             //this key props cause useless re-renders if set to uniqid()
             key={`${index}-${product.name}`}
@@ -150,20 +76,20 @@ export const Shop = React.memo(({ addCartItem, addIceCream }) => {
       </div>
     </div>
   );
-});
+};
 
 //this rerenders every time the addCartItem function gets called
 function Card({ product, addCartItem, openIceCreamForm }) {
   const [active, setActive] = useState(false);
 
-  useEffect(() => {
+  /*  useEffect(() => {
     console.log("Component mounted");
 
     return () => {
       console.log("Component unmounted");
       console.log("---------------------");
     };
-  }, []);
+  }, []); */
 
   return (
     <div className="card">

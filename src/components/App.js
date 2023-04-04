@@ -5,12 +5,12 @@ import { Home } from "../Home";
 import { Profile } from "./Profile";
 import { Shop } from "./Shop";
 import { Cart } from "./Cart";
-import { auth } from "../backend/firebase";
 
 import { useState, useEffect } from "react";
 import { Navbar } from "./Navbar";
-
 import { ThanksMessage } from "./ThanksMessage";
+import { setDoc, doc, getDoc } from "firebase/firestore";
+import { db, auth } from "../backend/firebase";
 
 export const App = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -19,12 +19,21 @@ export const App = () => {
   const [isUserOnline, setIsUserOnline] = useState();
   const [isABuyPending, setIsABuyPending] = useState(false);
   const [cartDisplayProperty, setCartDisplayProperty] = useState("none");
-
+  const [catalog, setCatalog] = useState(null);
   const [userData, setUserData] = useState({
     name: undefined,
     email: undefined,
     img: "/img/anonymous.svg",
   });
+
+  useEffect(() => {
+    async function as() {
+      const docRef = doc(db, "shop", "catalog");
+      const docSnap = await getDoc(docRef);
+      setCatalog(docSnap.data().products);
+    }
+    as();
+  }, []);
 
   useEffect(() => {
     // Set the overflow of the body element based on the display value
@@ -215,7 +224,13 @@ export const App = () => {
 
         <Route
           path="/tienda"
-          element={<Shop addCartItem={addCartItem} addIceCream={addIceCream} />}
+          element={
+            <Shop
+              catalog={catalog}
+              addCartItem={addCartItem}
+              addIceCream={addIceCream}
+            />
+          }
         />
       </Routes>
     </div>
