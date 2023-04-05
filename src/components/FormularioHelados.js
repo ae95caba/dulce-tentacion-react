@@ -102,6 +102,7 @@ export function FormularioHelados(props) {
           <legend>Podes elegir hasta {props.product.flavours} sabores</legend>
           {dropDowns.map((dropDown, index) => (
             <DropDown
+              flavours={props.flavours}
               dropDowns={dropDowns}
               setDropDowns={setDropDowns}
               name={`Sabor ${index + 1}`}
@@ -253,29 +254,14 @@ export function FormularioHelados(props) {
 }
 
 function DropDown(props) {
-  const [sabores, setSabores] = useState(null);
-
-  useEffect(() => {
-    async function as() {
-      const docRef = doc(db, "shop", "catalog");
-      const docSnap = await getDoc(docRef);
-
-      setSabores(convertStringToArray(docSnap.data().flavours));
-    }
-    as();
-  }, []);
-
-  function convertStringToArray(string) {
-    // Remove leading and trailing periods and whitespaces
-    string = string.trim().replace(/^\.+|\.+$/g, "");
-
-    // Split the string by periods and whitespaces
-    const items = string.split(/\s*\.\s*/);
-
-    // Filter out any empty items
-    const filteredItems = items.filter((item) => item !== "");
-
-    return filteredItems;
+  function isValueSelected(value) {
+    let result = false;
+    props.dropDowns.forEach((dropDown) => {
+      if (dropDown.value === value) {
+        result = true;
+      }
+    });
+    return result;
   }
 
   return (
@@ -294,8 +280,12 @@ function DropDown(props) {
           required
         >
           <option value="">Elegi un sabor</option>
-          {sabores?.map((sabor) => (
-            <option value={sabor} key={uniqid()}>
+          {props.flavours?.map((sabor) => (
+            <option
+              value={sabor}
+              key={uniqid()}
+              disabled={isValueSelected(sabor)}
+            >
               {sabor}
             </option>
           ))}

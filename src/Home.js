@@ -21,19 +21,11 @@ function Contact() {
           <img src="/img/social/whatsapp.svg" />
           Whatsapp: 1127191588
         </button>
-        {/*  <iframe
-          id="google-maps"
-          title="google maps"
-          src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1639.0977142399781!2d-58.8029298!3d-34.75066958475664!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcebf7cde1c5f3%3A0x791060e1141fdd58!2sHelados%20y%20Kiosko%20Rayito!5e0!3m2!1sen!2sar!4v1679241852607!5m2!1sen!2sar"
-          style={{ border: "0" }}
-          allowFullScreen={true}
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-        ></iframe> */}
+
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3278.210079743154!2d-58.80161008650818!3d-34.7503004653374!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcebf7cde1c5f3%3A0x791060e1141fdd58!2sHelados%20y%20Kiosko%20Rayito!5e0!3m2!1ses-419!2sar!4v1679477719725!5m2!1ses-419!2sar"
           style={{ border: 0 }}
-          allowFullScreen="true"
+          allowFullScreen={true}
           loading="lazy"
           id="google-maps"
           title="google maps"

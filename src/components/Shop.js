@@ -8,31 +8,20 @@ import { setDoc, doc, getDoc } from "firebase/firestore";
 import { async } from "@firebase/util";
 import { catalog as catalogObj } from "../logic/catalog";
 
-export const Shop = ({ addCartItem, addIceCream, catalog }) => {
-  /*  async function adtoFireDb(data) {
-    const collectionRef = doc(db, `shop/`, "catalog");
-
-    await setDoc(collectionRef, {
-      products: data,
-    });
-  }
-
-  adtoFireDb(catalogObj); */
-
+export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
   //content is what will be mapped
   const [content, setContent] = useState(catalog?.helados);
 
-  useEffect(() => {
-    setContent(catalog?.helados);
-  }, [catalog]);
-
   //iceCreamForm content
-  //{show: true,product: product,}
   const [iceCreamForm, setIceCreamForm] = useState({
     show: false,
 
     product: undefined,
   });
+
+  useEffect(() => {
+    setContent(catalog?.helados);
+  }, [catalog]);
 
   function closeIceCreamForm() {
     setIceCreamForm({
@@ -56,6 +45,7 @@ export const Shop = ({ addCartItem, addIceCream, catalog }) => {
       {/* switch to icecream form */}
       {iceCreamForm.show ? (
         <FormularioHelados
+          flavours={flavours}
           product={iceCreamForm.product}
           close={closeIceCreamForm}
           addIceCream={addIceCream}
@@ -93,7 +83,7 @@ function Card({ product, addCartItem, openIceCreamForm }) {
   }, []); */
 
   return (
-    <div className="card">
+    <div className="card" style={{ opacity: product.outOfStock ? 0.5 : 1 }}>
       <div className="img-container">
         <div className="points">
           <img src="/img/seal.svg" />
@@ -115,6 +105,7 @@ function Card({ product, addCartItem, openIceCreamForm }) {
         </button>
       ) : (
         <button
+          disabled={product.outOfStock ? true : false}
           className={`to-cart ${active ? "active" : "inactve"}`}
           onAnimationEnd={() => {
             console.log("ani end");

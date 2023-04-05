@@ -25,12 +25,26 @@ export const App = () => {
     email: undefined,
     img: "/img/anonymous.svg",
   });
+  const [flavours, setFlavours] = useState(null);
 
   useEffect(() => {
+    function convertStringToArray(string) {
+      // Remove leading and trailing periods and whitespaces
+      string = string.trim().replace(/^\.+|\.+$/g, "");
+
+      // Split the string by periods and whitespaces
+      const items = string.split(/\s*\.\s*/);
+
+      // Filter out any empty items
+      const filteredItems = items.filter((item) => item !== "");
+
+      return filteredItems;
+    }
     async function as() {
       const docRef = doc(db, "shop", "catalog");
       const docSnap = await getDoc(docRef);
       setCatalog(docSnap.data().products);
+      setFlavours(convertStringToArray(docSnap.data().flavours));
     }
     as();
   }, []);
@@ -226,6 +240,7 @@ export const App = () => {
           path="/tienda"
           element={
             <Shop
+              flavours={flavours}
               catalog={catalog}
               addCartItem={addCartItem}
               addIceCream={addIceCream}
