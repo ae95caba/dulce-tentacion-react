@@ -126,7 +126,7 @@ export function FormularioHelados(props) {
         <legend
           className="dropdown-button"
           onClick={() => {
-            const content = document.querySelector(".content");
+            const content = document.querySelector(".extra-content");
             content.style.display === "none"
               ? (content.style.display = "grid")
               : (content.style.display = "none");
@@ -134,7 +134,7 @@ export function FormularioHelados(props) {
         >
           Adicionales <img src="/img/arrow-down.svg" />
         </legend>
-        <div className="content" style={{ display: "none" }}>
+        <div className="extra-content" style={{ display: "none" }}>
           <label htmlFor="rocklets" className="rocklets">
             <span>Rocklets:</span>
             <input
