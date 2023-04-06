@@ -10,34 +10,32 @@ export function SignUp(props) {
   const [showForm, setShowForm] = useState(false);
 
   return (
-    <div className="container">
-      <div className="content">
-        <div className="header">No tenes cuenta ?</div>
-        <div className="body">
-          <p
-            className="dropdown-button"
-            onClick={() => {
-              showForm ? setShowForm(false) : setShowForm(true);
-            }}
-          >
-            Crear cuenta <img src="/img/arrow-down.svg" />
-          </p>
-          {showForm ? (
-            <SignUpForm
-              setUserData={props.setUserData}
-              userData={props.userData}
-              setOfflineFilter={props.setOfflineFilter}
-            />
-          ) : null}
-          <p className="or">- o -</p>
-          <GoogleAuth text={"Entra con Google"} />
-        </div>
+    <div className="signup-section">
+      <div className="header">No tenes cuenta ?</div>
+      <div className="body">
+        <p
+          className="dropdown-button"
+          onClick={() => {
+            showForm ? setShowForm(false) : setShowForm(true);
+          }}
+        >
+          Crear cuenta <img src="/img/arrow-down.svg" />
+        </p>
+        {showForm ? (
+          <SignUpForm
+            setUserData={props.setUserData}
+            userData={props.userData}
+            setOfflineFilter={props.setOfflineFilter}
+          />
+        ) : null}
+        <p className="or">- o -</p>
+        <GoogleAuth text={"Entra con Google"} />
       </div>
     </div>
   );
 }
 
-export function SignUpForm(props) {
+function SignUpForm(props) {
   const [photo, setPhoto] = useState(null);
 
   //storage
@@ -100,8 +98,6 @@ export function SignUpForm(props) {
       }}
     >
       <fieldset>
-        {/*   <legend>No tenes cuenta ?</legend> */}
-
         <ImageSection photo={photo} setPhoto={setPhoto} />
         <div className="name-section">
           <label htmlFor="sign-up-name">Nombre completo *</label>
@@ -134,9 +130,9 @@ export function SignUpForm(props) {
             <input type="password" id="sign-up-password" required />
           </div>
         </div>
-
-        <button type="submit">Aceptar</button>
       </fieldset>
+
+      <button type="submit">Aceptar</button>
     </form>
   );
 }
