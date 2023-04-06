@@ -6,6 +6,7 @@ import { format } from "date-fns";
 import { Details } from "./Cart";
 import uniqid from "uniqid";
 import { useEffect, useState } from "react";
+import { ThreeCircles } from "react-loader-spinner";
 
 export const UserShopping = () => {
   const [confirmMessage, setConfirmMessage] = useState({
@@ -25,7 +26,20 @@ export const UserShopping = () => {
         />
       ) : null}
       <div id="purchase-list">
-        {loading ? <div className="loading">Cargando...</div> : null}
+        {loading ? (
+          /*  <div className="loading">Cargando...</div> */ <ThreeCircles
+            height="150"
+            width="150"
+            color="#FF0000"
+            wrapperStyle={{}}
+            wrapperClass="loading"
+            visible={true}
+            ariaLabel="three-circles-rotating"
+            outerCircleColor=""
+            innerCircleColor=""
+            middleCircleColor=""
+          />
+        ) : null}
         {!docs?.length > 0 && !loading && (
           <div id="no-purchases-message">
             No has comprado nada aun, que esperas ?

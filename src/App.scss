@@ -583,8 +583,8 @@ nav {
 
 #botonera {
   z-index: 9;
-  margin: 0 -3rem;
-  margin-bottom: 3rem;
+  /* margin: 0 -3rem; */
+  /*  margin-bottom: 3rem; */
   display: grid;
   grid-template-columns: 33.3% 33.3% 33.3%;
   background-image: $primary;
@@ -602,10 +602,14 @@ nav {
 }
 
 #shop {
-  padding: 0px 3rem;
-  padding-bottom: 3rem;
+  /* padding: 0px 3rem; */
+  display: grid;
+  grid-template-rows: min-content 1fr;
+
   background-color: white;
+  min-height: 90vh;
   .content {
+    padding: 3rem;
     display: flex;
     flex-direction: column;
     gap: 3rem;
@@ -639,9 +643,6 @@ nav {
 }
 
 .loading {
-  border: 1px solid black;
-  color: red;
-  background-color: black;
   position: absolute;
   left: 50%;
   top: 50%;

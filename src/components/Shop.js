@@ -7,6 +7,7 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 import { setDoc, doc, getDoc } from "firebase/firestore";
 import { async } from "@firebase/util";
 import { catalog as catalogObj } from "../logic/catalog";
+import { ThreeCircles } from "react-loader-spinner";
 
 export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
   //content is what will be mapped
@@ -53,7 +54,20 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
       ) : null}
 
       <div className="content">
-        {!content ? <div>Cargando ...</div> : null}
+        {!content ? (
+          <ThreeCircles
+            height="150"
+            width="150"
+            color="#FF0000"
+            wrapperStyle={{}}
+            wrapperClass="loading"
+            visible={true}
+            ariaLabel="three-circles-rotating"
+            outerCircleColor=""
+            innerCircleColor=""
+            middleCircleColor=""
+          />
+        ) : null}
         {content?.map((product, index) => (
           <Card
             //this key props cause useless re-renders if set to uniqid()
