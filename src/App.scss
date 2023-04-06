@@ -49,7 +49,7 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
   background-color: white;
   width: 100vw;
   height: 100vh;
-  overflow: scroll;
+  overflow-y: scroll;
   .close {
     position: absolute;
     left: 5%;
@@ -218,6 +218,18 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
   img {
     width: 100%;
   }
+}
+
+#cart::-webkit-scrollbar {
+  width: 8px; /* set the width of the scrollbar */
+}
+
+#cart::-webkit-scrollbar-thumb {
+  background-color: #ccc; /* set the color of the scrollbar thumb */
+}
+
+#cart::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* set the color of the scrollbar track */
 }
 
 #delivery-form {
