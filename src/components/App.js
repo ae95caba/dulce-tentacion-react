@@ -196,8 +196,10 @@ export const App = () => {
         }}
       >
         <img src="/img/cart.svg" alt="shopping cart"></img>
-        <div id="total-items">{totalItems()}</div>
-        <div id="total-price">$ {totalPrice()}</div>
+        <div className="totals">
+          <div id="total-items">{totalItems()}</div>
+          <div id="total-price">$ {totalPrice()}</div>
+        </div>
       </div>
       <Navbar isUserOnline={isUserOnline} />
       {showThanksMessage ? (

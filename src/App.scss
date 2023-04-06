@@ -22,13 +22,16 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
     width: 22vw;
     filter: drop-shadow(0px 3px 3px red);
   }
-  #total-price,
-  #total-items {
-    background-color: black;
-    color: white;
-    padding: 4px;
-    font-size: 1.2rem;
-    font-weight: 900;
+  .totals {
+    border: 1px solid red;
+    #total-price,
+    #total-items {
+      background-color: black;
+      color: white;
+      padding: 4px;
+      font-size: 1.2rem;
+      font-weight: 900;
+    }
   }
 }
 #cart {
@@ -538,7 +541,7 @@ nav {
   background-color: black;
   position: sticky;
   top: 0;
-  border-bottom: solid white 1px;
+  border-bottom: solid white 2px;
   .active {
     background-image: $primary;
     background-clip: text;
@@ -607,16 +610,27 @@ nav {
   grid-template-rows: min-content 1fr;
 
   background-color: white;
-  min-height: 90vh;
+  height: 90vh;
   .content {
     padding: 3rem;
     display: flex;
     flex-direction: column;
     gap: 3rem;
-    /*  height: 70vh;
-    overflow: hidden; */
+    height: 100%;
+    overflow-y: scroll;
   }
 
+  .content::-webkit-scrollbar {
+    width: 8px; /* set the width of the scrollbar */
+  }
+
+  .content::-webkit-scrollbar-thumb {
+    background-color: #ccc; /* set the color of the scrollbar thumb */
+  }
+
+  .content::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* set the color of the scrollbar track */
+  }
   h1,
   p {
     margin: 0.5rem 0px;
@@ -1034,17 +1048,24 @@ button {
   }
 }
 
-#contenedor-formulario-helados {
+#formulario-helados {
   position: fixed;
-  top: 10%;
+  top: 0;
   left: 0;
-  height: 90vh;
+  height: 100vh;
   width: 100vw;
   overflow-y: scroll;
-  border: 1px solid black;
-  padding: 3rem 3rem;
-  padding-top: 1.5rem;
+  z-index: 9;
+  padding: 3rem;
+
   background-color: white;
+  /////
+
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  font-weight: 500;
+
   .close {
     position: absolute;
     left: 5%;
@@ -1055,171 +1076,176 @@ button {
     border-radius: 1rem;
     box-shadow: 3px 3px 3px grey;
   }
-  z-index: 9;
   select {
     padding: 0.3rem 0rem;
   }
-  #formulario-helados {
+  .sabores {
+    //border: 1px solid black;
     display: flex;
     flex-direction: column;
-    gap: 2.5rem;
-    font-weight: 500;
-    .sabores {
-      //border: 1px solid black;
+    gap: 2rem;
+
+    legend {
+      font-size: 1.5rem;
+      margin-bottom: 3rem;
+      text-decoration: underline;
+      width: 50vw;
+      font-family: "Lilita One", cursive;
+    }
+
+    .add-flavour {
       display: flex;
-      flex-direction: column;
-      gap: 2rem;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 3px 3px 3px grey;
 
-      legend {
-        font-size: 1.5rem;
-        margin-bottom: 3rem;
-        text-decoration: underline;
-        width: 50vw;
-        font-family: "Lilita One", cursive;
-      }
+      border: 1px solid black;
+      background-image: $primary;
+      p {
+        font-size: 1.3rem;
 
-      .add-flavour {
+        font-weight: 900;
+
+        color: black;
+
         display: flex;
-        justify-content: center;
+        gap: 0.5rem;
+
         align-items: center;
-        box-shadow: 3px 3px 3px grey;
+        text-align: center;
 
-        border: 1px solid black;
-        background-image: $primary;
-        p {
-          font-size: 1.3rem;
-
-          font-weight: 900;
-
-          color: black;
-
-          display: flex;
-          gap: 0.5rem;
-
-          align-items: center;
-          text-align: center;
-
-          grid-template-columns: 66.6% 33.3%;
-
-          span {
-            font-size: 1.3rem;
-          }
-        }
-      }
-
-      .input-container {
-        /*   display: flex;
-        flex-direction: column; */
-        display: grid;
-        grid-template-columns: 83% 17%;
-
-        /* position: relative; */
+        grid-template-columns: 66.6% 33.3%;
 
         span {
-          /*   position: absolute; */
-          color: white;
-          box-shadow: 3px 3px 3px grey;
-          /*  right: -25%;
-          top: 50%; */
-          /*  transform: translate(-50%, -50%); */
-          font-size: 1.5rem;
-          background-color: black;
-
-          height: 100%;
-
-          padding: 0.5rem;
-        }
-
-        select {
-          border: 1px solid black;
           font-size: 1.3rem;
-          padding: 0.5rem 0px;
-
-          background-color: transparent;
-          font-weight: 900;
-          box-shadow: 3px 3px 3px grey;
-        }
-        .required {
-          background-image: $primary;
         }
       }
     }
-    .extra {
-      .dropdown-button {
-        padding: 0.6rem !important;
-        background-color: black;
+
+    .input-container {
+      /*   display: flex;
+        flex-direction: column; */
+      display: grid;
+      grid-template-columns: 83% 17%;
+
+      /* position: relative; */
+
+      span {
+        /*   position: absolute; */
         color: white;
-        img {
-          filter: invert(0);
-        }
+        box-shadow: 3px 3px 3px grey;
+        /*  right: -25%;
+          top: 50%; */
+        /*  transform: translate(-50%, -50%); */
+        font-size: 1.5rem;
+        background-color: black;
+
+        height: 100%;
+
+        padding: 0.5rem;
       }
 
-      .content {
-        margin-top: 1.5rem;
+      select {
+        border: 1px solid black;
+        font-size: 1.3rem;
+        padding: 0.5rem 0px;
 
-        grid-template-rows: 1fr 1fr 1fr;
-
-        gap: 1.5rem;
-        .rocklets,
-        .salsa,
-        .conos {
-          font-size: 1.2rem;
-          display: grid;
-          grid-template-columns: 33.3% 66.6%;
-
-          input {
-            border: 1px solid black;
-          }
-          label,
-          span {
-            text-align: left;
-            display: flex;
-            align-items: center;
-            font-size: 1.3rem;
-          }
-        }
-        .salsa {
-          select {
-            background-color: transparent;
-            font-size: inherit;
-            border: 1px solid black;
-            border-radius: 1rem;
-          }
-        }
-        .conos {
-          input {
-            height: 100%;
-            width: min-content;
-            font-size: inherit;
-          }
-
-          .count {
-            display: flex;
-            justify-content: center;
-          }
-
-          .increase,
-          .decrease {
-            height: 100%;
-            aspect-ratio: 1/1;
-            border: 1px solid black;
-            color: white;
-            background-color: black;
-            font-size: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-          }
-        }
+        background-color: transparent;
+        font-weight: 900;
+        box-shadow: 3px 3px 3px grey;
       }
-    }
-    .total-helado {
-      font-size: 1.6rem;
-    }
-    .buttons-container {
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
+      .required {
+        background-image: $primary;
+      }
     }
   }
+  .extra {
+    .dropdown-button {
+      padding: 0.6rem !important;
+      background-color: black;
+      color: white;
+      img {
+        filter: invert(0);
+      }
+    }
+
+    .content {
+      margin-top: 1.5rem;
+
+      grid-template-rows: 1fr 1fr 1fr;
+
+      gap: 1.5rem;
+      .rocklets,
+      .salsa,
+      .conos {
+        font-size: 1.2rem;
+        display: grid;
+        grid-template-columns: 33.3% 66.6%;
+
+        input {
+          border: 1px solid black;
+        }
+        label,
+        span {
+          text-align: left;
+          display: flex;
+          align-items: center;
+          font-size: 1.3rem;
+        }
+      }
+      .salsa {
+        select {
+          background-color: transparent;
+          font-size: inherit;
+          border: 1px solid black;
+          border-radius: 1rem;
+        }
+      }
+      .conos {
+        input {
+          height: 100%;
+          width: min-content;
+          font-size: inherit;
+        }
+
+        .count {
+          display: flex;
+          justify-content: center;
+        }
+
+        .increase,
+        .decrease {
+          height: 100%;
+          aspect-ratio: 1/1;
+          border: 1px solid black;
+          color: white;
+          background-color: black;
+          font-size: 1.5rem;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+      }
+    }
+  }
+  .total-helado {
+    font-size: 1.6rem;
+  }
+  .buttons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+}
+
+#formulario-helados::-webkit-scrollbar {
+  width: 8px; /* set the width of the scrollbar */
+}
+
+#formulario-helados::-webkit-scrollbar-thumb {
+  background-color: #ccc; /* set the color of the scrollbar thumb */
+}
+
+#formulario-helados::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* set the color of the scrollbar track */
 }

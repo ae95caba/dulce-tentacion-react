@@ -55,201 +55,199 @@ export function FormularioHelados(props) {
   }
 
   return (
-    <div id="contenedor-formulario-helados">
-      <form
-        id="formulario-helados"
-        onSubmit={(e) => {
-          e.preventDefault();
-          ///////////////////////////////////
-          //add flavours
+    <form
+      id="formulario-helados"
+      onSubmit={(e) => {
+        e.preventDefault();
+        ///////////////////////////////////
+        //add flavours
 
-          let flavoursArr = [];
+        let flavoursArr = [];
 
-          for (let i = 0; i < props.product.flavours; i++) {
-            flavoursArr[i] = { required: "", optional: "" };
-          }
+        for (let i = 0; i < props.product.flavours; i++) {
+          flavoursArr[i] = { required: "", optional: "" };
+        }
 
-          const requiredSelects = document.querySelectorAll(".required");
-          requiredSelects.forEach((select, index) => {
-            flavoursArr[index].required = select.value;
-          });
+        const requiredSelects = document.querySelectorAll(".required");
+        requiredSelects.forEach((select, index) => {
+          flavoursArr[index].required = select.value;
+        });
 
-          const optionalSelects = document.querySelectorAll(".optional");
-          optionalSelects.forEach((select, index) => {
-            flavoursArr[index].optional = select.value;
-          });
+        const optionalSelects = document.querySelectorAll(".optional");
+        optionalSelects.forEach((select, index) => {
+          flavoursArr[index].optional = select.value;
+        });
 
-          ///////////////////////////////////
-          //add extras
+        ///////////////////////////////////
+        //add extras
 
-          ///////////////////////////////////
+        ///////////////////////////////////
 
-          const fullProduct = {
-            name: props.product.name,
-            imgUrl: props.product.imgUrl,
-            count: 1,
-            extras: extras,
-            flavoursArr: flavoursArr,
-            price: totalPrice(),
-            totalPrice: totalPrice(),
-          };
+        const fullProduct = {
+          name: props.product.name,
+          imgUrl: props.product.imgUrl,
+          count: 1,
+          extras: extras,
+          flavoursArr: flavoursArr,
+          price: totalPrice(),
+          totalPrice: totalPrice(),
+        };
 
-          props.addIceCream(fullProduct);
-          props.close();
-        }}
-      >
-        <fieldset className="sabores">
-          <legend>Podes elegir hasta {props.product.flavours} sabores</legend>
-          {dropDowns.map((dropDown, index) => (
-            <DropDown
-              flavours={props.flavours}
-              dropDowns={dropDowns}
-              setDropDowns={setDropDowns}
-              name={`Sabor ${index + 1}`}
-              key={`${index}-${dropDown}`}
-              index={index}
-            />
-          ))}
-          {dropDowns.length < props.product.flavours ? (
-            <div
-              className="add-flavour"
-              onClick={() => {
-                addFlavour();
-              }}
-            >
-              <p>
-                AGREGAR <span>+</span>
-              </p>
-            </div>
-          ) : null}
-        </fieldset>
-        <fieldset className="extra">
-          <legend
-            className="dropdown-button"
+        props.addIceCream(fullProduct);
+        props.close();
+      }}
+    >
+      <fieldset className="sabores">
+        <legend>Podes elegir hasta {props.product.flavours} sabores</legend>
+        {dropDowns.map((dropDown, index) => (
+          <DropDown
+            flavours={props.flavours}
+            dropDowns={dropDowns}
+            setDropDowns={setDropDowns}
+            name={`Sabor ${index + 1}`}
+            key={`${index}-${dropDown}`}
+            index={index}
+          />
+        ))}
+        {dropDowns.length < props.product.flavours ? (
+          <div
+            className="add-flavour"
             onClick={() => {
-              const content = document.querySelector(".content");
-              content.style.display === "none"
-                ? (content.style.display = "grid")
-                : (content.style.display = "none");
+              addFlavour();
             }}
           >
-            Adicionales <img src="/img/arrow-down.svg" />
-          </legend>
-          <div className="content" style={{ display: "none" }}>
-            <label htmlFor="rocklets" className="rocklets">
-              <span>Rocklets:</span>
-              <input
-                type="checkbox"
-                name="subscribe"
-                value="yes"
-                id="rocklets"
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    const copy = { ...extras };
-                    copy.rocklets.isChecked = true;
-                    setExtras({ ...copy });
-                    // extras = { ...copy };
-                  } else {
-                    const copy = { ...extras };
-                    copy.rocklets.isChecked = false;
-                    setExtras({ ...copy });
-                    // extras = { ...copy };
-                  }
-                }}
-              />
-            </label>
-            <div className="salsa">
-              <label htmlFor="salsa">Salsa:</label>
-              <select
-                id="salsa"
-                name="salsa"
-                onChange={(e) => {
+            <p>
+              AGREGAR <span>+</span>
+            </p>
+          </div>
+        ) : null}
+      </fieldset>
+      <fieldset className="extra">
+        <legend
+          className="dropdown-button"
+          onClick={() => {
+            const content = document.querySelector(".content");
+            content.style.display === "none"
+              ? (content.style.display = "grid")
+              : (content.style.display = "none");
+          }}
+        >
+          Adicionales <img src="/img/arrow-down.svg" />
+        </legend>
+        <div className="content" style={{ display: "none" }}>
+          <label htmlFor="rocklets" className="rocklets">
+            <span>Rocklets:</span>
+            <input
+              type="checkbox"
+              name="subscribe"
+              value="yes"
+              id="rocklets"
+              onChange={(e) => {
+                if (e.target.checked) {
                   const copy = { ...extras };
-                  copy.salsa.type = e.target.value;
+                  copy.rocklets.isChecked = true;
                   setExtras({ ...copy });
-                  //extras = { ...copy };
-                }}
-              >
-                <option value="">Eligue una salsa</option>
-                <option value="frutilla">Frutilla</option>
-                <option value="chocolate">Chocolate</option>
-              </select>
-            </div>
-            <div className="conos">
-              <label htmlFor="conos">Conos:</label>
-              <div className="count">
-                <div
-                  className="decrease"
-                  onClick={() => {
-                    const input = document.getElementById("conos");
-                    if (input.value > 0) {
-                      document.getElementById("conos").value--;
-                      const copy = { ...extras };
-                      copy.conos.count = input.value;
-                      setExtras({ ...copy });
-                      // extras = { ...copy };
-                    }
-                  }}
-                >
-                  -
-                </div>
-                <input
-                  id="conos"
-                  type="number"
-                  min="1"
-                  max="15"
-                  step="1"
-                  placeholder="0"
-                  onChange={(e) => {
-                    console.log("onchange");
-                    const copy = { ...extras };
-                    copy.conos.count = e.target.value;
-                    setExtras({ ...copy });
-                    // extras = { ...copy };
-                  }}
-                />
-                <div
-                  className="increase"
-                  onClick={() => {
-                    const input = document.getElementById("conos");
-                    input.value++;
+                  // extras = { ...copy };
+                } else {
+                  const copy = { ...extras };
+                  copy.rocklets.isChecked = false;
+                  setExtras({ ...copy });
+                  // extras = { ...copy };
+                }
+              }}
+            />
+          </label>
+          <div className="salsa">
+            <label htmlFor="salsa">Salsa:</label>
+            <select
+              id="salsa"
+              name="salsa"
+              onChange={(e) => {
+                const copy = { ...extras };
+                copy.salsa.type = e.target.value;
+                setExtras({ ...copy });
+                //extras = { ...copy };
+              }}
+            >
+              <option value="">Eligue una salsa</option>
+              <option value="frutilla">Frutilla</option>
+              <option value="chocolate">Chocolate</option>
+            </select>
+          </div>
+          <div className="conos">
+            <label htmlFor="conos">Conos:</label>
+            <div className="count">
+              <div
+                className="decrease"
+                onClick={() => {
+                  const input = document.getElementById("conos");
+                  if (input.value > 0) {
+                    document.getElementById("conos").value--;
                     const copy = { ...extras };
                     copy.conos.count = input.value;
                     setExtras({ ...copy });
                     // extras = { ...copy };
-                  }}
-                >
-                  +
-                </div>
+                  }
+                }}
+              >
+                -
+              </div>
+              <input
+                id="conos"
+                type="number"
+                min="1"
+                max="15"
+                step="1"
+                placeholder="0"
+                onChange={(e) => {
+                  console.log("onchange");
+                  const copy = { ...extras };
+                  copy.conos.count = e.target.value;
+                  setExtras({ ...copy });
+                  // extras = { ...copy };
+                }}
+              />
+              <div
+                className="increase"
+                onClick={() => {
+                  const input = document.getElementById("conos");
+                  input.value++;
+                  const copy = { ...extras };
+                  copy.conos.count = input.value;
+                  setExtras({ ...copy });
+                  // extras = { ...copy };
+                }}
+              >
+                +
               </div>
             </div>
           </div>
-        </fieldset>
-
-        <div className="total-helado">Total: $ {totalPrice()}</div>
-        <div className="buttons-container">
-          <button type="submit" className="binary-buttons neon-red">
-            Aceptar
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              props.close();
-            }}
-          >
-            Atras
-          </button>
         </div>
-        <img
-          className="close"
-          src="/img/return.svg"
-          alt="return"
+      </fieldset>
+
+      <div className="total-helado">Total: $ {totalPrice()}</div>
+      <div className="buttons-container">
+        <button type="submit" className="binary-buttons neon-red">
+          Aceptar
+        </button>
+        <button
+          type="button"
           onClick={() => {
             props.close();
           }}
-        />
-      </form>
-    </div>
+        >
+          Atras
+        </button>
+      </div>
+      <img
+        className="close"
+        src="/img/return.svg"
+        alt="return"
+        onClick={() => {
+          props.close();
+        }}
+      />
+    </form>
   );
 }
 

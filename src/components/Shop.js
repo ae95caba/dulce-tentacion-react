@@ -115,7 +115,7 @@ function Card({ product, addCartItem, openIceCreamForm }) {
 
       {product.flavours ? (
         <button className={`to-cart`} onClick={() => openIceCreamForm(product)}>
-          Aniadir al carrito
+          Elegir sabores
         </button>
       ) : (
         <button

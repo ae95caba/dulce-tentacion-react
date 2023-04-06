@@ -25,7 +25,7 @@ export function Navbar(props) {
               window.scrollTo(0, 0);
             }}
           >
-            Tienda
+            Catalogo
           </NavLink>
         </li>
         <li>
