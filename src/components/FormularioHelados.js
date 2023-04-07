@@ -1,7 +1,4 @@
-import { createFactory, useEffect, useState } from "react";
-import uniqid from "uniqid";
-import { setDoc, doc, getDoc } from "firebase/firestore";
-import { db, auth } from "../backend/firebase";
+import { createFactory, useEffect, useState, useRef } from "react";
 
 export function FormularioHelados(props) {
   //checks how many dropDowns are
@@ -22,6 +19,7 @@ export function FormularioHelados(props) {
     setDropDowns(arr);
   }, []);
 
+  //switches the body overflow property
   useEffect(() => {
     // Code to run on mount
     document.body.style.overflow = "hidden";
@@ -46,7 +44,7 @@ export function FormularioHelados(props) {
   }, [dropDowns]);
 
   let totalPrice = () => {
-    let total = props.product.price; //reemplazar por precio de helados
+    let total = props.product?.price; //reemplazar por precio de helados
 
     if (extras.rocklets.isChecked) {
       total += extras.rocklets.price;
@@ -67,9 +65,34 @@ export function FormularioHelados(props) {
     setDropDowns(copy);
   }
 
+  //onClose, remove fadein class (OPTIONAL), add fadeout clasee, set onAnimationend : Close
+
+  const ref = useRef(null);
+  function handleAnimationEnd() {
+    console.log("Animation ended");
+    props.close();
+  }
+
+  function animateAndClose() {
+    ref.current.addEventListener("animationend", handleAnimationEnd);
+
+    ref.current.classList.add("animate__fadeOutLeft");
+  }
+
+  useEffect(() => {
+    const currentRef = ref.current;
+    return () => {
+      currentRef.removeEventListener("animationend", handleAnimationEnd);
+    };
+  }, []);
+
+  //////////////////////////////////////
+
   return (
     <form
       id="formulario-helados"
+      ref={ref}
+      className="animate__animated animate__fadeInLeft"
       onSubmit={(e) => {
         e.preventDefault();
         ///////////////////////////////////
@@ -111,7 +134,7 @@ export function FormularioHelados(props) {
       }}
     >
       <fieldset className="sabores">
-        <legend>Podes elegir hasta {props.product.flavours} sabores</legend>
+        <legend>Podes elegir hasta {props.product?.flavours} sabores</legend>
         {dropDowns.map((dropDown, index) => (
           <DropDown
             flavours={props.flavours}
@@ -122,7 +145,7 @@ export function FormularioHelados(props) {
             index={index}
           />
         ))}
-        {dropDowns.length < props.product.flavours ? (
+        {dropDowns.length < props.product?.flavours ? (
           <div
             className="add-flavour"
             onClick={() => {
@@ -246,7 +269,8 @@ export function FormularioHelados(props) {
         <button
           type="button"
           onClick={() => {
-            props.close();
+            /*  props.close(); */
+            animateAndClose();
           }}
         >
           Atras
@@ -257,7 +281,8 @@ export function FormularioHelados(props) {
         src="/img/return.svg"
         alt="return"
         onClick={() => {
-          props.close();
+          /*  props.close(); */
+          animateAndClose();
         }}
       />
     </form>

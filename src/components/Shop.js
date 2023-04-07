@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Botonera } from "./Botonera";
-import { db, auth } from "../backend/firebase";
+
 import { FormularioHelados } from "./FormularioHelados";
-import { collection } from "firebase/firestore";
-import { useCollectionData } from "react-firebase-hooks/firestore";
-import { setDoc, doc, getDoc } from "firebase/firestore";
-import { async } from "@firebase/util";
-import { catalog as catalogObj } from "../logic/catalog";
+
 import { ThreeCircles } from "react-loader-spinner";
 
 export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
@@ -16,7 +12,6 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
   //iceCreamForm content
   const [iceCreamForm, setIceCreamForm] = useState({
     show: false,
-
     product: undefined,
   });
 
@@ -60,6 +55,7 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
           product={iceCreamForm.product}
           close={closeIceCreamForm}
           addIceCream={addIceCream}
+          iceCreamForm={iceCreamForm}
         />
       ) : null}
 
