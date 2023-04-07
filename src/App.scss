@@ -226,11 +226,12 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
 }
 
 #cart::-webkit-scrollbar-thumb {
-  background-color: #ccc; /* set the color of the scrollbar thumb */
+  background-color: rgb(255, 0, 0); /* set the color of the scrollbar thumb */
+  border-radius: 1rem;
 }
 
 #cart::-webkit-scrollbar-track {
-  background-color: #f1f1f1; /* set the color of the scrollbar track */
+  background-color: #000000; /* set the color of the scrollbar track */
 }
 
 #delivery-form {
@@ -376,11 +377,12 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
 }
 
 #home::-webkit-scrollbar-thumb {
-  background-color: #ccc; /* set the color of the scrollbar thumb */
+  background-color: rgb(255, 0, 0); /* set the color of the scrollbar thumb */
+  border-radius: 1rem;
 }
 
 #home::-webkit-scrollbar-track {
-  background-color: #f1f1f1; /* set the color of the scrollbar track */
+  background-color: #000000; /* set the color of the scrollbar track */
 }
 
 .message-container {
@@ -568,11 +570,12 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
 }
 
 #purchase-list-container::-webkit-scrollbar-thumb {
-  background-color: #ccc; /* set the color of the scrollbar thumb */
+  background-color: rgb(255, 0, 0); /* set the color of the scrollbar thumb */
+  border-radius: 1rem;
 }
 
 #purchase-list-container::-webkit-scrollbar-track {
-  background-color: #f1f1f1; /* set the color of the scrollbar track */
+  background-color: #000000; /* set the color of the scrollbar track */
 }
 
 nav {
@@ -670,11 +673,12 @@ nav {
   }
 
   .content::-webkit-scrollbar-thumb {
-    background-color: #ccc; /* set the color of the scrollbar thumb */
+    background-color: rgb(255, 0, 0); /* set the color of the scrollbar thumb */
+    border-radius: 1rem;
   }
 
   .content::-webkit-scrollbar-track {
-    background-color: #f1f1f1; /* set the color of the scrollbar track */
+    background-color: #000000; /* set the color of the scrollbar track */
   }
   h1,
   p {
@@ -867,6 +871,7 @@ button {
   background-color: white;
 
   height: 90vh;
+  height: 90svh;
 
   display: grid;
   grid-template-rows: min-content 1fr;
@@ -1346,9 +1351,10 @@ button {
 }
 
 #formulario-helados::-webkit-scrollbar-thumb {
-  background-color: #ccc; /* set the color of the scrollbar thumb */
+  background-color: rgb(255, 0, 0); /* set the color of the scrollbar thumb */
+  border-radius: 1rem;
 }
 
 #formulario-helados::-webkit-scrollbar-track {
-  background-color: #f1f1f1; /* set the color of the scrollbar track */
+  background-color: #000000; /* set the color of the scrollbar track */
 }
