@@ -4,10 +4,11 @@ import { Carousel } from "react-responsive-carousel";
 export function Home() {
   return (
     <div id="home">
-      <Header />
-      <Contact />
-
-      <Schedules />
+      <div className="content">
+        <Header />
+        <Contact />
+        <Schedules />
+      </div>
     </div>
   );
 }
