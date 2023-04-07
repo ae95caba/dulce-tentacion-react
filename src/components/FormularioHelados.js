@@ -7,6 +7,11 @@ export function FormularioHelados(props) {
   //checks how many dropDowns are
   // every dropDown will be this : { index: index, value: value }
   const [dropDowns, setDropDowns] = useState([]);
+  const [extras, setExtras] = useState({
+    rocklets: { price: 100, isChecked: false },
+    conos: { price: 80, count: 0 },
+    salsa: { price: 110, type: null },
+  });
 
   //creates dropDowns representations on state for each flavour avaliable to choose
   useEffect(() => {
@@ -26,11 +31,19 @@ export function FormularioHelados(props) {
     };
   }, []);
 
-  const [extras, setExtras] = useState({
-    rocklets: { price: 100, isChecked: false },
-    conos: { price: 80, count: 0 },
-    salsa: { price: 110, type: null },
-  });
+  ///////////read from localStorage
+  useEffect(() => {
+    const myObjectString = localStorage.getItem("myObject");
+    const myObjectParsed = JSON.parse(myObjectString);
+    console.log(myObjectParsed); // Output: { name: "John", age: 30 }
+  }, []);
+
+  //////////write to localStorage
+  useEffect(() => {
+    const myObject = { name: "John", age: 30 };
+    // Storing an object in local storage
+    localStorage.setItem("myObject", JSON.stringify(myObject));
+  }, [dropDowns]);
 
   let totalPrice = () => {
     let total = props.product.price; //reemplazar por precio de helados
@@ -268,7 +281,9 @@ function DropDown(props) {
         <select
           className="required"
           name={props.name}
-          value={props.dropDowns[props.index].value}
+          //the value has to come from state because, the onChange triggers a re-render so the value resets
+          //it reseted because the options key was uniqid() so it was diferent every re-render
+          /*  value={props.dropDowns[props.index].value} */
           onChange={(e) => {
             //updates the dropDown representation in the state
             const copy = [...props.dropDowns];
@@ -278,10 +293,10 @@ function DropDown(props) {
           required
         >
           <option value="">Elegi un sabor</option>
-          {props.flavours?.map((sabor) => (
+          {props.flavours?.map((sabor, index) => (
             <option
               value={sabor}
-              key={uniqid()}
+              key={`${index}-option`}
               disabled={isValueSelected(sabor)}
             >
               {sabor}

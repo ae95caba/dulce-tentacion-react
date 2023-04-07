@@ -183,9 +183,7 @@ export function Cart(props) {
           <p id="checkout-tittle">Total: </p>
           <div id="summary-container">
             <div id="summary">
-              <p>
-                $ {props.totalPrice()} / {props.totalPrice()} puntos{" "}
-              </p>
+              <p>$ {props.totalPrice()}</p>
             </div>
           </div>
 
