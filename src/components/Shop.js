@@ -40,9 +40,19 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
     });
   }
 
+  function scrollToTop() {
+    var div = document.querySelector("#shop .content");
+    div.scrollTop = 0;
+  }
+
   return (
     <div id="shop">
-      <Botonera setContent={setContent} content={content} catalog={catalog} />
+      <Botonera
+        scrollToTop={scrollToTop}
+        setContent={setContent}
+        content={content}
+        catalog={catalog}
+      />
       {/* switch to icecream form */}
       {iceCreamForm.show ? (
         <FormularioHelados

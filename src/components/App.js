@@ -40,10 +40,30 @@ export const App = () => {
 
       return filteredItems;
     }
+    function sortObjectsByName(objects) {
+      return objects.sort(function (a, b) {
+        var nameA = a.name.toUpperCase(); // convert to uppercase to make sorting case-insensitive
+        var nameB = b.name.toUpperCase();
+        if (nameA < nameB) {
+          return -1; // nameA comes before nameB
+        }
+        if (nameA > nameB) {
+          return 1; // nameA comes after nameB
+        }
+        return 0; // names are equal
+      });
+    }
     async function as() {
       const docRef = doc(db, "shop", "catalog");
       const docSnap = await getDoc(docRef);
-      setCatalog(docSnap.data().products);
+      ///
+
+      let helados = docSnap.data().products.helados;
+      let escabio = docSnap.data().products.escabio;
+      let sortedHelados = sortObjectsByName(helados);
+      let sortedEscabio = sortObjectsByName(escabio);
+      let sortedProducts = { helados: sortedHelados, escabio: sortedEscabio };
+      setCatalog(sortedProducts);
       setFlavours(convertStringToArray(docSnap.data().flavours));
     }
     as();
