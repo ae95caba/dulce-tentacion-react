@@ -167,6 +167,7 @@ function ImageSection(props) {
           <input
             type="file"
             id="sign-up-img"
+            accept="image/*"
             onChange={(e) => {
               handleFileInputChange(e);
             }}
