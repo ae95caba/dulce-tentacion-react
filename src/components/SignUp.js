@@ -123,6 +123,12 @@ function SignUpForm(props) {
             />
           </div>
         </div>
+        <div className="birthday-section">
+          <label htmlFor="sign-up-birthday">Fecha de nacimiento *</label>
+          <div className="input-container">
+            <input type="date" id="sign-up-birthday" required />
+          </div>
+        </div>
         <div className="password-section">
           <label htmlFor="sign-up-password">Contrasenia *</label>
           <div className="input-container">

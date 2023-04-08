@@ -961,7 +961,6 @@ button {
     }
 
     .email-section,
-    .name-section,
     .password-section {
       //border: 1px solid black;
       display: flex;
@@ -1090,6 +1089,50 @@ button {
               }
             }
           }
+        }
+      }
+    }
+
+    .name-section,
+    .birthday-section {
+      //border: 1px solid black;
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+      .input-container {
+        position: relative;
+        img {
+          position: absolute;
+          left: 8%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          width: 1rem;
+        }
+        input {
+          border: 1px solid black;
+          text-align: left;
+          font-size: 1.5rem;
+          width: 100%;
+          padding: 0.3rem 0px;
+          padding-left: 20%;
+          border-radius: 1rem;
+        }
+      }
+    }
+
+    .birthday-section {
+      //border: 1px solid black;
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+      .input-container {
+        input {
+          border: 1px solid black;
+
+          font-size: 1.5rem;
+          width: 100%;
+          padding-right: 10%;
+          border-radius: 1rem;
         }
       }
     }
