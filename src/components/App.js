@@ -208,6 +208,11 @@ export const App = () => {
   return (
     <div id="app">
       <div
+        className={
+          totalItems() > 0
+            ? "animate__animated animate__pulse animate__infinite animate__slower	"
+            : null
+        }
         id="cart-button"
         onClick={() => {
           /*   document.body.style.overflow = "hidden";
@@ -215,11 +220,12 @@ export const App = () => {
           setCartDisplayProperty("flex");
         }}
       >
-        <img src="/img/cart.svg" alt="shopping cart"></img>
-        <div className="totals">
-          <div id="total-items">{totalItems()}</div>
-          <div id="total-price">$ {totalPrice()}</div>
+        <div style={{ position: "relative" }}>
+          <img src="/img/cart.svg" alt="shopping cart"></img>
+          <div id="total-items">{totalItems() > 0 ? totalItems() : null}</div>
         </div>
+
+        <div id="total-price">$ {totalPrice()}</div>
       </div>
       <Navbar isUserOnline={isUserOnline} />
       {showThanksMessage ? (

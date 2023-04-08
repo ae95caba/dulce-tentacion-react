@@ -18,21 +18,30 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
   position: fixed;
   bottom: 5%;
   right: 5%;
+
+  #total-items {
+    position: absolute;
+    left: 60%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+  }
+
+  #total-price {
+    box-shadow: 3px 3px 3px grey;
+    border: 1px solid red;
+  }
+
+  #total-price,
+  #total-items {
+    background-color: black;
+    color: white;
+    padding: 4px;
+    font-size: 1.2rem;
+    font-weight: 900;
+  }
   img {
     width: 22vw;
     filter: drop-shadow(0px 3px 3px red);
-  }
-  .totals {
-    box-shadow: 3px 3px 3px grey;
-    border: 1px solid red;
-    #total-price,
-    #total-items {
-      background-color: black;
-      color: white;
-      padding: 4px;
-      font-size: 1.2rem;
-      font-weight: 900;
-    }
   }
 }
 #cart {
