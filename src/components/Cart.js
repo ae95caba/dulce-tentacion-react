@@ -96,9 +96,33 @@ export function Cart(props) {
       props.setIsABuyPending(true);
     }
   }
+  //animateAndClose: remove fadein class , add fadeout class, set onAnimationend :remove fadeout, Close
 
+  const ref = useRef(null);
+
+  function animateAndClose() {
+    ref.current.classList.remove("animate__animated", "animate__fadeInRight");
+    ref.current.classList.add("animate__animated", "animate__fadeOutRight");
+    function handleAnimationEnd() {
+      props.setCartDisplayProperty("none");
+    }
+    ref.current.addEventListener("animationend", handleAnimationEnd, {
+      once: true,
+    });
+  }
+
+  ///////////////////////////
   return (
-    <div id="cart" style={{ display: props.cartDisplayProperty }}>
+    <div
+      ref={ref}
+      id="cart"
+      className={
+        props.cartDisplayProperty === "flex"
+          ? "animate__animated animate__fadeInRight"
+          : ""
+      }
+      style={{ display: props.cartDisplayProperty }}
+    >
       <h1>Tu carrito</h1>
       <div className="cart-body">
         {props.cartItems.length > 0 ? (
@@ -215,7 +239,8 @@ export function Cart(props) {
         alt="return"
         className="close"
         onClick={() => {
-          props.setCartDisplayProperty("none");
+          /* props.setCartDisplayProperty("none"); */
+          animateAndClose();
         }}
       />
     </div>

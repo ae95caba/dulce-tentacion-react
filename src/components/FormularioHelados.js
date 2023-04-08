@@ -67,20 +67,20 @@ export function FormularioHelados(props) {
 
   //onClose, remove fadein class (OPTIONAL), add fadeout clasee, set onAnimationend : Close
 
-  const ref = useRef(null);
+  const formRef = useRef(null);
   function handleAnimationEnd() {
     console.log("Animation ended");
     props.close();
   }
 
   function animateAndClose() {
-    ref.current.addEventListener("animationend", handleAnimationEnd);
+    formRef.current.addEventListener("animationend", handleAnimationEnd);
 
-    ref.current.classList.add("animate__fadeOutLeft");
+    formRef.current.classList.add("animate__fadeOutLeft");
   }
 
   useEffect(() => {
-    const currentRef = ref.current;
+    const currentRef = formRef.current;
     return () => {
       currentRef.removeEventListener("animationend", handleAnimationEnd);
     };
@@ -91,7 +91,7 @@ export function FormularioHelados(props) {
   return (
     <form
       id="formulario-helados"
-      ref={ref}
+      ref={formRef}
       className="animate__animated animate__fadeInLeft"
       onSubmit={(e) => {
         e.preventDefault();

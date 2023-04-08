@@ -215,8 +215,6 @@ export const App = () => {
         }
         id="cart-button"
         onClick={() => {
-          /*   document.body.style.overflow = "hidden";
-           document.getElementById("cart").style.display = "flex";  */
           setCartDisplayProperty("flex");
         }}
       >
