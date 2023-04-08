@@ -141,10 +141,21 @@ function ImageSection(props) {
   const [previewSource, setPreviewSource] = useState("/img/anonymous.svg");
 
   const handleFileInputChange = (e) => {
-    if (e.target.files[0]) {
-      const file = e.target.files[0];
-      previewFile(file);
-      props.setPhoto(file);
+    const file = e.target.files[0];
+    const fileType = file.type;
+    if (file) {
+      if (!fileType.startsWith("image/")) {
+        alert("Elige una imagen valida");
+        e.target.value = "";
+      } else {
+        if (file.size > 2097152) {
+          alert("El archivo es muy pesado, el maximo es 2MB");
+          e.target.value = "";
+        } else {
+          previewFile(file);
+          props.setPhoto(file);
+        }
+      }
     }
   };
 
