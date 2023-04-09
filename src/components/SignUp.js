@@ -3,7 +3,7 @@ import { auth, storage } from "../backend/firebase";
 
 import { GoogleAuth } from "./GoogleAuth";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export function SignUp(props) {
@@ -37,6 +37,106 @@ export function SignUp(props) {
 
 function SignUpForm(props) {
   const [photo, setPhoto] = useState(null);
+  const [input, setInput] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const [error, setError] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const confirmPasswordRef = useRef(null);
+
+  useEffect(() => {
+    if (
+      error.confirmPassword === "Password and Confirm Password does not match."
+    ) {
+      confirmPasswordRef.current.setCustomValidity("not match1");
+    } else if (error.confirmPassword === "") {
+      confirmPasswordRef.current.setCustomValidity("");
+    }
+  }, [error]);
+
+  const onInputChange = (e) => {
+    const { name, value } = e.target;
+    setInput((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+    validateInput(e);
+  };
+
+  const validateInput = (e) => {
+    let { name, value } = e.target;
+    setError((prev) => {
+      const stateObj = { ...prev, [name]: "" };
+
+      switch (name) {
+        case "username":
+          if (!value) {
+            stateObj[name] = "Please enter Username.";
+          }
+          break;
+
+        case "email":
+          if (!value) {
+            stateObj[name] = "Please enter Email.";
+          } else if (!e.target.validity.valid) {
+            stateObj[name] = "El email no es valido.";
+          }
+          break;
+
+        case "birthday":
+          if (!value) {
+            stateObj[name] = "Please enter birthday.";
+          } else if (!e.target.validity.valid) {
+            stateObj[name] = "La fecha no es valida.";
+          }
+          break;
+
+        case "password":
+          console.log(e.target.validity.valid);
+          if (!value) {
+            //if empty
+            stateObj[name] = "Please enter Password.";
+          } else if (input.confirmPassword && value !== input.confirmPassword) {
+            //if not match and confirmPassword has value
+            if (!e.target.validity.valid) {
+              stateObj[name] = "wrong pattern";
+            }
+            stateObj["confirmPassword"] =
+              "Password and Confirm Password does not match.";
+          } else {
+            //if match
+            if (!e.target.validity.valid) {
+              stateObj[name] = "wrong pattern";
+            }
+            stateObj["confirmPassword"] = input.confirmPassword
+              ? ""
+              : error.confirmPassword;
+          }
+          break;
+
+        case "confirmPassword":
+          if (!value) {
+            stateObj[name] = "Please enter Confirm Password.";
+          } else if (input.password && value !== input.password) {
+            stateObj[name] = "Password and Confirm Password does not match.";
+          }
+          break;
+
+        default:
+          break;
+      }
+
+      return stateObj;
+    });
+  };
 
   //storage
   async function uploadImg(file, currentUser, setLoading) {
@@ -105,11 +205,16 @@ function SignUpForm(props) {
             <img src="/img/user.svg" alt="icon" />
             <input
               type="name"
+              name="username"
               id="sign-up-name"
               placeholder="Nombre y Apellido"
+              onChange={onInputChange}
+              onBlur={validateInput}
+              value={input.username}
               required
             />
           </div>
+          {error.username && <span className="err">{error.username}</span>}
         </div>
         <div className="email-section">
           <label htmlFor="sign-up-email">Email *</label>
@@ -118,23 +223,69 @@ function SignUpForm(props) {
             <input
               type="email"
               id="sign-up-email"
+              name="email"
               placeholder="ejemplo@gmail.com"
+              onChange={onInputChange}
+              onBlur={validateInput}
+              value={input.email}
               required
             />
           </div>
+          {error.email && <span className="err">{error.email}</span>}
         </div>
         <div className="birthday-section">
           <label htmlFor="sign-up-birthday">Fecha de nacimiento *</label>
           <div className="input-container">
-            <input type="date" id="sign-up-birthday" required />
+            <input
+              name="birthday"
+              type="date"
+              id="sign-up-birthday"
+              min="1920-01-01"
+              max="2018-01-01"
+              value={input.birthday}
+              onChange={onInputChange}
+              onBlur={validateInput}
+              required
+            />
           </div>
+          {error.birthday && <span className="err">{error.birthday}</span>}
         </div>
         <div className="password-section">
           <label htmlFor="sign-up-password">Contrasenia *</label>
           <div className="input-container">
             <img src="/img/password.svg" alt="icon" />
-            <input type="password" id="sign-up-password" required />
+            <input
+              type="password"
+              name="password"
+              id="sign-up-password"
+              pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+              title="Password must have at least 8 characters, 1 letter, and 1 number"
+              value={input.password}
+              onChange={onInputChange}
+              onBlur={validateInput}
+              required
+            />
           </div>
+          {error.password && <span className="err">{error.password}</span>}
+        </div>
+        <div className="password-validation-section">
+          <label htmlFor="sign-up-password-validation">Contrasenia *</label>
+          <div className="input-container">
+            <img src="/img/password.svg" alt="icon" />
+            <input
+              ref={confirmPasswordRef}
+              type="password"
+              name="confirmPassword"
+              id="sign-up-password-validation"
+              onChange={onInputChange}
+              value={input.confirmPassword}
+              onBlur={validateInput}
+              required
+            />
+          </div>
+          {error.confirmPassword && (
+            <span className="err">{error.confirmPassword}</span>
+          )}
         </div>
       </fieldset>
 
