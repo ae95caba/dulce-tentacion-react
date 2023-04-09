@@ -1027,6 +1027,10 @@ button {
 
     .body {
       padding-bottom: 2rem;
+      .err {
+        margin-top: 0.5rem;
+        color: red;
+      }
       .dropdown-button {
         padding: 0.5rem;
         background-color: black;

@@ -53,10 +53,10 @@ function SignUpForm(props) {
   const confirmPasswordRef = useRef(null);
 
   useEffect(() => {
-    if (
-      error.confirmPassword === "Password and Confirm Password does not match."
-    ) {
-      confirmPasswordRef.current.setCustomValidity("not match1");
+    if (error.confirmPassword === "Las contrasenias no son iguales.") {
+      confirmPasswordRef.current.setCustomValidity(
+        "Las contrasenias no son iguales."
+      );
     } else if (error.confirmPassword === "") {
       confirmPasswordRef.current.setCustomValidity("");
     }
@@ -79,13 +79,13 @@ function SignUpForm(props) {
       switch (name) {
         case "username":
           if (!value) {
-            stateObj[name] = "Please enter Username.";
+            stateObj[name] = "Escribe tu nombre completo.";
           }
           break;
 
         case "email":
           if (!value) {
-            stateObj[name] = "Please enter Email.";
+            stateObj[name] = "Ingresa tu email.";
           } else if (!e.target.validity.valid) {
             stateObj[name] = "El email no es valido.";
           }
@@ -93,7 +93,7 @@ function SignUpForm(props) {
 
         case "birthday":
           if (!value) {
-            stateObj[name] = "Please enter birthday.";
+            stateObj[name] = "Ingresa tu fecha de nacimiento.";
           } else if (!e.target.validity.valid) {
             stateObj[name] = "La fecha no es valida.";
           }
@@ -103,18 +103,19 @@ function SignUpForm(props) {
           console.log(e.target.validity.valid);
           if (!value) {
             //if empty
-            stateObj[name] = "Please enter Password.";
+            stateObj[name] = "Escribe una contrasenia.";
           } else if (input.confirmPassword && value !== input.confirmPassword) {
             //if not match and confirmPassword has value
             if (!e.target.validity.valid) {
-              stateObj[name] = "wrong pattern";
+              stateObj[name] =
+                "Debe tener por lo menos: 8 caracteres, 1 letra y 1 numero";
             }
-            stateObj["confirmPassword"] =
-              "Password and Confirm Password does not match.";
+            stateObj["confirmPassword"] = "Las contrasenias no son iguales.";
           } else {
             //if match
             if (!e.target.validity.valid) {
-              stateObj[name] = "wrong pattern";
+              stateObj[name] =
+                "Debe tener por lo menos: 8 caracteres, 1 letra y 1 numero";
             }
             stateObj["confirmPassword"] = input.confirmPassword
               ? ""
@@ -124,9 +125,9 @@ function SignUpForm(props) {
 
         case "confirmPassword":
           if (!value) {
-            stateObj[name] = "Please enter Confirm Password.";
+            stateObj[name] = "Escribe una contrasenia.";
           } else if (input.password && value !== input.password) {
-            stateObj[name] = "Password and Confirm Password does not match.";
+            stateObj[name] = "Las contrasenias no son iguales.";
           }
           break;
 
@@ -269,7 +270,9 @@ function SignUpForm(props) {
           {error.password && <span className="err">{error.password}</span>}
         </div>
         <div className="password-validation-section">
-          <label htmlFor="sign-up-password-validation">Contrasenia *</label>
+          <label htmlFor="sign-up-password-validation">
+            Confirmacion de contrasenia *
+          </label>
           <div className="input-container">
             <img src="/img/password.svg" alt="icon" />
             <input
