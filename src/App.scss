@@ -984,6 +984,9 @@ button {
           padding-left: 20%;
           border-radius: 1rem;
         }
+        input:invalid {
+          outline: 1px solid red;
+        }
       }
     }
   }
@@ -1121,6 +1124,9 @@ button {
           padding: 0.3rem 0px;
           padding-left: 20%;
           border-radius: 1rem;
+        }
+        input:invalid {
+          outline: 1px solid red;
         }
       }
     }
