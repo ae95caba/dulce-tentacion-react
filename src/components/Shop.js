@@ -138,7 +138,8 @@ function Card({ product, addCartItem, openIceCreamForm }) {
             console.log(active);
           }}
         >
-          Aniadir al carrito
+          <span>Aniadir</span>
+          <img style={{ filter: "invert(1)" }} src="/img/to-cart.svg" />
         </button>
       )}
     </div>

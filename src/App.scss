@@ -671,10 +671,10 @@ nav {
   height: 90vh;
   height: 90svh;
   .content {
-    padding: 3rem;
+    padding: 2rem 3rem;
     display: flex;
     flex-direction: column;
-    gap: 3rem;
+    gap: 2rem;
     height: 100%;
     overflow-y: scroll;
   }
@@ -809,6 +809,18 @@ nav {
     background-color: black;
 
     font-weight: 900;
+    span {
+      margin-right: 20%;
+    }
+    img {
+      position: absolute;
+      height: 11vw;
+      aspect-ratio: 1/1;
+      width: 11vw;
+      left: 66.6%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
   .active:after {
     animation: animate 0.5s;
@@ -984,9 +996,6 @@ button {
           padding-left: 20%;
           border-radius: 1rem;
         }
-        input:invalid {
-          outline: 1px solid red;
-        }
       }
     }
   }
@@ -1125,9 +1134,16 @@ button {
           padding-left: 20%;
           border-radius: 1rem;
         }
-        input:invalid {
+        input.invalid {
           outline: 1px solid red;
         }
+      }
+    }
+
+    .email-section,
+    .password-section {
+      input:invalid:focus {
+        outline: solid red 1px;
       }
     }
 
@@ -1278,12 +1294,9 @@ button {
       /* position: relative; */
 
       span {
-        /*   position: absolute; */
         color: white;
         box-shadow: 3px 3px 3px grey;
-        /*  right: -25%;
-          top: 50%; */
-        /*  transform: translate(-50%, -50%); */
+
         font-size: 1.5rem;
         background-color: black;
 

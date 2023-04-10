@@ -206,6 +206,7 @@ function SignUpForm(props) {
             <img src="/img/user.svg" alt="icon" />
             <input
               type="name"
+              className={error.username ? "invalid" : ""}
               name="username"
               id="sign-up-name"
               placeholder="Nombre y Apellido"
@@ -222,6 +223,7 @@ function SignUpForm(props) {
           <div className="input-container">
             <img src="/img/email.svg" alt="icon" />
             <input
+              className={error.email ? "invalid" : ""}
               type="email"
               id="sign-up-email"
               name="email"
@@ -238,6 +240,7 @@ function SignUpForm(props) {
           <label htmlFor="sign-up-birthday">Fecha de nacimiento *</label>
           <div className="input-container">
             <input
+              className={error.birthday ? "invalid" : ""}
               name="birthday"
               type="date"
               id="sign-up-birthday"
@@ -256,6 +259,7 @@ function SignUpForm(props) {
           <div className="input-container">
             <img src="/img/password.svg" alt="icon" />
             <input
+              className={error.password ? "invalid" : ""}
               type="password"
               name="password"
               id="sign-up-password"
@@ -276,6 +280,7 @@ function SignUpForm(props) {
           <div className="input-container">
             <img src="/img/password.svg" alt="icon" />
             <input
+              className={error.confirmPassword ? "invalid" : ""}
               ref={confirmPasswordRef}
               type="password"
               name="confirmPassword"
