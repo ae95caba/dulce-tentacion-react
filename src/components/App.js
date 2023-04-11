@@ -223,7 +223,12 @@ export const App = () => {
           <div id="total-items">{totalItems() > 0 ? totalItems() : null}</div>
         </div>
 
-        {totalPrice() > 0 ? <div id="total-price">$ {totalPrice()}</div> : null}
+        <div
+          id="total-price"
+          style={{ visibility: totalPrice() ? "visible" : "hidden" }}
+        >
+          $ {totalPrice()}
+        </div>
       </div>
       <Navbar isUserOnline={isUserOnline} />
       {showThanksMessage ? (
