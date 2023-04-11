@@ -36,6 +36,9 @@ export function SignUp(props) {
 }
 
 function SignUpForm(props) {
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
+    useState(false);
   const [photo, setPhoto] = useState(null);
   const [input, setInput] = useState({
     username: "",
@@ -260,7 +263,7 @@ function SignUpForm(props) {
             <img src="/img/password.svg" alt="icon" />
             <input
               className={error.password ? "invalid" : ""}
-              type="password"
+              type={isPasswordVisible ? "text" : "password"}
               name="password"
               id="sign-up-password"
               pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
@@ -269,6 +272,14 @@ function SignUpForm(props) {
               onChange={onInputChange}
               onBlur={validateInput}
               required
+            />
+            <img
+              className="eye"
+              src={isPasswordVisible ? "/img/eye.svg" : "/img/eye-hide.svg"}
+              alt="eye showing visibility"
+              onClick={() => {
+                setIsPasswordVisible((prev) => !prev);
+              }}
             />
           </div>
           {error.password && <span className="err">{error.password}</span>}
@@ -282,13 +293,23 @@ function SignUpForm(props) {
             <input
               className={error.confirmPassword ? "invalid" : ""}
               ref={confirmPasswordRef}
-              type="password"
+              type={isConfirmPasswordVisible ? "text" : "password"}
               name="confirmPassword"
               id="sign-up-password-validation"
               onChange={onInputChange}
               value={input.confirmPassword}
               onBlur={validateInput}
               required
+            />
+            <img
+              className="eye"
+              src={
+                isConfirmPasswordVisible ? "/img/eye.svg" : "/img/eye-hide.svg"
+              }
+              alt="eye showing visibility"
+              onClick={() => {
+                setIsConfirmPasswordVisible((prev) => !prev);
+              }}
             />
           </div>
           {error.confirmPassword && (

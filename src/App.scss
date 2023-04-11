@@ -667,7 +667,7 @@ nav {
   display: grid;
   grid-template-rows: min-content 1fr;
 
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0);
   height: 90vh;
   height: 90svh;
   .content {
@@ -724,7 +724,7 @@ nav {
 }
 
 .card {
-  box-shadow: 3px 3px 3px rgb(44, 42, 42);
+  box-shadow: 4px 4px 4px rgb(44, 42, 42);
   background-image: $primary;
   .img-container {
     position: relative;
@@ -993,7 +993,7 @@ button {
           font-size: 1.5rem;
           width: 100%;
           padding: 0.3rem 0px;
-          padding-left: 20%;
+          padding-left: 15%;
           border-radius: 1rem;
         }
       }
@@ -1131,19 +1131,36 @@ button {
           font-size: 1.5rem;
           width: 100%;
           padding: 0.3rem 0px;
-          padding-left: 20%;
+          padding-left: 15%;
           border-radius: 1rem;
         }
         input.invalid {
-          outline: 1px solid red;
+          border: 2px red solid;
+        }
+        input:focus {
+          outline: none;
         }
       }
     }
 
     .email-section,
     .password-section {
-      input:invalid:focus {
-        outline: solid red 1px;
+      input.invalid {
+        border: 2px red solid;
+      }
+      input:focus {
+        outline: none;
+      }
+    }
+
+    .password-section,
+    .password-validation-section {
+      input {
+        padding-right: 20% !important;
+      }
+      .eye {
+        left: 90% !important;
+        width: 2rem !important;
       }
     }
 
