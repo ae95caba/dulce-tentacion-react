@@ -64,7 +64,12 @@ export function Cart(props) {
         );
 
         window.open(
-          link(props.cartItems, deliveryDetails, props.userData),
+          link(
+            props.cartItems,
+            deliveryDetails,
+            props.userData,
+            props.totalPrice()
+          ),
           "_blank"
         );
         //open purchase list

@@ -14,21 +14,24 @@ export function createWhatsAppLink(phoneNumber, message) {
 }
 // to make a line break use "\n"
 //tabs are visible on whatsapp
-function message(cartItems, deliveryDetails, userData) {
+function message(cartItems, deliveryDetails, userData, totalPrice) {
   console.log(userData.email);
   let itemList = "";
+  //fill itemList
   cartItems.forEach((item) => {
     if (!item.flavoursArr) {
-      itemList += `* ${item.name} X ${item.count}\n`;
+      itemList += `• ${item.name} X ${item.count} | $${item.price}\n`;
     } else {
       //flavours
-      let flavours = "		Sabores:\n";
+      let flavours = "		*Sabores*:\n";
       item.flavoursArr.forEach((flavour) => {
-        flavours += `			-${flavour.required}\n`;
+        if (flavour.required) {
+          flavours += `			-${flavour.required}\n`;
+        }
       });
       //////////
       //extras
-      let extras = "		Extras:\n";
+      let extras = "		*Extras*:\n";
       if (item.extras.conos.count > 0) {
         console.log(item.extras.conos.count);
         extras += `			-Conos X ${item.extras.conos.count}\n`;
@@ -40,15 +43,16 @@ function message(cartItems, deliveryDetails, userData) {
         extras += `			-Salsa de ${item.extras.salsa.type}\n`;
       }
       //////////
-      itemList += `* ${item.name}:
+      itemList += `• ${item.name} | $${item.price}:
 ${flavours}${extras}`;
     }
   });
+  itemList += `*Total: $${totalPrice}*`;
 
-  return `Orden:
-		
+  return `*Orden*:		
 ${itemList}	
-Datos para el delivery:
+
+*Datos para el delivery*:
 		Barrio: ${deliveryDetails.barrio}
 		Direccion: ${deliveryDetails.direccion}
 		Entrecalles: ${deliveryDetails.entreCalles}${
@@ -57,7 +61,7 @@ Datos para el delivery:
       : ""
   }
 
-Datos personales:
+*Datos personales*:
 		Nombre: ${userData.name}
 		Email: ${userData.email}
 `;
@@ -65,9 +69,9 @@ Datos personales:
 
 /* export const link = createWhatsAppLink("5491121690959", message);
  */
-export function link(cartItems, deliveryDetails, userData) {
+export function link(cartItems, deliveryDetails, userData, totalPrice) {
   return createWhatsAppLink(
     "5491121690959",
-    message(cartItems, deliveryDetails, userData)
+    message(cartItems, deliveryDetails, userData, totalPrice)
   );
 }
