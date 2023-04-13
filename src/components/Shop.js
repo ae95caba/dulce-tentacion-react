@@ -74,16 +74,20 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
             middleCircleColor=""
           />
         ) : null}
-        {content?.map((product, index) => (
-          <Card
-            //this key props cause useless re-renders if set to uniqid()
-            key={`${index}-${product.name}`}
-            product={product}
-            //this props changes every time it gets used
-            addCartItem={addCartItem}
-            openIceCreamForm={openIceCreamForm}
-          />
-        ))}
+        {/* {content?.map((product, index) => ( */}
+        {content &&
+          Object.keys(content)?.map((key, index) => {
+            return (
+              <Card
+                //this key props cause useless re-renders if set to uniqid()
+                key={`${index}-${key}`}
+                product={content[key]}
+                //this props changes every time it gets used
+                addCartItem={addCartItem}
+                openIceCreamForm={openIceCreamForm}
+              />
+            );
+          })}
       </div>
     </div>
   );

@@ -11,6 +11,8 @@ import { Navbar } from "./Navbar";
 import { ThanksMessage } from "./ThanksMessage";
 import { setDoc, doc, getDoc } from "firebase/firestore";
 import { db, auth } from "../backend/firebase";
+import { addProductsToFirestore } from "../backend/addCatalogToFirestore";
+import { productsObj } from "../logic/productsObj";
 
 export const App = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -26,6 +28,8 @@ export const App = () => {
     img: "/img/anonymous.svg",
   });
   const [flavours, setFlavours] = useState(null);
+
+  addProductsToFirestore(productsObj);
 
   useEffect(() => {
     function convertStringToArray(string) {
@@ -60,10 +64,11 @@ export const App = () => {
 
       let helados = docSnap.data().products.helados;
       let escabio = docSnap.data().products.escabio;
-      let sortedHelados = sortObjectsByName(helados);
+      /* let sortedHelados = sortObjectsByName(helados);
       let sortedEscabio = sortObjectsByName(escabio);
       let sortedProducts = { helados: sortedHelados, escabio: sortedEscabio };
-      setCatalog(sortedProducts);
+      setCatalog(sortedProducts); */
+      setCatalog({ helados: helados, escabio: escabio });
       setFlavours(convertStringToArray(docSnap.data().flavours));
     }
     as();
