@@ -86,9 +86,13 @@ export function Cart(props) {
           (props.totalPrice() / 100) * 5,
           uniqid()
         );
+        window.open(
+          link(props.cartItems, undefined, props.userData, props.totalPrice()),
+          "_blank"
+        );
       }
       //for all online conditions
-
+      //reseter
       setOrderFulfillment({
         delivery: false,
         pickup: false,

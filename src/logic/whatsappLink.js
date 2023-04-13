@@ -52,14 +52,18 @@ ${flavours}${extras}`;
   return `*Orden*:		
 ${itemList}	
 
-*Datos para el delivery*:
+${
+  deliveryDetails
+    ? `*Datos para el delivery*:
 		Barrio: ${deliveryDetails.barrio}
 		Direccion: ${deliveryDetails.direccion}
 		Entrecalles: ${deliveryDetails.entreCalles}${
-    deliveryDetails.aditionalInfo
-      ? `\n		Extra: ${deliveryDetails.aditionalInfo}`
-      : ""
-  }
+        deliveryDetails.aditionalInfo
+          ? `\n		Extra: ${deliveryDetails.aditionalInfo}`
+          : ""
+      }`
+    : `*Retira en el local*`
+}
 
 *Datos personales*:
 		Nombre: ${userData.name}
