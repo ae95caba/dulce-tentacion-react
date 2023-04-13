@@ -20,7 +20,7 @@ function message(cartItems, deliveryDetails, userData, totalPrice) {
   //fill itemList
   cartItems.forEach((item) => {
     if (!item.flavoursArr) {
-      itemList += `• ${item.name} X ${item.count} | $${item.price}\n`;
+      itemList += `\u{1F6D2} ${item.name} X ${item.count} | $${item.price}\n`;
     } else {
       //flavours
       let flavours = "		*Sabores*:\n";
@@ -43,7 +43,7 @@ function message(cartItems, deliveryDetails, userData, totalPrice) {
         extras += `			-Salsa de ${item.extras.salsa.type}\n`;
       }
       //////////
-      itemList += `• ${item.name} | $${item.price}:
+      itemList += `\u{1F6D2} ${item.name} | $${item.price}:
 ${flavours}${extras}`;
     }
   });

@@ -94,13 +94,13 @@ function SignUpForm(props) {
           }
           break;
 
-        case "birthday":
+        /*  case "birthday":
           if (!value) {
             stateObj[name] = "Ingresa tu fecha de nacimiento.";
           } else if (!e.target.validity.valid) {
             stateObj[name] = "La fecha no es valida.";
           }
-          break;
+          break; */
 
         case "password":
           console.log(e.target.validity.valid);
@@ -144,7 +144,7 @@ function SignUpForm(props) {
 
   //storage
   async function uploadImg(file, currentUser, setLoading) {
-    const fileRef = ref(storage, `${currentUser.uid}/profilePic.png`);
+    const fileRef = ref(storage, `users/${currentUser.uid}/profilePic`);
     /*  setLoading(true); */
     await uploadBytes(fileRef, file);
     /*  setLoading(false); */
@@ -227,8 +227,9 @@ function SignUpForm(props) {
             <img src="/img/email.svg" alt="icon" />
             <input
               className={error.email ? "invalid" : ""}
-              type="email"
+              type="text"
               id="sign-up-email"
+              pattern="^\S+@\S+\.\S+$"
               name="email"
               placeholder="ejemplo@gmail.com"
               onChange={onInputChange}
@@ -239,7 +240,7 @@ function SignUpForm(props) {
           </div>
           {error.email && <span className="err">{error.email}</span>}
         </div>
-        <div className="birthday-section">
+        {/* <div className="birthday-section">
           <label htmlFor="sign-up-birthday">Fecha de nacimiento *</label>
           <div className="input-container">
             <input
@@ -256,7 +257,7 @@ function SignUpForm(props) {
             />
           </div>
           {error.birthday && <span className="err">{error.birthday}</span>}
-        </div>
+        </div> */}
         <div className="password-section">
           <label htmlFor="sign-up-password">Contrasenia *</label>
           <div className="input-container">

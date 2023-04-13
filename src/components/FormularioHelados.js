@@ -160,7 +160,7 @@ export function FormularioHelados(props) {
       </fieldset>
       <fieldset className="extra">
         <legend
-          className="dropdown-button"
+          className="dropdown-button animate__animated animate__pulse animate__infinite animate__slower"
           onClick={() => {
             const content = document.querySelector(".extra-content");
             content.style.display === "none"
@@ -263,7 +263,10 @@ export function FormularioHelados(props) {
 
       <div className="total-helado">Total: $ {totalPrice()}</div>
       <div className="buttons-container">
-        <button type="submit" className="binary-buttons neon-red">
+        <button
+          type="submit"
+          className="binary-buttons neon-red animate__animated animate__pulse animate__infinite animate__slower"
+        >
           Aceptar
         </button>
         <button

@@ -262,7 +262,7 @@ export function Details(props) {
             console.log(flavour.required);
             return (
               <div key={uniqid()}>
-                - {flavour.required}
+                {flavour.required ? `-${flavour.required}` : null}
                 {flavour.optional ? `, sino ${flavour.optional}` : null}
               </div>
             );
