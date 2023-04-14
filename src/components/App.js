@@ -29,7 +29,7 @@ export const App = () => {
   });
   const [flavours, setFlavours] = useState(null);
 
-  addProductsToFirestore(productsObj);
+  /*  addProductsToFirestore(productsObj); */
 
   useEffect(() => {
     function convertStringToArray(string) {
