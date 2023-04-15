@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Botonera } from "./Botonera";
-
+import Fuse from "fuse.js";
 import { FormularioHelados } from "./FormularioHelados";
 
 import { ThreeCircles } from "react-loader-spinner";
@@ -14,6 +14,34 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
     show: false,
     product: undefined,
   });
+
+  //searchTerm is what fuse will look for
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+
+  //fuse option
+
+  //fuse setup
+  useEffect(() => {
+    if (content) {
+      const options = {
+        keys: ["name"],
+        threshold: 0.3,
+        includeMatches: true,
+      };
+      const fuse = new Fuse(content, options);
+      const results = fuse.search(searchTerm);
+      setSearchResults(results);
+      console.log(searchResults.map((result) => result.item.name));
+    }
+  }, [content, searchTerm]);
+
+  //fuse handleSearch
+  function handleSearch(event) {
+    const term = event.target.value;
+    console.log(term);
+    setSearchTerm(term);
+  }
 
   useEffect(() => {
     setContent(catalog?.helados);
@@ -42,6 +70,9 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
 
   return (
     <div id="shop">
+      <div id="searchbox">
+        <input type="text" onChange={handleSearch} />
+      </div>
       <Botonera
         scrollToTop={scrollToTop}
         setContent={setContent}
@@ -74,20 +105,19 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
             middleCircleColor=""
           />
         ) : null}
-        {/* {content?.map((product, index) => ( */}
-        {content &&
-          Object.keys(content)?.map((key, index) => {
-            return (
-              <Card
-                //this key props cause useless re-renders if set to uniqid()
-                key={`${index}-${key}`}
-                product={content[key]}
-                //this props changes every time it gets used
-                addCartItem={addCartItem}
-                openIceCreamForm={openIceCreamForm}
-              />
-            );
-          })}
+
+        {content?.map((product, index) =>
+          !product.outOfStock ? (
+            <Card
+              //this key props cause useless re-renders if set to uniqid()
+              key={`${index}-${product.name}`}
+              product={product}
+              //this props changes every time it gets used
+              addCartItem={addCartItem}
+              openIceCreamForm={openIceCreamForm}
+            />
+          ) : null
+        )}
       </div>
     </div>
   );

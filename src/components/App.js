@@ -12,7 +12,11 @@ import { ThanksMessage } from "./ThanksMessage";
 import { setDoc, doc, getDoc } from "firebase/firestore";
 import { db, auth } from "../backend/firebase";
 import { addProductsToFirestore } from "../backend/addCatalogToFirestore";
-import { productsObj } from "../logic/productsObj";
+import {
+  fetchData,
+  fetchProductsJSON,
+  productsObj,
+} from "../logic/productsObj";
 
 export const App = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -29,7 +33,7 @@ export const App = () => {
   });
   const [flavours, setFlavours] = useState(null);
 
-  /*  addProductsToFirestore(productsObj); */
+  /* addProductsToFirestore(productsObj); */
 
   useEffect(() => {
     function convertStringToArray(string) {

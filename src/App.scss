@@ -668,6 +668,12 @@ nav {
   background-color: rgba(255, 255, 255, 0);
   height: 90vh;
   height: 90svh;
+  #searchbox {
+    position: absolute;
+    bottom: 0;
+    border: 1px solid black;
+    z-index: 99;
+  }
   .content {
     padding: 2rem 3rem;
     display: flex;
