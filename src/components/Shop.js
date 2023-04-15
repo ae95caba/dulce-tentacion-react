@@ -27,7 +27,7 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
       const element = document.querySelector(selectedProduct.value);
 
       element.scrollIntoView({
-        behavior: "smooth",
+        behavior: "auto",
         block: "end",
       });
     }
