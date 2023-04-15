@@ -23,12 +23,21 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
   useEffect(() => {
     if (selectedProduct) {
       console.log(selectedProduct.value);
-      console.log(document.querySelector(selectedProduct.value));
-      const element = document.querySelector(selectedProduct.value);
+      console.log(document.getElementById(selectedProduct.value));
+      const element = document.getElementById(selectedProduct.value);
 
-      element.scrollIntoView({
+      /*  element.scrollIntoView({
         behavior: "auto",
         block: "end",
+      }); */
+      const container = document.querySelector(".content");
+      const position = element.offsetTop - 50;
+
+      /* container.scrollTop = position; */
+
+      container.scrollTo({
+        top: position,
+        behavior: "smooth",
       });
     }
   }, [selectedProduct]);
@@ -54,7 +63,7 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
       }
       const objArr = results.map((result) => {
         return {
-          value: `.card-${findIndexByName(result.item)}`,
+          value: `card-${findIndexByName(result.item)}`,
           label: result.item.name,
         };
       });
@@ -164,7 +173,8 @@ function Card({ product, addCartItem, openIceCreamForm, index }) {
 
   return (
     <div
-      className={`card card-${index}`}
+      className="card"
+      id={`card-${index}`}
       style={{ opacity: product.outOfStock ? 0.5 : 1 }}
     >
       <div className="img-container">

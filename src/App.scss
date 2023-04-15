@@ -681,7 +681,7 @@ nav {
     gap: 2rem;
     height: 100%;
     overflow-y: scroll;
-    scroll-padding: 3rem;
+    /* scroll-padding: 3rem; */
   }
 
   .content::-webkit-scrollbar {
@@ -932,16 +932,6 @@ button {
       font-weight: 500;
     }
   }
-  /*  #shopping {
-    border: 1px solid black;
-    display: flex;
-    flex-direction: column;
-    min-height: 50vh;
-    .list {
-      border: 1px solid green;
-      overflow-y: scroll;
-    }
-  } */
 }
 
 #profile-offline {
