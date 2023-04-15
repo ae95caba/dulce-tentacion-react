@@ -675,7 +675,7 @@ nav {
     position: fixed;
     left: calc(0px - (66.6vw - (66.6vw * 0.2)));
     font-size: 1.5rem;
-    z-index: 99;
+    z-index: 9;
     transition: all 0.5s ease-in-out;
     &:focus-within {
       left: 0px;
