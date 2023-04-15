@@ -23,9 +23,13 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
   useEffect(() => {
     if (selectedProduct) {
       console.log(selectedProduct.value);
-      document
-        .querySelector(selectedProduct.value)
-        .scrollIntoView({ behavior: "smooth" });
+      console.log(document.querySelector(selectedProduct.value));
+      const element = document.querySelector(selectedProduct.value);
+
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+      });
     }
   }, [selectedProduct]);
 
@@ -43,18 +47,19 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
 
       const results = fuse.search(searchTerm);
 
-      setSearchResults(
-        results.map((result) => {
-          function findIndexByName(obj) {
-            return content.findIndex((item) => item.name === obj.name);
-          }
-          return {
-            value: `.card-${findIndexByName(result.item)}`,
+      //result will be an array of objects, each object will have the item,matches and refIndex properties.
 
-            label: result.item.name,
-          };
-        })
-      );
+      function findIndexByName(obj) {
+        return content.findIndex((item) => item.name === obj.name);
+      }
+      const objArr = results.map((result) => {
+        return {
+          value: `.card-${findIndexByName(result.item)}`,
+          label: result.item.name,
+        };
+      });
+      setSearchResults(objArr);
+      //searchResults  is what will go onto the options props of Select
     }
   }, [content, searchTerm]);
 
@@ -106,12 +111,8 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
         <div id="searchbox">
           <Select
             options={searchResults}
-            onChange={(selected) => {
-              setSelectedProduct(selected);
-            }}
-            onInputChange={(event) => {
-              setSearchTerm(event);
-            }}
+            onChange={setSelectedProduct}
+            onInputChange={setSearchTerm}
             placeholder="Buscar"
           />
         </div>

@@ -669,9 +669,8 @@ nav {
   height: 90vh;
   height: 90svh;
   #searchbox {
-    position: sticky;
-    top: 0;
-    left: 10%;
+    position: fixed;
+
     border: 1px solid black;
     z-index: 99;
   }
@@ -683,6 +682,7 @@ nav {
     gap: 2rem;
     height: 100%;
     overflow-y: scroll;
+    scroll-padding: 3rem;
   }
 
   .content::-webkit-scrollbar {
