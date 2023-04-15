@@ -388,6 +388,7 @@ function DeliveryForm(props) {
               }}
               options={options}
               placeholder="Barrio *"
+             
               name="Barrio"
               value={props.barrioElegido}
               required

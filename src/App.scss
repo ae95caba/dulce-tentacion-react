@@ -669,12 +669,14 @@ nav {
   height: 90vh;
   height: 90svh;
   #searchbox {
-    position: absolute;
-    bottom: 0;
+    position: sticky;
+    top: 0;
+    left: 10%;
     border: 1px solid black;
     z-index: 99;
   }
   .content {
+    position: relative;
     padding: 2rem 3rem;
     display: flex;
     flex-direction: column;

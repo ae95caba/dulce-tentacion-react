@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Botonera } from "./Botonera";
 import Fuse from "fuse.js";
 import { FormularioHelados } from "./FormularioHelados";
-
+import Select from "react-select";
 import { ThreeCircles } from "react-loader-spinner";
 
 export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
@@ -18,6 +18,16 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
   //searchTerm is what fuse will look for
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState();
+
+  useEffect(() => {
+    if (selectedProduct) {
+      console.log(selectedProduct.value);
+      document
+        .querySelector(selectedProduct.value)
+        .scrollIntoView({ behavior: "smooth" });
+    }
+  }, [selectedProduct]);
 
   //fuse option
 
@@ -30,18 +40,23 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
         includeMatches: true,
       };
       const fuse = new Fuse(content, options);
+
       const results = fuse.search(searchTerm);
-      setSearchResults(results);
-      console.log(searchResults.map((result) => result.item.name));
+
+      setSearchResults(
+        results.map((result) => {
+          function findIndexByName(obj) {
+            return content.findIndex((item) => item.name === obj.name);
+          }
+          return {
+            value: `.card-${findIndexByName(result.item)}`,
+
+            label: result.item.name,
+          };
+        })
+      );
     }
   }, [content, searchTerm]);
-
-  //fuse handleSearch
-  function handleSearch(event) {
-    const term = event.target.value;
-    console.log(term);
-    setSearchTerm(term);
-  }
 
   useEffect(() => {
     setContent(catalog?.helados);
@@ -70,9 +85,6 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
 
   return (
     <div id="shop">
-      <div id="searchbox">
-        <input type="text" onChange={handleSearch} />
-      </div>
       <Botonera
         scrollToTop={scrollToTop}
         setContent={setContent}
@@ -91,6 +103,18 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
       ) : null}
 
       <div className="content">
+        <div id="searchbox">
+          <Select
+            options={searchResults}
+            onChange={(selected) => {
+              setSelectedProduct(selected);
+            }}
+            onInputChange={(event) => {
+              setSearchTerm(event);
+            }}
+            placeholder="Buscar"
+          />
+        </div>
         {!content ? (
           <ThreeCircles
             height="150"
@@ -110,7 +134,8 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
           !product.outOfStock ? (
             <Card
               //this key props cause useless re-renders if set to uniqid()
-              key={`${index}-${product.name}`}
+              key={`${index}-card`}
+              index={`${index}`}
               product={product}
               //this props changes every time it gets used
               addCartItem={addCartItem}
@@ -124,7 +149,7 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
 };
 
 //this rerenders every time the addCartItem function gets called
-function Card({ product, addCartItem, openIceCreamForm }) {
+function Card({ product, addCartItem, openIceCreamForm, index }) {
   const [active, setActive] = useState(false);
 
   /*  useEffect(() => {
@@ -137,7 +162,10 @@ function Card({ product, addCartItem, openIceCreamForm }) {
   }, []); */
 
   return (
-    <div className="card" style={{ opacity: product.outOfStock ? 0.5 : 1 }}>
+    <div
+      className={`card card-${index}`}
+      style={{ opacity: product.outOfStock ? 0.5 : 1 }}
+    >
       <div className="img-container">
         <div className="points">
           <img src="/img/seal.svg" />
