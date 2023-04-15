@@ -99,12 +99,25 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
 
   return (
     <div id="shop">
-      <Botonera
-        scrollToTop={scrollToTop}
-        setContent={setContent}
-        content={content}
-        catalog={catalog}
-      />
+      <div>
+        <Botonera
+          scrollToTop={scrollToTop}
+          setContent={setContent}
+          content={content}
+          catalog={catalog}
+        />
+        <div id="searchbox">
+          <Select
+            options={searchResults}
+            onChange={setSelectedProduct}
+            onInputChange={setSearchTerm}
+            placeholder="Buscar"
+          />
+          <div className="img-container">
+            <img src="/img/magnifier.svg" />
+          </div>
+        </div>
+      </div>
       {/* switch to icecream form */}
       {iceCreamForm.show ? (
         <FormularioHelados
@@ -117,14 +130,6 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
       ) : null}
 
       <div className="content">
-        <div id="searchbox">
-          <Select
-            options={searchResults}
-            onChange={setSelectedProduct}
-            onInputChange={setSearchTerm}
-            placeholder="Buscar"
-          />
-        </div>
         {!content ? (
           <ThreeCircles
             height="150"
