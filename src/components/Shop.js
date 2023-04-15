@@ -113,7 +113,7 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
             onInputChange={setSearchTerm}
             placeholder="Buscar"
           />
-          <div className="img-container">
+          <div tabIndex="0" className="img-container">
             <img src="/img/magnifier.svg" />
           </div>
         </div>
