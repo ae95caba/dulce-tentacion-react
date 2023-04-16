@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Botonera } from "./Botonera";
 import Fuse from "fuse.js";
 import { FormularioHelados } from "./FormularioHelados";
@@ -19,6 +19,7 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState();
+  const searchboxSelectRef = useRef(null);
 
   useEffect(() => {
     if (selectedProduct) {
@@ -108,12 +109,19 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
         />
         <div id="searchbox">
           <Select
+            ref={searchboxSelectRef}
             options={searchResults}
             onChange={setSelectedProduct}
             onInputChange={setSearchTerm}
             placeholder="Buscar"
           />
-          <div tabIndex="0" className="img-container">
+          <div
+            tabIndex="0"
+            className="img-container"
+            onClick={() => {
+              searchboxSelectRef.current.focus();
+            }}
+          >
             <img src="/img/magnifier.svg" />
           </div>
         </div>

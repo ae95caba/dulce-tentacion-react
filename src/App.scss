@@ -669,6 +669,7 @@ nav {
   height: 90svh;
   #searchbox {
     display: grid;
+    box-shadow: 3px 3px 3px grey;
     width: 66.6vw;
     grid-template-columns: 80% 20%;
     grid-template-rows: min-content;
