@@ -32,6 +32,13 @@ function message(cartItems, deliveryDetails, userData, totalPrice) {
       //////////
       //extras
       let extras = "		*Extras*:\n";
+      if (
+        !item.extras.conos.count &&
+        !item.extras.rocklets.isChecked &&
+        !item.extras.salsa.type
+      ) {
+        extras = "";
+      }
       if (item.extras.conos.count > 0) {
         console.log(item.extras.conos.count);
         extras += `			-Conos X ${item.extras.conos.count}\n`;

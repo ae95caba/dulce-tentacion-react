@@ -2,7 +2,7 @@ import { createFactory, useEffect, useState, useRef } from "react";
 
 export function FormularioHelados(props) {
   //checks how many dropDowns are
-  // every dropDown will be this : { index: index, value: value }
+  // dropDowns content will be like this : ["flavour1","flavour2", undefined]
   const [dropDowns, setDropDowns] = useState([]);
   const [extras, setExtras] = useState({
     rocklets: { price: 100, isChecked: false },
@@ -10,11 +10,12 @@ export function FormularioHelados(props) {
     salsa: { price: 110, type: null },
   });
 
-  //creates dropDowns representations on state for each flavour avaliable to choose
+  //creates  an array of objects on state for each flavour avaliable to choose
+  //later those object will be used to return the DropDown components
   useEffect(() => {
     let arr = [];
     for (let i = 0; i < props.product.flavours; i++) {
-      arr.push({ index: i, value: undefined });
+      arr.push(undefined);
     }
     setDropDowns(arr);
   }, []);
@@ -59,14 +60,22 @@ export function FormularioHelados(props) {
   };
 
   //adds a dropDown
-  function addFlavour() {
+  function addDropDown() {
     const copy = [...dropDowns];
-    copy.push({ index: dropDowns.length, value: null });
+
+    copy.push("");
+    setDropDowns(copy);
+  }
+
+  //index property of other objects doesnt change
+  function removeDropDown(index) {
+    const copy = [...dropDowns];
+    /* var index = copy.indexOf(value); */
+    copy.splice(index, 1);
     setDropDowns(copy);
   }
 
   //onClose, remove fadein class (OPTIONAL), add fadeout clasee, set onAnimationend : Close
-
   const formRef = useRef(null);
   function handleAnimationEnd() {
     console.log("Animation ended");
@@ -135,23 +144,20 @@ export function FormularioHelados(props) {
     >
       <fieldset className="sabores">
         <legend>Podes elegir hasta {props.product?.flavours} sabores</legend>
-        {dropDowns.map((dropDown, index) => (
+        {dropDowns.map((dropDownValue, index) => (
+          //for every item in the array, create
           <DropDown
             flavours={props.flavours}
+            removeDropDown={removeDropDown}
             dropDowns={dropDowns}
             setDropDowns={setDropDowns}
             name={`Sabor ${index + 1}`}
-            key={`${index}-${dropDown}`}
+            key={`${index}-dropDown`}
             index={index}
           />
         ))}
         {dropDowns.length < props.product?.flavours ? (
-          <div
-            className="add-flavour"
-            onClick={() => {
-              addFlavour();
-            }}
-          >
+          <div className="add-flavour" onClick={addDropDown}>
             <p>
               AGREGAR <span>+</span>
             </p>
@@ -295,8 +301,8 @@ export function FormularioHelados(props) {
 function DropDown(props) {
   function isValueSelected(value) {
     let result = false;
-    props.dropDowns.forEach((dropDown) => {
-      if (dropDown.value === value) {
+    props.dropDowns.forEach((dropDownValue) => {
+      if (dropDownValue === value) {
         result = true;
       }
     });
@@ -311,11 +317,12 @@ function DropDown(props) {
           name={props.name}
           //the value has to come from state because, the onChange triggers a re-render so the value resets
           //it reseted because the options key was uniqid() so it was diferent every re-render
-          /*  value={props.dropDowns[props.index].value} */
+          value={props.dropDowns[props.index]}
           onChange={(e) => {
             //updates the dropDown representation in the state
             const copy = [...props.dropDowns];
-            copy[props.index].value = e.target.value;
+
+            copy[props.index] = e.target.value;
             props.setDropDowns(copy);
           }}
           required
@@ -332,15 +339,7 @@ function DropDown(props) {
           ))}
         </select>
         {props.index !== 0 ? (
-          <span
-            onClick={() => {
-              const copy = [...props.dropDowns];
-              copy.splice(props.index, 1);
-              props.setDropDowns(copy);
-            }}
-          >
-            X
-          </span>
+          <span onClick={() => props.removeDropDown(props.index)}>X</span>
         ) : (
           <span style={{ opacity: "0.4" }}>X</span>
         )}
