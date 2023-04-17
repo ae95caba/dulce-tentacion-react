@@ -23,7 +23,7 @@ export function Botonera({ setContent, content, catalog, scrollToTop }) {
         }}
         className={content === catalog?.escabio && content ? "active" : ""}
       >
-        Escabio
+        Bebidas
       </button>
       <button
         onClick={() => {

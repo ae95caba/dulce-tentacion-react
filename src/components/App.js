@@ -228,7 +228,7 @@ export const App = () => {
         }}
       >
         <div style={{ position: "relative" }}>
-          <img src="/img/cart.svg" alt="shopping cart"></img>
+          <img src="/img/cart.svg" alt="shopping cart" />
           <div id="total-items">{totalItems() > 0 ? totalItems() : null}</div>
         </div>
 

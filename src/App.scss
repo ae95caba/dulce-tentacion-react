@@ -670,11 +670,11 @@ nav {
   #searchbox {
     display: grid;
     box-shadow: 3px 3px 3px grey;
-    width: 66.6vw;
-    grid-template-columns: 80% 20%;
+    width: 100vw;
+    grid-template-columns: 86% 14%;
     grid-template-rows: min-content;
     position: fixed;
-    left: calc(0px - (66.6vw - (66.6vw * 0.2)));
+    left: calc(0px - (100vw - (100vw * 0.14)));
     font-size: 1.5rem;
     z-index: 9;
     transition: all 0.5s ease-in-out;

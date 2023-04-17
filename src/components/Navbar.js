@@ -1,6 +1,5 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import classNames from "classnames";
 
 export function Navbar(props) {
   const location = useLocation();

@@ -23,8 +23,6 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
 
   useEffect(() => {
     if (selectedProduct) {
-      console.log(selectedProduct.value);
-      console.log(document.getElementById(selectedProduct.value));
       const element = document.getElementById(selectedProduct.value);
 
       /*  element.scrollIntoView({
@@ -107,24 +105,27 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
           content={content}
           catalog={catalog}
         />
-        <div id="searchbox">
-          <Select
-            ref={searchboxSelectRef}
-            options={searchResults}
-            onChange={setSelectedProduct}
-            onInputChange={setSearchTerm}
-            placeholder="Buscar"
-          />
-          <div
-            tabIndex="0"
-            className="img-container"
-            onClick={() => {
-              searchboxSelectRef.current.focus();
-            }}
-          >
-            <img src="/img/magnifier.svg" />
+        {content ? (
+          <div id="searchbox">
+            <Select
+              ref={searchboxSelectRef}
+              options={searchResults}
+              noOptionsMessage={() => `No hay resultados`}
+              onChange={setSelectedProduct}
+              onInputChange={setSearchTerm}
+              placeholder="Buscar"
+            />
+            <div
+              tabIndex="0"
+              className="img-container"
+              onClick={() => {
+                searchboxSelectRef.current.focus();
+              }}
+            >
+              <img src="/img/magnifier.svg" />
+            </div>
           </div>
-        </div>
+        ) : null}
       </div>
       {/* switch to icecream form */}
       {iceCreamForm.show ? (
