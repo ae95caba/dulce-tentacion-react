@@ -57,10 +57,12 @@ function Header() {
       <Carousel
         showArrows={false}
         autoPlay={true}
-        stopOnHover={false}
+        stopOnHover={true}
         infiniteLoop={true}
         showThumbs={false}
         showStatus={false}
+        swipeScrollTolerance={20}
+        preventMovementUntilSwipeScrollTolerance={true}
       >
         <div className="slider first">
           <p>Usa tus puntos para comprar en la tienda !</p>
