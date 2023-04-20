@@ -42,9 +42,9 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
   }, [selectedProduct]);
 
   useEffect(() => {
-    if (content.length === catalog?.helados.length) {
+    if (content?.length === catalog?.helados.length) {
       setCurrentCategoryName("helados");
-    } else if (content.length === catalog?.escabio.length) {
+    } else if (content?.length === catalog?.escabio.length) {
       setCurrentCategoryName("bebidas");
     }
   }, [content]);
