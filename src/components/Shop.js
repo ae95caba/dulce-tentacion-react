@@ -20,7 +20,7 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState();
   const searchboxSelectRef = useRef(null);
-
+  const [currentCategoryName, setCurrentCategoryName] = useState(null);
   useEffect(() => {
     if (selectedProduct) {
       const element = document.getElementById(selectedProduct.value);
@@ -40,6 +40,14 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
       });
     }
   }, [selectedProduct]);
+
+  useEffect(() => {
+    if (content.length === catalog?.helados.length) {
+      setCurrentCategoryName("helados");
+    } else if (content.length === catalog?.escabio.length) {
+      setCurrentCategoryName("bebidas");
+    }
+  }, [content]);
 
   //fuse option
 
@@ -113,7 +121,7 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
               noOptionsMessage={() => `No hay resultados`}
               onChange={setSelectedProduct}
               onInputChange={setSearchTerm}
-              placeholder="Buscar"
+              placeholder={`Buscar en ${currentCategoryName}`}
             />
             <div
               tabIndex="0"

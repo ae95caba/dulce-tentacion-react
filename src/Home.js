@@ -2,6 +2,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from "react-responsive-carousel";
 import { useEffect, useState } from "react";
 import { ThreeCircles } from "react-loader-spinner";
+import { utcToZonedTime, format } from "date-fns-tz";
 
 export function Home() {
   return (
@@ -20,15 +21,32 @@ function Contact() {
     <div id="contact">
       <div className="tittle">Contacto</div>
       <div className="content">
-        <button id="whatsapp">
-          <img src="/img/social/whatsapp.svg" />
-          Whatsapp: 1127191588
-        </button>
+        <div className="button-container">
+          <button id="whatsapp">
+            <img src="/img/social/whatsapp.svg" />
+            Whatsapp{/* : 1127191588 */}
+          </button>
+        </div>
 
         <MapComponent />
       </div>
     </div>
   );
+}
+
+function StoreStatus() {
+  function isArgentinaEvening() {
+    const argentinaTimezone = "America/Argentina/Buenos_Aires";
+    const now = new Date();
+    const nowInArgentina = utcToZonedTime(now, argentinaTimezone);
+    const formattedTime = format(nowInArgentina, "HH:mm:ss", {
+      timeZone: argentinaTimezone,
+    });
+    console.log(formattedTime >= "19:00:00" && formattedTime <= "23:59:59");
+
+    return formattedTime >= "19:00:00" && formattedTime <= "23:59:59";
+  }
+  return <div>{isArgentinaEvening() ? "Abierto" : "Cerrado"}</div>;
 }
 
 function MapComponent() {
@@ -89,6 +107,7 @@ function Schedules() {
 function Header() {
   return (
     <div id="header">
+      {/* <StoreStatus /> */}
       <div className="tittle">Bienvenido</div>
       <Carousel
         showArrows={false}
@@ -101,19 +120,16 @@ function Header() {
         preventMovementUntilSwipeScrollTolerance={true}
       >
         <div className="slider first">
-          <p>Usa tus puntos para comprar en la tienda !</p>
+          <p>Compra y consegui puntos !</p>
         </div>
         <div className="slider second">
-          <p>Con cada producto que compres obtendras puntos !</p>
+          <p>Proximamente podras gastarlos en cupones !</p>
         </div>
         <div className="slider third">
-          <p>Cuando tengas suficientes podras usarlos para comprar !</p>
+          <p>Habran cupones de descuento y canjes por productos !</p>
         </div>
         <div className="slider fourth">
-          <p>Cada producto tiene un precio en pesos y otro en puntos</p>
-        </div>
-        <div className="slider fourth">
-          <p>Podes ver cuantos puntos tenes ingresando a tu perfil</p>
+          <p>Habran promos por dias festivos !</p>
         </div>
       </Carousel>
     </div>

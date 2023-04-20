@@ -324,17 +324,24 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
         flex-direction: column;
         gap: 1.5rem;
 
-        #whatsapp {
-          background-color: #25d366;
-          color: white;
-          border: 3px solid white;
-          border-radius: 1rem;
-          display: grid;
-          grid-template-columns: 15% 85%;
-          align-items: center;
-          font-weight: 900;
-          img {
-            width: 100%;
+        .button-container {
+          padding: 0px 2.5rem;
+          #whatsapp {
+            background-color: #25d366;
+            color: white;
+            border: 3px solid white;
+            border-radius: 1rem;
+            display: grid;
+            grid-template-columns: 20% 80%;
+            align-items: center;
+            font-weight: 900;
+            font-size: 2rem;
+            padding: 0.5rem;
+
+            img {
+              width: 100%;
+              position: relative;
+            }
           }
         }
         .map-container {
