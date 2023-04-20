@@ -1,5 +1,7 @@
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
+import { useEffect, useState } from "react";
+import { ThreeCircles } from "react-loader-spinner";
 
 export function Home() {
   return (
@@ -23,16 +25,50 @@ function Contact() {
           Whatsapp: 1127191588
         </button>
 
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3278.210079743154!2d-58.80161008650818!3d-34.7503004653374!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcebf7cde1c5f3%3A0x791060e1141fdd58!2sHelados%20y%20Kiosko%20Rayito!5e0!3m2!1ses-419!2sar!4v1679477719725!5m2!1ses-419!2sar"
-          style={{ border: 0 }}
-          allowFullScreen={true}
-          loading="lazy"
-          id="google-maps"
-          title="google maps"
-          referrerPolicy="no-referrer-when-downgrade"
-        ></iframe>
+        <MapComponent />
       </div>
+    </div>
+  );
+}
+
+function MapComponent() {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    const iframe = document.querySelector("iframe");
+
+    iframe.addEventListener("load", () => {
+      setIsLoaded(true);
+    });
+  }, []);
+
+  return (
+    <div className="map-container">
+      {!isLoaded && (
+        <div className="loading-container">
+          <ThreeCircles
+            height="150"
+            width="150"
+            color="#FF0000"
+            wrapperStyle={{}}
+            wrapperClass="loading"
+            visible={true}
+            ariaLabel="three-circles-rotating"
+            outerCircleColor=""
+            innerCircleColor=""
+            middleCircleColor=""
+          />
+        </div>
+      )}
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3278.210079743154!2d-58.80161008650818!3d-34.7503004653374!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcebf7cde1c5f3%3A0x791060e1141fdd58!2sHelados%20y%20Kiosko%20Rayito!5e0!3m2!1ses-419!2sar!4v1679477719725!5m2!1ses-419!2sar"
+        style={{ border: 0 }}
+        allowFullScreen={true}
+        loading="lazy"
+        id="google-maps"
+        title="google maps"
+        referrerPolicy="no-referrer-when-downgrade"
+      ></iframe>
     </div>
   );
 }

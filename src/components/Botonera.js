@@ -33,7 +33,7 @@ export function Botonera({ setContent, content, catalog, scrollToTop }) {
         }}
         className={content === catalog?.kiosko && content ? "active" : ""}
       >
-        Kiosko
+        Snacks
       </button>
     </div>
   );
