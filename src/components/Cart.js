@@ -220,7 +220,7 @@ export function Cart(props) {
             </div>
           </div>
 
-          <div>
+          <div className="buttons-container">
             <button
               style={{ marginBottom: "1.2rem" }}
               type="submit"
@@ -329,7 +329,7 @@ function DeliveryForm(props) {
   const customStyles = {
     control: (base) => ({
       ...base,
-      fontSize: "clamp(1rem, 5vw, 2rem)",
+      fontSize: "  clamp(1rem, 6vw, 6rem);",
       padding: "0px", // use clamp function to set font size
     }),
   };

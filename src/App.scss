@@ -49,7 +49,9 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
   display: flex;
   flex-direction: column;
   gap: 3rem;
+  gap: clamp(2rem, 8vw, 5rem);
   padding: 2rem;
+  padding: clamp(0rem, 10vw, 5rem);
   position: fixed;
   display: none;
   align-items: center;
@@ -74,7 +76,8 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
   }
   h1 {
     font-family: "Lilita One", cursive;
-    font-size: 2.5rem;
+
+    font-size: clamp(2rem, 10vw, 5rem);
   }
   .cart-body {
     display: flex;
@@ -98,7 +101,8 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
         position: relative;
         .remove {
           position: absolute;
-          font-size: 2rem;
+
+          font-size: clamp(2rem, 10vw, 4rem);
           right: 0;
           color: red;
           font-weight: 900;
@@ -116,11 +120,11 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
           flex-direction: column;
           gap: 0.4rem;
           font-weight: 900;
-          font-size: clamp(1.1rem, 5vw, 3rem);
+          font-size: clamp(1.1rem, 6vw, 4rem);
           font-family: "Shadows Into Light", cursive;
           .description-price {
             /* font-size: 1.6rem; */
-            font-size: clamp(1.3rem, 7vw, 3rem);
+            font-size: clamp(1.3rem, 7vw, 5rem);
           }
         }
         .quantity {
@@ -128,7 +132,7 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
           grid-template-columns: min-content 1fr min-content;
           grid-template-rows: min-content;
           align-items: center;
-          font-size: clamp(0.8rem, 4vw, 3rem);
+          font-size: clamp(0.8rem, 5vw, 3rem);
           p {
             padding: 0.3rem;
 
@@ -140,8 +144,8 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
           }
           button {
             padding: 0;
-            width: clamp(1.5rem, 2vw, 3rem);
-            height: clamp(1.5rem, 2vw, 3rem);
+            width: clamp(1.5rem, 8vw, 3rem);
+            height: clamp(1.5rem, 8vw, 3rem);
             color: white;
             background-color: black;
           }
@@ -179,6 +183,7 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
   .total-points {
     padding: 0.5rem 0rem;
     font-size: 1.6rem;
+    font-size: clamp(1.6rem, 7vw, 5rem);
     background-color: red;
     box-shadow: 3px 3px 3px grey;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.726);
@@ -187,7 +192,6 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
 
     span {
       color: white;
-      font-size: 2rem !important;
     }
   }
 
@@ -197,6 +201,7 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    gap: clamp(1.5rem, 6vw, 5rem);
     margin-bottom: 2rem;
 
     .offline {
@@ -213,6 +218,7 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
       text-align: left;
       margin-left: 1rem;
       font-size: 2rem;
+      font-size: clamp(2rem, 10vw, 8rem);
       font-family: "Lilita One", cursive;
     }
     p {
@@ -226,8 +232,10 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
         display: grid;
         font-weight: 900;
         gap: 0.5rem;
+
         p:first-of-type {
           text-align: center;
+          font-size: clamp(1.5rem, 8vw, 5rem);
         }
       }
     }
@@ -255,16 +263,18 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  gap: clamp(2rem, 10vw, 10rem);
   .options {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    gap: clamp(1.5rem, 8vw, 4rem);
     .option {
       label {
         display: grid;
         grid-template-columns: 66.6% 33.3%;
         span {
-          font-size: clamp(1rem, 6vw, 2rem);
+          font-size: clamp(1rem, 6vw, 5rem);
           font-weight: 500;
         }
       }
@@ -275,16 +285,16 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
 
     flex-direction: column;
     gap: 1rem;
+    gap: clamp(1rem, 6vw, 5rem);
     .input-container {
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
       font-size: 1.3rem;
-      select,
+
       input,
       textarea {
-        /*  font-size: 1.3rem; */
-        font-size: clamp(1rem, 5vw, 2rem);
+        font-size: clamp(1rem, 6vw, 6rem);
         padding: 0.3rem;
       }
       input,
@@ -292,7 +302,7 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
         border: 1px solid black;
       }
       textarea {
-        height: 7rem;
+        height: clamp(7rem, 20vh, 30vh) !important;
       }
     }
   }
