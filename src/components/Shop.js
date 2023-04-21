@@ -21,18 +21,14 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
   const [selectedProduct, setSelectedProduct] = useState();
   const searchboxSelectRef = useRef(null);
   const [currentCategoryName, setCurrentCategoryName] = useState(null);
+  const searchBox = useRef(null);
+
   useEffect(() => {
     if (selectedProduct) {
       const element = document.getElementById(selectedProduct.value);
 
-      /*  element.scrollIntoView({
-        behavior: "auto",
-        block: "end",
-      }); */
       const container = document.querySelector(".content");
       const position = element.offsetTop - 50;
-
-      /* container.scrollTop = position; */
 
       container.scrollTo({
         top: position,
@@ -104,6 +100,10 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
     div.scrollTop = 0;
   }
 
+  function handleReset() {
+    setSelectedProduct(null); // or [] for multi-select
+  }
+
   return (
     <div id="shop">
       <div>
@@ -114,7 +114,16 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
           catalog={catalog}
         />
         {content ? (
-          <div id="searchbox">
+          <div
+            ref={searchBox}
+            id="searchbox"
+            onTransitionEnd={(e) => {
+              if (e.target === document.getElementById("searchbox")) {
+                handleReset();
+                console.log("reset");
+              }
+            }}
+          >
             <Select
               ref={searchboxSelectRef}
               options={searchResults}
@@ -122,6 +131,7 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
               onChange={setSelectedProduct}
               onInputChange={setSearchTerm}
               placeholder={`Buscar en ${currentCategoryName}`}
+              value={selectedProduct}
             />
             <div
               tabIndex="0"

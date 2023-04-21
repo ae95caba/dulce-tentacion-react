@@ -7,9 +7,11 @@ import { utcToZonedTime, format } from "date-fns-tz";
 export function Home() {
   return (
     <div id="home">
+      <StoreStatus />
       <div className="content">
         <Header />
         <Contact />
+        <Location />
         <Schedules />
       </div>
     </div>
@@ -20,15 +22,13 @@ function Contact() {
   return (
     <div id="contact">
       <div className="tittle">Contacto</div>
-      <div className="content">
+      <div className="body">
         <div className="button-container">
           <button id="whatsapp">
             <img src="/img/social/whatsapp.svg" />
             Whatsapp{/* : 1127191588 */}
           </button>
         </div>
-
-        <MapComponent />
       </div>
     </div>
   );
@@ -46,7 +46,24 @@ function StoreStatus() {
 
     return formattedTime >= "19:00:00" && formattedTime <= "23:59:59";
   }
-  return <div>{isArgentinaEvening() ? "Abierto" : "Cerrado"}</div>;
+  return (
+    <div id="store-status">
+      {isArgentinaEvening() ? (
+        <span style={{ color: "green" }}>Abierto AHORA</span>
+      ) : (
+        <span>Cerrado, horarios abajo</span>
+      )}
+    </div>
+  );
+}
+
+function Location() {
+  return (
+    <div id="location">
+      <div className="tittle">Ubicacion</div>
+      <MapComponent />
+    </div>
+  );
 }
 
 function MapComponent() {
@@ -95,7 +112,7 @@ function Schedules() {
   return (
     <div id="schedules">
       <div className="tittle">Horarios</div>
-      <div className="content">
+      <div className="body">
         <p>Lunes a Viernes de 19 a 24</p>
         <p>Sabados y Domindos de 12 a 24</p>
         <p>Feriados de 12 a 24</p>

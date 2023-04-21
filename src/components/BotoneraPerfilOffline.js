@@ -1,27 +1,25 @@
 import { useState } from "react";
 
 export function BotoneraPerfilOffline(props) {
-  //const [activeTab, setActiveTab] = useState("Inicia sesion");
-
   return (
     <div id="botonera-perfil-offline">
       <button
         onClick={(e) => {
-          props.setOfflineFilter(e.target.innerText);
+          props.setOfflineFilter("login");
           window.scrollTo(0, 0);
         }}
-        className={props.offlineFilter === "Inicia sesion" ? "active" : ""}
+        className={props.offlineFilter === "login" ? "active" : ""}
       >
-        Inicia sesion
+        Entrar
       </button>
 
       <button
         onClick={(e) => {
-          props.setOfflineFilter(e.target.innerText);
+          props.setOfflineFilter("signup");
 
           window.scrollTo(0, 0);
         }}
-        className={props.offlineFilter === "Registrarse" ? "active" : ""}
+        className={props.offlineFilter === "signup" ? "active" : ""}
       >
         Registrarse
       </button>

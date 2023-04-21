@@ -30,7 +30,7 @@ export function Profile(props) {
             offlineFilter={offlineFilter}
           />
 
-          {offlineFilter === "Inicia sesion" ? (
+          {offlineFilter === "login" ? (
             <LogIn />
           ) : (
             <SignUp
