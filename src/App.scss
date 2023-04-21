@@ -113,8 +113,6 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
 
         font-weight: 500;
 
-        font-size: 1.2rem;
-
         .description {
           display: flex;
           flex-direction: column;
@@ -517,10 +515,11 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
       display: grid;
       //border: 1px solid black;
       box-shadow: 3px 3px 3px grey;
+      font-size: clamp(0.6rem, 5vw, 4rem);
 
       .time {
         padding: 0.5rem 0.5rem;
-        font-size: 1.2rem;
+
         font-weight: 500;
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -528,12 +527,11 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
 
       .description {
         margin-top: 0.5rem;
-        font-size: 1.2rem;
+
         .description-total-points,
         .description-total-price {
           font-weight: 500;
           padding: 0.5rem;
-          font-size: 1.3rem;
         }
         .purchase-state {
           background-color: black;
@@ -596,7 +594,7 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
             flex-direction: column;
             gap: 0.5rem;
             .tittle {
-              font-size: 1.1rem;
+              text-decoration: underline;
             }
           }
         }
@@ -610,8 +608,6 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
           grid-template-columns: 100%;
           align-items: center;
           font-weight: 500;
-
-          font-size: 1.2rem;
         }
       }
     }
