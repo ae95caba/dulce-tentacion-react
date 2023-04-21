@@ -26,7 +26,7 @@ function Contact() {
         <div className="button-container">
           <button id="whatsapp">
             <img src="/img/social/whatsapp.svg" />
-            Whatsapp{/* : 1127191588 */}
+            <span>Whatsapp</span>
           </button>
         </div>
       </div>
