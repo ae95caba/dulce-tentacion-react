@@ -326,6 +326,14 @@ function DeliveryForm(props) {
     textarea.style.height = textarea.scrollHeight + 5 + "px";
   }
 
+  const customStyles = {
+    control: (base) => ({
+      ...base,
+      fontSize: "clamp(1rem, 5vw, 2rem)",
+      padding: "0px", // use clamp function to set font size
+    }),
+  };
+
   return (
     <form
       id="delivery-form"
@@ -383,12 +391,12 @@ function DeliveryForm(props) {
         <fieldset id="delivery-info">
           <div className="input-container">
             <Select
+              styles={customStyles}
               onChange={(selected) => {
                 props.setBarrioElegido(selected);
               }}
               options={options}
               placeholder="Barrio *"
-             
               name="Barrio"
               value={props.barrioElegido}
               required

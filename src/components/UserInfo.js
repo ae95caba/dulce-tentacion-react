@@ -31,37 +31,39 @@ export const UserInfo = (props) => {
 
   return (
     <div id="user-info">
-      <p>
-        Estas <span className="neon-green">conectado</span>
-      </p>
-      <img
-        className="neon-green-border"
-        referrerPolicy="no-referrer"
-        src={props.userData.img ? props.userData.img : "/img/anonymous.svg"}
-        alt=""
-      />
-      <div className="welcome">
-        <p>Bienvenido </p>
+      <div className="content">
         <p>
-          {!props.userData.name ? props.userData.email : props.userData.name}
+          Estas <span className="neon-green">conectado</span>
         </p>
+        <img
+          className="neon-green-border"
+          referrerPolicy="no-referrer"
+          src={props.userData.img ? props.userData.img : "/img/anonymous.svg"}
+          alt=""
+        />
+        <div className="welcome">
+          <p>Bienvenido </p>
+          <p>
+            {!props.userData.name ? props.userData.email : props.userData.name}
+          </p>
+        </div>
+        <p>
+          Tenes <span className="user-points">{points}</span> puntos
+        </p>
+        <button
+          onClick={() => {
+            signOut(auth)
+              .then(() => {
+                console.log("saliste perri");
+              })
+              .catch((error) => {
+                console.log(error.message);
+              });
+          }}
+        >
+          Cerrar session
+        </button>
       </div>
-      <p>
-        Tenes <span className="user-points">{points}</span> puntos
-      </p>
-      <button
-        onClick={() => {
-          signOut(auth)
-            .then(() => {
-              console.log("saliste perri");
-            })
-            .catch((error) => {
-              console.log(error.message);
-            });
-        }}
-      >
-        Cerrar session
-      </button>
     </div>
   );
 };
