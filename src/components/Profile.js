@@ -8,7 +8,7 @@ import { LogIn } from "./LogIn.js";
 import { SignUp } from "./SignUp.js";
 
 export function Profile(props) {
-  const [offlineFilter, setOfflineFilter] = useState("Registrarse");
+  const [offlineFilter, setOfflineFilter] = useState("signup");
   const [onlineFilter, setOnlineFilter] = useState("Informacion");
 
   return (

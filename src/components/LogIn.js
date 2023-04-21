@@ -52,7 +52,7 @@ export function LogIn() {
         </div>
         <div className="buttons-section">
           <button type="submit">Inicia secion</button>
-          <p>- o -</p>
+
           <GoogleAuth text={"Entra con Google"} />
         </div>
       </fieldset>

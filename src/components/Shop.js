@@ -23,6 +23,14 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
   const [currentCategoryName, setCurrentCategoryName] = useState(null);
   const searchBox = useRef(null);
 
+  window.addEventListener(
+    "touchstart",
+    () => {
+      console.log("mouse down");
+    },
+    { once: true }
+  );
+
   useEffect(() => {
     if (selectedProduct) {
       const element = document.getElementById(selectedProduct.value);
@@ -120,7 +128,6 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
             onTransitionEnd={(e) => {
               if (e.target === document.getElementById("searchbox")) {
                 handleReset();
-                console.log("reset");
               }
             }}
           >

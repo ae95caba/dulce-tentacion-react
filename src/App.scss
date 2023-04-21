@@ -36,7 +36,7 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
     background-color: black;
     color: white;
     padding: 4px;
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 5vw, 2rem);
     font-weight: 900;
   }
   img {
@@ -57,8 +57,8 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
   top: 0;
   border: 1px solid black;
   background-color: white;
-  //it doesnt do anything
-  /*   width: 100vw; */
+
+  width: 100vw;
   height: 100vh;
   height: 100svh;
   overflow-y: scroll;
@@ -306,6 +306,7 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
   height: 90svh;
   overflow-y: scroll;
   #store-status {
+    border: 1px solid black;
     background-color: red;
     padding: 0.4rem 0px;
     font-size: 1.2rem;
@@ -621,7 +622,7 @@ nav {
   background-color: black;
   position: sticky;
   top: 0;
-  border-bottom: solid white 2px;
+  border-bottom: solid white 1px;
   .active {
     background-image: $primary;
     background-clip: text;
@@ -634,7 +635,7 @@ nav {
     text-decoration: none;
     color: white;
     /* font-size: 1.6rem; */
-    font-size: clamp(1.2rem, 7vw, 2rem);
+    font-size: clamp(1.2rem, 7vw, 2.5rem);
     transform: scale(1, 1.2);
     font-weight: 900;
     width: 100%;
@@ -688,7 +689,6 @@ nav {
 }
 
 #shop {
-  /* padding: 0px 3rem; */
   display: grid;
   grid-template-rows: min-content 1fr;
 
@@ -705,7 +705,7 @@ nav {
     left: calc(0px - (100vw - (100vw * 0.14)));
     font-size: 1.5rem;
     z-index: 9;
-    transition: all 0.5s ease-in-out;
+    transition: left 0.5s ease-in-out;
     &:focus-within {
       left: 0px;
     }
@@ -725,7 +725,8 @@ nav {
   }
   .content {
     position: relative;
-    padding: 2rem 3.1rem;
+    /* padding: 2rem 3.1rem; */
+    padding: clamp(1.8rem, 10vw, 10rem) clamp(2.6rem, 12vw, 10rem);
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -847,10 +848,12 @@ nav {
     font-weight: 900;
     p {
       margin: 0 !important;
-      font-size: 1.7rem;
+      /* font-size: 1.7rem; */
+      font-size: clamp(1.2rem, 7vw, 10rem);
     }
     .product-price {
-      font-size: 2.2rem;
+      /* font-size: 2.2rem; */
+      font-size: clamp(1.5rem, 9vw, 10rem);
     }
   }
 
@@ -862,7 +865,7 @@ nav {
     position: relative;
     color: white;
     background-color: black;
-    font-size: clamp(1.2rem, 2vw, 2rem);
+    font-size: clamp(1rem, 6vw, 10rem);
     font-weight: 900;
     span {
       margin-right: 20%;
@@ -915,7 +918,8 @@ nav {
 }
 
 .dropdown-button {
-  font-size: 1.5rem;
+  /* font-size: 1.5rem; */
+  font-size: clamp(1.5rem, 6vw, 23rem);
 
   box-shadow: 3px 3px 3px grey;
   width: 100%;
@@ -926,9 +930,11 @@ nav {
   align-items: center;
   justify-items: center;
   padding: 0.4rem;
-  grid-template-columns: 66.6% 33.3%;
+  grid-template-columns: 1fr min-content;
   img {
-    width: 50%;
+    width: clamp(2.4rem, 12vw, 12rem);
+    margin: 0px 1rem;
+    margin: 0px clamp(1rem, 6vw, 4rem);
     filter: invert(1);
     position: relative !important;
     z-index: 1 !important;
@@ -936,8 +942,10 @@ nav {
 }
 
 button {
-  padding: 1rem;
-  font-size: 1.5rem;
+  /* padding: 1rem; */
+  padding: clamp(0.5rem, 4vw, 1.5rem);
+  /*  font-size: 1.5rem; */
+  font-size: clamp(1.2rem, 7vw, 3rem);
   font-weight: 900;
   width: 100%;
   background-color: white;
@@ -996,7 +1004,7 @@ button {
   #google-auth {
     display: grid;
     grid-template-rows: 100%;
-    grid-template-columns: 20% 80%;
+    grid-template-columns: min-content 1fr;
     background-color: rgb(0, 119, 255);
     font-weight: 900;
     align-items: center;
@@ -1004,30 +1012,46 @@ button {
     padding: 0;
     border-radius: 0.2rem;
     img {
-      width: 100%;
+      /*  width: 3rem; */
+      width: clamp(3rem, 16vw, 6.5rem);
       border-radius: 0.1rem;
     }
 
     span {
-      padding: 1rem;
       /* font-size: 1.3rem; */
-      font-size: clamp(1.2rem, 6vw, 5rem);
+      font-size: clamp(1.2rem, 6vw, 3rem);
+      height: min-content;
     }
   }
 
   #log-in,
   .signup-section {
+    /* padding: 2rem; */
+    padding: clamp(2rem, 10vw, 10vw);
+    .header,
+    legend {
+      /*  font-size: 1.5rem; */
+      font-size: clamp(1.5rem, 6vw, 5rem);
+      margin-bottom: 2.5rem;
+      text-decoration: underline;
+      font-weight: 900;
+    }
     label {
-      font-size: 1.2rem;
+      /*   font-size: 1.2rem; */
+      font-size: clamp(1.2rem, 4vw, 10rem);
       text-align: left !important;
     }
 
     .email-section,
-    .password-section {
+    .password-section,
+    .name-section,
+    .birthday-section,
+    .password-validation-section {
       //border: 1px solid black;
       display: flex;
       flex-direction: column;
       gap: 0.1rem;
+
       .input-container {
         position: relative;
         img {
@@ -1040,7 +1064,8 @@ button {
         input {
           border: 1px solid black;
           text-align: left;
-          font-size: 1.5rem;
+          /* font-size: 1.5rem; */
+          font-size: clamp(1.2rem, 6vw, 10rem);
           width: 100%;
           padding: 0.3rem 0px;
           padding-left: 15%;
@@ -1053,45 +1078,36 @@ button {
   ///////////////////
   #log-in {
     width: 100%;
-    padding: 2rem;
 
     fieldset {
       display: flex;
       flex-direction: column;
-      gap: 1.8rem;
+      gap: clamp(1.8rem, 8vw, 3rem);
 
       font-size: 1.5rem;
-      legend {
-        font-size: 1.5rem;
-        margin-bottom: 2.5rem;
-        text-decoration: underline;
-        font-weight: 900;
-      }
+
       .buttons-section {
         display: flex;
         flex-direction: column;
-        gap: 1rem;
+        gap: clamp(1rem, 4vw, 3rem);
       }
     }
   }
 
   .signup-section {
-    padding: 0px 2rem;
-    padding-top: 2rem;
+    /* padding: 0px 2rem;
+    padding-top: 2rem; */
+
     overflow-y: scroll;
 
-    .header {
-      font-size: 1.5rem;
-      margin-bottom: 2.5rem;
-      text-decoration: underline;
-      font-weight: 900;
-    }
-
     .body {
-      padding-bottom: 2rem;
+      /* padding-bottom: 2rem; */
       .err {
         margin-top: 0.5rem;
         color: red;
+      }
+      #google-auth {
+        margin-top: clamp(1rem, 4vw, 3rem);
       }
       .dropdown-button {
         padding: 0.5rem;
@@ -1100,10 +1116,6 @@ button {
         img {
           filter: invert(0);
         }
-      }
-      .or {
-        margin: 1rem 0px;
-        font-size: 1.5rem;
       }
 
       #sign-up {
@@ -1126,8 +1138,8 @@ button {
               display: none;
             }
             .tittle {
-              font-size: 1.2rem;
-
+              /* font-size: 1.2rem; */
+              font-size: clamp(1.2rem, 4vw, 10rem);
               width: 100%;
               text-align: left;
             }
@@ -1148,7 +1160,8 @@ button {
 
                 right: 0%;
                 width: 50px;
-                height: 50px;
+                width: clamp(50px, 12vw, 10rem);
+                height: clamp(50px, 12vw, 10rem);
                 bottom: 0%;
                 background-image: $primary;
                 padding: 0.4rem;
@@ -1161,38 +1174,7 @@ button {
 
     .name-section,
     .birthday-section,
-    .password-validation-section {
-      //border: 1px solid black;
-      display: flex;
-      flex-direction: column;
-      gap: 0.1rem;
-      .input-container {
-        position: relative;
-        img {
-          position: absolute;
-          left: 8%;
-          top: 50%;
-          transform: translate(-50%, -50%);
-          width: 1rem;
-        }
-        input {
-          border: 1px solid black;
-          text-align: left;
-          font-size: 1.5rem;
-          width: 100%;
-          padding: 0.3rem 0px;
-          padding-left: 15%;
-          border-radius: 1rem;
-        }
-        input.invalid {
-          border: 2px red solid;
-        }
-        input:focus {
-          outline: none;
-        }
-      }
-    }
-
+    .password-validation-section,
     .email-section,
     .password-section {
       input.invalid {
@@ -1284,7 +1266,7 @@ button {
   height: 100vh;
   height: 100svh;
   //	somehow it doesnt do anything more than adding another scrollbar on iphone 5 on responsinator
-  /* width: 100vw; */
+  width: 100vw;
 
   overflow-y: scroll;
   z-index: 9;

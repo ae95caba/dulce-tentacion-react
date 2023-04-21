@@ -28,7 +28,7 @@ export function SignUp(props) {
             setOfflineFilter={props.setOfflineFilter}
           />
         ) : null}
-        <p className="or">- o -</p>
+
         <GoogleAuth text={"Entra con Google"} />
       </div>
     </div>
