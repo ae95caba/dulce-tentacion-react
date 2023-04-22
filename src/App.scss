@@ -91,7 +91,6 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
     flex-direction: column;
     gap: 1.5rem;
     width: 100%;
-    //border: 1px solid red;
 
     #empty {
       font-size: clamp(2rem, 10vw, 10rem);
@@ -220,28 +219,25 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
 
     #checkout-tittle {
       font-weight: 400;
-      margin-bottom: 0.4rem;
+
       text-align: left;
-      margin-left: 1rem;
-      font-size: 2rem;
-      font-size: clamp(2rem, 10vw, 8rem);
+
+      font-size: clamp(2rem, 10vw, 4rem);
       font-family: "Lilita One", cursive;
     }
-    p {
-      font-size: 1.5rem;
-    }
+
     #summary-container {
       display: flex;
 
       justify-content: center;
       #summary {
         display: grid;
-        font-weight: 900;
+
         gap: 0.5rem;
 
         p:first-of-type {
           text-align: center;
-          font-size: clamp(1.5rem, 8vw, 5rem);
+          font-size: clamp(1.5rem, 8vw, 3.5rem);
         }
       }
     }
