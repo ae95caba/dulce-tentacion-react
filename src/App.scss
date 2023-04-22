@@ -703,7 +703,6 @@ nav {
   button {
     width: 33.3vw;
     font-weight: 900;
-    font-size: clamp(1.2rem, 6vw, 5rem);
 
     background-color: transparent;
   }
@@ -964,10 +963,8 @@ nav {
 }
 
 button {
-  /* padding: 1rem; */
-  padding: clamp(0.5rem, 4vw, 1.5rem);
-  /*  font-size: 1.5rem; */
-  font-size: clamp(1.2rem, 7vw, 3rem);
+  padding: clamp(0.5rem, 4vw, 1.2rem);
+  font-size: clamp(1.2rem, 6vw, 2rem) !important;
   font-weight: 900;
   width: 100%;
   background-color: white;
@@ -1263,6 +1260,7 @@ button {
     font-weight: 900;
     background-color: transparent;
     font-size: clamp(1.2rem, 6vw, 5rem);
+    /*  font-size: clamp(1.2rem, 7vw, 3rem); */
   }
 }
 
