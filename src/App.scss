@@ -163,6 +163,7 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
         display: flex;
         align-items: center;
         justify-content: center;
+        font-size: clamp(0.8rem, 5vw, 3rem);
       }
       .details {
         grid-column: 1/3;
@@ -894,8 +895,8 @@ nav {
       position: absolute;
 
       aspect-ratio: 1/1;
-      width: 11vw;
-      width: clamp(4rem, 8vw, 8rem);
+
+      width: clamp(2.3rem, 8vw, 8rem);
       left: 66.6%;
       top: 50%;
       transform: translate(-50%, -50%);
@@ -1314,9 +1315,7 @@ button {
     border-radius: 1rem;
     box-shadow: 3px 3px 3px grey;
   }
-  select {
-    padding: 0.3rem 0rem;
-  }
+
   .sabores {
     //border: 1px solid black;
     display: flex;
@@ -1342,22 +1341,20 @@ button {
       border: 1px solid black;
       background-image: $primary;
       p {
-        font-size: 1.3rem;
-
         font-weight: 900;
 
         color: black;
 
         display: flex;
         gap: 0.5rem;
-
+        font-size: clamp(1rem, 6.25vw, 2rem);
         align-items: center;
         text-align: center;
 
         grid-template-columns: 66.6% 33.3%;
 
         span {
-          font-size: 1.3rem;
+          font-size: inherit;
         }
       }
     }
@@ -1382,7 +1379,7 @@ button {
 
       select {
         border: 1px solid black;
-        /* font-size: 1.3rem; */
+
         font-size: clamp(1rem, 6.25vw, 2rem);
         padding: 0.5rem 0px;
 
