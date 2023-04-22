@@ -108,10 +108,8 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
         .remove {
           position: absolute;
 
-          font-size: clamp(2rem, 10vw, 4rem);
+          width: clamp(1.5rem, 8vw, 3rem);
           right: 0;
-          color: red;
-          font-weight: 900;
         }
         display: grid;
         grid-template-rows: 1fr min-content;

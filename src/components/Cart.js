@@ -144,9 +144,12 @@ export function Cart(props) {
               <div className="cart-item" key={uniqid()}>
                 <img src={item.imgUrl} alt={item.name} />
                 <div className="right">
-                  <div className="remove" onClick={() => props.removeAll(item)}>
-                    x
-                  </div>
+                  <img
+                    className="remove"
+                    src="/img/recycle-bin.svg"
+                    onClick={() => props.removeAll(item)}
+                  />
+
                   <div className="description">
                     <p className="description-name">{item.name}</p>
                     <p className="description-price">$ {item.totalPrice}</p>
