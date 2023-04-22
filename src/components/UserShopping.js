@@ -17,6 +17,12 @@ export const UserShopping = () => {
   const query = collection(db, `users/${auth.currentUser.uid}/compras`);
   const [docs, loading, error] = useCollectionData(query);
 
+  useEffect(() => {
+    if (error) {
+      alert(error);
+    }
+  }, [error]);
+
   return (
     <div id="purchase-list-container">
       {confirmMessage.show ? (

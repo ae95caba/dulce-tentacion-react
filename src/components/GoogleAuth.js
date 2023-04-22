@@ -24,7 +24,7 @@ export function GoogleAuth(props) {
             // ...
           })
           .catch((error) => {
-            console.log(error.message);
+            alert(error.message);
             // Handle Errors here.
             const errorCode = error.code;
             const errorMessage = error.message;

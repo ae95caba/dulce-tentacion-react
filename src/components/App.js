@@ -62,18 +62,22 @@ export const App = () => {
       });
     }
     async function as() {
-      const docRef = doc(db, "shop", "catalog");
-      const docSnap = await getDoc(docRef);
-      ///
+      try {
+        const docRef = doc(db, "shop", "catalog");
+        const docSnap = await getDoc(docRef);
+        ///
 
-      let helados = docSnap.data().products.helados;
-      let escabio = docSnap.data().products.escabio;
-      /* let sortedHelados = sortObjectsByName(helados);
+        let helados = docSnap.data().products.helados;
+        let escabio = docSnap.data().products.escabio;
+        /* let sortedHelados = sortObjectsByName(helados);
       let sortedEscabio = sortObjectsByName(escabio);
       let sortedProducts = { helados: sortedHelados, escabio: sortedEscabio };
       setCatalog(sortedProducts); */
-      setCatalog({ helados: helados, escabio: escabio });
-      setFlavours(convertStringToArray(docSnap.data().flavours));
+        setCatalog({ helados: helados, escabio: escabio });
+        setFlavours(convertStringToArray(docSnap.data().flavours));
+      } catch (error) {
+        alert(error);
+      }
     }
     as();
   }, []);
