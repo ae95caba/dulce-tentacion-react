@@ -141,10 +141,12 @@ export const UserShopping = () => {
                         <p>Barrio: {doc.deliveryDetails.barrio}</p>
                         <p>Direccion: {doc.deliveryDetails.direccion}</p>
                         <p>Entre calles: {doc.deliveryDetails.entreCalles}</p>
-                        <p>
-                          Informacion adicional:{" "}
-                          {doc.deliveryDetails.aditionalInfo}
-                        </p>
+
+                        {doc.deliveryDetails.aditionalInfo ? (
+                          <p>
+                            {`Informacion adicional: ${doc.deliveryDetails.aditionalInfo}`}
+                          </p>
+                        ) : null}
                       </div>
                     </>
                   ) : (
