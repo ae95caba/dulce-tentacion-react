@@ -388,7 +388,7 @@ function DeliveryForm(props) {
       </div>
 
       {props.orderFulfillment.delivery ? (
-        <fieldset id="delivery-info">
+        <div id="delivery-info">
           <div className="input-container">
             <Select
               styles={customStyles}
@@ -454,7 +454,7 @@ function DeliveryForm(props) {
               }
             ></textarea>
           </div>
-        </fieldset>
+        </div>
       ) : null}
     </form>
   );

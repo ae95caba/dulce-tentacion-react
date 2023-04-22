@@ -23,14 +23,6 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
   const [currentCategoryName, setCurrentCategoryName] = useState(null);
   const searchBox = useRef(null);
 
-  window.addEventListener(
-    "touchstart",
-    () => {
-      console.log("mouse down");
-    },
-    { once: true }
-  );
-
   useEffect(() => {
     if (selectedProduct) {
       const element = document.getElementById(selectedProduct.value);
@@ -46,6 +38,7 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
   }, [selectedProduct]);
 
   useEffect(() => {
+    console.log(content);
     if (content?.length === catalog?.helados.length) {
       setCurrentCategoryName("helados");
     } else if (content?.length === catalog?.escabio.length) {
@@ -59,19 +52,36 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
   useEffect(() => {
     if (content) {
       const options = {
-        keys: ["name"],
+        keys: ["name", "subcategory"],
         threshold: 0.3,
         includeMatches: true,
       };
       const fuse = new Fuse(content, options);
 
       const results = fuse.search(searchTerm);
-
+      console.log(results);
       //result will be an array of objects, each object will have the item,matches and refIndex properties.
-
+      // the item will be the actual object from where the match came
       function findIndexByName(obj) {
         return content.findIndex((item) => item.name === obj.name);
       }
+
+      function findIndex(obj) {
+        //the obj.name// item.name or item.subcategory from fuse WILL have a match somewhere
+        //so we will start by searching by name
+        let index;
+
+        let indexFromName = content.findIndex((item) => item.name === obj.name);
+
+        let indexFromSubcategory = content.findIndex(
+          (item) => item.subcategory === obj.subcategory
+        );
+
+        index = indexFromName >= 0 ? indexFromName : indexFromSubcategory;
+
+        return index;
+      }
+      //this will create an array with the options that will go onto the options props of Select
       const objArr = results.map((result) => {
         return {
           value: `card-${findIndexByName(result.item)}`,
