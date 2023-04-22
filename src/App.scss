@@ -57,8 +57,8 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
   flex-direction: column;
   gap: 3rem;
   gap: clamp(2rem, 8vw, 5rem);
-  padding: 2rem;
-  padding: clamp(0rem, 10vw, 5rem);
+
+  padding: 2rem clamp(0rem, 10vw, 5rem);
   position: fixed;
   display: none;
   align-items: center;
@@ -332,7 +332,7 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
   }
   .content {
     padding: 2rem 0px;
-    padding: clamp(2rem, 10vw, 10rem) 0px;
+
     display: flex;
     flex-direction: column;
     gap: 3rem;
@@ -508,7 +508,7 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
   padding: 0px clamp(2rem, 10vw, 10rem);
 
   #purchase-list {
-    padding: clamp(2rem, 10vw, 10rem) 0rem;
+    padding: 2rem 0rem;
 
     display: flex;
     flex-direction: column;
@@ -940,8 +940,8 @@ nav {
 
 .dropdown-button {
   /* font-size: 1.5rem; */
-  font-size: clamp(1.5rem, 6vw, 23rem);
 
+  font-size: clamp(1.2rem, 6vw, 2rem);
   box-shadow: 3px 3px 3px grey;
   width: 100%;
 
@@ -953,7 +953,7 @@ nav {
   padding: 0.4rem;
   grid-template-columns: 1fr min-content;
   img {
-    width: clamp(2.4rem, 12vw, 12rem);
+    width: clamp(2.4rem, 12vw, 4rem);
     margin: 0px 1rem;
     margin: 0px clamp(1rem, 6vw, 4rem);
     filter: invert(1);
@@ -1032,12 +1032,12 @@ button {
     border-radius: 0.2rem;
     img {
       /*  width: 3rem; */
-      width: clamp(3rem, 16vw, 6.5rem);
+      width: clamp(3rem, 16vw, 5rem);
       border-radius: 0.1rem;
     }
 
     span {
-      font-size: clamp(1.2rem, 6vw, 3rem);
+      font-size: clamp(1.2rem, 6vw, 2rem);
       height: min-content;
     }
   }
@@ -1292,7 +1292,7 @@ button {
   overflow-y: scroll;
   z-index: 9;
   /*  padding: 2rem; */
-  padding: clamp(2rem, 10vw, 5rem);
+  padding: 2rem clamp(2rem, 10vw, 5rem);
 
   background-color: white;
   /////
@@ -1325,8 +1325,7 @@ button {
     gap: clamp(1.5rem, 8vw, 4rem);
 
     legend {
-      font-size: 1.5rem;
-      font-size: clamp(1.5rem, 7vw, 5rem);
+      font-size: clamp(1.5rem, 7vw, 3rem);
       margin-bottom: 3rem;
       margin-bottom: clamp(2rem, 8vw, 4rem);
       text-decoration: underline;
@@ -1364,17 +1363,15 @@ button {
     }
 
     .input-container {
-      /*   display: flex;
-        flex-direction: column; */
       display: grid;
       grid-template-columns: 83% 17%;
-
-      /* position: relative; */
 
       span {
         color: white;
         box-shadow: 3px 3px 3px grey;
-
+        display: flex;
+        align-items: center;
+        justify-content: center;
         font-size: 1.5rem;
         background-color: black;
 
@@ -1386,7 +1383,7 @@ button {
       select {
         border: 1px solid black;
         /* font-size: 1.3rem; */
-        font-size: clamp(1rem, 6.25vw, 4rem);
+        font-size: clamp(1rem, 6.25vw, 2rem);
         padding: 0.5rem 0px;
 
         background-color: transparent;
