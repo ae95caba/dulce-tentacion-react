@@ -1356,26 +1356,19 @@ button {
     }
 
     .input-container {
-      display: grid;
-      grid-template-columns: 83% 17%;
+      position: relative;
 
-      span {
-        color: white;
-        box-shadow: 3px 3px 3px grey;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.5rem;
-        background-color: black;
-
+      img {
         height: 100%;
+        left: 0;
+        position: absolute;
 
-        padding: 0.5rem;
+        padding: 0.2rem;
       }
 
       select {
         border: 1px solid black;
-
+        width: 100%;
         font-size: clamp(1rem, 6.25vw, 2rem);
         padding: 0.5rem 0px;
 

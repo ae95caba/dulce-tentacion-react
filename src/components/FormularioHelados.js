@@ -339,9 +339,12 @@ function DropDown(props) {
           ))}
         </select>
         {props.index !== 0 ? (
-          <span onClick={() => props.removeDropDown(props.index)}>X</span>
+          <img
+            onClick={() => props.removeDropDown(props.index)}
+            src="/img/remove.svg"
+          />
         ) : (
-          <span style={{ opacity: "0.4" }}>X</span>
+          <img src="/img/remove.svg" style={{ opacity: "0.4" }} />
         )}
       </div>
     </fieldset>
