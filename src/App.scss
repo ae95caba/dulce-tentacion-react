@@ -1098,8 +1098,10 @@ button {
   ///////////////////
   #log-in {
     width: 100%;
+    overflow-y: scroll;
 
-    fieldset {
+    fieldset,
+    .fieldset {
       display: flex;
       flex-direction: column;
       gap: clamp(1.8rem, 8vw, 3rem);
