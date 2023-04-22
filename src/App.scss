@@ -746,8 +746,8 @@ nav {
   }
   .content {
     position: relative;
-    /* padding: 2rem 3.1rem; */
-    padding: clamp(1.8rem, 10vw, 10rem) clamp(3rem, 14vw, 10rem);
+
+    padding: 2rem clamp(3rem, 14vw, 10rem);
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -870,11 +870,11 @@ nav {
     p {
       margin: 0 !important;
       /* font-size: 1.7rem; */
-      font-size: clamp(1.2rem, 7vw, 10rem);
+      font-size: clamp(1.2rem, 7vw, 2.5rem);
     }
     .product-price {
       /* font-size: 2.2rem; */
-      font-size: clamp(1.5rem, 9vw, 10rem);
+      font-size: clamp(1.5rem, 9vw, 3rem);
     }
   }
 
@@ -886,16 +886,17 @@ nav {
     position: relative;
     color: white;
     background-color: black;
-    font-size: clamp(1rem, 6vw, 10rem);
+    font-size: clamp(1rem, 6vw, 2.5rem);
     font-weight: 900;
     span {
       margin-right: 20%;
     }
     img {
       position: absolute;
-      height: 11vw;
+
       aspect-ratio: 1/1;
       width: 11vw;
+      width: clamp(4rem, 8vw, 8rem);
       left: 66.6%;
       top: 50%;
       transform: translate(-50%, -50%);
