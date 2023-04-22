@@ -46,6 +46,7 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
 
   img {
     width: 22vw;
+    width: clamp(4rem, 21vw, 9rem);
 
     filter: drop-shadow(0px 3px 3px red);
   }
@@ -746,7 +747,7 @@ nav {
   .content {
     position: relative;
     /* padding: 2rem 3.1rem; */
-    padding: clamp(1.8rem, 10vw, 10rem) clamp(2.6rem, 12vw, 10rem);
+    padding: clamp(1.8rem, 10vw, 10rem) clamp(3rem, 14vw, 10rem);
     display: flex;
     flex-direction: column;
     gap: 2rem;
