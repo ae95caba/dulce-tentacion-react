@@ -22,11 +22,13 @@ export function Cart(props) {
     pickup: false,
   });
 
-  const [hash, setHash] = useHash();
+  const [hash, setHash] = useHash(null);
 
   useEffect(() => {
     console.log(hash);
-    if (hash === "") {
+
+    if (hash === "" && props.cartDisplayProperty === "flex") {
+      console.log("hash runing");
       animateAndClose();
     } else if (hash === "#cart") {
       console.log("show cart");
@@ -263,8 +265,6 @@ export function Cart(props) {
         alt="return"
         className="close"
         onClick={() => {
-          /* props.setCartDisplayProperty("none"); */
-          /*   animateAndClose(); */
           setHash("");
         }}
       />

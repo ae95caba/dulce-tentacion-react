@@ -223,7 +223,7 @@ export const App = () => {
   return (
     <div id="app">
       <a
-        /*  href="#cart" */
+        /*  the following could me unnecesary but better keep it */
         href={cartDisplayProperty === "flex" ? "javascript:void(0)" : "#cart"}
         className={
           totalItems() > 0
