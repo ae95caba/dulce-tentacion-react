@@ -5,6 +5,7 @@ import { Home } from "../Home";
 import { Profile } from "./Profile";
 import { Shop } from "./Shop";
 import { Cart } from "./Cart";
+import { useHash } from "react-use";
 
 import { useState, useEffect } from "react";
 import { Navbar } from "./Navbar";
@@ -32,6 +33,11 @@ export const App = () => {
     img: "/img/anonymous.svg",
   });
   const [flavours, setFlavours] = useState(null);
+  const [hash, setHash] = useHash();
+
+  useEffect(() => {
+    console.log(hash);
+  }, [hash]);
 
   /* addProductsToFirestore(productsObj); */
 
@@ -86,7 +92,10 @@ export const App = () => {
     // Set the overflow of the body element based on the display value
     document.body.style.overflow =
       cartDisplayProperty === "none" ? "auto" : "hidden";
-  }, [cartDisplayProperty]);
+    //set the hash based on the displayProperty
+    console.log(hash);
+    setHash(cartDisplayProperty === "none" ? "" : "#cart");
+  }, [cartDisplayProperty, hash]);
 
   //after the user logs in, it check if there is a a buy pending to show the cart
   useEffect(() => {
@@ -220,7 +229,7 @@ export const App = () => {
 
   return (
     <div id="app">
-      <div
+      <a
         className={
           totalItems() > 0
             ? "animate__animated animate__pulse animate__infinite animate__slower	"
@@ -242,7 +251,7 @@ export const App = () => {
         >
           $ {totalPrice()}
         </div>
-      </div>
+      </a>
       <Navbar isUserOnline={isUserOnline} />
       {showThanksMessage ? (
         <ThanksMessage close={() => setShowThanksMessage(false)} />
