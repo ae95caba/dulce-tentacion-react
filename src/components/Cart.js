@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-
+import { useHash } from "react-use";
 import { addCartToFirestore } from "../backend/addCartToFiresstore";
 import uniqid from "uniqid";
 import { options } from "../logic/barrios";
@@ -21,6 +21,18 @@ export function Cart(props) {
     delivery: false,
     pickup: false,
   });
+
+  const [hash, setHash] = useHash();
+
+  useEffect(() => {
+    console.log(hash);
+    if (hash === "") {
+      animateAndClose();
+    } else if (hash === "#cart") {
+      console.log("show cart");
+      props.setCartDisplayProperty("flex");
+    }
+  }, [hash]);
 
   useEffect(() => {
     //jorderFulfillment doesnt change when changing grom one Select option to another
@@ -252,7 +264,8 @@ export function Cart(props) {
         className="close"
         onClick={() => {
           /* props.setCartDisplayProperty("none"); */
-          animateAndClose();
+          /*   animateAndClose(); */
+          setHash("");
         }}
       />
     </div>

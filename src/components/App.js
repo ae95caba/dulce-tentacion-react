@@ -33,11 +33,6 @@ export const App = () => {
     img: "/img/anonymous.svg",
   });
   const [flavours, setFlavours] = useState(null);
-  const [hash, setHash] = useHash();
-
-  useEffect(() => {
-    console.log(hash);
-  }, [hash]);
 
   /* addProductsToFirestore(productsObj); */
 
@@ -93,9 +88,7 @@ export const App = () => {
     document.body.style.overflow =
       cartDisplayProperty === "none" ? "auto" : "hidden";
     //set the hash based on the displayProperty
-    console.log(hash);
-    setHash(cartDisplayProperty === "none" ? "" : "#cart");
-  }, [cartDisplayProperty, hash]);
+  }, [cartDisplayProperty]);
 
   //after the user logs in, it check if there is a a buy pending to show the cart
   useEffect(() => {
@@ -230,15 +223,14 @@ export const App = () => {
   return (
     <div id="app">
       <a
+        href="#cart"
         className={
           totalItems() > 0
             ? "animate__animated animate__pulse animate__infinite animate__slower	"
             : null
         }
         id="cart-button"
-        onClick={() => {
-          setCartDisplayProperty("flex");
-        }}
+        onClick={() => {}}
       >
         <div style={{ position: "relative" }}>
           <img src="/img/cart.svg" alt="shopping cart" />
