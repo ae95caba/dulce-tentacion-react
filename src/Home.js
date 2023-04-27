@@ -138,13 +138,13 @@ function Header() {
           preventMovementUntilSwipeScrollTolerance={true}
         >
           <div className="slider first">
-            <img src="/img/carousel/netflix.jpg" />
+            <img src="/img/carousel/netflix.jpg" loading="lazy" />
           </div>
           <div className="slider second">
-            <img src="/img/carousel/girl.png" />
+            <img src="/img/carousel/girl.png" loading="lazy" />
           </div>
           <div className="slider third">
-            <img src="/img/carousel/doge.jpg" />
+            <img src="/img/carousel/doge.jpg" loading="lazy" />
           </div>
         </Carousel>
       </div>

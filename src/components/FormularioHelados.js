@@ -15,7 +15,7 @@ export function FormularioHelados(props) {
   useEffect(() => {
     let arr = [];
     for (let i = 0; i < props.product.flavours; i++) {
-      arr.push(undefined);
+      arr.push("");
     }
     setDropDowns([...arr]);
   }, [props.product]);
@@ -81,6 +81,15 @@ export function FormularioHelados(props) {
     });
   }
 
+  function selectedFlavours() {
+    let number = 0;
+    dropDowns.forEach((value) => {
+      if (value) {
+        number = number + 1;
+      }
+    });
+    return number;
+  }
   ////
 
   return (
@@ -134,7 +143,10 @@ export function FormularioHelados(props) {
       }}
     >
       <fieldset className="sabores">
-        <legend>0/{props.product?.flavours} </legend>
+        <legend>
+          {selectedFlavours()}/{dropDowns.length}{" "}
+        </legend>
+
         {dropDowns.map((dropDownValue, index) => (
           //for every item in the array, create
           <DropDown
@@ -287,14 +299,16 @@ function DropDown(props) {
   /*  const copy2 = props.dropDowns.map((obj) => ({ ...obj }));
    */
 
-  const [selectValue, setSelectValue] = useState();
+  /*   const [selectValue, setSelectValue] = useState();
 
   useEffect(() => {
     const value = props.dropDowns[props.index];
     console.log(value);
     setSelectValue(value);
+    document.getElementById(`${props.index}-select`).value =
+      props.dropDowns[props.index];
   }, [props.dropDowns]);
-
+ */
   function isValueSelected(value) {
     let result = false;
 
@@ -310,11 +324,12 @@ function DropDown(props) {
     <fieldset className="sabor">
       <div className="input-container">
         <select
+          id={`${props.index}-select`}
           className="required"
           name={props.name}
           //the value has to come from state because, the onChange triggers a re-render so the value resets
           //it reseted because the options key was uniqid() so it was diferent every re-render
-          value={selectValue}
+          value={props.dropDowns[props.index]}
           onChange={(e) => {
             //updates the dropDown representation in the state
             const copy = [...props.dropDowns];
