@@ -126,29 +126,28 @@ function Header() {
     <div id="header">
       {/* <StoreStatus /> */}
       <div className="tittle">Bienvenido</div>
-      <Carousel
-        showArrows={false}
-        autoPlay={true}
-        stopOnHover={true}
-        infiniteLoop={true}
-        showThumbs={false}
-        showStatus={false}
-        swipeScrollTolerance={20}
-        preventMovementUntilSwipeScrollTolerance={true}
-      >
-        <div className="slider first">
-          <p>Compra y consegui puntos !</p>
-        </div>
-        <div className="slider second">
-          <p>Proximamente podras gastarlos en cupones !</p>
-        </div>
-        <div className="slider third">
-          <p>Habran cupones de descuento y canjes por productos !</p>
-        </div>
-        <div className="slider fourth">
-          <p>Habran promos por dias festivos !</p>
-        </div>
-      </Carousel>
+      <div className="carousel-container">
+        <Carousel
+          showArrows={false}
+          autoPlay={true}
+          stopOnHover={true}
+          infiniteLoop={true}
+          showThumbs={false}
+          showStatus={false}
+          swipeScrollTolerance={20}
+          preventMovementUntilSwipeScrollTolerance={true}
+        >
+          <div className="slider first">
+            <img src="/img/carousel/netflix.jpg" />
+          </div>
+          <div className="slider second">
+            <img src="/img/carousel/girl.png" />
+          </div>
+          <div className="slider third">
+            <img src="/img/carousel/doge.jpg" />
+          </div>
+        </Carousel>
+      </div>
     </div>
   );
 }

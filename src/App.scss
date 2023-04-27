@@ -55,8 +55,8 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
   z-index: 10;
   display: flex;
   flex-direction: column;
-  gap: 3rem;
-  gap: clamp(2rem, 8vw, 5rem);
+
+  gap: clamp(2.5rem, 12vw, 5rem);
 
   padding: 2rem clamp(0rem, 10vw, 5rem);
   position: fixed;
@@ -260,7 +260,7 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
 
 #delivery-form {
   width: 100%;
-  display: grid;
+
   grid-template-rows: min-content min-content;
   grid-template-columns: 100%;
   gap: 2rem;
@@ -405,24 +405,9 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
       }
     }
     #header {
-      .slider {
-        background-color: rgba(255, 255, 255, 0.8);
-        height: 40vh;
-        height: 40svh;
-      }
-      .slider.first,
-      .slider.second,
-      .slider.third,
-      .slider.fourth {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0px 4rem;
-        p {
-          font-size: 2rem;
-          font-size: clamp(2rem, 8vw, 8rem);
-
-          font-family: "Mynerve", sans-serif;
+      .carousel-container {
+        .slider {
+          aspect-ratio: 1/1 !important;
         }
       }
     }

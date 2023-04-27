@@ -17,8 +17,10 @@ export function FormularioHelados(props) {
     for (let i = 0; i < props.product.flavours; i++) {
       arr.push(undefined);
     }
-    setDropDowns(arr);
-  }, []);
+    setDropDowns([...arr]);
+  }, [props.product]);
+
+  useEffect(() => {}, [props.product]);
 
   //switches the body overflow property
   useEffect(() => {
@@ -29,20 +31,6 @@ export function FormularioHelados(props) {
       document.body.style.overflow = "auto";
     };
   }, []);
-
-  ///////////read from localStorage
-  useEffect(() => {
-    const myObjectString = localStorage.getItem("myObject");
-    const myObjectParsed = JSON.parse(myObjectString);
-    console.log(myObjectParsed); // Output: { name: "John", age: 30 }
-  }, []);
-
-  //////////write to localStorage
-  useEffect(() => {
-    const myObject = { name: "John", age: 30 };
-    // Storing an object in local storage
-    localStorage.setItem("myObject", JSON.stringify(myObject));
-  }, [dropDowns]);
 
   let totalPrice = () => {
     let total = props.product?.price; //reemplazar por precio de helados
@@ -77,31 +65,34 @@ export function FormularioHelados(props) {
 
   //onClose, remove fadein class (OPTIONAL), add fadeout clasee, set onAnimationend : Close
   const formRef = useRef(null);
-  function handleAnimationEnd() {
-    console.log("Animation ended");
-    props.close();
-  }
 
   function animateAndClose() {
-    formRef.current.addEventListener("animationend", handleAnimationEnd);
+    formRef.current.classList.remove(
+      "animate__animated",
+      "animate__fadeInLeft"
+    );
+    formRef.current.classList.add("animate__animated", "animate__fadeOutLeft");
 
-    formRef.current.classList.add("animate__fadeOutLeft");
+    function handleAnimationEnd() {
+      props.close();
+    }
+    formRef.current.addEventListener("animationend", handleAnimationEnd, {
+      once: true,
+    });
   }
 
-  useEffect(() => {
-    const currentRef = formRef.current;
-    return () => {
-      currentRef.removeEventListener("animationend", handleAnimationEnd);
-    };
-  }, []);
-
-  //////////////////////////////////////
+  ////
 
   return (
     <form
       id="formulario-helados"
       ref={formRef}
-      className="animate__animated animate__fadeInLeft"
+      style={{ display: props.displayProperty }}
+      className={
+        props.displayProperty === "flex"
+          ? "animate__animated animate__fadeInLeft"
+          : ""
+      }
       onSubmit={(e) => {
         e.preventDefault();
         ///////////////////////////////////
@@ -143,13 +134,13 @@ export function FormularioHelados(props) {
       }}
     >
       <fieldset className="sabores">
-        <legend>Podes elegir hasta {props.product?.flavours} sabores</legend>
+        <legend>0/{props.product?.flavours} </legend>
         {dropDowns.map((dropDownValue, index) => (
           //for every item in the array, create
           <DropDown
             flavours={props.flavours}
             removeDropDown={removeDropDown}
-            dropDowns={dropDowns}
+            dropDowns={[...dropDowns]}
             setDropDowns={setDropDowns}
             name={`Sabor ${index + 1}`}
             key={`${index}-dropDown`}
@@ -275,15 +266,6 @@ export function FormularioHelados(props) {
         >
           Aceptar
         </button>
-        <button
-          type="button"
-          onClick={() => {
-            /*  props.close(); */
-            animateAndClose();
-          }}
-        >
-          Atras
-        </button>
       </div>
       <img
         className="close"
@@ -299,8 +281,23 @@ export function FormularioHelados(props) {
 }
 
 function DropDown(props) {
+  /*   console.log(props.dropDowns);
+  console.log(props.dropDowns[props.index]); */
+
+  /*  const copy2 = props.dropDowns.map((obj) => ({ ...obj }));
+   */
+
+  const [selectValue, setSelectValue] = useState();
+
+  useEffect(() => {
+    const value = props.dropDowns[props.index];
+    console.log(value);
+    setSelectValue(value);
+  }, [props.dropDowns]);
+
   function isValueSelected(value) {
     let result = false;
+
     props.dropDowns.forEach((dropDownValue) => {
       if (dropDownValue === value) {
         result = true;
@@ -317,7 +314,7 @@ function DropDown(props) {
           name={props.name}
           //the value has to come from state because, the onChange triggers a re-render so the value resets
           //it reseted because the options key was uniqid() so it was diferent every re-render
-          value={props.dropDowns[props.index]}
+          value={selectValue}
           onChange={(e) => {
             //updates the dropDown representation in the state
             const copy = [...props.dropDowns];

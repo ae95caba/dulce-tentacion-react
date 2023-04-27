@@ -212,12 +212,12 @@ export function Cart(props) {
           <p id="empty">No hay nada aca, porque no agregas algo?</p>
         )}
       </div>
-      {props.cartItems.length > 0 ? (
+      {/*  {props.cartItems.length > 0 ? (
         <div className="total-points">
           Ganas <span className="number">{(props.totalPrice() / 100) * 5}</span>{" "}
           puntos !
         </div>
-      ) : null}
+      ) : null} */}
       {props.cartItems.length > 0 ? (
         <DeliveryForm
           isUserOnline={props.isUserOnline}
@@ -239,7 +239,6 @@ export function Cart(props) {
 
           <div className="buttons-container">
             <button
-              style={{ marginBottom: "1.2rem" }}
               type="submit"
               className={
                 props.isUserOnline
@@ -249,13 +248,6 @@ export function Cart(props) {
               form="delivery-form"
             >
               Comprar
-            </button>
-            <button
-              onClick={() => {
-                props.setCartDisplayProperty("none");
-              }}
-            >
-              Atras
             </button>
           </div>
         </div>
@@ -353,6 +345,7 @@ function DeliveryForm(props) {
   return (
     <form
       id="delivery-form"
+      style={{ display: props.orderFulfillment.delivery ? "grid" : "block" }}
       autoComplete="on"
       onSubmit={(e) => props.handleSubmit(e)}
     >

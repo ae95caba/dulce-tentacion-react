@@ -10,6 +10,7 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
   const [content, setContent] = useState(catalog?.helados);
 
   //iceCreamForm content
+  //it needs the hole product so it can pass it to the car
   const [iceCreamForm, setIceCreamForm] = useState({
     show: false,
     product: undefined,
@@ -98,17 +99,16 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
   }, [catalog]);
 
   function closeIceCreamForm() {
-    setIceCreamForm({
-      show: false,
-
-      product: undefined,
-    });
+    setIceCreamForm((prev) => ({
+      ...prev,
+      displayProperty: "none",
+    }));
   }
 
   function openIceCreamForm(product) {
     setIceCreamForm({
       show: true,
-
+      displayProperty: "flex",
       product: product,
     });
   }
@@ -162,14 +162,14 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
           </div>
         ) : null}
       </div>
-      {/* switch to icecream form */}
+      {/* show icecream form over content cards*/}
       {iceCreamForm.show ? (
         <FormularioHelados
           flavours={flavours}
+          displayProperty={iceCreamForm.displayProperty}
           product={iceCreamForm.product}
           close={closeIceCreamForm}
           addIceCream={addIceCream}
-          iceCreamForm={iceCreamForm}
         />
       ) : null}
 
@@ -227,13 +227,13 @@ function Card({ product, addCartItem, openIceCreamForm, index }) {
       style={{ opacity: product.outOfStock ? 0.5 : 1 }}
     >
       <div className="img-container">
-        <div className="points">
+        {/*   <div className="points">
           <img src="/img/seal.svg" />
           <div className="text">
             <p className="points-value">{(product.price * 5) / 100}</p>
             <p className="points-string">Puntos</p>
           </div>
-        </div>
+        </div> */}
         <img src={product.imgUrl} alt="" loading="lazy" />
       </div>
       <div className="product-description">
