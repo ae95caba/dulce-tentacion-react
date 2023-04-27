@@ -4,25 +4,21 @@ import Fuse from "fuse.js";
 import { FormularioHelados } from "./FormularioHelados";
 import Select from "react-select";
 import { ThreeCircles } from "react-loader-spinner";
+import { useHash } from "react-use";
 
 export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
   //content is what will be mapped
   const [content, setContent] = useState(catalog?.helados);
-
-  //iceCreamForm content
-  //it needs the hole product so it can pass it to the car
-  const [iceCreamForm, setIceCreamForm] = useState({
-    show: false,
-    product: undefined,
-  });
-
+  const [hash, setHash] = useHash(null);
   //searchTerm is what fuse will look for
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState();
   const searchboxSelectRef = useRef(null);
   const [currentCategoryName, setCurrentCategoryName] = useState(null);
-  const searchBox = useRef(null);
+  //iceCreamForm content
+  //it needs the hole product so it can pass it to the car
+  const [iceCreamForm, setIceCreamForm] = useState(null);
 
   useEffect(() => {
     if (selectedProduct) {
@@ -38,8 +34,15 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
     }
   }, [selectedProduct]);
 
+  //this changes the display property of the form to flex
+  //when hash matches form and the is product info on the form state
   useEffect(() => {
-    console.log(content);
+    if (hash === "#formulario-helados" && iceCreamForm) {
+      setIceCreamForm((prev) => ({ ...prev, display: "flex" }));
+    }
+  }, [hash, iceCreamForm]);
+
+  useEffect(() => {
     if (content?.length === catalog?.helados.length) {
       setCurrentCategoryName("helados");
     } else if (content?.length === catalog?.escabio.length) {
@@ -98,21 +101,6 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
     setContent(catalog?.helados);
   }, [catalog]);
 
-  function closeIceCreamForm() {
-    setIceCreamForm((prev) => ({
-      ...prev,
-      displayProperty: "none",
-    }));
-  }
-
-  function openIceCreamForm(product) {
-    setIceCreamForm({
-      show: true,
-      displayProperty: "flex",
-      product: product,
-    });
-  }
-
   function scrollToTop() {
     var div = document.querySelector("#shop .content");
     div.scrollTop = 0;
@@ -133,7 +121,6 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
         />
         {content ? (
           <div
-            ref={searchBox}
             id="searchbox"
             onTransitionEnd={(e) => {
               if (e.target === document.getElementById("searchbox")) {
@@ -163,12 +150,11 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
         ) : null}
       </div>
       {/* show icecream form over content cards*/}
-      {iceCreamForm.show ? (
+      {iceCreamForm?.render ? (
         <FormularioHelados
           flavours={flavours}
-          displayProperty={iceCreamForm.displayProperty}
-          product={iceCreamForm.product}
-          close={closeIceCreamForm}
+          iceCreamForm={iceCreamForm}
+          setIceCreamForm={setIceCreamForm}
           addIceCream={addIceCream}
         />
       ) : null}
@@ -198,7 +184,7 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
               product={product}
               //this props changes every time it gets used
               addCartItem={addCartItem}
-              openIceCreamForm={openIceCreamForm}
+              setIceCreamForm={setIceCreamForm}
             />
           ) : null
         )}
@@ -208,17 +194,8 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
 };
 
 //this rerenders every time the addCartItem function gets called
-function Card({ product, addCartItem, openIceCreamForm, index }) {
+function Card({ product, addCartItem, setIceCreamForm, index }) {
   const [active, setActive] = useState(false);
-
-  /*  useEffect(() => {
-    console.log("Component mounted");
-
-    return () => {
-      console.log("Component unmounted");
-      console.log("---------------------");
-    };
-  }, []); */
 
   return (
     <div
@@ -242,9 +219,19 @@ function Card({ product, addCartItem, openIceCreamForm, index }) {
       </div>
 
       {product.flavours ? (
-        <button className={`to-cart`} onClick={() => openIceCreamForm(product)}>
+        <a
+          href="#formulario-helados"
+          className={`to-cart `}
+          onClick={() =>
+            setIceCreamForm((prev) => ({
+              ...prev,
+              product: product,
+              render: true,
+            }))
+          }
+        >
           Elegir sabores
-        </button>
+        </a>
       ) : (
         <button
           disabled={product.outOfStock ? true : false}

@@ -1,6 +1,8 @@
 import { createFactory, useEffect, useState, useRef } from "react";
+import { useHash } from "react-use";
 
 export function FormularioHelados(props) {
+  const [hash, setHash] = useHash(null);
   //checks how many dropDowns are
   // dropDowns content will be like this : ["flavour1","flavour2", undefined]
   const [dropDowns, setDropDowns] = useState([]);
@@ -10,17 +12,24 @@ export function FormularioHelados(props) {
     salsa: { price: 110, type: null },
   });
 
+  useEffect(() => {
+    if (hash === "" && props.iceCreamForm.display === "flex") {
+      console.log("hash runing");
+      animateAndClose();
+    }
+  }, [hash]);
+
   //creates  an array of objects on state for each flavour avaliable to choose
   //later those object will be used to return the DropDown components
   useEffect(() => {
     let arr = [];
-    for (let i = 0; i < props.product.flavours; i++) {
+    for (let i = 0; i < props.iceCreamForm.product.flavours; i++) {
       arr.push("");
     }
     setDropDowns([...arr]);
-  }, [props.product]);
+  }, [props.iceCreamForm.product]);
 
-  useEffect(() => {}, [props.product]);
+  useEffect(() => {}, [props.iceCreamForm.product]);
 
   //switches the body overflow property
   useEffect(() => {
@@ -33,7 +42,7 @@ export function FormularioHelados(props) {
   }, []);
 
   let totalPrice = () => {
-    let total = props.product?.price; //reemplazar por precio de helados
+    let total = props.iceCreamForm.product?.price; //reemplazar por precio de helados
 
     if (extras.rocklets.isChecked) {
       total += extras.rocklets.price;
@@ -74,7 +83,7 @@ export function FormularioHelados(props) {
     formRef.current.classList.add("animate__animated", "animate__fadeOutLeft");
 
     function handleAnimationEnd() {
-      props.close();
+      props.setIceCreamForm((prev) => ({ ...prev, display: "none" }));
     }
     formRef.current.addEventListener("animationend", handleAnimationEnd, {
       once: true,
@@ -96,9 +105,13 @@ export function FormularioHelados(props) {
     <form
       id="formulario-helados"
       ref={formRef}
-      style={{ display: props.displayProperty }}
+      style={{
+        display: props.iceCreamForm.display
+          ? props.iceCreamForm.display
+          : "none",
+      }}
       className={
-        props.displayProperty === "flex"
+        props.iceCreamForm.display === "flex"
           ? "animate__animated animate__fadeInLeft"
           : ""
       }
@@ -109,7 +122,7 @@ export function FormularioHelados(props) {
 
         let flavoursArr = [];
 
-        for (let i = 0; i < props.product.flavours; i++) {
+        for (let i = 0; i < props.iceCreamForm.product.flavours; i++) {
           flavoursArr[i] = { required: "", optional: "" };
         }
 
@@ -129,8 +142,8 @@ export function FormularioHelados(props) {
         ///////////////////////////////////
 
         const fullProduct = {
-          name: props.product.name,
-          imgUrl: props.product.imgUrl,
+          name: props.iceCreamForm.product.name,
+          imgUrl: props.iceCreamForm.product.imgUrl,
           count: 1,
           extras: extras,
           flavoursArr: flavoursArr,
@@ -139,7 +152,7 @@ export function FormularioHelados(props) {
         };
 
         props.addIceCream(fullProduct);
-        props.close();
+        props.setIceCreamForm((prev) => ({ ...prev, display: "none" }));
       }}
     >
       <fieldset className="sabores">
@@ -159,7 +172,7 @@ export function FormularioHelados(props) {
             index={index}
           />
         ))}
-        {dropDowns.length < props.product?.flavours ? (
+        {dropDowns.length < props.iceCreamForm.product?.flavours ? (
           <div className="add-flavour" onClick={addDropDown}>
             <p>
               AGREGAR <span>+</span>
@@ -284,8 +297,7 @@ export function FormularioHelados(props) {
         src="/img/return.svg"
         alt="return"
         onClick={() => {
-          /*  props.close(); */
-          animateAndClose();
+          setHash("");
         }}
       />
     </form>
@@ -293,22 +305,6 @@ export function FormularioHelados(props) {
 }
 
 function DropDown(props) {
-  /*   console.log(props.dropDowns);
-  console.log(props.dropDowns[props.index]); */
-
-  /*  const copy2 = props.dropDowns.map((obj) => ({ ...obj }));
-   */
-
-  /*   const [selectValue, setSelectValue] = useState();
-
-  useEffect(() => {
-    const value = props.dropDowns[props.index];
-    console.log(value);
-    setSelectValue(value);
-    document.getElementById(`${props.index}-select`).value =
-      props.dropDowns[props.index];
-  }, [props.dropDowns]);
- */
   function isValueSelected(value) {
     let result = false;
 

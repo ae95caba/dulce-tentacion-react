@@ -129,6 +129,7 @@ function Header() {
       <div className="carousel-container">
         <Carousel
           showArrows={false}
+          emulateTouch={true}
           autoPlay={true}
           stopOnHover={true}
           infiniteLoop={true}
