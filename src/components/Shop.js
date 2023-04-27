@@ -196,7 +196,7 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
 //this rerenders every time the addCartItem function gets called
 function Card({ product, addCartItem, setIceCreamForm, index }) {
   const [active, setActive] = useState(false);
-
+  const [hash, setHash] = useHash(null);
   return (
     <div
       className="card"
@@ -219,19 +219,19 @@ function Card({ product, addCartItem, setIceCreamForm, index }) {
       </div>
 
       {product.flavours ? (
-        <a
-          href="#formulario-helados"
+        <button
           className={`to-cart `}
-          onClick={() =>
+          onClick={() => {
+            setHash("#formulario-helados");
             setIceCreamForm((prev) => ({
               ...prev,
               product: product,
               render: true,
-            }))
-          }
+            }));
+          }}
         >
           Elegir sabores
-        </a>
+        </button>
       ) : (
         <button
           disabled={product.outOfStock ? true : false}

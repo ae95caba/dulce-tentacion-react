@@ -49,7 +49,7 @@ function StoreStatus() {
   return (
     <div id="store-status">
       {isArgentinaEvening() ? (
-        <span style={{ color: "green" }}>Abierto AHORA</span>
+        <span className="neon-green">Abierto AHORA</span>
       ) : (
         <span>Cerrado, horarios abajo</span>
       )}

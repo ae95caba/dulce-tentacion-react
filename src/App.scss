@@ -51,6 +51,19 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
     filter: drop-shadow(0px 3px 3px red);
   }
 }
+
+.close {
+  position: absolute;
+  left: 5%;
+  top: 4%;
+  width: 15vw;
+  width: clamp(3rem, 9vw, 8rem) !important;
+  border: 1px solid black;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  box-shadow: 3px 3px 3px grey;
+}
+
 #cart {
   z-index: 10;
   display: flex;
@@ -71,16 +84,7 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
   height: 100vh;
   height: 100svh;
   overflow-y: scroll;
-  .close {
-    position: absolute;
-    left: 5%;
-    top: 4%;
-    width: 15vw;
-    border: 1px solid black;
-    padding: 0.5rem;
-    border-radius: 1rem;
-    box-shadow: 3px 3px 3px grey;
-  }
+
   h1 {
     font-family: "Lilita One", cursive;
 
@@ -159,6 +163,7 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
 
       .details-button {
         background-color: black;
+        box-shadow: 3px 3px 3px grey;
         color: white;
         display: flex;
         align-items: center;
@@ -1287,17 +1292,6 @@ button {
 
   font-weight: 500;
 
-  .close {
-    position: absolute;
-    left: 5%;
-    top: 4%;
-    width: 15vw;
-    border: 1px solid black;
-    padding: 0.5rem;
-    border-radius: 1rem;
-    box-shadow: 3px 3px 3px grey;
-  }
-
   .sabores {
     //border: 1px solid black;
     display: flex;
@@ -1378,18 +1372,19 @@ button {
     }
 
     .extra-content {
-      margin-top: 1.5rem;
+      margin-top: clamp(1.5rem, 5vw, 4rem);
 
       grid-template-rows: 1fr 1fr 1fr;
 
-      gap: 1.5rem;
+      gap: clamp(1.5rem, 5vw, 4rem);
       .rocklets,
       .salsa,
       .conos {
         font-size: 1.2rem;
+        /*  font-size: clamp(1.2rem, 2vw, 5rem); */
         display: grid;
         grid-template-columns: 33.3% 66.6%;
-
+        font-size: clamp(1.2rem, 5vw, 2.4rem);
         input {
           border: 1px solid black;
         }
@@ -1398,7 +1393,8 @@ button {
           text-align: left;
           display: flex;
           align-items: center;
-          font-size: 1.3rem;
+
+          font-size: inherit;
         }
       }
       .salsa {
@@ -1428,7 +1424,7 @@ button {
           border: 1px solid black;
           color: white;
           background-color: black;
-          font-size: 1.5rem;
+          font-size: inherit;
           display: flex;
           flex-direction: column;
           justify-content: center;

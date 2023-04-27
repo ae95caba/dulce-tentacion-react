@@ -117,6 +117,7 @@ export function FormularioHelados(props) {
       }
       onSubmit={(e) => {
         e.preventDefault();
+        setHash("");
         ///////////////////////////////////
         //add flavours
 
@@ -152,7 +153,7 @@ export function FormularioHelados(props) {
         };
 
         props.addIceCream(fullProduct);
-        props.setIceCreamForm((prev) => ({ ...prev, display: "none" }));
+        /*  props.setIceCreamForm((prev) => ({ ...prev, display: "none" })); */
       }}
     >
       <fieldset className="sabores">
