@@ -73,8 +73,8 @@ ${
 }
 
 *Datos personales*:
-		Nombre: ${userData.name}
-		Email: ${userData.email}
+		Nombre: ${userData.name ? userData.name : "anonimo"}
+		Email: ${userData.email ? userData.email : "anonimo"}
 `;
 }
 

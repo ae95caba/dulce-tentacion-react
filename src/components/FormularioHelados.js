@@ -3,6 +3,7 @@ import { useHash } from "react-use";
 
 export function FormularioHelados(props) {
   const [hash, setHash] = useHash(null);
+  const [resetSelects, setResetSelects] = useState();
   //checks how many dropDowns are
   // dropDowns content will be like this : ["flavour1","flavour2", undefined]
   const [dropDowns, setDropDowns] = useState([]);
@@ -13,8 +14,18 @@ export function FormularioHelados(props) {
   });
 
   useEffect(() => {
+    if (resetSelects) {
+      let arr = [];
+      for (let i = 0; i < props.iceCreamForm.product.flavours; i++) {
+        arr.push("");
+      }
+      setDropDowns([...arr]);
+      setResetSelects(false);
+    }
+  }, [resetSelects]);
+
+  useEffect(() => {
     if (hash === "" && props.iceCreamForm.display === "flex") {
-      console.log("hash runing");
       animateAndClose();
     }
   }, [hash]);
@@ -153,7 +164,8 @@ export function FormularioHelados(props) {
         };
 
         props.addIceCream(fullProduct);
-        /*  props.setIceCreamForm((prev) => ({ ...prev, display: "none" })); */
+        e.target.reset();
+        setResetSelects(true);
       }}
     >
       <fieldset className="sabores">

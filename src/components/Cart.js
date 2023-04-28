@@ -51,21 +51,20 @@ export function Cart(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const perfil = document.getElementById("profile-button");
 
-    props.setCartDisplayProperty("none");
+    setHash("");
 
-    if (props.isUserOnline) {
-      if (orderFulfillment.delivery) {
-        //create deliveryDetails
+    if (orderFulfillment.delivery) {
+      //create deliveryDetails
 
-        const deliveryDetails = {
-          barrio: document.getElementById("barrio").value,
-          direccion: document.getElementById("direccion").value,
-          entreCalles: document.getElementById("entre-calles").value,
-          aditionalInfo: document.getElementById("aditional-info").value,
-        };
+      const deliveryDetails = {
+        barrio: document.getElementById("barrio").value,
+        direccion: document.getElementById("direccion").value,
+        entreCalles: document.getElementById("entre-calles").value,
+        aditionalInfo: document.getElementById("aditional-info").value,
+      };
 
+      if (props.isUserOnline) {
         addLastDeliveryDetails(deliveryDetails);
 
         addCartToFirestore(
@@ -76,23 +75,27 @@ export function Cart(props) {
           uniqid(),
           deliveryDetails
         );
+      }
 
-        window.open(
-          link(
-            props.cartItems,
-            deliveryDetails,
-            props.userData,
-            props.totalPrice()
-          ),
-          "_blank"
-        );
-        //open purchase list
+      window.open(
+        link(
+          props.cartItems,
+          deliveryDetails,
+          props.userData,
+          props.totalPrice()
+        ),
+        "_blank"
+      );
+      //open purchase list
+      if (props.isUserOnline) {
         navigate("/perfil");
         setTimeout(() => {
           document.getElementById("compras").click();
         }, 100);
-      } else if (orderFulfillment.pickup) {
-        props.showThanksMessage();
+      }
+    } else if (orderFulfillment.pickup) {
+      props.showThanksMessage();
+      if (props.isUserOnline) {
         addCartToFirestore(
           props.cartItems,
           props.totalPrice(),
@@ -100,24 +103,20 @@ export function Cart(props) {
           (props.totalPrice() / 100) * 5,
           uniqid()
         );
-        window.open(
-          link(props.cartItems, undefined, props.userData, props.totalPrice()),
-          "_blank"
-        );
       }
-      //for all online conditions
-      //reseter
-      setOrderFulfillment({
-        delivery: false,
-        pickup: false,
-      });
-
-      props.clearCart();
-    } else {
-      perfil.click();
-      console.log("set buy pending to true");
-      props.setIsABuyPending(true);
+      window.open(
+        link(props.cartItems, undefined, props.userData, props.totalPrice()),
+        "_blank"
+      );
     }
+    //for all online conditions
+    //reseter
+    setOrderFulfillment({
+      delivery: false,
+      pickup: false,
+    });
+
+    props.clearCart();
   }
   //animateAndClose: remove fadein class , add fadeout class, set onAnimationend :remove fadeout, Close
 
@@ -243,7 +242,7 @@ export function Cart(props) {
               className={
                 props.isUserOnline
                   ? "neon-red  animate__animated animate__pulse animate__infinite animate__slow	"
-                  : "offline"
+                  : "offline animate__animated animate__pulse animate__infinite animate__slow"
               }
               form="delivery-form"
             >

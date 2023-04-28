@@ -24,7 +24,7 @@ export const App = () => {
   const [deliveryPrice, setDeliveryPrice] = useState(0);
   const [showThanksMessage, setShowThanksMessage] = useState(false);
   const [isUserOnline, setIsUserOnline] = useState();
-  const [isABuyPending, setIsABuyPending] = useState(false);
+
   const [cartDisplayProperty, setCartDisplayProperty] = useState("none");
   const [catalog, setCatalog] = useState(null);
   const [userData, setUserData] = useState({
@@ -35,7 +35,6 @@ export const App = () => {
   const [flavours, setFlavours] = useState(null);
 
   /* addProductsToFirestore(productsObj); */
-
   useEffect(() => {
     function convertStringToArray(string) {
       // Remove leading and trailing periods and whitespaces
@@ -90,25 +89,9 @@ export const App = () => {
     //set the hash based on the displayProperty
   }, [cartDisplayProperty]);
 
-  //after the user logs in, it check if there is a a buy pending to show the cart
-  useEffect(() => {
-    //no nned to add if(isUserOnline) because if the user was online setIsABuyPending wont be set in the frist place
-    if (isABuyPending) {
-      setCartDisplayProperty("flex");
-
-      setIsABuyPending(false);
-    }
-  }, [isUserOnline]);
-
   //set isUserOnline and userData
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
-      if (user) {
-        console.log("there is a user online");
-      } else {
-        console.log("no user online");
-      }
-
       if (user) {
         setIsUserOnline(true);
 
@@ -119,6 +102,11 @@ export const App = () => {
         });
       } else {
         setIsUserOnline(false);
+        setUserData({
+          name: undefined,
+          email: undefined,
+          img: "/img/anonymous.svg",
+        });
       }
     });
   }, []);
@@ -253,7 +241,6 @@ export const App = () => {
       <Cart
         cartDisplayProperty={cartDisplayProperty}
         setCartDisplayProperty={setCartDisplayProperty}
-        setIsABuyPending={setIsABuyPending}
         userData={userData}
         isUserOnline={isUserOnline}
         setDeliveryPrice={setDeliveryPrice}
