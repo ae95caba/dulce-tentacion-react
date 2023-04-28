@@ -111,7 +111,7 @@ export function Cart(props) {
         }, 100);
       }
     } else if (orderFulfillment.pickup) {
-      props.showThanksMessage();
+      /*  props.showThanksMessage(); */
       if (props.isUserOnline) {
         addCartToFirestore(
           props.cartItems,

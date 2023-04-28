@@ -3,17 +3,82 @@ import { Carousel } from "react-responsive-carousel";
 import { useEffect, useState } from "react";
 import { ThreeCircles } from "react-loader-spinner";
 import { utcToZonedTime, format } from "date-fns-tz";
+import { NavLink } from "react-router-dom";
 
 export function Home() {
   return (
     <div id="home">
       <StoreStatus />
       <div className="content">
-        <Header />
+        <div className="carousel-container">
+          <Carousel
+            showArrows={false}
+            emulateTouch={true}
+            autoPlay={true}
+            stopOnHover={true}
+            infiniteLoop={true}
+            showThumbs={false}
+            showStatus={false}
+            swipeScrollTolerance={20}
+            preventMovementUntilSwipeScrollTolerance={true}
+          >
+            <div className="slider first">
+              <img src="/img/carousel/netflix.jpg" loading="lazy" />
+            </div>
+            <div className="slider second">
+              <img src="/img/carousel/family.jpg" loading="lazy" />
+            </div>
+            <div className="slider third">
+              <img src="/img/carousel/delivery.jpg" loading="lazy" />
+            </div>
+            <div className="slider fourth">
+              <img src="/img/carousel/doge.jpg" loading="lazy" />
+            </div>
+          </Carousel>
+        </div>
         <Contact />
+        <div className="carousel-container">
+          <Carousel
+            showArrows={false}
+            emulateTouch={true}
+            autoPlay={true}
+            stopOnHover={true}
+            infiniteLoop={true}
+            showThumbs={false}
+            showStatus={false}
+            swipeScrollTolerance={20}
+            preventMovementUntilSwipeScrollTolerance={true}
+          >
+            <div className="slider first">
+              <img src="/img/carousel/netflix.jpg" loading="lazy" />
+            </div>
+            <div className="slider second">
+              <img src="/img/carousel/family.jpg" loading="lazy" />
+            </div>
+            <div className="slider third">
+              <img src="/img/carousel/delivery.jpg" loading="lazy" />
+            </div>
+            <div className="slider fourth">
+              <img src="/img/carousel/doge.jpg" loading="lazy" />
+            </div>
+          </Carousel>
+        </div>
         <Location />
-        <Schedules />
+        {/*  <Schedules /> */}
+        <Footer />
       </div>
+    </div>
+  );
+}
+
+function Footer() {
+  return (
+    <div id="footer">
+      <div className="working-hours">
+        <div>Lunes a Viernes de 19 a 24</div>
+        <div>Sabados y Domingos de 12 a 24</div>
+      </div>
+      <div className="copyright">Copyright © 2023</div>
     </div>
   );
 }
@@ -21,13 +86,19 @@ export function Home() {
 function Contact() {
   return (
     <div id="contact">
-      <div className="tittle">Contacto</div>
+      <div className="tittle">Enfriamos tu paladar y calentamos tu corazon</div>
       <div className="body">
+        <p>
+          No podes comprar la felicidad pero si podes comprar helado, lo que es
+          casi lo mismo !
+        </p>
         <div className="button-container">
-          <button id="whatsapp">
-            <img src="/img/social/whatsapp.svg" />
-            <span>Whatsapp</span>
-          </button>
+          <NavLink to="/tienda">
+            <button className="call-to-action">
+              <img src="/img/to-cart.svg" />
+              <span>Pedi ahora!</span>
+            </button>
+          </NavLink>
         </div>
       </div>
     </div>
@@ -51,17 +122,39 @@ function StoreStatus() {
       {isArgentinaEvening() ? (
         <span className="neon-green">Abierto AHORA</span>
       ) : (
-        <span>Cerrado, horarios abajo</span>
+        <p>
+          <span> Cerrado ahora</span>, horarios abajo
+        </p>
       )}
     </div>
   );
 }
 
 function Location() {
+  const [showMap, setShowMap] = useState(false);
   return (
     <div id="location">
-      <div className="tittle">Ubicacion</div>
-      <MapComponent />
+      <div style={{ display: showMap ? "none" : "grid" }} className="tittle">
+        Visitanos
+      </div>
+      <div style={{ display: showMap ? "none" : "grid" }} className="body">
+        <p>
+          Somos un emprendimiento familiar, nos esforzamos por dar un servicio
+          de calidad por lo que usamos helado artesanal de la mejor calidad
+        </p>
+        <div className="button-container">
+          <button
+            id="show-map"
+            className="call-to-action"
+            onClick={() => setShowMap(true)}
+          >
+            <img id="map-icon" src="/img/social/maps.png" />
+            <span>Ver ubicacion</span>
+          </button>
+        </div>
+      </div>
+
+      {showMap ? <MapComponent /> : null}
     </div>
   );
 }
@@ -116,38 +209,6 @@ function Schedules() {
         <p>Lunes a Viernes de 19 a 24</p>
         <p>Sabados y Domindos de 12 a 24</p>
         <p>Feriados de 12 a 24</p>
-      </div>
-    </div>
-  );
-}
-
-function Header() {
-  return (
-    <div id="header">
-      {/* <StoreStatus /> */}
-      <div className="tittle">Bienvenido</div>
-      <div className="carousel-container">
-        <Carousel
-          showArrows={false}
-          emulateTouch={true}
-          autoPlay={true}
-          stopOnHover={true}
-          infiniteLoop={true}
-          showThumbs={false}
-          showStatus={false}
-          swipeScrollTolerance={20}
-          preventMovementUntilSwipeScrollTolerance={true}
-        >
-          <div className="slider first">
-            <img src="/img/carousel/netflix.jpg" loading="lazy" />
-          </div>
-          <div className="slider second">
-            <img src="/img/carousel/girl.png" loading="lazy" />
-          </div>
-          <div className="slider third">
-            <img src="/img/carousel/doge.jpg" loading="lazy" />
-          </div>
-        </Carousel>
       </div>
     </div>
   );

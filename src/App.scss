@@ -323,9 +323,23 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
   height: 90vh;
   height: 90svh;
   overflow-y: scroll;
+  #footer {
+    background-color: black;
+    color: white;
+    padding: 1rem 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    .working-hours {
+      text-transform: uppercase;
+    }
+    .copyright {
+      font-weight: 900;
+    }
+  }
   #store-status {
     border: 1px solid black;
-    background-color: red;
+    background-color: #d32f2f;
     padding: 0.4rem 0px;
     font-size: 1.2rem;
     font-size: clamp(1.2rem, 5vw, 5rem);
@@ -334,33 +348,47 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
     }
   }
   .content {
-    padding: 2rem 0px;
-
     display: flex;
     flex-direction: column;
-    gap: 3rem;
+
     #contact,
     #schedules,
     #header,
     #location {
+      aspect-ratio: 1/1;
+
       display: flex;
       flex-direction: column;
+      align-items: center;
+      justify-content: center;
       gap: 2rem;
       .tittle {
-        text-decoration: underline;
-
         font-size: clamp(2.5rem, 10vw, 10rem);
         font-weight: 900;
         font-family: "Lilita One", cursive;
       }
     }
+
+    #location,
     #contact {
+      background-color: rgb(37, 34, 34);
+      color: white;
+      padding: 0rem clamp(3rem, 12vw, 12rem);
+      .tittle {
+        font-size: clamp(1.2rem, 6vw, 5rem);
+      }
       .body {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        p {
+          font-size: clamp(1rem, 5vw, 3rem);
+        }
         .button-container {
           padding: 0px 2.5rem;
 
-          #whatsapp {
-            background-color: #25d366;
+          .call-to-action {
+            background-color: red;
             color: white;
             border: 3px solid white;
             border-radius: 1rem;
@@ -368,15 +396,16 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
             grid-template-columns: min-content 1fr;
             align-items: center;
             font-weight: 900;
-            font-size: 2rem;
+
             padding: 0.5rem;
 
             img {
-              width: clamp(3rem, 12vw, 12rem);
+              width: clamp(2rem, 12vw, 12rem);
               position: relative;
+              filter: invert(1);
             }
             span {
-              font-size: clamp(1.5rem, 6vw, 3rem);
+              font-size: clamp(1rem, 5vw, 3rem);
             }
           }
         }
@@ -384,8 +413,18 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
     }
 
     #location {
+      background-color: #ff5252;
+      #map-icon {
+        filter: invert(0);
+      }
+      .call-to-action {
+        background-color: black !important;
+      }
+
       .map-container {
         position: relative;
+        height: 100%;
+        aspect-ratio: 1/1;
 
         .loading-container {
           position: absolute;
@@ -394,8 +433,8 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
           transform: translate(-50%, -50%);
         }
         #google-maps {
-          width: 100%;
-          aspect-ratio: 1 / 1;
+          height: 100%;
+          aspect-ratio: 1/1;
         }
       }
     }
