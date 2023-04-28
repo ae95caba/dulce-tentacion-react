@@ -122,7 +122,7 @@ export const App = () => {
   function totalPrice() {
     let total = 0;
 
-    total += deliveryPrice;
+    total += cartItems.length > 0 ? deliveryPrice : 0;
     for (var i = 0; i < cartItems.length; i++) {
       total += cartItems[i].totalPrice;
     }

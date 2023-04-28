@@ -5,8 +5,7 @@ import uniqid from "uniqid";
 import { options } from "../logic/barrios";
 import Select from "react-select";
 import { link } from "../logic/whatsappLink";
-import { addLastDeliveryDetails } from "../backend/addLastDeliveryDetails";
-import { getLastDeliveryDetails } from "../backend/getLastDeliveryDetails";
+
 import { priceFromBarrio } from "../logic/barrios";
 
 import { useNavigate } from "react-router-dom";
@@ -16,7 +15,7 @@ export function Cart(props) {
 
   //the following wil be and object  {value: , label}
   const [barrioElegido, setBarrioElegido] = useState(null); // Set default option
-
+  const [deliveryDetails, setDeliveryDetails] = useState(null);
   const [orderFulfillment, setOrderFulfillment] = useState({
     delivery: false,
     pickup: false,
@@ -24,9 +23,37 @@ export function Cart(props) {
 
   const [hash, setHash] = useHash(null);
 
+  //get deliveryDetails from localStorage if there is any
   useEffect(() => {
-    console.log(hash);
+    let detailsString = localStorage.getItem("deliveryDetails");
+    /*  alert("mount"); */
 
+    if (detailsString) {
+      const details = JSON.parse(detailsString);
+
+      setDeliveryDetails({ ...details });
+      if (details.barrio) {
+        const barrioObj = {
+          value: details.barrio.toLowerCase(),
+          label: details.barrio,
+        };
+
+        setBarrioElegido(barrioObj);
+      }
+    }
+  }, []);
+
+  //add deliveryDetails to localStorage on every state update
+  useEffect(() => {
+    if (deliveryDetails) {
+      //save  deliveryDetails to local storage
+      const deliveryDetailsString = JSON.stringify(deliveryDetails);
+      localStorage.setItem("deliveryDetails", deliveryDetailsString);
+    }
+    ///////////////////////////
+  }, [deliveryDetails]);
+
+  useEffect(() => {
     if (hash === "" && props.cartDisplayProperty === "flex") {
       console.log("hash runing");
       animateAndClose();
@@ -55,18 +82,7 @@ export function Cart(props) {
     setHash("");
 
     if (orderFulfillment.delivery) {
-      //create deliveryDetails
-
-      const deliveryDetails = {
-        barrio: document.getElementById("barrio").value,
-        direccion: document.getElementById("direccion").value,
-        entreCalles: document.getElementById("entre-calles").value,
-        aditionalInfo: document.getElementById("aditional-info").value,
-      };
-
       if (props.isUserOnline) {
-        addLastDeliveryDetails(deliveryDetails);
-
         addCartToFirestore(
           props.cartItems,
           props.totalPrice(),
@@ -86,6 +102,7 @@ export function Cart(props) {
         ),
         "_blank"
       );
+
       //open purchase list
       if (props.isUserOnline) {
         navigate("/perfil");
@@ -150,9 +167,7 @@ export function Cart(props) {
         {props.cartItems.length > 0 ? (
           props.cartItems.map((item) => {
             const detailsId = uniqid();
-            if (item.name === "delivery") {
-              return null;
-            }
+
             return (
               <div className="cart-item" key={uniqid()}>
                 <img src={item.imgUrl} alt={item.name} />
@@ -220,11 +235,15 @@ export function Cart(props) {
       {props.cartItems.length > 0 ? (
         <DeliveryForm
           isUserOnline={props.isUserOnline}
+          ///
           setBarrioElegido={setBarrioElegido}
           barrioElegido={barrioElegido}
+          ////
           handleSubmit={handleSubmit}
           setOrderFulfillment={setOrderFulfillment}
           orderFulfillment={orderFulfillment}
+          deliveryDetails={deliveryDetails}
+          setDeliveryDetails={setDeliveryDetails}
         />
       ) : null}
       {props.cartItems.length > 0 ? (
@@ -301,33 +320,6 @@ export function Details(props) {
 }
 
 function DeliveryForm(props) {
-  const [deliveryDetails, setDeliveryDetails] = useState({});
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        //this can be one of 3
-        //if user online and has bought : details obj
-        //if user offline : {}
-        //if user online and hasnt bought : {}
-        const details = await getLastDeliveryDetails();
-        setDeliveryDetails({ ...details });
-        if (details.barrio) {
-          const barrioObj = {
-            value: details.barrio.toLowerCase(),
-            label: details.barrio,
-          };
-
-          props.setBarrioElegido(barrioObj);
-        }
-      } catch (error) {
-        console.log(error.message);
-      }
-    }
-
-    fetchData();
-  }, []);
-
   function autoResize(textarea) {
     textarea.style.height = "auto";
     textarea.style.height = textarea.scrollHeight + 5 + "px";
@@ -422,13 +414,12 @@ function DeliveryForm(props) {
               autoComplete="street-address"
               required
               id="direccion"
-              defaultValue={deliveryDetails.direccion}
+              defaultValue={props.deliveryDetails?.direccion}
               onChange={(event) => {
-                console.log(document.getElementById("barrio").value);
-                setDeliveryDetails({
-                  ...deliveryDetails,
+                props.setDeliveryDetails((prev) => ({
+                  ...prev,
                   direccion: event.target.value,
-                });
+                }));
               }}
             />
           </div>
@@ -438,12 +429,12 @@ function DeliveryForm(props) {
               placeholder="Entre calles *"
               required
               id="entre-calles"
-              defaultValue={deliveryDetails.entreCalles}
+              defaultValue={props.deliveryDetails?.entreCalles}
               onChange={(event) =>
-                setDeliveryDetails({
-                  ...deliveryDetails,
+                props.setDeliveryDetails((prev) => ({
+                  ...prev,
                   entreCalles: event.target.value,
-                })
+                }))
               }
             />
           </div>
@@ -453,12 +444,12 @@ function DeliveryForm(props) {
               onInput={(e) => autoResize(e.target)}
               placeholder="Opcional:
 														Descripcion de la casa, ejemplo: frente rojo, puerta negra de chapa."
-              defaultValue={deliveryDetails.aditionalInfo}
+              defaultValue={props.deliveryDetails?.aditionalInfo}
               onChange={(event) =>
-                setDeliveryDetails({
-                  ...deliveryDetails,
+                props.setDeliveryDetails((prev) => ({
+                  ...prev,
                   aditionalInfo: event.target.value,
-                })
+                }))
               }
             ></textarea>
           </div>
