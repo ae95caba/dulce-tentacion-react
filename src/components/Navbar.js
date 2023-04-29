@@ -14,7 +14,7 @@ export function Navbar(props) {
               window.scrollTo(0, 0);
             }}
           >
-            Inicio
+            <img id="logo" src="/img/logo.png" />
           </NavLink>
         </li>
         <li>
