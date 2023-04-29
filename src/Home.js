@@ -15,6 +15,7 @@ export function Home() {
             showArrows={false}
             emulateTouch={true}
             autoPlay={true}
+            interval={4000}
             stopOnHover={true}
             infiniteLoop={true}
             showThumbs={false}
@@ -42,6 +43,7 @@ export function Home() {
             showArrows={false}
             emulateTouch={true}
             autoPlay={true}
+            interval={4000}
             stopOnHover={true}
             infiniteLoop={true}
             showThumbs={false}

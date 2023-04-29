@@ -223,11 +223,14 @@ export const App = () => {
       >
         <div style={{ position: "relative" }}>
           <img src="/img/cart.svg" alt="shopping cart" />
-          <div id="total-items">{totalItems() > 0 ? totalItems() : null}</div>
+          <div id="total-items" className="neon-green">
+            {totalItems() > 0 ? totalItems() : null}
+          </div>
         </div>
 
         <div
           id="total-price"
+          className="neon-green"
           style={{ visibility: totalPrice() ? "visible" : "hidden" }}
         >
           $ {totalPrice()}
