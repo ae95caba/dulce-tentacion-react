@@ -384,6 +384,10 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
         .button-container {
           padding: 0px 2.5rem;
 
+          a {
+            text-decoration: none;
+          }
+
           .call-to-action {
             background-color: red;
             color: white;
