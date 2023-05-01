@@ -42,8 +42,10 @@ const zona2 = [
   "Don Rolando",
   "Santa Catalina",
   "Santa Isabel",
+  "Sarmiento",
   "El Zorzal",
   "Bicentenario",
+  /* "La Milagrosa(por Paraguay)", */
   "La Milagrosa",
   "La Paz",
 ];
@@ -54,7 +56,7 @@ const zona3 = [
   "La Capilla",
   "Martin Fierro",
   "El Prado",
-  /*  "Sarmiento", */
+
   "Güemes",
   "La Trocha",
   "Las Talitas",
@@ -90,19 +92,19 @@ export function priceFromBarrio(barrio) {
   let price = undefined;
   switch (true) {
     case zona1.includes(barrio):
-      price = 100;
+      price = 0;
       break;
     case zona2.includes(barrio):
-      price = 200;
+      price = 100;
       break;
     case zona3.includes(barrio):
-      price = 300;
+      price = 200;
       break;
     case zona4.includes(barrio):
-      price = 400;
+      price = 300;
       break;
     case zona5.includes(barrio):
-      price = 500;
+      price = 400;
       break;
     default:
       // code to execute if barrio is not in any of the zones
