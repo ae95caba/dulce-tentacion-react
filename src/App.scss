@@ -1080,14 +1080,20 @@ button {
 
   #log-in,
   .signup-section {
-    /* padding: 2rem; */
+    fieldset {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(1rem, 4vw, 3rem);
+
+      font-size: clamp(1.2rem, 5vw, 4rem);
+    }
     padding: clamp(2rem, 10vw, 10vw);
     .header,
     legend {
       /*  font-size: 1.5rem; */
       font-size: clamp(1.5rem, 6vw, 5rem);
       margin-bottom: 2.5rem;
-      text-decoration: underline;
+
       font-weight: 900;
     }
     label {
@@ -1134,18 +1140,11 @@ button {
     width: 100%;
     overflow-y: scroll;
 
-    fieldset,
-    .fieldset {
-      display: flex;
-      flex-direction: column;
-      gap: clamp(1.8rem, 8vw, 3rem);
-
-      font-size: 1.5rem;
-
+    fieldset {
       .buttons-section {
         display: flex;
         flex-direction: column;
-        gap: clamp(1rem, 4vw, 3rem);
+        gap: clamp(1.5rem, 4vw, 3rem);
       }
     }
   }
@@ -1158,13 +1157,14 @@ button {
 
     .body {
       /* padding-bottom: 2rem; */
+      display: flex;
+      flex-direction: column;
+      gap: clamp(1.5rem, 4vw, 3rem);
       .err {
         margin-top: 0.5rem;
         color: red;
       }
-      #google-auth {
-        margin-top: clamp(1rem, 4vw, 3rem);
-      }
+
       .dropdown-button {
         padding: 0.5rem;
         background-color: black;
@@ -1174,17 +1174,14 @@ button {
         }
       }
 
+      .signup-button {
+        margin-top: clamp(1.5rem, 4vw, 3rem);
+      }
+
       #sign-up {
         width: 100%;
 
         fieldset {
-          display: flex;
-          flex-direction: column;
-          gap: 1.8rem;
-
-          font-size: 1.5rem;
-          margin: 2rem 0px;
-
           .img-section {
             display: flex;
             flex-direction: column;

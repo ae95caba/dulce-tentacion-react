@@ -320,7 +320,9 @@ function SignUpForm(props) {
         </div>
       </fieldset>
 
-      <button type="submit">Aceptar</button>
+      <button type="submit" className="signup-button">
+        Aceptar
+      </button>
     </form>
   );
 }
