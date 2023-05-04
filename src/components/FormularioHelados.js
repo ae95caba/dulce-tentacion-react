@@ -240,7 +240,7 @@ export function FormularioHelados(props) {
                 //extras = { ...copy };
               }}
             >
-              <option value="">Eligue una salsa</option>
+              <option value="">Elige una salsa</option>
               <option value="frutilla">Frutilla</option>
               <option value="chocolate">Chocolate</option>
             </select>
