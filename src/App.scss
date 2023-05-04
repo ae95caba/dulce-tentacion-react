@@ -677,7 +677,6 @@ nav {
     background-clip: text;
     color: transparent;
     #logo {
-      opacity: 1;
     }
   }
   .inactive {
@@ -710,8 +709,6 @@ nav {
       justify-content: center;
       #logo {
         max-width: 80%;
-
-        opacity: 0.6;
       }
     }
     li:first-of-type {

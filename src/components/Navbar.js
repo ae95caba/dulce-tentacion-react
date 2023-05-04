@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 export function Navbar(props) {
   const location = useLocation();
   const isProfileActive = location.pathname === "/perfil";
+  const isHomeActive = location.pathname === "/";
   return (
     <nav>
       <ul>
@@ -14,7 +15,11 @@ export function Navbar(props) {
               window.scrollTo(0, 0);
             }}
           >
-            Inicio
+            <img
+              id="logo"
+              alt="company logo"
+              src={isHomeActive ? "/img/logo-red.png" : "/img/logo-white.png"}
+            />
           </NavLink>
         </li>
         <li>
