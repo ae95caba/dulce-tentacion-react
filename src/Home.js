@@ -20,7 +20,7 @@ export function Home() {
             infiniteLoop={true}
             showThumbs={false}
             showStatus={false}
-            swipeScrollTolerance={20}
+            swipeScrollTolerance={80}
             preventMovementUntilSwipeScrollTolerance={true}
           >
             <div className="slider first">
@@ -48,7 +48,7 @@ export function Home() {
             infiniteLoop={true}
             showThumbs={false}
             showStatus={false}
-            swipeScrollTolerance={20}
+            swipeScrollTolerance={80}
             preventMovementUntilSwipeScrollTolerance={true}
           >
             <div className="slider first">
