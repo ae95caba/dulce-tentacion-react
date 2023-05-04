@@ -44,7 +44,7 @@ export function LogIn() {
           </div>
         </div>
         <div className="password-section">
-          <label htmlFor="log-in-password">Contrasenia:</label>
+          <label htmlFor="log-in-password">Contraseña:</label>
           <div className="input-container">
             <img src="img/password.svg" alt="icon" />
             <input type="password" id="log-in-password" required />

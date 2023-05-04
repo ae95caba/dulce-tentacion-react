@@ -56,9 +56,9 @@ function SignUpForm(props) {
   const confirmPasswordRef = useRef(null);
 
   useEffect(() => {
-    if (error.confirmPassword === "Las contrasenias no son iguales.") {
+    if (error.confirmPassword === "Las contraseñas no son iguales.") {
       confirmPasswordRef.current.setCustomValidity(
-        "Las contrasenias no son iguales."
+        "Las contraseñas no son iguales."
       );
     } else if (error.confirmPassword === "") {
       confirmPasswordRef.current.setCustomValidity("");
@@ -106,14 +106,14 @@ function SignUpForm(props) {
           console.log(e.target.validity.valid);
           if (!value) {
             //if empty
-            stateObj[name] = "Escribe una contrasenia.";
+            stateObj[name] = "Escribe una contraseña.";
           } else if (input.confirmPassword && value !== input.confirmPassword) {
             //if not match and confirmPassword has value
             if (!e.target.validity.valid) {
               stateObj[name] =
                 "Debe tener por lo menos: 8 caracteres, 1 letra y 1 numero";
             }
-            stateObj["confirmPassword"] = "Las contrasenias no son iguales.";
+            stateObj["confirmPassword"] = "Las contraseñas no son iguales.";
           } else {
             //if match
             if (!e.target.validity.valid) {
@@ -128,9 +128,9 @@ function SignUpForm(props) {
 
         case "confirmPassword":
           if (!value) {
-            stateObj[name] = "Escribe una contrasenia.";
+            stateObj[name] = "Escribe una contraseña.";
           } else if (input.password && value !== input.password) {
-            stateObj[name] = "Las contrasenias no son iguales.";
+            stateObj[name] = "Las contraseñas no son iguales.";
           }
           break;
 
@@ -260,7 +260,7 @@ function SignUpForm(props) {
           {error.birthday && <span className="err">{error.birthday}</span>}
         </div> */}
         <div className="password-section">
-          <label htmlFor="sign-up-password">Contrasenia *</label>
+          <label htmlFor="sign-up-password">Contraseña *</label>
           <div className="input-container">
             <img src="/img/password.svg" alt="icon" />
             <input
@@ -288,7 +288,7 @@ function SignUpForm(props) {
         </div>
         <div className="password-validation-section">
           <label htmlFor="sign-up-password-validation">
-            Confirmacion de contrasenia *
+            Confirmacion de contraseña *
           </label>
           <div className="input-container">
             <img src="/img/password.svg" alt="icon" />

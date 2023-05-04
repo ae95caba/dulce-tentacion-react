@@ -251,7 +251,7 @@ function Card({ product, addCartItem, setIceCreamForm, index }) {
             console.log(active);
           }}
         >
-          <span>Aniadir</span>
+          <span>Añadir</span>
           <img style={{ filter: "invert(1)" }} src="/img/to-cart.svg" />
         </button>
       )}
