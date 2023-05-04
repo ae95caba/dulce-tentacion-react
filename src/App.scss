@@ -728,7 +728,8 @@ nav {
   /* margin: 0 -3rem; */
   /*  margin-bottom: 3rem; */
   display: grid;
-  grid-template-columns: 33.3% 33.3% 33.3%;
+  /*  grid-template-columns: 33.3% 33.3% 33.3%; */
+  grid-template-columns: 33% 33% 33%;
   background-image: $primary;
   justify-content: center;
   width: 100vw;
@@ -751,6 +752,7 @@ nav {
   background-color: rgba(255, 255, 255, 0);
   height: 90vh;
   height: 90svh;
+
   #searchbox {
     display: grid;
     box-shadow: 3px 3px 3px grey;
@@ -780,7 +782,7 @@ nav {
     }
   }
   .content {
-    position: relative;
+    /* position: relative; */
 
     padding: 2rem clamp(3rem, 14vw, 10rem);
     display: flex;
@@ -789,6 +791,13 @@ nav {
     height: 100%;
     overflow-y: scroll;
     /* scroll-padding: 3rem; */
+    .comming-soon {
+      width: 90%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
 
   .content::-webkit-scrollbar {

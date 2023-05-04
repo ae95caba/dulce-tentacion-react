@@ -160,7 +160,11 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
       ) : null}
 
       <div className="content">
-        {!content ? (
+        {content === null && catalog ? (
+          <img class="comming-soon" src="/img/comming-soon.jpg" />
+        ) : null}
+
+        {!content && !catalog ? (
           <ThreeCircles
             height="150"
             width="150"

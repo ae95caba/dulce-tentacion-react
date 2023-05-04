@@ -15,7 +15,7 @@ export function Home() {
             showArrows={false}
             emulateTouch={true}
             autoPlay={true}
-            interval={4000}
+            interval={3000}
             stopOnHover={true}
             infiniteLoop={true}
             showThumbs={false}
@@ -52,16 +52,10 @@ export function Home() {
             preventMovementUntilSwipeScrollTolerance={true}
           >
             <div className="slider first">
-              <img src="/img/carousel/netflix.jpg" loading="lazy" />
+              <img src="/img/carousel/gracias.jpg" loading="lazy" />
             </div>
             <div className="slider second">
-              <img src="/img/carousel/family.jpg" loading="lazy" />
-            </div>
-            <div className="slider third">
-              <img src="/img/carousel/delivery.jpg" loading="lazy" />
-            </div>
-            <div className="slider fourth">
-              <img src="/img/carousel/doge.jpg" loading="lazy" />
+              <img src="/img/carousel/ofertas.jpg" loading="lazy" />
             </div>
           </Carousel>
         </div>

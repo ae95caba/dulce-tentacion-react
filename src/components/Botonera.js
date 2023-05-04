@@ -1,6 +1,3 @@
-import { useEffect } from "react";
-import { useState } from "react";
-
 export function Botonera({ setContent, content, catalog, scrollToTop }) {
   return (
     <div id="botonera">
@@ -8,7 +5,7 @@ export function Botonera({ setContent, content, catalog, scrollToTop }) {
         onClick={() => {
           scrollToTop();
           setContent(catalog?.helados);
-          window.scrollTo(0, 0);
+          /* window.scrollTo(0, 0); */
         }}
         className={content === catalog?.helados && content ? "active" : ""}
       >
@@ -19,7 +16,7 @@ export function Botonera({ setContent, content, catalog, scrollToTop }) {
         onClick={() => {
           setContent(catalog?.escabio);
           scrollToTop();
-          window.scrollTo(0, 0);
+          /* window.scrollTo(0, 0); */
         }}
         className={content === catalog?.escabio && content ? "active" : ""}
       >
@@ -27,11 +24,10 @@ export function Botonera({ setContent, content, catalog, scrollToTop }) {
       </button>
       <button
         onClick={() => {
-          setContent(catalog.helados);
+          setContent(null);
           scrollToTop();
-          window.scrollTo(0, 0);
         }}
-        className={content === catalog?.kiosko && content ? "active" : ""}
+        className={content === null && catalog ? "active" : ""}
       >
         Snacks
       </button>
