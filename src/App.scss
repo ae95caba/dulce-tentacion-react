@@ -676,24 +676,9 @@ nav {
     background-image: $primary;
     background-clip: text;
     color: transparent;
-    #logo {
-    }
   }
   .inactive {
     color: green;
-  }
-  a {
-    text-decoration: none;
-    color: white;
-
-    font-size: clamp(1.2rem, 7vw, 3rem);
-    transform: scale(1, 1.2);
-    font-weight: 900;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 
   ul {
@@ -707,8 +692,22 @@ nav {
       display: flex;
       align-items: center;
       justify-content: center;
-      #logo {
-        max-width: 80%;
+
+      a {
+        text-decoration: none;
+        color: white;
+
+        font-size: clamp(1.2rem, 7vw, 3rem);
+        transform: scale(1, 1.2);
+        font-weight: 900;
+        width: 100%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        #logo {
+          height: 8vh;
+        }
       }
     }
     li:first-of-type {
