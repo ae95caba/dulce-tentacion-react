@@ -102,20 +102,29 @@ function Contact() {
 }
 
 function StoreStatus() {
-  function isArgentinaEvening() {
+  function isBusinessHours() {
     const argentinaTimezone = "America/Argentina/Buenos_Aires";
     const now = new Date();
     const nowInArgentina = utcToZonedTime(now, argentinaTimezone);
+    const dayOfWeek = nowInArgentina.getDay();
     const formattedTime = format(nowInArgentina, "HH:mm:ss", {
       timeZone: argentinaTimezone,
     });
-    console.log(formattedTime >= "19:00:00" && formattedTime <= "23:59:59");
 
-    return formattedTime >= "19:00:00" && formattedTime <= "23:59:59";
+    if (dayOfWeek >= 1 && dayOfWeek <= 5) {
+      // Monday to Friday
+      return formattedTime >= "19:00:00" && formattedTime <= "23:59:59";
+    } else if (dayOfWeek === 0 || dayOfWeek === 6) {
+      // Saturday or Sunday
+      return formattedTime >= "11:59:00" && formattedTime <= "23:59:59";
+    } else {
+      // Not a valid day of the week
+      return false;
+    }
   }
   return (
     <div id="store-status">
-      {isArgentinaEvening() ? (
+      {isBusinessHours() ? (
         <span className="neon-green">Abierto AHORA</span>
       ) : (
         <p>

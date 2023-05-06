@@ -49,6 +49,7 @@ const zona2 = [
   "La Milagrosa",
   "La Paz",
 ];
+
 const zona3 = [
   "El Lucero",
   "Cuatro Esquinas",
@@ -95,16 +96,16 @@ export function priceFromBarrio(barrio) {
       price = 0;
       break;
     case zona2.includes(barrio):
-      price = 100;
+      price = 150;
       break;
     case zona3.includes(barrio):
-      price = 200;
+      price = 250;
       break;
     case zona4.includes(barrio):
-      price = 300;
+      price = 350;
       break;
     case zona5.includes(barrio):
-      price = 400;
+      price = 450;
       break;
     default:
       // code to execute if barrio is not in any of the zones
