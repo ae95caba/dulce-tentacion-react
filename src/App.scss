@@ -1506,12 +1506,27 @@ button {
   // Calculate the exponential padding value based on the screen width
 
   // Apply the padding to the element
+  nav {
+    ul {
+      li {
+        a {
+          font-size: 2rem;
+        }
+      }
+    }
+  }
+  #botonera {
+    button {
+      font-size: 1.5rem !important;
+      padding: 0.5rem;
+    }
+  }
   #home {
     display: flex;
     flex-direction: column;
     align-items: center;
     #store-status {
-      font-size: 3rem;
+      font-size: 2rem;
       width: 30%;
     }
     #footer {
@@ -1529,19 +1544,19 @@ button {
         padding: 2rem;
 
         .tittle {
-          font-size: 3rem;
+          font-size: 2rem;
         }
         .body {
           p {
-            font-size: 2rem;
+            font-size: 1.5rem;
           }
           .button-container {
             .call-to-action {
               span {
-                font-size: 2rem;
+                font-size: 1.5rem;
               }
               img {
-                width: 4rem;
+                width: 3rem;
               }
             }
           }
@@ -1551,13 +1566,17 @@ button {
   }
   #shop {
     .content {
-      padding: 2vw 18vw;
+      padding: 2vw 22vw;
       display: grid;
       gap: 2vw;
       grid-template-columns: 1fr 1fr 1fr;
+      .comming-soon {
+        width: 25rem;
+      }
       .card {
         .product-description {
           .product-name {
+            font-size: 1.5rem;
             overflow: hidden;
             text-overflow: ellipsis;
             display: -webkit-box;
@@ -1565,15 +1584,21 @@ button {
             -webkit-line-clamp: 2; /* Set the maximum number of lines to display */
             white-space: normal;
           }
+          .product-price {
+            font-size: 2rem;
+          }
         }
         .to-cart {
-          font-size: 1.6rem !important;
+          font-size: 1.2rem !important;
         }
         .to-cart:not(.pick-flavours) {
           padding: 0.5rem;
           img {
-            width: 3rem;
+            width: 2rem;
           }
+        }
+        .pick-flavours {
+          padding: 0.8rem;
         }
       }
     }
