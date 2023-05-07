@@ -224,7 +224,7 @@ function Card({ product, addCartItem, setIceCreamForm, index }) {
 
       {product.flavours ? (
         <button
-          className={`to-cart `}
+          className={`to-cart pick-flavours `}
           onClick={() => {
             setHash("#formulario-helados");
             setIceCreamForm((prev) => ({

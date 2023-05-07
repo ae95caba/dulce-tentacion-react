@@ -60,9 +60,8 @@ export function Home() {
           </Carousel>
         </div>
         <Location />
-        {/*  <Schedules /> */}
-        <Footer />
       </div>
+      <Footer />
     </div>
   );
 }
@@ -202,19 +201,6 @@ function MapComponent() {
         title="google maps"
         referrerPolicy="no-referrer-when-downgrade"
       ></iframe>
-    </div>
-  );
-}
-
-function Schedules() {
-  return (
-    <div id="schedules">
-      <div className="tittle">Horarios</div>
-      <div className="body">
-        <p>Lunes a Viernes de 19 a 24</p>
-        <p>Sabados y Domindos de 12 a 24</p>
-        <p>Feriados de 12 a 24</p>
-      </div>
     </div>
   );
 }
