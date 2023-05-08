@@ -70,7 +70,6 @@ $primary: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
 
   gap: clamp(2.5rem, 12vw, 5rem);
 
-  padding: 2rem clamp(0rem, 10vw, 5rem);
   position: fixed;
   display: none;
   align-items: center;
@@ -1081,6 +1080,8 @@ button {
 
   #log-in,
   .signup-section {
+    padding: clamp(2rem, 10vw, 10vw);
+
     fieldset {
       display: flex;
       flex-direction: column;
@@ -1088,7 +1089,7 @@ button {
 
       font-size: clamp(1.2rem, 5vw, 4rem);
     }
-    padding: clamp(2rem, 10vw, 10vw);
+
     .header,
     legend {
       /*  font-size: 1.5rem; */
@@ -1151,9 +1152,6 @@ button {
   }
 
   .signup-section {
-    /* padding: 0px 2rem;
-    padding-top: 2rem; */
-
     overflow-y: scroll;
 
     .body {
@@ -1314,6 +1312,11 @@ button {
   }
 }
 
+#cart,
+#formulario-helados {
+  padding: 2rem clamp(2rem, 10vw, 5rem);
+}
+
 #formulario-helados {
   position: fixed;
   top: 0;
@@ -1326,7 +1329,6 @@ button {
   overflow-y: scroll;
   z-index: 9;
   /*  padding: 2rem; */
-  padding: 2rem clamp(2rem, 10vw, 5rem);
 
   background-color: white;
   /////
@@ -1501,8 +1503,7 @@ button {
   background-color: #000000; /* set the color of the scrollbar track */
 }
 
-@media only screen and (min-width: 1024px) and (orientation: landscape),
-  only screen and (min-device-width: 1024px) and (orientation: landscape) {
+@media screen and (min-width: 80svh), screen and (min-width: 80vh) {
   // Calculate the exponential padding value based on the screen width
 
   // Apply the padding to the element
@@ -1569,7 +1570,8 @@ button {
       padding: 2vw 22vw;
       display: grid;
       gap: 2vw;
-      grid-template-columns: 1fr 1fr 1fr;
+      justify-content: center;
+      grid-template-columns: repeat(auto-fit, clamp(7rem, 10rem, 13rem));
       .comming-soon {
         width: 25rem;
       }
@@ -1600,6 +1602,18 @@ button {
         .pick-flavours {
           padding: 0.8rem;
         }
+      }
+    }
+  }
+  #formulario-helados {
+    padding: 2rem 10vw;
+    .sabores {
+      display: grid;
+
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      select {
+        font-size: 1.5rem !important;
       }
     }
   }
