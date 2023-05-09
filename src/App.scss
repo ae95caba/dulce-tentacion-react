@@ -1230,14 +1230,10 @@ button {
   height: 100svh;
 
   width: 100vw;
-
   overflow-y: scroll;
   z-index: 9;
-
   background-color: white;
-
   display: flex;
-
   justify-content: center;
   font-weight: 500;
   .form-content {
@@ -1246,7 +1242,7 @@ button {
     flex-direction: column;
 
     gap: clamp(2rem, 8vw, 6rem);
-
+    height: fit-content;
     font-weight: 500;
     .sabores {
       display: flex;
@@ -1481,6 +1477,9 @@ button {
     font-size: clamp(0.5rem, 4vh, 3rem) !important;
   }
   #shop {
+    #searchbox {
+      display: none;
+    }
     .content {
       padding: 2vw 10vw;
       display: grid;
