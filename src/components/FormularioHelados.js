@@ -168,151 +168,151 @@ export function FormularioHelados(props) {
         setResetSelects(true);
       }}
     >
-      <fieldset className="sabores">
-        <legend>
-          {selectedFlavours()}/{dropDowns.length}{" "}
-        </legend>
-
-        {dropDowns.map((dropDownValue, index) => (
-          //for every item in the array, create
-          <DropDown
-            flavours={props.flavours}
-            removeDropDown={removeDropDown}
-            dropDowns={[...dropDowns]}
-            setDropDowns={setDropDowns}
-            name={`Sabor ${index + 1}`}
-            key={`${index}-dropDown`}
-            index={index}
-          />
-        ))}
-        {dropDowns.length < props.iceCreamForm.product?.flavours ? (
-          <div className="add-flavour" onClick={addDropDown}>
-            <p>
-              AGREGAR <span>+</span>
-            </p>
-          </div>
-        ) : null}
-      </fieldset>
-      <fieldset className="extra">
-        <legend
-          className="dropdown-button animate__animated animate__pulse animate__infinite animate__slower"
-          onClick={() => {
-            const content = document.querySelector(".extra-content");
-            content.style.display === "none"
-              ? (content.style.display = "grid")
-              : (content.style.display = "none");
-          }}
-        >
-          Adicionales <img src="/img/arrow-down.svg" />
-        </legend>
-        <div className="extra-content" style={{ display: "none" }}>
-          <label htmlFor="rocklets" className="rocklets">
-            <span>Rocklets:</span>
-            <input
-              type="checkbox"
-              name="subscribe"
-              value="yes"
-              id="rocklets"
-              onChange={(e) => {
-                if (e.target.checked) {
-                  const copy = { ...extras };
-                  copy.rocklets.isChecked = true;
-                  setExtras({ ...copy });
-                  // extras = { ...copy };
-                } else {
-                  const copy = { ...extras };
-                  copy.rocklets.isChecked = false;
-                  setExtras({ ...copy });
-                  // extras = { ...copy };
-                }
-              }}
+      <div className="form-content">
+        <fieldset className="sabores">
+          <legend>
+            {selectedFlavours()}/{dropDowns.length}{" "}
+          </legend>
+          {dropDowns.map((dropDownValue, index) => (
+            //for every item in the array, create
+            <DropDown
+              flavours={props.flavours}
+              removeDropDown={removeDropDown}
+              dropDowns={[...dropDowns]}
+              setDropDowns={setDropDowns}
+              name={`Sabor ${index + 1}`}
+              key={`${index}-dropDown`}
+              index={index}
             />
-          </label>
-          <div className="salsa">
-            <label htmlFor="salsa">Salsa:</label>
-            <select
-              id="salsa"
-              name="salsa"
-              onChange={(e) => {
-                const copy = { ...extras };
-                copy.salsa.type = e.target.value;
-                setExtras({ ...copy });
-                //extras = { ...copy };
-              }}
-            >
-              <option value="">Elige una salsa</option>
-              <option value="frutilla">Frutilla</option>
-              <option value="chocolate">Chocolate</option>
-            </select>
-          </div>
-          <div className="conos">
-            <label htmlFor="conos">Conos:</label>
-            <div className="count">
-              <div
-                className="decrease"
-                onClick={() => {
-                  const input = document.getElementById("conos");
-                  if (input.value > 0) {
-                    document.getElementById("conos").value--;
+          ))}
+          {dropDowns.length < props.iceCreamForm.product?.flavours ? (
+            <div className="add-flavour" onClick={addDropDown}>
+              <p>
+                AGREGAR <span>+</span>
+              </p>
+            </div>
+          ) : null}
+        </fieldset>
+        <fieldset className="extra">
+          <legend
+            className="dropdown-button animate__animated animate__pulse animate__infinite animate__slower"
+            onClick={() => {
+              const content = document.querySelector(".extra-content");
+              content.style.display === "none"
+                ? (content.style.display = "grid")
+                : (content.style.display = "none");
+            }}
+          >
+            Adicionales <img src="/img/arrow-down.svg" />
+          </legend>
+          <div className="extra-content" style={{ display: "none" }}>
+            <label htmlFor="rocklets" className="rocklets">
+              <span>Rocklets:</span>
+              <input
+                type="checkbox"
+                name="subscribe"
+                value="yes"
+                id="rocklets"
+                onChange={(e) => {
+                  if (e.target.checked) {
                     const copy = { ...extras };
-                    copy.conos.count = input.value;
+                    copy.rocklets.isChecked = true;
+                    setExtras({ ...copy });
+                    // extras = { ...copy };
+                  } else {
+                    const copy = { ...extras };
+                    copy.rocklets.isChecked = false;
                     setExtras({ ...copy });
                     // extras = { ...copy };
                   }
                 }}
-              >
-                -
-              </div>
-              <input
-                id="conos"
-                type="number"
-                min="1"
-                max="15"
-                step="1"
-                placeholder="0"
-                onChange={(e) => {
-                  console.log("onchange");
-                  const copy = { ...extras };
-                  copy.conos.count = e.target.value;
-                  setExtras({ ...copy });
-                  // extras = { ...copy };
-                }}
               />
-              <div
-                className="increase"
-                onClick={() => {
-                  const input = document.getElementById("conos");
-                  input.value++;
+            </label>
+            <div className="salsa">
+              <label htmlFor="salsa">Salsa:</label>
+              <select
+                id="salsa"
+                name="salsa"
+                onChange={(e) => {
                   const copy = { ...extras };
-                  copy.conos.count = input.value;
+                  copy.salsa.type = e.target.value;
                   setExtras({ ...copy });
-                  // extras = { ...copy };
+                  //extras = { ...copy };
                 }}
               >
-                +
+                <option value="">Elegir salsa</option>
+                <option value="frutilla">Frutilla</option>
+                <option value="chocolate">Chocolate</option>
+              </select>
+            </div>
+            <div className="conos">
+              <label htmlFor="conos">Conos:</label>
+              <div className="count">
+                <div
+                  className="decrease"
+                  onClick={() => {
+                    const input = document.getElementById("conos");
+                    if (input.value > 0) {
+                      document.getElementById("conos").value--;
+                      const copy = { ...extras };
+                      copy.conos.count = input.value;
+                      setExtras({ ...copy });
+                      // extras = { ...copy };
+                    }
+                  }}
+                >
+                  -
+                </div>
+                <input
+                  id="conos"
+                  type="number"
+                  min="1"
+                  max="15"
+                  step="1"
+                  placeholder="0"
+                  onChange={(e) => {
+                    console.log("onchange");
+                    const copy = { ...extras };
+                    copy.conos.count = e.target.value;
+                    setExtras({ ...copy });
+                    // extras = { ...copy };
+                  }}
+                />
+                <div
+                  className="increase"
+                  onClick={() => {
+                    const input = document.getElementById("conos");
+                    input.value++;
+                    const copy = { ...extras };
+                    copy.conos.count = input.value;
+                    setExtras({ ...copy });
+                    // extras = { ...copy };
+                  }}
+                >
+                  +
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </fieldset>
+        </fieldset>
+        <div className="total-helado">Total: $ {totalPrice()}</div>
 
-      <div className="total-helado">Total: $ {totalPrice()}</div>
-      <div className="buttons-container">
         <button
           type="submit"
           className="binary-buttons neon-red animate__animated animate__pulse animate__infinite animate__slower"
         >
           Aceptar
         </button>
+
+        <img
+          className="close"
+          src="/img/return.svg"
+          alt="return"
+          onClick={() => {
+            setHash("");
+          }}
+        />
       </div>
-      <img
-        className="close"
-        src="/img/return.svg"
-        alt="return"
-        onClick={() => {
-          setHash("");
-        }}
-      />
     </form>
   );
 }
