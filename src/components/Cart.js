@@ -162,122 +162,120 @@ export function Cart(props) {
       }
       style={{ display: props.cartDisplayProperty }}
     >
-      <h1>Tu carrito</h1>
-      <div className="cart-body">
-        {props.cartItems.length > 0 ? (
-          props.cartItems.map((item) => {
-            const detailsId = uniqid();
-
-            return (
-              <div className="cart-item" key={uniqid()}>
-                <img src={item.imgUrl} alt={item.name} />
-                <div className="right">
-                  <img
-                    className="remove"
-                    src="/img/recycle-bin.svg"
-                    onClick={() => props.removeAll(item)}
-                  />
-
-                  <div className="description">
-                    <p className="description-name">{item.name}</p>
-                    <p className="description-price">$ {item.totalPrice}</p>
+      <div className="cart-content">
+        <h1>Tu carrito</h1>
+        <div className="cart-body">
+          {props.cartItems.length > 0 ? (
+            props.cartItems.map((item) => {
+              const detailsId = uniqid();
+              return (
+                <div className="cart-item" key={uniqid()}>
+                  <img src={item.imgUrl} alt={item.name} />
+                  <div className="right">
+                    <img
+                      className="remove"
+                      src="/img/recycle-bin.svg"
+                      onClick={() => props.removeAll(item)}
+                    />
+                    <div className="description">
+                      <p className="description-name">{item.name}</p>
+                      <p className="description-price">$ {item.totalPrice}</p>
+                    </div>
+                    {item.flavoursArr ? (
+                      <div
+                        className="details-button"
+                        onClick={() => {
+                          console.log(item.flavoursArr);
+                          const details = document.getElementById(detailsId);
+                          details.style.display === "flex"
+                            ? (details.style.display = "none")
+                            : (details.style.display = "flex");
+                        }}
+                      >
+                        Detalle
+                      </div>
+                    ) : (
+                      <div className="quantity">
+                        <button
+                          onClick={() => {
+                            props.removeCartItem(item);
+                          }}
+                        >
+                          -
+                        </button>
+                        <p>unidades: {item.count}</p>
+                        <button
+                          onClick={() => {
+                            props.addCartItem(item);
+                          }}
+                        >
+                          +
+                        </button>
+                      </div>
+                    )}
                   </div>
                   {item.flavoursArr ? (
-                    <div
-                      className="details-button"
-                      onClick={() => {
-                        console.log(item.flavoursArr);
-                        const details = document.getElementById(detailsId);
-
-                        details.style.display === "flex"
-                          ? (details.style.display = "none")
-                          : (details.style.display = "flex");
-                      }}
-                    >
-                      Detalle
-                    </div>
-                  ) : (
-                    <div className="quantity">
-                      <button
-                        onClick={() => {
-                          props.removeCartItem(item);
-                        }}
-                      >
-                        -
-                      </button>
-                      <p>unidades: {item.count}</p>
-                      <button
-                        onClick={() => {
-                          props.addCartItem(item);
-                        }}
-                      >
-                        +
-                      </button>
-                    </div>
-                  )}
+                    <Details item={item} detailsId={detailsId} />
+                  ) : null}
                 </div>
-                {item.flavoursArr ? (
-                  <Details item={item} detailsId={detailsId} />
-                ) : null}
-              </div>
-            );
-          })
-        ) : (
-          <p id="empty">No hay nada aca, porque no agregas algo?</p>
-        )}
-      </div>
-      {/*  {props.cartItems.length > 0 ? (
-        <div className="total-points">
-          Ganas <span className="number">{(props.totalPrice() / 100) * 5}</span>{" "}
-          puntos !
+              );
+            })
+          ) : (
+            <p id="empty">No hay nada aca, porque no agregas algo?</p>
+          )}
         </div>
-      ) : null} */}
-      {props.cartItems.length > 0 ? (
-        <DeliveryForm
-          isUserOnline={props.isUserOnline}
-          ///
-          setBarrioElegido={setBarrioElegido}
-          barrioElegido={barrioElegido}
-          ////
-          handleSubmit={handleSubmit}
-          setOrderFulfillment={setOrderFulfillment}
-          orderFulfillment={orderFulfillment}
-          deliveryDetails={deliveryDetails}
-          setDeliveryDetails={setDeliveryDetails}
-        />
-      ) : null}
-      {props.cartItems.length > 0 ? (
-        <div id="checkout">
-          <p id="checkout-tittle">Total: </p>
-          <div id="summary-container">
-            <div id="summary">
-              <p>$ {props.totalPrice()}</p>
+        {/*  {props.cartItems.length > 0 ? (
+									<div className="total-points">
+											Ganas <span className="number">{(props.totalPrice() / 100) * 5}</span>{" "}
+											puntos !
+									</div>
+							) : null} */}
+        {props.cartItems.length > 0 ? (
+          <DeliveryForm
+            isUserOnline={props.isUserOnline}
+            ///
+            setBarrioElegido={setBarrioElegido}
+            barrioElegido={barrioElegido}
+            ////
+            handleSubmit={handleSubmit}
+            setOrderFulfillment={setOrderFulfillment}
+            orderFulfillment={orderFulfillment}
+            deliveryDetails={deliveryDetails}
+            setDeliveryDetails={setDeliveryDetails}
+          />
+        ) : null}
+        {props.cartItems.length > 0 ? (
+          <div id="checkout">
+            <p id="checkout-tittle">Total: </p>
+            <div id="summary-container">
+              <div id="summary">
+                <p>$ {props.totalPrice()}</p>
+              </div>
+            </div>
+            <div className="buttons-container">
+              <button
+                type="submit"
+                className={
+                  props.isUserOnline
+                    ? "neon-red  animate__animated animate__pulse animate__infinite animate__slow	"
+                    : "offline animate__animated animate__pulse animate__infinite animate__slow"
+                }
+                form="delivery-form"
+              >
+                Comprar
+              </button>
             </div>
           </div>
-
-          <div className="buttons-container">
-            <button
-              type="submit"
-              className={
-                props.isUserOnline
-                  ? "neon-red  animate__animated animate__pulse animate__infinite animate__slow	"
-                  : "offline animate__animated animate__pulse animate__infinite animate__slow"
-              }
-              form="delivery-form"
-            >
-              Comprar
-            </button>
-          </div>
-        </div>
-      ) : null}
-      <img
-        src="/img/return.svg"
-        alt="return"
-        className="close"
-        onClick={() => {
-          setHash("");
-        }}
-      />
+        ) : null}
+        <img
+          src="/img/return.svg"
+          alt="return"
+          className="close"
+          onClick={() => {
+            setHash("");
+          }}
+        />
+      </div>
     </div>
   );
 }
@@ -389,7 +387,7 @@ function DeliveryForm(props) {
 
       {props.orderFulfillment.delivery ? (
         <div id="delivery-info">
-          <div className="input-container">
+          <div className="input-container barrio-select">
             <Select
               styles={customStyles}
               onChange={(selected) => {
