@@ -326,8 +326,25 @@ function DeliveryForm(props) {
   const customStyles = {
     control: (base) => ({
       ...base,
-      fontSize: "  clamp(1rem, 6vw, 6rem);",
-      padding: "0px", // use clamp function to set font size
+      fontSize: "inherit",
+      height: "min-content",
+      minHeight: "auto",
+    }),
+    input: (base) => ({
+      ...base,
+      padding: "0px",
+      margin: "0px",
+    }),
+    valueContainer: (base) => ({
+      ...base,
+      padding: "0px",
+    }),
+    indicatorsContainer: (base) => ({
+      ...base,
+      "& > .css-1xc3v61-indicatorContainer": {
+        // Add your custom styles for the indicatorContainer here
+        padding: "0px !important",
+      },
     }),
   };
 
