@@ -408,10 +408,14 @@ function DeliveryForm(props) {
               options={options}
               placeholder="Barrio *"
               name="Barrio"
-              value={{
-                label: props.deliveryDetails.barrio,
-                value: props.deliveryDetails.barrio?.toLowerCase(),
-              }}
+              value={
+                props.deliveryDetails
+                  ? {
+                      label: props.deliveryDetails.barrio,
+                      value: props.deliveryDetails.barrio?.toLowerCase(),
+                    }
+                  : null
+              }
               required
             />
           </div>
