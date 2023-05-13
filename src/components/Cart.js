@@ -410,7 +410,7 @@ function DeliveryForm(props) {
               name="Barrio"
               value={{
                 label: props.deliveryDetails.barrio,
-                value: props.deliveryDetails.barrio.toLowerCase(),
+                value: props.deliveryDetails.barrio?.toLowerCase(),
               }}
               required
             />
