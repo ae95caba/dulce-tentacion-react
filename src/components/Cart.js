@@ -14,7 +14,7 @@ export function Cart(props) {
   const navigate = useNavigate();
 
   //the following wil be and object  {value: , label}
-  const [barrioElegido, setBarrioElegido] = useState(null); // Set default option
+
   const [deliveryDetails, setDeliveryDetails] = useState(null);
   const [orderFulfillment, setOrderFulfillment] = useState({
     delivery: false,
@@ -24,6 +24,7 @@ export function Cart(props) {
   const [hash, setHash] = useHash(null);
 
   //get deliveryDetails from localStorage if there is any
+  //and populate form with it
   useEffect(() => {
     let detailsString = localStorage.getItem("deliveryDetails");
     /*  alert("mount"); */
@@ -32,14 +33,6 @@ export function Cart(props) {
       const details = JSON.parse(detailsString);
 
       setDeliveryDetails({ ...details });
-      if (details.barrio) {
-        const barrioObj = {
-          value: details.barrio.toLowerCase(),
-          label: details.barrio,
-        };
-
-        setBarrioElegido(barrioObj);
-      }
     }
   }, []);
 
@@ -64,17 +57,17 @@ export function Cart(props) {
   }, [hash]);
 
   useEffect(() => {
-    //jorderFulfillment doesnt change when changing grom one Select option to another
+    //orderFulfillment doesnt change when changing from one Select option to another
     if (orderFulfillment.delivery === false) {
       props.setDeliveryPrice(0);
     }
   }, [orderFulfillment]);
 
   useEffect(() => {
-    if (barrioElegido && orderFulfillment.delivery) {
-      props.setDeliveryPrice(priceFromBarrio(barrioElegido.label));
+    if (deliveryDetails?.barrio && orderFulfillment.delivery) {
+      props.setDeliveryPrice(priceFromBarrio(deliveryDetails.barrio));
     }
-  }, [barrioElegido, orderFulfillment]);
+  }, [deliveryDetails, orderFulfillment]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -234,8 +227,7 @@ export function Cart(props) {
           <DeliveryForm
             isUserOnline={props.isUserOnline}
             ///
-            setBarrioElegido={setBarrioElegido}
-            barrioElegido={barrioElegido}
+
             ////
             handleSubmit={handleSubmit}
             setOrderFulfillment={setOrderFulfillment}
@@ -407,21 +399,23 @@ function DeliveryForm(props) {
           <div className="input-container barrio-select">
             <Select
               styles={customStyles}
-              onChange={(selected) => {
-                props.setBarrioElegido(selected);
+              onChange={(selection) => {
+                props.setDeliveryDetails((prev) => ({
+                  ...prev,
+                  barrio: selection.label,
+                }));
               }}
               options={options}
               placeholder="Barrio *"
               name="Barrio"
-              value={props.barrioElegido}
+              value={{
+                label: props.deliveryDetails.barrio,
+                value: props.deliveryDetails.barrio.toLowerCase(),
+              }}
               required
             />
           </div>
-          <input
-            id="barrio"
-            value={props.barrioElegido ? props.barrioElegido.label : ""}
-            style={{ display: "none" }}
-          />
+
           <div className="input-container">
             <input
               type="text"
