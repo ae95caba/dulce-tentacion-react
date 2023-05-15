@@ -219,7 +219,6 @@ export const App = () => {
             : null
         }
         id="cart-button"
-        onClick={() => {}}
       >
         <div style={{ position: "relative" }}>
           <img src="/img/cart.svg" alt="shopping cart" />

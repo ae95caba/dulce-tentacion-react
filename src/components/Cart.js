@@ -47,7 +47,7 @@ export function Cart(props) {
   }, [deliveryDetails]);
 
   useEffect(() => {
-    if (hash === "" && props.cartDisplayProperty === "flex") {
+    if (hash !== "#cart" && props.cartDisplayProperty === "flex") {
       console.log("hash runing");
       animateAndClose();
     } else if (hash === "#cart") {
@@ -163,7 +163,7 @@ export function Cart(props) {
               const detailsId = uniqid();
               return (
                 <div className="cart-item" key={uniqid()}>
-                  <img src={item.imgUrl} alt={item.name} />
+                  <img className="left" src={item.imgUrl} alt={item.name} />
                   <div className="right">
                     <img
                       className="remove"
@@ -259,14 +259,22 @@ export function Cart(props) {
             </div>
           </div>
         ) : null}
-        <img
-          src="/img/return.svg"
-          alt="return"
-          className="close"
-          onClick={() => {
-            setHash("");
-          }}
-        />
+        <picture>
+          <source
+            media="(min-width: 80svh), (min-width: 66.6vh)"
+            srcSet="/img/close.svg"
+          />
+          <source srcSet="/img/return.svg" />
+
+          <img
+            src="/img/return.svg"
+            alt="return"
+            className="close"
+            onClick={() => {
+              setHash("");
+            }}
+          />
+        </picture>
       </div>
     </div>
   );

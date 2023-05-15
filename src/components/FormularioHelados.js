@@ -1,5 +1,6 @@
 import { createFactory, useEffect, useState, useRef } from "react";
 import { useHash } from "react-use";
+import { useMediaQuery } from "react-responsive";
 
 export function FormularioHelados(props) {
   const [hash, setHash] = useHash(null);
@@ -13,7 +14,21 @@ export function FormularioHelados(props) {
     salsa: { price: 110, type: null },
   });
 
+  const isMatchingMediaQuery = useMediaQuery({
+    screen: true,
+    minWidth: "80svh",
+  });
+
+  const isMatchingSecondMediaQuery = useMediaQuery({
+    screen: true,
+    minWidth: "66.6vh",
+  });
+
+  const isMatchingAnyMediaQuery =
+    isMatchingMediaQuery || isMatchingSecondMediaQuery;
+
   useEffect(() => {
+    console.log("resets");
     if (resetSelects) {
       let arr = [];
       for (let i = 0; i < props.iceCreamForm.product.flavours; i++) {
@@ -25,8 +40,15 @@ export function FormularioHelados(props) {
   }, [resetSelects]);
 
   useEffect(() => {
-    if (hash === "" && props.iceCreamForm.display === "flex") {
-      animateAndClose();
+    if (
+      hash !== "#formulario-helados" &&
+      props.iceCreamForm.display === "flex"
+    ) {
+      if (isMatchingAnyMediaQuery) {
+        props.setIceCreamForm((prev) => ({ ...prev, display: "none" }));
+      } else {
+        animateAndClose();
+      }
     }
   }, [hash]);
 
@@ -39,8 +61,6 @@ export function FormularioHelados(props) {
     }
     setDropDowns([...arr]);
   }, [props.iceCreamForm.product]);
-
-  useEffect(() => {}, [props.iceCreamForm.product]);
 
   //switches the body overflow property
   useEffect(() => {
@@ -122,7 +142,7 @@ export function FormularioHelados(props) {
           : "none",
       }}
       className={
-        props.iceCreamForm.display === "flex"
+        props.iceCreamForm.display === "flex" && !isMatchingAnyMediaQuery
           ? "animate__animated animate__fadeInLeft"
           : ""
       }
@@ -303,15 +323,22 @@ export function FormularioHelados(props) {
         >
           Aceptar
         </button>
+        <picture>
+          <source
+            media="(min-width: 80svh), (min-width: 66.6vh)"
+            srcSet="/img/close.svg"
+          />
+          <source srcSet="/img/return.svg" />
 
-        <img
-          className="close"
-          src="/img/return.svg"
-          alt="return"
-          onClick={() => {
-            setHash("");
-          }}
-        />
+          <img
+            src="/img/return.svg"
+            alt="return"
+            className="close"
+            onClick={() => {
+              setHash("");
+            }}
+          />
+        </picture>
       </div>
     </form>
   );

@@ -37,7 +37,11 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
   //this changes the display property of the form to flex
   //when hash matches form and the is product info on the form state
   useEffect(() => {
-    if (hash === "#formulario-helados" && iceCreamForm) {
+    if (
+      hash === "#formulario-helados" &&
+      iceCreamForm?.product &&
+      iceCreamForm?.display !== "flex"
+    ) {
       setIceCreamForm((prev) => ({ ...prev, display: "flex" }));
     }
   }, [hash, iceCreamForm]);
@@ -186,6 +190,7 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
               key={`${index}-card`}
               index={`${index}`}
               product={product}
+              iceCreamForm={iceCreamForm}
               //this props changes every time it gets used
               addCartItem={addCartItem}
               setIceCreamForm={setIceCreamForm}
@@ -198,7 +203,7 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
 };
 
 //this rerenders every time the addCartItem function gets called
-function Card({ product, addCartItem, setIceCreamForm, index }) {
+function Card({ product, addCartItem, setIceCreamForm, iceCreamForm, index }) {
   const [active, setActive] = useState(false);
   const [hash, setHash] = useHash(null);
   return (
@@ -225,6 +230,7 @@ function Card({ product, addCartItem, setIceCreamForm, index }) {
       {product.flavours ? (
         <button
           className={`to-cart pick-flavours `}
+          disabled={iceCreamForm?.display === "flex" ? true : false}
           onClick={() => {
             setHash("#formulario-helados");
             setIceCreamForm((prev) => ({

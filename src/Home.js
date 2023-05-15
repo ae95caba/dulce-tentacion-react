@@ -73,7 +73,7 @@ function Footer() {
         <div>Lunes a Viernes de 19 a 24</div>
         <div>Sabados y Domingos de 12 a 24</div>
       </div>
-      <div className="copyright">Copyright © 2023</div>
+      <div className="copyright">Copyright © 2023 | André Espinoza</div>
     </div>
   );
 }
