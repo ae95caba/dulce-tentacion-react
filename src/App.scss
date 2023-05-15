@@ -116,7 +116,8 @@ img.close {
           .remove {
             position: absolute;
             width: clamp(1.5rem, 6vh, 3rem);
-            left: 0;
+            left: -20%;
+            filter: brightness(0%);
           }
         }
         .right {
