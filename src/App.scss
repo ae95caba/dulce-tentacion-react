@@ -104,12 +104,20 @@ img.close {
       }
       .cart-item {
         width: 100%;
+
         //border: 1px solid blue;
         display: grid;
         grid-template-columns: 40% 60%;
-
         .left {
-          width: 100%;
+          position: relative;
+          .thumbnail {
+            width: 100%;
+          }
+          .remove {
+            position: absolute;
+            width: clamp(1.5rem, 6vh, 3rem);
+            left: 0;
+          }
         }
         .right {
           position: relative;
@@ -118,26 +126,24 @@ img.close {
           grid-template-columns: 100%;
 
           font-weight: 500;
-          .remove {
-            position: absolute;
-
-            width: clamp(1.5rem, 8vw, 3rem);
-            right: 0;
-          }
 
           .description {
             display: flex;
             flex-direction: column;
-            gap: 0.4rem;
+            justify-content: space-around;
             font-weight: 900;
-            font-size: clamp(1.1rem, 6vw, 4rem);
+            font-size: clamp(0.9rem, 5vw, 4rem);
             font-family: "Shadows Into Light", cursive;
             .description-price {
-              /* font-size: 1.6rem; */
-              font-size: clamp(1.3rem, 7vw, 5rem);
+              font-size: clamp(1.1rem, 6vw, 5rem);
             }
             .description-name {
-              padding-right: clamp(1.5rem, 8vw, 3rem);
+              overflow: hidden;
+              text-overflow: ellipsis;
+              display: -webkit-box;
+              -webkit-box-orient: vertical;
+              -webkit-line-clamp: 1; /* Set the maximum number of lines to display */
+              white-space: normal;
             }
           }
           .quantity {
@@ -235,6 +241,7 @@ img.close {
             font-size: inherit;
             padding: 0.3rem;
             border: 1px solid black;
+            resize: none;
           }
 
           textarea {
@@ -1425,6 +1432,13 @@ button {
     height: 100vh;
     height: 100svh;
     overflow-y: scroll;
+    picture {
+      left: 1%;
+      top: 1%;
+      .close {
+        width: 8vh !important;
+      }
+    }
 
     .cart-content {
       width: min-content;
@@ -1441,34 +1455,36 @@ button {
         grid-template-columns: 1fr;
         #empty {
           font-size: clamp(1rem, 5vh, 10rem);
-          max-width: 100px;
+          min-width: 100%;
+          width: min-content;
         }
         .cart-item {
           grid-template-columns: min-content 1fr;
           .left {
             height: clamp(3rem, 18vh, 4.5rem);
             width: clamp(3rem, 18vh, 4.5rem);
-          }
-          .right {
             .remove {
               width: clamp(0.75rem, 4vh, 3rem);
-              right: 0;
             }
-
+          }
+          .right {
             .description {
               gap: 0.4rem;
               font-size: clamp(0.55rem, 2vh, 4rem);
+              .description-name {
+                min-width: 100%;
+                width: min-content;
+              }
+
               .description-price {
                 font-size: clamp(0.65rem, 3vh, 5rem);
-              }
-              .description-name {
-                padding-right: clamp(0.75rem, 4vh, 3rem);
               }
             }
             .quantity {
               font-size: clamp(0.4rem, 2vh, 3rem);
               p {
                 width: max-content;
+                padding: 0rem 0.5rem;
               }
               button {
                 padding: 0;
@@ -1525,7 +1541,7 @@ button {
             }
 
             textarea {
-              height: clamp(4rem, 19vw, 30vh) !important;
+              height: clamp(4rem, 10vh, 10rem) !important;
             }
           }
         }
@@ -1692,8 +1708,10 @@ button {
     background-color: rgba(0, 0, 0, 0.342);
     align-items: center;
     overflow: hidden;
+    padding: 0;
     picture {
-      left: 2%;
+      right: 2%;
+      left: auto;
     }
     .form-content {
       position: relative;
@@ -1769,8 +1787,12 @@ button {
       width: clamp(1.2rem, 6vh, 4rem);
     }
   }
-}
 
-////
-///
-///
+  @media screen and (max-width: 103vh) {
+    #formulario-helados {
+      .form-content {
+        display: flex;
+      }
+    }
+  }
+}
