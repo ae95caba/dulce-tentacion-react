@@ -1,6 +1,7 @@
 import { createFactory, useEffect, useState, useRef } from "react";
 import { useHash } from "react-use";
 import { useMediaQuery } from "react-responsive";
+import { useLocation } from "react-router-dom";
 
 export function FormularioHelados(props) {
   const [hash, setHash] = useHash(null);
@@ -27,6 +28,10 @@ export function FormularioHelados(props) {
   const isMatchingAnyMediaQuery =
     isMatchingMediaQuery || isMatchingSecondMediaQuery;
 
+  const location = useLocation();
+
+  const currentHash = location.hash;
+
   useEffect(() => {
     console.log("resets");
     if (resetSelects) {
@@ -41,7 +46,7 @@ export function FormularioHelados(props) {
 
   useEffect(() => {
     if (
-      hash !== "#formulario-helados" &&
+      currentHash !== "#formulario-helados" &&
       props.iceCreamForm.display === "flex"
     ) {
       if (isMatchingAnyMediaQuery) {
@@ -50,7 +55,7 @@ export function FormularioHelados(props) {
         animateAndClose();
       }
     }
-  }, [hash]);
+  }, [currentHash]);
 
   //creates  an array of objects on state for each flavour avaliable to choose
   //later those object will be used to return the DropDown components

@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { useHash } from "react-use";
+import { useLocation } from "react-router-dom";
 import { addCartToFirestore } from "../backend/addCartToFiresstore";
 import uniqid from "uniqid";
 import { options } from "../logic/barrios";
@@ -20,7 +21,9 @@ export function Cart(props) {
     delivery: false,
     pickup: false,
   });
+  const location = useLocation();
 
+  const currentHash = location.hash;
   const [hash, setHash] = useHash(null);
 
   //get deliveryDetails from localStorage if there is any
@@ -47,14 +50,12 @@ export function Cart(props) {
   }, [deliveryDetails]);
 
   useEffect(() => {
-    if (hash !== "#cart" && props.cartDisplayProperty === "flex") {
-      console.log("hash runing");
+    if (currentHash !== "#cart" && props.cartDisplayProperty === "flex") {
       animateAndClose();
-    } else if (hash === "#cart") {
-      console.log("show cart");
+    } else if (currentHash === "#cart") {
       props.setCartDisplayProperty("flex");
     }
-  }, [hash]);
+  }, [currentHash]);
 
   useEffect(() => {
     //orderFulfillment doesnt change when changing from one Select option to another

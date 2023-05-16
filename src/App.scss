@@ -1427,7 +1427,7 @@ button {
   #cart {
     right: 0;
     top: 0;
-    padding: 2rem;
+    padding: 2rem clamp(1rem, 8vh, 5rem);
     width: min-content;
 
     height: 100vh;
