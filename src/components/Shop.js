@@ -249,6 +249,7 @@ function Card({ product, addCartItem, setIceCreamForm, iceCreamForm, index }) {
           onAnimationEnd={() => {
             console.log("ani end");
             setActive(false);
+            console.log(active);
           }}
           onClick={() => {
             setActive(true);
