@@ -1704,7 +1704,10 @@ button {
           }
         }
         .pick-flavours {
-          font-size: clamp(0.4rem, 2vh, 2.5rem) !important;
+          font-size: clamp(0.4rem, 2.5vh, 3rem) !important;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
     }
