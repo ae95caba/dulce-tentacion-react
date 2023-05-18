@@ -265,7 +265,7 @@ export function FormularioHelados(props) {
                   //extras = { ...copy };
                 }}
               >
-                <option value="">Elegir salsa</option>
+                <option value="">Elegir</option>
                 <option value="frutilla">Frutilla</option>
                 <option value="chocolate">Chocolate</option>
               </select>
