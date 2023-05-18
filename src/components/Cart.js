@@ -164,18 +164,20 @@ export function Cart(props) {
               const detailsId = uniqid();
               return (
                 <div className="cart-item" key={uniqid()}>
-                  <div className="left">
-                    <img
-                      className="thumbnail"
-                      src={item.imgUrl}
-                      alt={item.name}
-                    />{" "}
-                    <img
-                      className="remove"
-                      alt="remove"
-                      src="/img/recycle-bin.svg"
-                      onClick={() => props.removeAll(item)}
-                    />
+                 
+                    <div className="left">
+                       <img
+																							className="thumbnail"
+																							src={item.imgUrl}
+																							alt={item.name}
+																					/>
+                      <img
+                        className="remove"
+                        alt="remove"
+                        src="/img/recycle-bin.svg"
+                        onClick={() => props.removeAll(item)}
+                      />
+                    
                   </div>
                   <div className="right">
                     <div className="description">

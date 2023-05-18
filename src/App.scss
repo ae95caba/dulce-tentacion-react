@@ -1465,16 +1465,17 @@ button {
         .cart-item {
           grid-template-columns: min-content 1fr;
           .left {
-            height: clamp(3rem, 18vh, 4.5rem);
-            width: clamp(3rem, 18vh, 4.5rem);
+            height: clamp(3rem, 18vh, 14.5rem);
+            width: clamp(3rem, 18vh, 14.5rem);
             .remove {
               width: clamp(0.75rem, 4vh, 3rem);
             }
           }
           .right {
             .description {
+              justify-content: center;
               gap: 0.4rem;
-              font-size: clamp(0.55rem, 2vh, 4rem);
+              font-size: clamp(0.55rem, 2.5vh, 4rem);
               .description-name {
                 min-width: 100%;
                 width: min-content;
@@ -1590,11 +1591,11 @@ button {
     #total-price,
     #total-items {
       padding: 4px;
-      font-size: clamp(0.45rem, 4vh, 2.2rem);
+      font-size: clamp(0.45rem, 4vh, 4.2rem);
     }
 
     img {
-      width: clamp(2rem, 19vh, 9rem);
+      width: clamp(2rem, 19vh, 18rem);
     }
   }
   #botonera {
@@ -1671,7 +1672,7 @@ button {
 
       gap: 2.5vw;
       justify-content: center;
-      grid-template-columns: repeat(auto-fit, clamp(5rem, 8rem, 10rem));
+      grid-template-columns: repeat(auto-fit, minmax(min-content, 20vh));
       grid-template-rows: min-content;
 
       .comming-soon {
@@ -1683,7 +1684,7 @@ button {
           flex-direction: column;
           justify-content: space-between;
           .product-name {
-            font-size: clamp(0.75rem, 3vh, 1.5rem);
+            font-size: clamp(0.75rem, 2.7vh, 3rem);
             overflow: hidden;
             text-overflow: ellipsis;
             display: -webkit-box;
@@ -1692,17 +1693,18 @@ button {
             white-space: normal;
           }
           .product-price {
-            font-size: clamp(0.85rem, 4vh, 2rem);
+            font-size: clamp(0.85rem, 3.7vh, 4rem);
           }
         }
         .to-cart {
           height: 6vh;
-          font-size: clamp(0.8rem, 3vh, 2.5rem) !important;
-        }
-        .to-cart:not(.pick-flavours) {
+          font-size: clamp(0.8rem, 3vh, 3.5rem) !important;
           img {
-            width: clamp(1.3rem, 5vh, 2rem);
+            width: clamp(1.3rem, 5vh, 5rem);
           }
+        }
+        .pick-flavours {
+          font-size: clamp(0.55rem, 2.7vh, 3rem) !important;
         }
       }
     }
