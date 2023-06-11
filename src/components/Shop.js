@@ -6,7 +6,13 @@ import Select from "react-select";
 import { ThreeCircles } from "react-loader-spinner";
 import { useHash } from "react-use";
 
-export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
+export const Shop = ({
+  addCartItem,
+
+  addIceCream,
+  catalog,
+  flavours,
+}) => {
   //content is what will be mapped
   const [content, setContent] = useState(catalog?.helados);
   const [hash, setHash] = useHash(null);
@@ -74,21 +80,6 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
         return content.findIndex((item) => item.name === obj.name);
       }
 
-      function findIndex(obj) {
-        //the obj.name// item.name or item.subcategory from fuse WILL have a match somewhere
-        //so we will start by searching by name
-        let index;
-
-        let indexFromName = content.findIndex((item) => item.name === obj.name);
-
-        let indexFromSubcategory = content.findIndex(
-          (item) => item.subcategory === obj.subcategory
-        );
-
-        index = indexFromName >= 0 ? indexFromName : indexFromSubcategory;
-
-        return index;
-      }
       //this will create an array with the options that will go onto the options props of Select
       const objArr = results.map((result) => {
         return {
@@ -187,7 +178,7 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
           !product.outOfStock ? (
             <Card
               //this key props cause useless re-renders if set to uniqid()
-              key={`${index}-card`}
+              key={`${index}-card-${product.name}`}
               index={`${index}`}
               product={product}
               iceCreamForm={iceCreamForm}
@@ -203,7 +194,14 @@ export const Shop = ({ addCartItem, addIceCream, catalog, flavours }) => {
 };
 
 //this rerenders every time the addCartItem function gets called
-function Card({ product, addCartItem, setIceCreamForm, iceCreamForm, index }) {
+function Card({
+  product,
+  addCartItem,
+
+  setIceCreamForm,
+  iceCreamForm,
+  index,
+}) {
   const [active, setActive] = useState(false);
   const [hash, setHash] = useHash(null);
   return (
@@ -213,14 +211,7 @@ function Card({ product, addCartItem, setIceCreamForm, iceCreamForm, index }) {
       style={{ opacity: product.outOfStock ? 0.5 : 1 }}
     >
       <div className="img-container">
-        {/*   <div className="points">
-          <img src="/img/seal.svg" />
-          <div className="text">
-            <p className="points-value">{(product.price * 5) / 100}</p>
-            <p className="points-string">Puntos</p>
-          </div>
-        </div> */}
-        <img src={product.imgUrl} alt="" loading="lazy" />
+        <Image url={product.imgUrl} />
       </div>
       <div className="product-description">
         <p className="product-name">{product.name}</p>
@@ -265,3 +256,32 @@ function Card({ product, addCartItem, setIceCreamForm, iceCreamForm, index }) {
     </div>
   );
 }
+
+function Image({ url }) {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const imageRef = useRef(null);
+
+  const onLoad = () => {
+    console.log("loaded");
+    setIsLoaded(true);
+  };
+
+  return (
+    <>
+      <img
+        src={url}
+        onLoad={onLoad}
+        style={{ visibility: isLoaded ? "visible" : "hidden" }}
+      />
+      <span
+        className="loader"
+        style={{ display: !isLoaded ? "block" : "none" }}
+      ></span>
+      {/*  <img
+        src="/img/image-placeholder.png"
+        style={{ display: !isLoaded ? "block" : "none" }}
+      /> */}
+    </>
+  );
+}
+export default Image;

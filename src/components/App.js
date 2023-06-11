@@ -12,12 +12,6 @@ import { Navbar } from "./Navbar";
 import { ThanksMessage } from "./ThanksMessage";
 import { setDoc, doc, getDoc } from "firebase/firestore";
 import { db, auth } from "../backend/firebase";
-import { addProductsToFirestore } from "../backend/addCatalogToFirestore";
-import {
-  fetchData,
-  fetchProductsJSON,
-  productsObj,
-} from "../logic/productsObj";
 
 export const App = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -34,7 +28,7 @@ export const App = () => {
   });
   const [flavours, setFlavours] = useState(null);
 
-  /* addProductsToFirestore(productsObj); */
+  //populate catalog and flavours with firestore db
   useEffect(() => {
     function convertStringToArray(string) {
       // Remove leading and trailing periods and whitespaces
@@ -48,20 +42,8 @@ export const App = () => {
 
       return filteredItems;
     }
-    function sortObjectsByName(objects) {
-      return objects.sort(function (a, b) {
-        var nameA = a.name.toUpperCase(); // convert to uppercase to make sorting case-insensitive
-        var nameB = b.name.toUpperCase();
-        if (nameA < nameB) {
-          return -1; // nameA comes before nameB
-        }
-        if (nameA > nameB) {
-          return 1; // nameA comes after nameB
-        }
-        return 0; // names are equal
-      });
-    }
-    async function as() {
+
+    async function populateCatalog() {
       try {
         const docRef = doc(db, "shop", "catalog");
         const docSnap = await getDoc(docRef);
@@ -69,17 +51,14 @@ export const App = () => {
 
         let helados = docSnap.data().products.helados;
         let escabio = docSnap.data().products.escabio;
-        /* let sortedHelados = sortObjectsByName(helados);
-      let sortedEscabio = sortObjectsByName(escabio);
-      let sortedProducts = { helados: sortedHelados, escabio: sortedEscabio };
-      setCatalog(sortedProducts); */
+
         setCatalog({ helados: helados, escabio: escabio });
         setFlavours(convertStringToArray(docSnap.data().flavours));
       } catch (error) {
         alert(error);
       }
     }
-    as();
+    populateCatalog();
   }, []);
 
   useEffect(() => {

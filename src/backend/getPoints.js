@@ -1,6 +1,7 @@
 import { doc, getDoc } from "firebase/firestore";
 import { db, auth } from "./firebase";
 
+//unused functionality
 export async function getPoints() {
   //if user is logedin
   if (auth.currentUser) {

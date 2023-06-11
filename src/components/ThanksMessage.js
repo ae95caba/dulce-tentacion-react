@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 
+//unused functionality
 export function ThanksMessage(props) {
   return (
     <div className="message-container">

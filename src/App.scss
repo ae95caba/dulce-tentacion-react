@@ -814,6 +814,33 @@ nav {
   display: grid;
   grid-template-rows: min-content 1fr min-content;
 
+  .img-container {
+    position: relative;
+    background-color: white;
+    .loader {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+
+      width: 48px;
+      height: 48px;
+      border: 5px solid #fff;
+      border-bottom-color: #ff3d00;
+      border-radius: 50%;
+
+      box-sizing: border-box;
+      animation: rotation 1s linear infinite;
+    }
+    @keyframes rotation {
+      0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+      }
+      100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+      }
+    }
+  }
+
   .product-description {
     font-family: "Shadows Into Light", cursive;
     font-weight: 900;
@@ -827,6 +854,7 @@ nav {
 
   img {
     width: 100%;
+    aspect-ratio: 1/1;
   }
 
   .to-cart {
@@ -1596,6 +1624,7 @@ button {
 
     img {
       width: clamp(2rem, 19vh, 18rem);
+      max-width: 15vh;
     }
   }
   #botonera {
@@ -1610,7 +1639,8 @@ button {
     align-items: center;
     #store-status {
       font-size: clamp(0.6rem, 3vh, 5rem);
-      width: 30%;
+      width: 100%;
+      max-width: 84vh;
     }
     #footer {
       width: 100%;
@@ -1623,7 +1653,8 @@ button {
       }
     }
     .content {
-      width: 30%;
+      width: 100%;
+      max-width: 84vh;
       #location,
       #contact {
         padding: 1rem;
@@ -1704,7 +1735,7 @@ button {
           }
         }
         .pick-flavours {
-          font-size: clamp(0.4rem, 2.5vh, 3rem) !important;
+          font-size: clamp(0.6rem, 2.5vh, 3rem) !important;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;

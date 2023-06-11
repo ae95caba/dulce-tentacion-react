@@ -1,3 +1,4 @@
+//this is the shop button panel
 export function Botonera({ setContent, content, catalog, scrollToTop }) {
   return (
     <div id="botonera">
