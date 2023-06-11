@@ -8,7 +8,7 @@ import { useHash } from "react-use";
 
 export const Shop = ({
   addCartItem,
-
+  iceCreamExtras,
   addIceCream,
   catalog,
   flavours,
@@ -148,6 +148,7 @@ export const Shop = ({
       {iceCreamForm?.render ? (
         <FormularioHelados
           flavours={flavours}
+          iceCreamExtras={iceCreamExtras}
           iceCreamForm={iceCreamForm}
           setIceCreamForm={setIceCreamForm}
           addIceCream={addIceCream}

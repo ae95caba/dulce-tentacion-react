@@ -160,44 +160,30 @@ export function Cart(props) {
         <h1>Tu carrito</h1>
         <div className="cart-body">
           {props.cartItems.length > 0 ? (
-            props.cartItems.map((item) => {
+            props.cartItems.map((item, index) => {
               const detailsId = uniqid();
               return (
-                <div className="cart-item" key={uniqid()}>
-                 
-                    <div className="left">
-                       <img
-																							className="thumbnail"
-																							src={item.imgUrl}
-																							alt={item.name}
-																					/>
-                      <img
-                        className="remove"
-                        alt="remove"
-                        src="/img/recycle-bin.svg"
-                        onClick={() => props.removeAll(item)}
-                      />
-                    
+                //fixed bug, do not use uniqid on the key or the images will refresh every time the delivery option changes
+                <div className="cart-item" key={`${item.name}-${index}`}>
+                  <div className="left">
+                    <img
+                      className="thumbnail"
+                      src={item.imgUrl}
+                      alt={item.name}
+                    />
+                    <img
+                      className="remove"
+                      alt="remove"
+                      src="/img/recycle-bin.svg"
+                      onClick={() => props.removeAll(item)}
+                    />
                   </div>
                   <div className="right">
                     <div className="description">
                       <p className="description-name">{item.name}</p>
                       <p className="description-price">$ {item.totalPrice}</p>
                     </div>
-                    {item.flavoursArr ? (
-                      <div
-                        className="details-button"
-                        onClick={() => {
-                          console.log(item.flavoursArr);
-                          const details = document.getElementById(detailsId);
-                          details.style.display === "flex"
-                            ? (details.style.display = "none")
-                            : (details.style.display = "flex");
-                        }}
-                      >
-                        Detalle
-                      </div>
-                    ) : (
+                    <div style={{ position: "relative" }}>
                       <div className="quantity">
                         <button
                           onClick={() => {
@@ -215,7 +201,23 @@ export function Cart(props) {
                           +
                         </button>
                       </div>
-                    )}
+                      {item.flavoursArr ? (
+                        <div
+                          className="details-button"
+                          onClick={() => {
+                            console.log(item.flavoursArr);
+                            const details = document.getElementById(detailsId);
+                            details.style.display === "flex"
+                              ? (details.style.display = "none")
+                              : (details.style.display = "flex");
+                          }}
+                        >
+                          Detalle
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                    </div>
                   </div>
                   {item.flavoursArr ? (
                     <Details item={item} detailsId={detailsId} />

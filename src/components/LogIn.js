@@ -51,7 +51,9 @@ export function LogIn() {
           </div>
         </div>
         <div className="buttons-section">
-          <button type="submit">Inicia secion</button>
+          <button className="loggin-button" type="submit">
+            Inicia secion
+          </button>
 
           <GoogleAuth text={"Entra con Google"} />
         </div>

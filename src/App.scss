@@ -171,6 +171,12 @@ img.close {
         }
 
         .details-button {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
           background-color: black;
           box-shadow: 3px 3px 3px grey;
           color: white;
@@ -503,137 +509,6 @@ img.close {
   }
 }
 
-#purchase-list-container {
-  height: 100%;
-  overflow-y: scroll;
-  padding: 0px clamp(2rem, 10vw, 10rem);
-
-  #purchase-list {
-    padding: 2rem 0rem;
-
-    display: flex;
-    flex-direction: column;
-
-    gap: clamp(2rem, 10vw, 10rem);
-    #no-purchases-message {
-      font-family: "Mynerve", cursive;
-      font-size: 3rem;
-    }
-    .purchase {
-      display: grid;
-      //border: 1px solid black;
-      box-shadow: 3px 3px 3px grey;
-      font-size: clamp(0.6rem, 5vw, 4rem);
-
-      .time {
-        padding: 0.5rem 0.5rem;
-
-        font-weight: 500;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .description {
-        margin-top: 0.5rem;
-
-        .description-total-points,
-        .description-total-price {
-          font-weight: 500;
-          padding: 0.5rem;
-        }
-        .purchase-state {
-          background-color: black;
-          color: white;
-        }
-        .order-fulfillment {
-          .dropdown-button {
-            color: black;
-
-            background-color: white;
-            background-image: $primary;
-          }
-          .tittle.pickup {
-            background-color: white;
-            background-image: $primary;
-            color: black;
-          }
-          .delivery-details {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            padding: 1rem;
-
-            p {
-              font-size: 1.2rem;
-              text-align: left;
-            }
-            p::before {
-              content: "- ";
-            }
-          }
-        }
-      }
-
-      .cart-item {
-        width: 100%;
-        //border: 1px solid blue;
-        display: grid;
-        grid-template-columns: 40% 60%;
-        .details-button {
-          background-color: black;
-          color: white;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          height: 100%;
-        }
-        .details {
-          grid-column: 1/3;
-          background-color: black;
-          color: white;
-          display: none;
-          flex-direction: column;
-          gap: 1rem;
-          padding: 0.7rem;
-
-          .flavours,
-          .extras {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            .tittle {
-              text-decoration: underline;
-            }
-          }
-        }
-        img {
-          width: 100%;
-        }
-
-        .right {
-          display: grid;
-          grid-template-rows: auto auto;
-          grid-template-columns: 100%;
-          align-items: center;
-          font-weight: 500;
-        }
-      }
-    }
-  }
-}
-#purchase-list-container::-webkit-scrollbar {
-  width: 8px; /* set the width of the scrollbar */
-}
-
-#purchase-list-container::-webkit-scrollbar-thumb {
-  background-color: rgb(255, 0, 0); /* set the color of the scrollbar thumb */
-  border-radius: 1rem;
-}
-
-#purchase-list-container::-webkit-scrollbar-track {
-  background-color: #000000; /* set the color of the scrollbar track */
-}
-
 nav {
   z-index: 9;
   display: flex;
@@ -679,6 +554,7 @@ nav {
         justify-content: center;
         #logo {
           height: 6vh;
+          height: 6svh;
         }
       }
     }
@@ -750,15 +626,13 @@ nav {
     }
   }
   .content {
-    /* position: relative; */
-
     padding: 2rem clamp(3rem, 14vw, 10rem);
     display: flex;
     flex-direction: column;
     gap: 2rem;
     height: 100%;
     overflow-y: scroll;
-    /* scroll-padding: 3rem; */
+
     .comming-soon {
       width: 90%;
       position: absolute;
@@ -870,6 +744,7 @@ nav {
     font-size: clamp(1rem, 6vw, 2.5rem);
     font-weight: 900;
     height: 8vh;
+    height: 8svh;
 
     img {
       aspect-ratio: 1/1;
@@ -929,6 +804,7 @@ nav {
 
   img {
     width: clamp(2.4rem, 12vw, 4rem);
+    aspect-ratio: 1/1;
 
     filter: invert(1);
     position: relative !important;
@@ -958,11 +834,13 @@ button {
 
   #user-info {
     padding: 2rem;
+    height: 100%;
+    overflow-y: auto;
     .content {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: clamp(1rem, 2vw, 2rem);
+      gap: clamp(1rem, 4vw, 2rem);
 
       align-items: center;
       .user-points {
@@ -970,8 +848,8 @@ button {
         font-weight: 900;
       }
       img {
-        width: 10rem;
-        height: 10rem;
+        width: 35vw;
+        height: 35vw;
         border-radius: 50%;
         border: 5px solid greenyellow;
       }
@@ -986,6 +864,136 @@ button {
         font-weight: 500;
       }
     }
+  }
+  #purchase-list-container {
+    height: 100%;
+    overflow-y: scroll;
+    padding: 0px clamp(2rem, 10vw, 10rem);
+
+    #purchase-list {
+      padding: 2rem 0rem;
+
+      display: flex;
+      flex-direction: column;
+
+      gap: clamp(2rem, 10vw, 10rem);
+      #no-purchases-message {
+        font-family: "Mynerve", cursive;
+        font-size: 3rem;
+      }
+      .purchase {
+        display: grid;
+        //border: 1px solid black;
+        box-shadow: 3px 3px 3px grey;
+        font-size: clamp(0.6rem, 5vw, 4rem);
+
+        .time {
+          padding: 0.5rem 0.5rem;
+
+          font-weight: 500;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .description {
+          margin-top: 0.5rem;
+
+          .description-total-points,
+          .description-total-price {
+            font-weight: 500;
+            padding: 0.5rem;
+          }
+          .purchase-state {
+            background-color: black;
+            color: white;
+          }
+          .order-fulfillment {
+            .dropdown-button {
+              color: black;
+
+              background-color: white;
+              background-image: $primary;
+            }
+            .tittle.pickup {
+              background-color: white;
+              background-image: $primary;
+              color: black;
+            }
+            .delivery-details {
+              display: flex;
+              flex-direction: column;
+              gap: 0.5rem;
+              padding: 1rem;
+
+              p {
+                font-size: 1.2rem;
+                text-align: left;
+              }
+              p::before {
+                content: "- ";
+              }
+            }
+          }
+        }
+
+        .cart-item {
+          width: 100%;
+          //border: 1px solid blue;
+          display: grid;
+          grid-template-columns: 40% 60%;
+          .details-button {
+            background-color: black;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+          }
+          .details {
+            grid-column: 1/3;
+            background-color: black;
+            color: white;
+            display: none;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 0.7rem;
+
+            .flavours,
+            .extras {
+              display: flex;
+              flex-direction: column;
+              gap: 0.5rem;
+              .tittle {
+                text-decoration: underline;
+              }
+            }
+          }
+          img {
+            width: 100%;
+          }
+
+          .right {
+            display: grid;
+            grid-template-rows: auto auto;
+            grid-template-columns: 100%;
+            align-items: center;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+  }
+  #purchase-list-container::-webkit-scrollbar {
+    width: 8px; /* set the width of the scrollbar */
+  }
+
+  #purchase-list-container::-webkit-scrollbar-thumb {
+    background-color: rgb(255, 0, 0); /* set the color of the scrollbar thumb */
+    border-radius: 1rem;
+  }
+
+  #purchase-list-container::-webkit-scrollbar-track {
+    background-color: #000000; /* set the color of the scrollbar track */
   }
 }
 
@@ -1006,8 +1014,8 @@ button {
     padding: 0;
     border-radius: 0.2rem;
     img {
-      /*  width: 3rem; */
       width: clamp(3rem, 16vw, 5rem);
+      aspect-ratio: 1/1;
       border-radius: 0.1rem;
     }
 
@@ -1355,8 +1363,6 @@ button {
       .extra-content {
         margin-top: clamp(1.5rem, 5vw, 4rem);
 
-        grid-template-rows: 1fr 1fr 1fr;
-
         gap: clamp(1.5rem, 5vw, 4rem);
         .rocklets,
         .salsa,
@@ -1469,6 +1475,7 @@ button {
       top: 1%;
       .close {
         width: 8vh !important;
+        width: 8svh !important;
       }
     }
 
@@ -1625,9 +1632,12 @@ button {
     img {
       width: clamp(2rem, 19vh, 18rem);
       max-width: 15vh;
+      max-width: 15svh;
     }
   }
-  #botonera {
+  #botonera,
+  #botonera-perfil-offline,
+  #botonera-perfil {
     button {
       padding: 0.5rem;
       font-size: clamp(0.9rem, 4vh, 4rem) !important;
@@ -1641,6 +1651,7 @@ button {
       font-size: clamp(0.6rem, 3vh, 5rem);
       width: 100%;
       max-width: 84vh;
+      max-width: 84svh;
     }
     #footer {
       width: 100%;
@@ -1655,6 +1666,7 @@ button {
     .content {
       width: 100%;
       max-width: 84vh;
+      max-width: 84svh;
       #location,
       #contact {
         padding: 1rem;
@@ -1680,17 +1692,230 @@ button {
     }
   }
   button {
-    font-size: clamp(0.5rem, 4vh, 6rem) !important;
+    font-size: clamp(0.5rem, 4vh, 6rem);
     padding: 0.2rem;
   }
 
   img.close {
     width: 10vh !important;
+    width: 10svh !important;
     padding: 0px;
 
     border-radius: 0rem;
     box-shadow: none;
     border: none;
+  }
+
+  #profile-offline {
+    height: 90vh;
+    height: 90svh;
+
+    //shared css across login and signup
+
+    .signup-button,
+    .loggin-button {
+      margin-top: clamp(1rem, 2vh, 1.5rem);
+      font-size: clamp(0.8rem, 3vh, 1rem);
+      padding: clamp(0.35rem, 2vh, 0.6rem);
+    }
+
+    #google-auth {
+      img {
+        width: clamp(2rem, 8vh, 2.5rem);
+      }
+
+      span {
+        font-size: clamp(0.8rem, 3vh, 1rem);
+      }
+    }
+
+    #log-in,
+    .signup-section {
+      padding: 2rem;
+
+      fieldset {
+        gap: clamp(0.5rem, 2vh, 1.5rem);
+
+        font-size: clamp(1.2rem, 2.5vh, 2rem);
+      }
+
+      .header,
+      legend {
+        font-size: clamp(0.75rem, 3vh, 2.5rem);
+        margin-bottom: 2.5rem;
+      }
+      label {
+        font-size: clamp(0.8rem, 2vh, 5rem);
+      }
+
+      .email-section,
+      .password-section,
+      .name-section,
+      .birthday-section,
+      .password-validation-section {
+        .input-container {
+          position: relative;
+
+          input {
+            font-size: clamp(0.8rem, 3vh, 5rem);
+          }
+        }
+      }
+    }
+
+    ///////////////////
+    #log-in {
+      fieldset {
+        max-width: 50vh;
+        max-width: 50svh;
+        margin-left: auto;
+        margin-right: auto;
+        .buttons-section {
+          gap: clamp(0.75rem, 2vh, 1.5rem);
+        }
+      }
+    }
+
+    .signup-section {
+      .header {
+        max-width: 50vh;
+        max-width: 50svh;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .body {
+        max-width: 50vh;
+        max-width: 50svh;
+        margin-left: auto;
+        margin-right: auto;
+        gap: clamp(0.75rem, 2vh, 1.5rem);
+        .dropdown-button {
+          border-radius: 0px;
+          font-size: clamp(0.8rem, 3vh, 1rem);
+          img {
+            width: clamp(2rem, 6rem, 2rem);
+          }
+        }
+
+        #sign-up {
+          fieldset {
+            .img-section {
+              .tittle {
+                font-size: clamp(0.8rem, 2vh, 5rem);
+              }
+              .img-content {
+                height: 20vh;
+                height: 20svh;
+                width: 20vh;
+                width: 20svh;
+
+                label {
+                  width: clamp(35px, 6vh, 5rem);
+                  height: clamp(35px, 6vh, 5rem);
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .password-section,
+      .password-validation-section {
+        input {
+          padding-right: 20% !important;
+        }
+        .eye {
+          left: 90% !important;
+          width: 2rem !important;
+        }
+      }
+    }
+  }
+
+  #profile-online {
+    height: 90vh;
+    height: 90svh;
+
+    #user-info {
+      padding: 2rem;
+
+      .content {
+        gap: clamp(1rem, 2vw, 2rem);
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+        align-items: center;
+        button {
+          margin-top: clamp(1rem, 2vh, 1.5rem);
+          font-size: clamp(0.8rem, 3vh, 1rem);
+          padding: clamp(0.35rem, 2vh, 0.6rem);
+        }
+
+        img {
+          width: 30vh;
+          height: 30vh;
+        }
+
+        p {
+          font-size: clamp(0.75rem, 3vh, 1rem);
+        }
+      }
+    }
+    #purchase-list-container {
+      padding: 0px clamp(0.75rem, 5vh, 10rem);
+
+      #purchase-list {
+        max-width: 40vh;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 2rem 0rem;
+
+        gap: clamp(1.6rem, 5vh, 5rem);
+        #no-purchases-message {
+          font-size: clamp(2.4rem, 5vh, 4rem);
+        }
+        .purchase {
+          font-size: clamp(0.4rem, 2.5vh, 2rem);
+
+          .time {
+            padding: 0.5rem 0.5rem;
+          }
+
+          .description {
+            margin-top: 0.5rem;
+
+            .description-total-points,
+            .description-total-price {
+              padding: 0.5rem;
+            }
+
+            .order-fulfillment {
+              .dropdown-button {
+                font-size: clamp(0.8rem, 3vh, 1rem);
+                img {
+                  width: clamp(1.6rem, 6vh, 2rem);
+                }
+              }
+              .delivery-details {
+                gap: 0.5rem;
+                padding: 1rem;
+
+                p {
+                  font-size: clamp(1.2rem, 2.5vh, 2rem);
+                }
+              }
+            }
+          }
+
+          .cart-item {
+            .details {
+              gap: 1rem;
+              padding: 0.7rem;
+            }
+          }
+        }
+      }
+    }
   }
 
   #shop {
@@ -1729,6 +1954,7 @@ button {
         }
         .to-cart {
           height: 6vh;
+          height: 6svh;
           font-size: clamp(0.8rem, 3vh, 3.5rem) !important;
           img {
             width: clamp(1.3rem, 5vh, 5rem);
@@ -1749,6 +1975,15 @@ button {
     align-items: center;
     overflow: hidden;
     padding: 0;
+
+    .dropdown-button {
+      font-size: clamp(0.6rem, 3vh, 4rem) !important;
+      border-radius: 1rem;
+      padding: 0.2rem !important;
+      img {
+        width: clamp(1.2rem, 6vh, 8rem);
+      }
+    }
     picture {
       right: 2%;
       left: auto;
@@ -1757,7 +1992,7 @@ button {
       position: relative;
       background-color: white;
       gap: clamp(1.5rem, 6vh, 4rem) !important;
-      /*  grid-row-gap: clamp(1rem, 2vh, 3rem) !important; */
+
       padding: clamp(1.5rem, 8vh, 9rem) clamp(2.5rem, 15vh, 15rem);
       border-radius: 0.5rem;
       width: fit-content;
@@ -1774,11 +2009,6 @@ button {
         justify-content: space-between;
         height: 100%;
         width: max-content;
-
-        /* display: grid;
-        grid-template-columns: max-content;
-        gap: 1rem;
-        justify-content: center; */
 
         legend {
           font-size: clamp(0.75rem, 3vh, 6rem);
@@ -1817,14 +2047,6 @@ button {
           }
         }
       }
-    }
-  }
-  .dropdown-button {
-    font-size: clamp(0.6rem, 3vh, 4rem) !important;
-    border-radius: 1rem;
-    padding: 0.2rem !important;
-    img {
-      width: clamp(1.2rem, 6vh, 8rem);
     }
   }
 

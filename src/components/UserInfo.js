@@ -47,9 +47,7 @@ export const UserInfo = (props) => {
             {!props.userData.name ? props.userData.email : props.userData.name}
           </p>
         </div>
-        <p>
-          Tenes <span className="user-points">{points}</span> puntos
-        </p>
+
         <button
           onClick={() => {
             signOut(auth)

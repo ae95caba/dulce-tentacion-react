@@ -18,7 +18,7 @@ export const App = () => {
   const [deliveryPrice, setDeliveryPrice] = useState(0);
   const [showThanksMessage, setShowThanksMessage] = useState(false);
   const [isUserOnline, setIsUserOnline] = useState();
-
+  const [iceCreamExtras, setIceCreamExtras] = useState(null);
   const [cartDisplayProperty, setCartDisplayProperty] = useState("none");
   const [catalog, setCatalog] = useState(null);
   const [userData, setUserData] = useState({
@@ -28,7 +28,7 @@ export const App = () => {
   });
   const [flavours, setFlavours] = useState(null);
 
-  //populate catalog and flavours with firestore db
+  //populate products, ice cream extras and flavours with firestore db
   useEffect(() => {
     function convertStringToArray(string) {
       // Remove leading and trailing periods and whitespaces
@@ -54,6 +54,7 @@ export const App = () => {
 
         setCatalog({ helados: helados, escabio: escabio });
         setFlavours(convertStringToArray(docSnap.data().flavours));
+        setIceCreamExtras(docSnap.data().iceCreamExtras);
       } catch (error) {
         alert(error);
       }
@@ -255,6 +256,7 @@ export const App = () => {
           element={
             <Shop
               flavours={flavours}
+              iceCreamExtras={iceCreamExtras}
               catalog={catalog}
               addCartItem={addCartItem}
               addIceCream={addIceCream}

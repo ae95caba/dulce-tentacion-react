@@ -10,9 +10,9 @@ export function FormularioHelados(props) {
   // dropDowns content will be like this : ["flavour1","flavour2", undefined]
   const [dropDowns, setDropDowns] = useState([]);
   const [extras, setExtras] = useState({
-    rocklets: { price: 100, isChecked: false },
-    conos: { price: 80, count: 0 },
-    salsa: { price: 110, type: null },
+    rocklets: { price: props.iceCreamExtras.rocklets.price, isChecked: false },
+    conos: { price: props.iceCreamExtras.conos.price, count: 0 },
+    salsa: { price: props.iceCreamExtras.salsas.price, type: null },
   });
 
   const isMatchingMediaQuery = useMediaQuery({
@@ -231,28 +231,32 @@ export function FormularioHelados(props) {
             Adicionales <img src="/img/arrow-down.svg" />
           </legend>
           <div className="extra-content" style={{ display: "none" }}>
-            <label htmlFor="rocklets" className="rocklets">
-              <span>Rocklets:</span>
-              <input
-                type="checkbox"
-                name="subscribe"
-                value="yes"
-                id="rocklets"
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    const copy = { ...extras };
-                    copy.rocklets.isChecked = true;
-                    setExtras({ ...copy });
-                    // extras = { ...copy };
-                  } else {
-                    const copy = { ...extras };
-                    copy.rocklets.isChecked = false;
-                    setExtras({ ...copy });
-                    // extras = { ...copy };
-                  }
-                }}
-              />
-            </label>
+            {props.iceCreamExtras.rocklets.outOfStock ? (
+              ""
+            ) : (
+              <label htmlFor="rocklets" className="rocklets">
+                <span>Rocklets:</span>
+                <input
+                  type="checkbox"
+                  name="subscribe"
+                  value="yes"
+                  id="rocklets"
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      const copy = { ...extras };
+                      copy.rocklets.isChecked = true;
+                      setExtras({ ...copy });
+                      // extras = { ...copy };
+                    } else {
+                      const copy = { ...extras };
+                      copy.rocklets.isChecked = false;
+                      setExtras({ ...copy });
+                      // extras = { ...copy };
+                    }
+                  }}
+                />
+              </label>
+            )}
             <div className="salsa">
               <label htmlFor="salsa">Salsa:</label>
               <select
@@ -266,8 +270,16 @@ export function FormularioHelados(props) {
                 }}
               >
                 <option value="">Elegir</option>
-                <option value="frutilla">Frutilla</option>
-                <option value="chocolate">Chocolate</option>
+                {props.iceCreamExtras.salsas.flavours.frutilla ? (
+                  <option value="frutilla">Frutilla</option>
+                ) : (
+                  ""
+                )}
+                {props.iceCreamExtras.salsas.flavours.chocolate ? (
+                  <option value="chocolate">Chocolate</option>
+                ) : (
+                  ""
+                )}
               </select>
             </div>
             <div className="conos">
@@ -380,7 +392,9 @@ function DropDown(props) {
           }}
           required
         >
-          <option value="">Elegi un sabor</option>
+          <option value="" disabled>
+            Elegi un sabor
+          </option>
           {props.flavours?.map((sabor, index) => (
             <option
               value={sabor}

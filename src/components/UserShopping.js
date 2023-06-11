@@ -1,7 +1,7 @@
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { db, auth } from "../backend/firebase";
 import { collection, deleteDoc, doc as firebaseDoc } from "firebase/firestore";
-import { getPoints } from "../backend/getPoints";
+
 import { format } from "date-fns";
 import { Details } from "./Cart";
 import uniqid from "uniqid";
@@ -108,9 +108,7 @@ export const UserShopping = () => {
                 <p className="description-total-price">
                   Total: ${doc.totalPrice}
                 </p>
-                <p className="description-total-points">
-                  Puntos : {(doc.totalPrice * 5) / 100}
-                </p>
+
                 <button className="purchase-state">
                   {doc.completed === true ? "Pagado" : "Pendiente de pago"}
                 </button>

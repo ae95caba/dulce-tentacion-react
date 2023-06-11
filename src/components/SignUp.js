@@ -28,7 +28,6 @@ export function SignUp(props) {
             setOfflineFilter={props.setOfflineFilter}
           />
         ) : null}
-
         <GoogleAuth text={"Entra con Google"} />
       </div>
     </div>
@@ -241,24 +240,7 @@ function SignUpForm(props) {
           </div>
           {error.email && <span className="err">{error.email}</span>}
         </div>
-        {/* <div className="birthday-section">
-          <label htmlFor="sign-up-birthday">Fecha de nacimiento *</label>
-          <div className="input-container">
-            <input
-              className={error.birthday ? "invalid" : ""}
-              name="birthday"
-              type="date"
-              id="sign-up-birthday"
-              min="1920-01-01"
-              max="2018-01-01"
-              value={input.birthday}
-              onChange={onInputChange}
-              onBlur={validateInput}
-              required
-            />
-          </div>
-          {error.birthday && <span className="err">{error.birthday}</span>}
-        </div> */}
+
         <div className="password-section">
           <label htmlFor="sign-up-password">Contraseña *</label>
           <div className="input-container">
