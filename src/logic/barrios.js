@@ -92,18 +92,23 @@ export const options = barriosMP.sort().map((barrio) => ({
 export function priceFromBarrio(barrio) {
   let price = undefined;
   switch (true) {
+    //hasta el hornero
     case zona1.includes(barrio):
       price = 0;
       break;
+    //hasta la paz
     case zona2.includes(barrio):
       price = 150;
       break;
+    //hasta independencia
     case zona3.includes(barrio):
       price = 250;
       break;
+    //hasta el pinar
     case zona4.includes(barrio):
       price = 350;
       break;
+    //las malvinas
     case zona5.includes(barrio):
       price = 450;
       break;

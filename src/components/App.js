@@ -30,6 +30,10 @@ export const App = () => {
 
   //populate products, ice cream extras and flavours with firestore db
   useEffect(() => {
+    const MAX_REFRESHES = 3; // Maximum number of refresh attempts
+    const REFRESH_DELAY = 2000; // Delay in milliseconds before each refresh
+    let refreshCount = 0;
+
     function convertStringToArray(string) {
       // Remove leading and trailing periods and whitespaces
       string = string.trim().replace(/^\.+|\.+$/g, "");
@@ -56,7 +60,18 @@ export const App = () => {
         setFlavours(convertStringToArray(docSnap.data().flavours));
         setIceCreamExtras(docSnap.data().iceCreamExtras);
       } catch (error) {
-        alert(error);
+        if (refreshCount < MAX_REFRESHES) {
+          refreshCount++;
+          setTimeout(() => {
+            window.location.reload();
+          }, REFRESH_DELAY);
+        } else {
+          // Handle the maximum refresh attempts reached
+          console.log(
+            "Maximum refresh attempts reached. Please try again later."
+          );
+          alert("Estamos teniendo problemas. Por favor intenta mas tarde");
+        }
       }
     }
     populateCatalog();
