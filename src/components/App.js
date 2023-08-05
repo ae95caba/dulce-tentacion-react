@@ -232,7 +232,7 @@ export const App = () => {
           setShowThanksMessage(true);
         }}
       />
-
+      <div className="ruler"></div>
       <section className="content">
         <Routes>
           <Route path="/" exact element={<Home />} />
