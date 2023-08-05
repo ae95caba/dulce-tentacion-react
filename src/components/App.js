@@ -1,15 +1,15 @@
 import "../App.scss";
 import { Route } from "react-router-dom";
 import { Routes } from "react-router-dom";
-import { Home } from "../Home";
-import { Profile } from "./Profile";
+import { Home } from "./Home";
+import Footer from "./Footer";
 import { Shop } from "./Shop";
 import { Cart } from "./Cart";
 import { useHash } from "react-use";
 
 import { useState, useEffect } from "react";
 import { Navbar } from "./Navbar";
-import { ThanksMessage } from "./ThanksMessage";
+
 import { setDoc, doc, getDoc } from "firebase/firestore";
 import { db, auth } from "../backend/firebase";
 
@@ -56,7 +56,10 @@ export const App = () => {
         let helados = docSnap.data().products.helados;
         let escabio = docSnap.data().products.escabio;
 
-        setCatalog({ helados: helados, escabio: escabio });
+        setCatalog({
+          helados: [...helados, ...helados, ...helados],
+          escabio: escabio,
+        });
         setFlavours(convertStringToArray(docSnap.data().flavours));
         setIceCreamExtras(docSnap.data().iceCreamExtras);
       } catch (error) {
@@ -204,36 +207,13 @@ export const App = () => {
   }
 
   return (
-    <div id="app">
-      <a
-        /*  the following could me unnecesary but better keep it */
-        href={cartDisplayProperty === "flex" ? "javascript:void(0)" : "#cart"}
-        className={
-          totalItems() > 0
-            ? "animate__animated animate__pulse animate__infinite animate__slower	"
-            : null
-        }
-        id="cart-button"
-      >
-        <div style={{ position: "relative" }}>
-          <img src="/img/cart.svg" alt="shopping cart" />
-          <div id="total-items" className="neon-green">
-            {totalItems() > 0 ? totalItems() : null}
-          </div>
-        </div>
-
-        <div
-          id="total-price"
-          className="neon-green"
-          style={{ visibility: totalPrice() ? "visible" : "hidden" }}
-        >
-          $ {totalPrice()}
-        </div>
-      </a>
-      <Navbar isUserOnline={isUserOnline} />
-      {showThanksMessage ? (
-        <ThanksMessage close={() => setShowThanksMessage(false)} />
-      ) : null}
+    <>
+      <Navbar
+        isUserOnline={isUserOnline}
+        cartDisplayProperty={cartDisplayProperty}
+        totalItems={totalItems}
+        totalPrice={totalPrice}
+      />
 
       <Cart
         cartDisplayProperty={cartDisplayProperty}
@@ -252,33 +232,26 @@ export const App = () => {
           setShowThanksMessage(true);
         }}
       />
-      <Routes>
-        <Route path="/" exact element={<Home />} />
 
-        <Route
-          path="/perfil"
-          element={
-            <Profile
-              userData={userData}
-              setUserData={setUserData}
-              isUserOnline={isUserOnline}
-            />
-          }
-        />
+      <section className="content">
+        <Routes>
+          <Route path="/" exact element={<Home />} />
+          <Route
+            path="/catalogo"
+            element={
+              <Shop
+                flavours={flavours}
+                iceCreamExtras={iceCreamExtras}
+                catalog={catalog}
+                addCartItem={addCartItem}
+                addIceCream={addIceCream}
+              />
+            }
+          />
+        </Routes>
+      </section>
 
-        <Route
-          path="/tienda"
-          element={
-            <Shop
-              flavours={flavours}
-              iceCreamExtras={iceCreamExtras}
-              catalog={catalog}
-              addCartItem={addCartItem}
-              addIceCream={addIceCream}
-            />
-          }
-        />
-      </Routes>
-    </div>
+      <Footer />
+    </>
   );
 };

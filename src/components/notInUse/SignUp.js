@@ -1,5 +1,5 @@
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth, storage } from "../backend/firebase";
+import { auth, storage } from "../../backend/firebase";
 
 import { GoogleAuth } from "./GoogleAuth";
 

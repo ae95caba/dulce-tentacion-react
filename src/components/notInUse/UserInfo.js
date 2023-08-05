@@ -1,7 +1,7 @@
-import { auth } from "../backend/firebase";
+import { auth } from "../../backend/firebase";
 import { signOut } from "firebase/auth";
 import { useState, useEffect } from "react";
-import { getPoints } from "../backend/getPoints";
+import { getPoints } from "../../backend/getPoints";
 
 export const UserInfo = (props) => {
   const [points, setPoints] = useState(0);

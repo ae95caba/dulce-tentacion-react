@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Botonera } from "./Botonera";
-import Fuse from "fuse.js";
+
 import { FormularioHelados } from "./FormularioHelados";
-import Select from "react-select";
+
 import { ThreeCircles } from "react-loader-spinner";
 import { useHash } from "react-use";
 
@@ -17,28 +16,11 @@ export const Shop = ({
   const [content, setContent] = useState(catalog?.helados);
   const [hash, setHash] = useHash(null);
   //searchTerm is what fuse will look for
-  const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-  const [selectedProduct, setSelectedProduct] = useState();
-  const searchboxSelectRef = useRef(null);
+
   const [currentCategoryName, setCurrentCategoryName] = useState(null);
   //iceCreamForm content
   //it needs the hole product so it can pass it to the car
   const [iceCreamForm, setIceCreamForm] = useState(null);
-
-  useEffect(() => {
-    if (selectedProduct) {
-      const element = document.getElementById(selectedProduct.value);
-
-      const container = document.querySelector(".content");
-      const position = element.offsetTop - 50;
-
-      container.scrollTo({
-        top: position,
-        behavior: "smooth",
-      });
-    }
-  }, [selectedProduct]);
 
   //this changes the display property of the form to flex
   //when hash matches form and the is product info on the form state
@@ -60,90 +42,12 @@ export const Shop = ({
     }
   }, [content]);
 
-  //fuse option
-
-  //fuse setup
-  useEffect(() => {
-    if (content) {
-      const options = {
-        keys: ["name", "subcategory"],
-        threshold: 0.3,
-        includeMatches: true,
-      };
-      const fuse = new Fuse(content, options);
-
-      const results = fuse.search(searchTerm);
-      console.log(results);
-      //result will be an array of objects, each object will have the item,matches and refIndex properties.
-      // the item will be the actual object from where the match came
-      function findIndexByName(obj) {
-        return content.findIndex((item) => item.name === obj.name);
-      }
-
-      //this will create an array with the options that will go onto the options props of Select
-      const objArr = results.map((result) => {
-        return {
-          value: `card-${findIndexByName(result.item)}`,
-          label: result.item.name,
-        };
-      });
-      setSearchResults(objArr);
-      //searchResults  is what will go onto the options props of Select
-    }
-  }, [content, searchTerm]);
-
   useEffect(() => {
     setContent(catalog?.helados);
   }, [catalog]);
 
-  function scrollToTop() {
-    var div = document.querySelector("#shop .content");
-    div.scrollTop = 0;
-  }
-
-  function handleReset() {
-    setSelectedProduct(null); // or [] for multi-select
-  }
-
   return (
-    <div id="shop">
-      <div>
-        <Botonera
-          scrollToTop={scrollToTop}
-          setContent={setContent}
-          content={content}
-          catalog={catalog}
-        />
-        {content ? (
-          <div
-            id="searchbox"
-            onTransitionEnd={(e) => {
-              if (e.target === document.getElementById("searchbox")) {
-                handleReset();
-              }
-            }}
-          >
-            <Select
-              ref={searchboxSelectRef}
-              options={searchResults}
-              noOptionsMessage={() => `No hay resultados`}
-              onChange={setSelectedProduct}
-              onInputChange={setSearchTerm}
-              placeholder={`Buscar en ${currentCategoryName}`}
-              value={selectedProduct}
-            />
-            <div
-              tabIndex="0"
-              className="img-container"
-              onClick={() => {
-                searchboxSelectRef.current.focus();
-              }}
-            >
-              <img src="/img/magnifier.svg" />
-            </div>
-          </div>
-        ) : null}
-      </div>
+    <>
       {/* show icecream form over content cards*/}
       {iceCreamForm?.render ? (
         <FormularioHelados
@@ -154,12 +58,8 @@ export const Shop = ({
           addIceCream={addIceCream}
         />
       ) : null}
-
-      <div className="content">
-        {content === null && catalog ? (
-          <img class="comming-soon" src="/img/comming-soon.jpg" />
-        ) : null}
-
+      <h1>Nuestros productos</h1>
+      <div className="cards-container">
         {!content && !catalog ? (
           <ThreeCircles
             height="150"
@@ -190,7 +90,7 @@ export const Shop = ({
           ) : null
         )}
       </div>
-    </div>
+    </>
   );
 };
 
@@ -211,17 +111,14 @@ function Card({
       id={`card-${index}`}
       style={{ opacity: product.outOfStock ? 0.5 : 1 }}
     >
-      <div className="img-container">
-        <Image url={product.imgUrl} />
-      </div>
-      <div className="product-description">
-        <p className="product-name">{product.name}</p>
-        <p className="product-price">$ {product.price}</p>
-      </div>
+      <Image url={product.imgUrl} />
+
+      <p className="product-name">{product.name}</p>
+      <p className="product-price">$ {product.price}</p>
 
       {product.flavours ? (
         <button
-          className={`to-cart pick-flavours `}
+          className={`to-cart  `}
           disabled={iceCreamForm?.display === "flex" ? true : false}
           onClick={() => {
             setHash("#formulario-helados");
@@ -232,26 +129,35 @@ function Card({
             }));
           }}
         >
-          Elegir sabores
+          <span>Añadir</span>
+          <div className="img-container">
+            <img
+              style={{ filter: "invert(1)" }}
+              src="/img/to-cart.svg"
+              alt="cart icon"
+            />
+          </div>
         </button>
       ) : (
         <button
           disabled={product.outOfStock ? true : false}
           className={`to-cart ${active ? "active" : "inactve"}`}
           onAnimationEnd={() => {
-            console.log("ani end");
             setActive(false);
-            console.log(active);
           }}
           onClick={() => {
             setActive(true);
             addCartItem(product);
-            console.log("ani start");
-            console.log(active);
           }}
         >
           <span>Añadir</span>
-          <img style={{ filter: "invert(1)" }} src="/img/to-cart.svg" />
+          <div className="img-container">
+            <img
+              style={{ filter: "invert(1)" }}
+              src="/img/to-cart.svg"
+              alt="cart icon"
+            />
+          </div>
         </button>
       )}
     </div>
@@ -260,7 +166,6 @@ function Card({
 
 function Image({ url }) {
   const [isLoaded, setIsLoaded] = useState(false);
-  const imageRef = useRef(null);
 
   const onLoad = () => {
     console.log("loaded");
@@ -268,21 +173,18 @@ function Image({ url }) {
   };
 
   return (
-    <>
+    <div className="img-container">
       <img
         src={url}
         onLoad={onLoad}
+        alt="product"
         style={{ visibility: isLoaded ? "visible" : "hidden" }}
       />
       <span
         className="loader"
         style={{ display: !isLoaded ? "block" : "none" }}
       ></span>
-      {/*  <img
-        src="/img/image-placeholder.png"
-        style={{ display: !isLoaded ? "block" : "none" }}
-      /> */}
-    </>
+    </div>
   );
 }
 export default Image;

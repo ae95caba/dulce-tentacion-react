@@ -229,12 +229,7 @@ export function Cart(props) {
             <p id="empty">No hay nada aca, porque no agregas algo?</p>
           )}
         </div>
-        {/*  {props.cartItems.length > 0 ? (
-									<div className="total-points">
-											Ganas <span className="number">{(props.totalPrice() / 100) * 5}</span>{" "}
-											puntos !
-									</div>
-							) : null} */}
+
         {props.cartItems.length > 0 ? (
           <DeliveryForm
             isUserOnline={props.isUserOnline}

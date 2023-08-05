@@ -61,19 +61,6 @@ export function Home() {
         </div>
         <Location />
       </div>
-      <Footer />
-    </div>
-  );
-}
-
-function Footer() {
-  return (
-    <div id="footer">
-      <div className="working-hours">
-        <div>Lunes a Viernes de 19 a 24</div>
-        <div>Sabados y Domingos de 12 a 24</div>
-      </div>
-      <div className="copyright">Copyright © 2023 | André Espinoza</div>
     </div>
   );
 }
@@ -88,7 +75,7 @@ function Contact() {
           casi lo mismo !
         </p>
         <div className="button-container">
-          <NavLink to="/tienda">
+          <NavLink to="/catalogo">
             <button className="call-to-action">
               <img src="/img/to-cart.svg" />
               <span>Pedi ahora!</span>

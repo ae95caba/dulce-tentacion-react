@@ -1,9 +1,9 @@
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import { db, auth } from "../backend/firebase";
+import { db, auth } from "../../backend/firebase";
 import { collection, deleteDoc, doc as firebaseDoc } from "firebase/firestore";
 
 import { format } from "date-fns";
-import { Details } from "./Cart";
+import { Details } from "../Cart";
 import uniqid from "uniqid";
 import { useEffect, useState } from "react";
 import { ThreeCircles } from "react-loader-spinner";

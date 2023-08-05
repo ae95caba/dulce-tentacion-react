@@ -3,7 +3,7 @@ import {
   signInWithPopup,
   signInWithRedirect,
 } from "firebase/auth";
-import { auth } from "../backend/firebase";
+import { auth } from "../../backend/firebase";
 
 export function GoogleAuth(props) {
   return (
