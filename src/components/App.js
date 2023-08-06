@@ -8,7 +8,7 @@ import { Cart } from "./Cart";
 import { useHash } from "react-use";
 
 import { useState, useEffect } from "react";
-import { Navbar } from "./Navbar";
+import { Header } from "./Header";
 
 import { setDoc, doc, getDoc } from "firebase/firestore";
 import { db, auth } from "../backend/firebase";
@@ -208,7 +208,7 @@ export const App = () => {
 
   return (
     <>
-      <Navbar
+      <Header
         isUserOnline={isUserOnline}
         cartDisplayProperty={cartDisplayProperty}
         totalItems={totalItems}
@@ -236,6 +236,8 @@ export const App = () => {
       <section className="content">
         <Routes>
           <Route path="/" exact element={<Home />} />
+          <Route path="/nosotros" exact element={<Home />} />
+          <Route path="/testimonios" exact element={<Home />} />
           <Route
             path="/catalogo"
             element={

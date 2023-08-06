@@ -134,8 +134,8 @@ export function Cart(props) {
   const ref = useRef(null);
 
   function animateAndClose() {
-    ref.current.classList.remove("animate__animated", "animate__fadeInRight");
-    ref.current.classList.add("animate__animated", "animate__fadeOutRight");
+    ref.current.classList.remove("animate__animated", "animate__fadeInLeft");
+    ref.current.classList.add("animate__animated", "animate__fadeOutLeft");
     function handleAnimationEnd() {
       props.setCartDisplayProperty("none");
     }
@@ -151,7 +151,7 @@ export function Cart(props) {
       id="cart"
       className={
         props.cartDisplayProperty === "flex"
-          ? "animate__animated animate__fadeInRight"
+          ? "animate__animated animate__fadeInLeft"
           : ""
       }
       style={{ display: props.cartDisplayProperty }}

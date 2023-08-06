@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 
 import "./index.scss";
-
+import "./HamburgerMenu.scss";
 import reportWebVitals from "./reportWebVitals";
 import { Router2 } from "./Router2";
 
