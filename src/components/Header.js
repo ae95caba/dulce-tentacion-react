@@ -1,14 +1,14 @@
-import { Link, NavLink, useLocation } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
-import CartButton from "./CartButton";
+import { NavLink, useLocation } from "react-router-dom";
+
 import Sidebar from "./Sidebar";
 import Tabs from "./Tabs";
 
-export function Header(props) {
+export function Header({ getTotalCartItems }) {
   const location = useLocation();
   const isProfileActive = location.pathname === "/perfil";
   const isHomeActive = location.pathname === "/";
   const tabs = ["Catalogo", "Testimonios", "Nosotros"];
+
   return (
     <header>
       <NavLink
@@ -28,16 +28,29 @@ export function Header(props) {
           <Tabs />
         </nav>
 
-        <label class="hamburger-menu">
+        <label className="hamburger-menu">
           <input type="checkbox" />
         </label>
         <Sidebar tabs={tabs} />
-        <CartButton
-          cartDisplayProperty={props.cartDisplayProperty}
-          totalItems={props.totalItems}
-          totalPrice={props.totalPrice}
-        />
+        <CartButton getTotalCartItems={getTotalCartItems} />
       </div>
     </header>
+  );
+}
+
+function CartButton({ getTotalCartItems }) {
+  return (
+    <NavLink
+      to="/carrito"
+      /*  the following could me unnecesary but better keep it */
+
+      className={getTotalCartItems() > 0 ? "" : null}
+      id="cart-button"
+    >
+      <img src="/img/cart.svg" alt="shopping cart" />
+      <span id="total-items" className="neon-green">
+        {getTotalCartItems() > 0 ? getTotalCartItems() : null}
+      </span>
+    </NavLink>
   );
 }

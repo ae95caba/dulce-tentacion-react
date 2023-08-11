@@ -1,13 +1,12 @@
 import "../App.scss";
-import { Route } from "react-router-dom";
-import { Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
+import IceCreamForm from "./IceCreamForm";
 import { Home } from "./Home";
 import Footer from "./Footer";
 import { Shop } from "./Shop";
 import { Cart } from "./Cart";
-import { useHash } from "react-use";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Header } from "./Header";
 
 import { setDoc, doc, getDoc } from "firebase/firestore";
@@ -15,23 +14,26 @@ import { db, auth } from "../backend/firebase";
 
 export const App = () => {
   const [cartItems, setCartItems] = useState([]);
-  const [deliveryPrice, setDeliveryPrice] = useState(0);
-  const [showThanksMessage, setShowThanksMessage] = useState(false);
-  const [isUserOnline, setIsUserOnline] = useState();
-  const [iceCreamExtras, setIceCreamExtras] = useState(null);
-  const [cartDisplayProperty, setCartDisplayProperty] = useState("none");
+  const location = useLocation();
+  const [isLoading, setIsLoading] = useState(true);
   const [catalog, setCatalog] = useState(null);
-  const [userData, setUserData] = useState({
-    name: undefined,
-    email: undefined,
-    img: "/img/anonymous.svg",
-  });
-  const [flavours, setFlavours] = useState(null);
+  const checkMarkRef = useRef();
+
+  useEffect(() => {
+    console.log(location);
+    if (location.pathname === "/catalogo") {
+      checkMarkRef.current.showModal();
+
+      setTimeout(() => {
+        checkMarkRef.current.close();
+      }, 1000);
+    }
+  }, [cartItems, checkMarkRef]);
 
   //populate products, ice cream extras and flavours with firestore db
   useEffect(() => {
     const MAX_REFRESHES = 3; // Maximum number of refresh attempts
-    const REFRESH_DELAY = 2000; // Delay in milliseconds before each refresh
+    const REFRESH_DELAY = 1000; // Delay in milliseconds before each refresh
     let refreshCount = 0;
 
     function convertStringToArray(string) {
@@ -51,17 +53,17 @@ export const App = () => {
       try {
         const docRef = doc(db, "shop", "catalog");
         const docSnap = await getDoc(docRef);
-        ///
 
         let helados = docSnap.data().products.helados;
-        let escabio = docSnap.data().products.escabio;
 
+        let iceCreamExtras = docSnap.data().iceCreamExtras;
+        let flavoursList = convertStringToArray(docSnap.data().flavours);
         setCatalog({
-          helados: [...helados, ...helados, ...helados],
-          escabio: escabio,
+          helados,
+          iceCreamExtras,
+          flavoursList,
         });
-        setFlavours(convertStringToArray(docSnap.data().flavours));
-        setIceCreamExtras(docSnap.data().iceCreamExtras);
+        setIsLoading(false);
       } catch (error) {
         if (refreshCount < MAX_REFRESHES) {
           refreshCount++;
@@ -80,180 +82,139 @@ export const App = () => {
     populateCatalog();
   }, []);
 
-  useEffect(() => {
-    // Set the overflow of the body element based on the display value
-    document.body.style.overflow =
-      cartDisplayProperty === "none" ? "auto" : "hidden";
-    //set the hash based on the displayProperty
-  }, [cartDisplayProperty]);
-
-  //set isUserOnline and userData
-  useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        setIsUserOnline(true);
-
-        setUserData({
-          name: user.displayName,
-          email: user.email,
-          img: user.photoURL,
-        });
-      } else {
-        setIsUserOnline(false);
-        setUserData({
-          name: undefined,
-          email: undefined,
-          img: "/img/anonymous.svg",
-        });
+  const cartController = {
+    addProduct: function (product) {
+      function getIndexOfProduct() {
+        let index = -1;
+        for (var i = 0; i < cartItems.length; i++) {
+          if (cartItems[i].product.name === product.name) {
+            index = i;
+            break;
+          }
+        }
+        return index;
       }
-    });
-  }, []);
+      const isProductInCart = getIndexOfProduct() >= 0;
+      const isIceCream = product.hasOwnProperty("flavours");
 
-  function totalItems() {
-    let total = 0;
-    for (var i = 0; i < cartItems.length; i++) {
-      total += cartItems[i].count;
-    }
-    return total;
-  }
+      function increaseCount(product) {
+        let cartItemsCopy = [...cartItems];
+        cartItemsCopy[getIndexOfProduct()].count++;
 
-  function totalPrice() {
-    let total = 0;
-
-    total += cartItems.length > 0 ? deliveryPrice : 0;
-    for (var i = 0; i < cartItems.length; i++) {
-      total += cartItems[i].totalPrice;
-    }
-    return total;
-  }
-
-  //increases a cart item count if the item is in the cart
-  //if the item was no in the cart (its just been added) it adds it to cartItems array
-  const addCartItem = (product) => {
-    var isProductInCart = false;
-    var index = undefined;
-    for (var i = 0; i < cartItems.length; i++) {
-      if (cartItems[i].name === product.name) {
-        isProductInCart = true;
-        index = i;
-        break;
+        setCartItems([...cartItemsCopy]);
       }
-    }
 
-    if (!isProductInCart) {
-      setCartItems([
-        ...cartItems,
-        {
-          name: product.name,
-          imgUrl: product.imgUrl,
-          price: product.price,
+      function newCartItem(product) {
+        return {
+          product,
           count: 1,
-
-          get totalPrice() {
-            return this.price * this.count;
+          getTotalPrice() {
+            return this.product.price * this.count;
           },
-        },
-      ]);
-    } else {
-      // INCREASE COUNT BY 1
-      let copy = [...cartItems];
-      copy[index].count = copy[index].count + 1;
-
-      setCartItems([...copy]);
-    }
-  };
-  const addIceCream = (iceCream) => {
-    setCartItems([
-      ...cartItems,
-      {
-        ...iceCream,
-      },
-    ]);
-  };
-
-  //	decreases a cart item count
-  //if the is only only the removes it entirely
-  function removeCartItem(product) {
-    var index = undefined;
-    for (var i = 0; i < cartItems.length; i++) {
-      if (cartItems[i].name === product.name) {
-        index = i;
-        break;
+        };
       }
-    }
 
-    if (cartItems[index].count > 1) {
-      let copy = [...cartItems];
-      copy[index].count = copy[index].count - 1;
+      if (isProductInCart) {
+        if (isIceCream) {
+          setCartItems([...cartItems, newCartItem(product)]);
+        } else {
+          increaseCount(product);
+        }
+      } else {
+        setCartItems([...cartItems, newCartItem(product)]);
+      }
+    },
+    removeAll: function (product) {
+      let index = cartItems.indexOf(product);
 
-      setCartItems([...copy]);
-    } else {
       let copy = [...cartItems];
       copy.splice(index, 1);
       setCartItems([...copy]);
-    }
-  }
+    },
+    removeOne: function (product) {
+      let index = cartItems.indexOf(product);
 
-  function removeAll(product) {
-    let index = cartItems.indexOf(product);
+      let copy = [...cartItems];
 
-    let copy = [...cartItems];
-    copy.splice(index, 1);
-    setCartItems([...copy]);
-  }
+      if (copy[index].count > 1) {
+        copy[index].count--;
+        setCartItems([...copy]);
+      } else {
+        copy.splice(index, 1);
+        setCartItems([...copy]);
+      }
+    },
+    clearCart: function () {
+      setCartItems([]);
+    },
+    getTotalItemsPrice: function () {
+      let total = 0;
 
-  function clearCart() {
-    setCartItems([]);
-  }
+      for (var i = 0; i < cartItems.length; i++) {
+        total += cartItems[i].getTotalPrice();
+      }
+      return total;
+    },
+    getTotalItems: function () {
+      let total = 0;
+      for (var i = 0; i < cartItems.length; i++) {
+        total += cartItems[i].count;
+      }
+      return total;
+    },
+  };
 
   return (
     <>
-      <Header
-        isUserOnline={isUserOnline}
-        cartDisplayProperty={cartDisplayProperty}
-        totalItems={totalItems}
-        totalPrice={totalPrice}
-      />
+      <dialog tabIndex="-1" ref={checkMarkRef} className="checkmark">
+        <img tabIndex="-1" src="/checkmark.png" alt="" srcset="" />
+      </dialog>
 
-      <Cart
-        cartDisplayProperty={cartDisplayProperty}
-        setCartDisplayProperty={setCartDisplayProperty}
-        userData={userData}
-        isUserOnline={isUserOnline}
-        setDeliveryPrice={setDeliveryPrice}
-        cartItems={cartItems}
-        addCartItem={addCartItem}
-        removeCartItem={removeCartItem}
-        removeAll={removeAll}
-        clearCart={clearCart}
-        totalPrice={totalPrice}
-        showThanksMessage={() => {
-          console.log("holaaaaa");
-          setShowThanksMessage(true);
-        }}
-      />
-      <div className="ruler"></div>
-      <section className="content">
-        <Routes>
-          <Route path="/" exact element={<Home />} />
-          <Route path="/nosotros" exact element={<Home />} />
-          <Route path="/testimonios" exact element={<Home />} />
-          <Route
-            path="/catalogo"
-            element={
-              <Shop
-                flavours={flavours}
-                iceCreamExtras={iceCreamExtras}
-                catalog={catalog}
-                addCartItem={addCartItem}
-                addIceCream={addIceCream}
-              />
-            }
-          />
-        </Routes>
-      </section>
-
+      <Header getTotalCartItems={cartController.getTotalItems} />
+      {isLoading ? (
+        "Loading..."
+      ) : (
+        <MainContent
+          cartController={cartController}
+          catalog={catalog}
+          cartItems={cartItems}
+        />
+      )}
       <Footer />
     </>
   );
 };
+
+function MainContent({ cartController, catalog, cartItems }) {
+  return (
+    <main className="content">
+      <Routes>
+        <Route path="/" exact element={<Home />} />
+        <Route path="/nosotros" exact element={<Home />} />
+        <Route
+          path="/carrito"
+          exact
+          element={
+            <Cart cartItems={cartItems} cartController={cartController} />
+          }
+        />
+        <Route path="/testimonios" exact element={<Home />} />
+        <Route
+          path="/catalogo"
+          element={
+            <Shop catalog={catalog} addProduct={cartController.addProduct} />
+          }
+        />
+        <Route
+          path="/catalogo/helado/:maxFlavours"
+          element={
+            <IceCreamForm
+              catalog={catalog}
+              addProduct={cartController.addProduct}
+            />
+          }
+        />
+      </Routes>
+    </main>
+  );
+}

@@ -1,10 +1,7 @@
-import { createFactory, useEffect, useState, useRef } from "react";
-import { useHash } from "react-use";
-import { useMediaQuery } from "react-responsive";
-import { useLocation } from "react-router-dom";
+import { useEffect, useState, useRef } from "react";
 
 export function FormularioHelados(props) {
-  const [hash, setHash] = useHash(null);
+  console.log(props.iceCreamForm.product.flavours);
   const [resetSelects, setResetSelects] = useState();
   //checks how many dropDowns are
   // dropDowns content will be like this : ["flavour1","flavour2", undefined]
@@ -15,25 +12,7 @@ export function FormularioHelados(props) {
     salsa: { price: props.iceCreamExtras.salsas.price, type: null },
   });
 
-  const isMatchingMediaQuery = useMediaQuery({
-    screen: true,
-    minWidth: "80svh",
-  });
-
-  const isMatchingSecondMediaQuery = useMediaQuery({
-    screen: true,
-    minWidth: "66.6vh",
-  });
-
-  const isMatchingAnyMediaQuery =
-    isMatchingMediaQuery || isMatchingSecondMediaQuery;
-
-  const location = useLocation();
-
-  const currentHash = location.hash;
-
   useEffect(() => {
-    console.log("resets");
     if (resetSelects) {
       let arr = [];
       for (let i = 0; i < props.iceCreamForm.product.flavours; i++) {
@@ -44,19 +23,6 @@ export function FormularioHelados(props) {
     }
   }, [resetSelects]);
 
-  useEffect(() => {
-    if (
-      currentHash !== "#formulario-helados" &&
-      props.iceCreamForm.display === "flex"
-    ) {
-      if (isMatchingAnyMediaQuery) {
-        props.setIceCreamForm((prev) => ({ ...prev, display: "none" }));
-      } else {
-        animateAndClose();
-      }
-    }
-  }, [currentHash]);
-
   //creates  an array of objects on state for each flavour avaliable to choose
   //later those object will be used to return the DropDown components
   useEffect(() => {
@@ -66,16 +32,6 @@ export function FormularioHelados(props) {
     }
     setDropDowns([...arr]);
   }, [props.iceCreamForm.product]);
-
-  //switches the body overflow property
-  useEffect(() => {
-    // Code to run on mount
-    document.body.style.overflow = "hidden";
-    return () => {
-      // Code to run on unmount
-      document.body.style.overflow = "auto";
-    };
-  }, []);
 
   let totalPrice = () => {
     let total = props.iceCreamForm.product?.price; //reemplazar por precio de helados
@@ -111,21 +67,6 @@ export function FormularioHelados(props) {
   //onClose, remove fadein class (OPTIONAL), add fadeout clasee, set onAnimationend : Close
   const formRef = useRef(null);
 
-  function animateAndClose() {
-    formRef.current.classList.remove(
-      "animate__animated",
-      "animate__fadeInLeft"
-    );
-    formRef.current.classList.add("animate__animated", "animate__fadeOutLeft");
-
-    function handleAnimationEnd() {
-      props.setIceCreamForm((prev) => ({ ...prev, display: "none" }));
-    }
-    formRef.current.addEventListener("animationend", handleAnimationEnd, {
-      once: true,
-    });
-  }
-
   function selectedFlavours() {
     let number = 0;
     dropDowns.forEach((value) => {
@@ -141,19 +82,9 @@ export function FormularioHelados(props) {
     <form
       id="formulario-helados"
       ref={formRef}
-      style={{
-        display: props.iceCreamForm.display
-          ? props.iceCreamForm.display
-          : "none",
-      }}
-      className={
-        props.iceCreamForm.display === "flex" && !isMatchingAnyMediaQuery
-          ? "animate__animated animate__fadeInLeft"
-          : ""
-      }
       onSubmit={(e) => {
         e.preventDefault();
-        setHash("");
+
         ///////////////////////////////////
         //add flavours
 
@@ -196,7 +127,7 @@ export function FormularioHelados(props) {
       <div className="form-content">
         <fieldset className="sabores">
           <legend>
-            {selectedFlavours()}/{dropDowns.length}{" "}
+            {selectedFlavours()}/{dropDowns.length}
           </legend>
           {dropDowns.map((dropDownValue, index) => (
             //for every item in the array, create
@@ -347,14 +278,7 @@ export function FormularioHelados(props) {
           />
           <source srcSet="/img/return.svg" />
 
-          <img
-            src="/img/return.svg"
-            alt="return"
-            className="close"
-            onClick={() => {
-              setHash("");
-            }}
-          />
+          <img src="/img/return.svg" alt="return" className="close" />
         </picture>
       </div>
     </form>

@@ -1,12 +1,10 @@
-export default function CartButton({
-  cartDisplayProperty,
-  totalItems,
-  totalPrice,
-}) {
+import { NavLink } from "react-router-dom";
+export default function CartButton({ totalItems, totalPrice }) {
   return (
-    <a
+    <NavLink
+      to="/carrito"
       /*  the following could me unnecesary but better keep it */
-      href={cartDisplayProperty === "flex" ? "javascript:void(0)" : "#cart"}
+
       className={totalItems() > 0 ? "" : null}
       id="cart-button"
     >
@@ -14,6 +12,6 @@ export default function CartButton({
       <span id="total-items" className="neon-green">
         {totalItems() > 0 ? totalItems() : null}
       </span>
-    </a>
+    </NavLink>
   );
 }

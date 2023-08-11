@@ -83,10 +83,7 @@ const zona4 = [
 
 const zona5 = ["Malvinas"];
 
-export const options = barriosMP.sort().map((barrio) => ({
-  value: barrio.toLowerCase(),
-  label: barrio,
-}));
+export const options = barriosMP.sort().map((barrio) => barrio);
 
 //function to get price from barrio
 export function priceFromBarrio(barrio) {
@@ -98,25 +95,24 @@ export function priceFromBarrio(barrio) {
       break;
     //hasta la paz
     case zona2.includes(barrio):
-      price = 150;
+      price = 100;
       break;
     //hasta independencia
     case zona3.includes(barrio):
-      price = 250;
+      price = 200;
       break;
     //hasta el pinar
     case zona4.includes(barrio):
-      price = 350;
+      price = 300;
       break;
     //las malvinas
     case zona5.includes(barrio):
-      price = 450;
+      price = 400;
       break;
     default:
       // code to execute if barrio is not in any of the zones
       break;
   }
-  console.log(barrio);
-  console.log(price);
+
   return price;
 }
