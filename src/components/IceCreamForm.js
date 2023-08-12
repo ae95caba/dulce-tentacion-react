@@ -16,7 +16,6 @@ export default function IceCreamForm({
   const modalRef = useRef(null);
 
   const [choosenFlavours, setChoosenFlavours] = useState([]);
-  const [extras, setExtras] = useState({});
 
   function getProduct() {
     for (const key in catalog.helados) {
@@ -54,12 +53,10 @@ export default function IceCreamForm({
   return (
     <form id="ice-cream" onSubmit={handleSubmit}>
       <h1>{product.name}</h1>
-      <h2>
+      <h3>
         Sabores
-        <span>
-          {choosenFlavours.length}/{product.flavours}
-        </span>
-      </h2>
+        <span>{` ${choosenFlavours.length}/${product.flavours}`}</span>
+      </h3>
       <div className="container">
         {catalog.flavoursList.map((flavourValue) => (
           <label key={flavourValue} htmlFor={flavourValue}>

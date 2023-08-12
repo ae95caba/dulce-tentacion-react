@@ -129,30 +129,12 @@ function Checkout({ getTotalItemsPrice, deliveryInfo }) {
 function Details({ product }) {
   return (
     <div className="details">
-      <div className="flavours">
-        <h3>Sabores</h3>
-        <div>
-          {product.flavours.map((flavour) => {
-            return <p key={uniqid()}>{flavour}</p>;
-          })}
-        </div>
-      </div>
-      {product.extras?.rocklets.isChecked ||
-      product.extras?.salsa.type ||
-      product.extras?.conos.count ? (
-        <div className="extras">
-          <div className="tittle">Extras</div>
-          <div className="extras-body">
-            {product.extras.rocklets.isChecked ? <div>Rocklets</div> : null}
-            {product.extras.salsa.type ? (
-              <div>Salsa de {product.extras.salsa.type}</div>
-            ) : null}
-            {product.extras.conos.count ? (
-              <div> {product.extras.conos.count} conos</div>
-            ) : null}
-          </div>
-        </div>
-      ) : null}
+      <h3>Sabores</h3>
+      <ul>
+        {product.flavours.map((flavour) => {
+          return <li key={uniqid()}>{flavour}</li>;
+        })}
+      </ul>
     </div>
   );
 }
