@@ -15,8 +15,6 @@ export function Cart({
 }) {
   const [deliveryInfo, setDeliveryInfo] = useState({});
 
-  useEffect(() => {}, [deliveryInfo]);
-
   //get deliveryInfo from localStorage if there is any
   //and populate form with it
   useEffect(() => {
@@ -42,18 +40,28 @@ export function Cart({
 
   function handleSubmit(e) {
     e.preventDefault();
+    if (e.target.checkValidity()) {
+      window.open(
+        link(
+          cartItems,
+          deliveryInfo,
 
-    window.open(
-      link(
-        cartItems,
-        deliveryInfo,
+          cartController.getTotalItemsPrice()
+        ),
+        "_blank"
+      );
 
-        cartController.getTotalItemsPrice()
-      ),
-      "_blank"
-    );
+      cartController.clearCart();
+    } else {
+      const formElements = e.target.elements;
+      console.log(formElements);
 
-    cartController.clearCart();
+      for (const element of formElements) {
+        /*  element.checkValidity();
+        console.log("as"); */
+        e.target.reportValidity();
+      }
+    }
   }
 
   ///////////////////////////
@@ -192,8 +200,20 @@ function CartItem({ cartController, cartItem }) {
 }
 
 function DeliveryForm({ handleSubmit, setDeliveryInfo, deliveryInfo }) {
+  function checkValidity(e) {
+    const isValid = e.target.validity.valid;
+
+    //const checksPassed = checks.filter((check) => validity[check]).length === 0;
+    if (!isValid) {
+      e.target.classList.add("invalid");
+    } else {
+      e.target.classList.remove("invalid");
+    }
+  }
+
   return (
     <form
+      noValidate
       id="delivery-form"
       autoComplete="on"
       onSubmit={(e) => handleSubmit(e)}
@@ -232,53 +252,66 @@ function DeliveryForm({ handleSubmit, setDeliveryInfo, deliveryInfo }) {
 
       {deliveryInfo.isChecked && (
         <div id="delivery-info">
-          <select
-            name="Barrio"
-            value={deliveryInfo.neighborhood}
-            required
-            onChange={(e) => {
-              const selectedValue = e.target.value;
+          <div className="container">
+            <select
+              name="Barrio"
+              value={deliveryInfo.neighborhood}
+              required
+              onChange={(e) => {
+                const selectedValue = e.target.value;
+                setDeliveryInfo((prev) => ({
+                  ...prev,
+                  neighborhood: selectedValue,
+                }));
+              }}
+            >
+              <option value="" disabled selected>
+                Elige un barrio *
+              </option>
+              {options.map((option) => (
+                <option value={option}>{option}</option>
+              ))}
+            </select>
 
-              setDeliveryInfo((prev) => ({
-                ...prev,
-                neighborhood: selectedValue,
-              }));
-            }}
-          >
-            <option value="" disabled selected>
-              Elige un barrio *
-            </option>
-            {options.map((option) => (
-              <option value={option}>{option}</option>
-            ))}
-          </select>
+            <div className="error">Seleciona un barrio</div>
+          </div>
 
-          <input
-            type="text"
-            placeholder="Direccion *"
-            autoComplete="street-address"
-            required
-            defaultValue={deliveryInfo.address}
-            onChange={(event) => {
-              setDeliveryInfo((prev) => ({
-                ...prev,
-                address: event.target.value,
-              }));
-            }}
-          />
+          <div className="container">
+            <input
+              type="text"
+              placeholder="Direccion *"
+              autoComplete="street-address"
+              required
+              onBlur={checkValidity}
+              defaultValue={deliveryInfo.address}
+              onChange={(event) => {
+                setDeliveryInfo((prev) => ({
+                  ...prev,
+                  address: event.target.value,
+                }));
+              }}
+            />
 
-          <input
-            type="text"
-            placeholder="Entre calles *"
-            required
-            defaultValue={deliveryInfo.crossStreets}
-            onChange={(event) =>
-              setDeliveryInfo((prev) => ({
-                ...prev,
-                crossStreets: event.target.value,
-              }))
-            }
-          />
+            <div className="error">Escribe una direccion</div>
+          </div>
+
+          <div className="container">
+            <input
+              type="text"
+              placeholder="Entre calles *"
+              required
+              onBlur={checkValidity}
+              defaultValue={deliveryInfo.crossStreets}
+              onChange={(event) =>
+                setDeliveryInfo((prev) => ({
+                  ...prev,
+                  crossStreets: event.target.value,
+                }))
+              }
+            />
+
+            <div className="error">Escribe las entrecalles</div>
+          </div>
 
           <textarea
             id="aditional-info"

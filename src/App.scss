@@ -1,3 +1,9 @@
+$primary-color: #e8547e;
+$secondary-color: black;
+$contras-color: white;
+$accent-color: #e21313;
+$cool-shadow: 0 0 5px rgba(0, 0, 0, 0.5019607843);
+
 *,
 *::after,
 *::before {
@@ -15,9 +21,10 @@ img {
 
 button {
   padding: 0.8rem;
-  background-color: white;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5019607843);
-  font-weight: inherit;
+  background-color: $secondary-color;
+  color: $contras-color;
+  box-shadow: $cool-shadow;
+  font-weight: 800;
 }
 
 dialog[open] {
@@ -51,6 +58,7 @@ header {
   position: sticky;
   top: 0px;
   z-index: 999;
+  font-weight: 900;
   container-type: inline-size;
   container-name: nav;
   display: flex;
@@ -58,7 +66,7 @@ header {
   padding: 0.5rem 2rem;
   align-items: center;
   justify-content: space-between;
-  background-color: grey;
+  background-color: $primary-color;
 
   .container {
     display: flex;
@@ -71,7 +79,7 @@ header {
       span {
         position: absolute;
 
-        color: white;
+        color: $contras-color;
         left: 60%;
         top: 40%;
         transform: translate(-50%, -50%);
@@ -83,6 +91,11 @@ header {
       display: flex;
       a {
         height: min-content;
+        color: $contras-color;
+        &:hover {
+          color: $secondary-color;
+          -webkit-text-stroke: 0.2px $contras-color;
+        }
       }
     }
   }
@@ -168,17 +181,14 @@ main {
         text-align: center;
       }
 
-      .to-cart {
+      button.to-cart {
         display: grid;
 
         position: relative;
 
         grid-template-columns: 1fr 1fr;
-        color: white;
 
-        background-color: black;
         padding: 0.4rem 0rem;
-        font-weight: 900;
 
         .img-container {
           position: relative;
@@ -215,7 +225,6 @@ main {
 }
 
 form#ice-cream {
-  background-color: white;
   h1 {
     margin-bottom: 1rem;
   }
@@ -230,22 +239,24 @@ form#ice-cream {
     label {
       font-weight: 600;
       display: flex;
-      background-color: grey;
+      background-color: $primary-color;
       border-radius: 0.5rem;
       padding: 0.3rem;
       justify-content: space-between;
       gap: 1rem;
+      input {
+        border-radius: 0.2rem;
+      }
     }
   }
   button {
     margin-top: 2rem;
     width: 100%;
-    background-color: transparent;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5019607843);
   }
   dialog {
     margin: auto;
     padding: 2rem;
+    box-shadow: $cool-shadow;
     button {
       margin-top: 2rem;
     }
@@ -254,7 +265,7 @@ form#ice-cream {
 
 #footer {
   width: 100%;
-  background-color: grey;
+  background-color: $primary-color;
   padding: 3rem 1rem;
   text-align: center;
 
@@ -321,11 +332,12 @@ form#ice-cream {
     .cart-item {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      background-color: grey;
+      background-color: $primary-color;
       padding: 0.8rem;
       border-radius: 0.5rem;
       .left {
         position: relative;
+        height: 6rem;
         .remove {
           position: absolute;
           width: 1.2rem;
@@ -351,18 +363,16 @@ form#ice-cream {
           gap: 0.2rem;
         }
         .details-button {
-          box-shadow: 0 0 5px rgba(0, 0, 0, 0.5019607843);
           padding: 0.4rem;
         }
         .quantity {
           display: grid;
           grid-template-columns: auto 1fr auto;
-          box-shadow: 0 0 5px rgba(0, 0, 0, 0.5019607843);
+          box-shadow: $cool-shadow;
           button {
             width: 1.4rem;
             height: 1.4rem;
-            background-color: black;
-            color: white;
+
             display: flex;
             align-items: center;
             justify-content: center;
@@ -414,11 +424,30 @@ form#ice-cream {
       gap: $gap;
       font-size: 0.9rem;
 
-      input,
-      select {
-        text-align: center;
-        padding: 0.3rem;
+      .container {
+        .error {
+          display: none;
+          color: $accent-color;
+        }
+
+        input,
+        select {
+          text-align: center;
+          padding: 0.3rem;
+          width: 100%;
+          margin-bottom: 0.3rem;
+          &:valid {
+            outline: 1px solid green;
+          }
+          &.invalid {
+            outline: 1px solid $accent-color;
+            & + .error {
+              display: block;
+            }
+          }
+        }
       }
+
       input,
       textarea,
       select {
