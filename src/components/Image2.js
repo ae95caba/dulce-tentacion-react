@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Image({ url }) {
+export default function Image2({ url, price }) {
   const [isLoaded, setIsLoaded] = useState(false);
 
   const onLoad = () => {
@@ -8,7 +8,11 @@ export default function Image({ url }) {
   };
 
   return (
-    <div className={`img-loader-container`}>
+    <div
+      className={`img-loader-container promo`}
+      style={{ position: "relative" }}
+    >
+      <span style={{ position: "absolute", fontWeight: "2rem" }}>{price}</span>
       <img
         src={url}
         onLoad={onLoad}

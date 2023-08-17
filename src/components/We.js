@@ -41,11 +41,7 @@ export default function We() {
         ya que hablamos de calorías vacías.
       </p>
 
-      <p>
-        Nosotros apostamos por la calidad del helado artesanal. Los pequeños
-        placeres no deben estar reñidos con una alimentación equilibrada y
-        saludable.
-      </p>
+      <p>Por eso nosotros apostamos por la calidad del helado artesanal.</p>
     </>
   );
 }

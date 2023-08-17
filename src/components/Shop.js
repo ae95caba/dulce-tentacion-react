@@ -7,23 +7,13 @@ import Image from "./Image";
 export const Shop = ({
   addProduct,
 
-  catalog,
+  iceCream,
 }) => {
-  //content is what will be mapped
-  const [content, setContent] = useState(catalog?.helados);
-
-  //iceCreamForm content
-  //it needs the hole product so it can pass it to the car
-
-  useEffect(() => {
-    setContent(catalog?.helados);
-  }, [catalog]);
-
   return (
     <>
-      <h1>Nuestros productos</h1>
+      <h1>Catalogo</h1>
       <div className="cards-container">
-        {content?.map((product, index) => {
+        {iceCream?.map((product, index) => {
           if (product.outOfStock) {
             return "";
           }
@@ -62,13 +52,12 @@ function Card({ product }) {
 
       <button className={`to-cart  `}>
         <span>Añadir</span>
-        <div className="img-container">
-          <img
-            style={{ filter: "invert(1)" }}
-            src="/img/to-cart.svg"
-            alt="cart icon"
-          />
-        </div>
+
+        <img
+          style={{ filter: "invert(1)" }}
+          src="/img/to-cart.svg"
+          alt="cart icon"
+        />
       </button>
     </div>
   );

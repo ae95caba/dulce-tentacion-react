@@ -152,14 +152,14 @@ function CartItem({ cartController, cartItem }) {
   const product = cartItem.product;
   return (
     <div className="cart-item">
+      <img
+        className="remove"
+        alt="remove"
+        src="/img/recycle-bin.png"
+        onClick={() => cartController.removeAll(cartItem)}
+      />
       <div className="left">
         <img className="thumbnail" src={product.imgUrl} alt={product.name} />
-        <img
-          className="remove"
-          alt="remove"
-          src="/img/recycle-bin.svg"
-          onClick={() => cartController.removeAll(cartItem)}
-        />
       </div>
       <div className="right">
         <div className="description">

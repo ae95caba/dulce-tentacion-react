@@ -18,10 +18,9 @@ export default function IceCreamForm({
   const [choosenFlavours, setChoosenFlavours] = useState([]);
 
   function getProduct() {
-    for (const key in catalog.helados) {
-      if (catalog.helados[key].flavours === +maxFlavours) {
-        console.log(catalog.helados[key]);
-        return catalog.helados[key];
+    for (const key in catalog.iceCream) {
+      if (catalog.iceCream[key].flavours === +maxFlavours) {
+        return catalog.iceCream[key];
       }
     }
   }

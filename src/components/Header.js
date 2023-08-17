@@ -1,24 +1,11 @@
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const tabsObj = ["Catalogo", "Nosotros", "Galeria"];
 export function Header({ getTotalCartItems }) {
-  const location = useLocation();
-  const isProfileActive = location.pathname === "/perfil";
-  const isHomeActive = location.pathname === "/";
-
   return (
     <header>
-      <NavLink
-        to="/"
-        onClick={(e) => {
-          window.scrollTo(0, 0);
-        }}
-      >
-        <img
-          id="logo"
-          alt="company logo"
-          src={isHomeActive ? "/img/logo-red.png" : "/img/logo-white.png"}
-        />
+      <NavLink to="/">
+        <img id="logo" alt="company logo" src="/img/logo-white.png" />
       </NavLink>
       <div className="container">
         <nav>
@@ -64,14 +51,7 @@ function Tabs() {
   return (
     <>
       {tabsObj.map((tab) => (
-        <NavLink
-          to={`/${tab.toLowerCase()}`}
-          onClick={(e) => {
-            window.scrollTo(0, 0);
-          }}
-        >
-          {tab}
-        </NavLink>
+        <NavLink to={`/${tab.toLowerCase()}`}>{tab}</NavLink>
       ))}
     </>
   );

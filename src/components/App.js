@@ -5,7 +5,7 @@ import { Home } from "./Home";
 import Footer from "./Footer";
 import { Shop } from "./Shop";
 import { Cart } from "./Cart";
-import { ThreeCircles } from "react-loader-spinner";
+
 import { useState, useEffect, useRef } from "react";
 import { Header } from "./Header";
 
@@ -23,7 +23,11 @@ export const App = () => {
   const checkMarkRef = useRef();
 
   useEffect(() => {
-    console.log(location);
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
+  //shows checkmark modal on the catalog tab
+  useEffect(() => {
     if (location.pathname === "/catalogo") {
       checkMarkRef.current.showModal();
 
@@ -57,12 +61,12 @@ export const App = () => {
         const docRef = doc(db, "shop", "catalog");
         const docSnap = await getDoc(docRef);
 
-        let helados = docSnap.data().products.helados;
+        let iceCream = docSnap.data().products.helados;
 
         let iceCreamExtras = docSnap.data().iceCreamExtras;
         let flavoursList = convertStringToArray(docSnap.data().flavours);
         setCatalog({
-          helados,
+          iceCream,
           iceCreamExtras,
           flavoursList,
         });
@@ -176,7 +180,7 @@ export const App = () => {
       <Header getTotalCartItems={cartController.getTotalItems} />
       {isLoading ? (
         <div
-          style={{ width: "100%", aspectRatio: "1/1" }}
+          style={{ width: "100%", aspectRatio: "2/1" }}
           className="img-loader-container"
         >
           <span className="loader"></span>
@@ -217,9 +221,6 @@ function MainContent({ cartController, catalog, cartItems, location }) {
       case "/":
         result = "home";
         break;
-      case "/sabores":
-        result = "flavours-list";
-        break;
 
       default:
         console.log("That's not a valid day.");
@@ -229,7 +230,7 @@ function MainContent({ cartController, catalog, cartItems, location }) {
   return (
     <main className={`content ${getClassName()} `}>
       <Routes>
-        <Route path="/" exact element={<Home />} />
+        <Route path="/" exact element={<Home iceCream={catalog.iceCream} />} />
         <Route path="/nosotros" exact element={<We />} />
         <Route path="/galeria" exact element={<Gallery />} />
         <Route
@@ -247,7 +248,10 @@ function MainContent({ cartController, catalog, cartItems, location }) {
         <Route
           path="/catalogo"
           element={
-            <Shop catalog={catalog} addProduct={cartController.addProduct} />
+            <Shop
+              iceCream={catalog.iceCream}
+              addProduct={cartController.addProduct}
+            />
           }
         />
         <Route

@@ -1,7 +1,9 @@
 $primary-color: #e8547e;
 $secondary-color: black;
 $contras-color: white;
-$accent-color: #e21313;
+$accent-color: #000000;
+$secondary-filter: invert(99%) sepia(0%) saturate(7500%) hue-rotate(101deg)
+  brightness(108%) contrast(100%);
 $cool-shadow: 0 0 5px rgba(0, 0, 0, 0.5019607843);
 
 *,
@@ -33,7 +35,7 @@ $cool-shadow: 0 0 5px rgba(0, 0, 0, 0.5019607843);
     width: 48px;
     height: 48px;
     border: 5px solid #fff;
-    border-bottom-color: #ff3d00;
+    border-bottom-color: $secondary-color;
     border-radius: 50%;
 
     box-sizing: border-box;
@@ -101,6 +103,15 @@ header {
   align-items: center;
   justify-content: space-between;
   background-color: $primary-color;
+  a {
+    &:hover,
+    &.active {
+      color: $secondary-color !important;
+      img#logo {
+        filter: $secondary-filter;
+      }
+    }
+  }
 
   .container {
     display: flex;
@@ -128,10 +139,6 @@ header {
         color: $contras-color;
         font-size: 1.2rem;
         letter-spacing: 0.2rem;
-        &:hover {
-          color: $secondary-color;
-          -webkit-text-stroke: 0.2px $contras-color;
-        }
       }
     }
   }
@@ -185,22 +192,20 @@ main.catalog {
       }
 
       button.to-cart {
-        display: grid;
-
         position: relative;
 
-        grid-template-columns: 1fr 1fr;
-
         padding: 0.4rem 0rem;
+        span {
+          margin-right: 1rem;
+        }
 
-        .img-container {
-          position: relative;
-          img {
-            aspect-ratio: 1/1;
-            position: absolute;
-            width: 2rem;
-            top: 0px;
-          }
+        img {
+          aspect-ratio: 1/1;
+          position: absolute;
+          width: 2rem;
+          top: 50%;
+          right: 0;
+          transform: translate(-50%, -50%);
         }
       }
 
@@ -259,20 +264,24 @@ main.cart {
       flex-direction: column;
       gap: 0.5rem;
       color: white;
+
       .cart-item {
         display: grid;
         grid-template-columns: 1fr 1fr;
         background-color: $primary-color;
         padding: 0.8rem;
         border-radius: 0.5rem;
+        position: relative;
+        .remove {
+          position: absolute;
+          width: 1.2rem;
+          right: 1.5%;
+          top: 4%;
+        }
         .left {
           position: relative;
           height: 6rem;
-          .remove {
-            position: absolute;
-            width: 1.2rem;
-            left: 0px;
-          }
+
           .thumbnail {
             width: 6rem;
             vertical-align: middle;
@@ -450,7 +459,7 @@ main.home {
     width: 100vw;
     max-width: 600px;
     position: relative;
-    padding-bottom: 1rem;
+    padding-bottom: 2rem;
   }
 
   img.right,
@@ -470,9 +479,10 @@ main.home {
   }
 
   h3 {
+    margin-left: 1rem;
     margin-bottom: 0.5rem;
-    margin-top: 1rem;
-    letter-spacing: 0.5rem;
+    margin-top: 2rem;
+    letter-spacing: 0.3rem;
     text-transform: uppercase;
   }
 
@@ -582,7 +592,6 @@ main.we {
   h1 {
     margin-bottom: 2rem;
     text-align: center;
-    color: $primary-color;
   }
   h2 {
     margin-bottom: 1rem;
@@ -594,7 +603,7 @@ main.we {
     font-weight: 400;
     letter-spacing: 1px;
     strong {
-      color: $primary-color;
+      font-weight: 900;
     }
   }
   P:last-child {
