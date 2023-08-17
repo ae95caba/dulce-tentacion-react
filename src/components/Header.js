@@ -1,13 +1,10 @@
 import { NavLink, useLocation } from "react-router-dom";
 
-import Sidebar from "./Sidebar";
-import Tabs from "./Tabs";
-
+const tabsObj = ["Catalogo", "Nosotros", "Galeria"];
 export function Header({ getTotalCartItems }) {
   const location = useLocation();
   const isProfileActive = location.pathname === "/perfil";
   const isHomeActive = location.pathname === "/";
-  const tabs = ["Catalogo", "Testimonios", "Nosotros"];
 
   return (
     <header>
@@ -31,7 +28,7 @@ export function Header({ getTotalCartItems }) {
         <label className="hamburger-menu">
           <input type="checkbox" />
         </label>
-        <Sidebar tabs={tabs} />
+        <Sidebar />
         <CartButton getTotalCartItems={getTotalCartItems} />
       </div>
     </header>
@@ -52,5 +49,30 @@ function CartButton({ getTotalCartItems }) {
         {getTotalCartItems() > 0 ? getTotalCartItems() : null}
       </span>
     </NavLink>
+  );
+}
+
+function Sidebar() {
+  return (
+    <aside className="sidebar">
+      <Tabs />
+    </aside>
+  );
+}
+
+function Tabs() {
+  return (
+    <>
+      {tabsObj.map((tab) => (
+        <NavLink
+          to={`/${tab.toLowerCase()}`}
+          onClick={(e) => {
+            window.scrollTo(0, 0);
+          }}
+        >
+          {tab}
+        </NavLink>
+      ))}
+    </>
   );
 }

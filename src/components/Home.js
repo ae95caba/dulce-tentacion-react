@@ -1,193 +1,75 @@
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from "react-responsive-carousel";
-import { useEffect, useState } from "react";
-import { ThreeCircles } from "react-loader-spinner";
-import { utcToZonedTime, format } from "date-fns-tz";
-import { NavLink } from "react-router-dom";
-
+import Image from "./Image";
 export function Home() {
   return (
-    <div id="home">
-      <StoreStatus />
+    <>
       <div className="content">
-        <div className="carousel-container">
-          <Carousel
-            showArrows={false}
-            emulateTouch={true}
-            autoPlay={true}
-            interval={3000}
-            stopOnHover={true}
-            infiniteLoop={true}
-            showThumbs={false}
-            showStatus={false}
-            swipeScrollTolerance={80}
-            preventMovementUntilSwipeScrollTolerance={true}
-          >
-            <div className="slider first">
-              <img src="/img/carousel/netflix.jpg" loading="lazy" />
-            </div>
-            <div className="slider second">
-              <img src="/img/carousel/family.jpg" loading="lazy" />
-            </div>
-            <div className="slider third">
-              <img src="/img/carousel/delivery.jpg" loading="lazy" />
-            </div>
-            <div className="slider fourth">
-              <img src="/img/carousel/doge.jpg" loading="lazy" />
-            </div>
-          </Carousel>
-        </div>
-        <Contact />
-        <div className="carousel-container">
-          <Carousel
-            showArrows={false}
-            emulateTouch={true}
-            autoPlay={true}
-            interval={4000}
-            stopOnHover={true}
-            infiniteLoop={true}
-            showThumbs={false}
-            showStatus={false}
-            swipeScrollTolerance={80}
-            preventMovementUntilSwipeScrollTolerance={true}
-          >
-            <div className="slider first">
-              <img src="/img/carousel/gracias.jpg" loading="lazy" />
-            </div>
-            <div className="slider second">
-              <img src="/img/carousel/ofertas.jpg" loading="lazy" />
-            </div>
-          </Carousel>
-        </div>
-        <Location />
+        <img className="right" src="/wave.png" />
+        <Carousel1 />
+        <h3>#LA viborita as</h3>
+        <Carousel2 />
+        <h3>#Promos</h3>
+        <Carousel3 />
+        <img className="left" src="/wave2.png" />
+      </div>
+    </>
+  );
+}
+
+function Carousel1() {
+  return (
+    <div className="first carousel">
+      <div className="logos-slide">
+        <span className="img"> Helado Artesanal de la mejor calidad</span>
+        {<span className="img">Aceptamos Mercado Pago</span>}
+        <span className="img">Delivery Sin Cargo por la zona</span>
+      </div>
+      <div className="logos-slide">
+        <span className="img"> Helado Artesanal de la mejor calidad</span>
+        {<span className="img">Aceptamos Mercado Pago</span>}
+        <span className="img">Delivery Sin Cargo por la zona</span>
       </div>
     </div>
   );
 }
 
-function Contact() {
+function Carousel2() {
+  const urls = [
+    "/img/carousel/netflix.jpg",
+    "/img/carousel/family.jpg",
+    "/img/carousel/delivery.jpg",
+    "/img/carousel/doge.jpg",
+  ];
   return (
-    <div id="contact">
-      <div className="tittle">Enfriamos tu paladar y calentamos tu corazon</div>
-      <div className="body">
-        <p>
-          No podes comprar la felicidad pero si podes comprar helado, lo que es
-          casi lo mismo !
-        </p>
-        <div className="button-container">
-          <NavLink to="/catalogo">
-            <button className="call-to-action">
-              <img src="/img/to-cart.svg" />
-              <span>Pedi ahora!</span>
-            </button>
-          </NavLink>
-        </div>
+    <div className="second carousel">
+      <div className="logos-slide">
+        {urls.map((url) => (
+          <Image url={url} />
+        ))}
+      </div>
+      <div className="logos-slide">
+        {urls.map((url) => (
+          <Image url={url} />
+        ))}
       </div>
     </div>
   );
 }
 
-function StoreStatus() {
-  function isBusinessHours() {
-    const argentinaTimezone = "America/Argentina/Buenos_Aires";
-    const now = new Date();
-    const nowInArgentina = utcToZonedTime(now, argentinaTimezone);
-    const dayOfWeek = nowInArgentina.getDay();
-    const formattedTime = format(nowInArgentina, "HH:mm:ss", {
-      timeZone: argentinaTimezone,
-    });
-
-    if (dayOfWeek >= 1 && dayOfWeek <= 5) {
-      // Monday to Friday
-      return formattedTime >= "19:00:00" && formattedTime <= "23:59:59";
-    } else if (dayOfWeek === 0 || dayOfWeek === 6) {
-      // Saturday or Sunday
-      return formattedTime >= "11:59:00" && formattedTime <= "23:59:59";
-    } else {
-      // Not a valid day of the week
-      return false;
-    }
-  }
+function Carousel3() {
+  const urls = ["/img/carousel/gracias.jpg", "/img/carousel/ofertas.jpg"];
   return (
-    <div id="store-status">
-      {isBusinessHours() ? (
-        <span className="neon-green">Abierto AHORA</span>
-      ) : (
-        <p>
-          <span> Cerrado ahora</span>, horarios abajo
-        </p>
-      )}
-    </div>
-  );
-}
-
-function Location() {
-  const [showMap, setShowMap] = useState(false);
-  return (
-    <div id="location">
-      <div style={{ display: showMap ? "none" : "grid" }} className="tittle">
-        Visitanos
+    <div className="third carousel">
+      <div className="logos-slide">
+        {urls.map((url) => (
+          <Image url={url} />
+        ))}
       </div>
-      <div style={{ display: showMap ? "none" : "grid" }} className="body">
-        <p>
-          Somos un emprendimiento familiar, nos esforzamos por dar un servicio
-          de calidad por lo que usamos helado artesanal de la mejor calidad
-        </p>
-        <div className="button-container">
-          <button
-            id="show-map"
-            className="call-to-action"
-            onClick={() => setShowMap(true)}
-          >
-            <img id="map-icon" src="/img/social/maps.png" />
-            <span>Ver ubicacion</span>
-          </button>
-        </div>
+      <div className="logos-slide">
+        {urls.map((url) => (
+          <Image url={url} />
+        ))}
       </div>
-
-      {showMap ? <MapComponent /> : null}
-    </div>
-  );
-}
-
-function MapComponent() {
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    const iframe = document.querySelector("iframe");
-
-    iframe.addEventListener("load", () => {
-      setIsLoaded(true);
-    });
-  }, []);
-
-  return (
-    <div className="map-container">
-      {!isLoaded && (
-        <div className="loading-container">
-          <ThreeCircles
-            height="150"
-            width="150"
-            color="#FF0000"
-            wrapperStyle={{}}
-            wrapperClass="loading"
-            visible={true}
-            ariaLabel="three-circles-rotating"
-            outerCircleColor=""
-            innerCircleColor=""
-            middleCircleColor=""
-          />
-        </div>
-      )}
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3278.210079743154!2d-58.80161008650818!3d-34.7503004653374!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcebf7cde1c5f3%3A0x791060e1141fdd58!2sHelados%20y%20Kiosko%20Rayito!5e0!3m2!1ses-419!2sar!4v1679477719725!5m2!1ses-419!2sar"
-        style={{ border: 0 }}
-        allowFullScreen={true}
-        loading="lazy"
-        id="google-maps"
-        title="google maps"
-        referrerPolicy="no-referrer-when-downgrade"
-      ></iframe>
     </div>
   );
 }

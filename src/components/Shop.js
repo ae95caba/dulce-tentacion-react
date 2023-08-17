@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 
 import { Route, Routes, NavLink } from "react-router-dom";
-import { ThreeCircles } from "react-loader-spinner";
 
-import IceCreamForm from "./IceCreamForm";
+import Image from "./Image";
 
 export const Shop = ({
   addProduct,
@@ -24,21 +23,6 @@ export const Shop = ({
     <>
       <h1>Nuestros productos</h1>
       <div className="cards-container">
-        {!content && !catalog ? (
-          <ThreeCircles
-            height="150"
-            width="150"
-            color="#FF0000"
-            wrapperStyle={{}}
-            wrapperClass="loading"
-            visible={true}
-            ariaLabel="three-circles-rotating"
-            outerCircleColor=""
-            innerCircleColor=""
-            middleCircleColor=""
-          />
-        ) : null}
-
         {content?.map((product, index) => {
           if (product.outOfStock) {
             return "";
@@ -89,28 +73,3 @@ function Card({ product }) {
     </div>
   );
 }
-
-function Image({ url }) {
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  const onLoad = () => {
-    console.log("loaded");
-    setIsLoaded(true);
-  };
-
-  return (
-    <div className="img-container">
-      <img
-        src={url}
-        onLoad={onLoad}
-        alt="product"
-        style={{ visibility: isLoaded ? "visible" : "hidden" }}
-      />
-      <span
-        className="loader"
-        style={{ display: !isLoaded ? "block" : "none" }}
-      ></span>
-    </div>
-  );
-}
-export default Image;
