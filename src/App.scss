@@ -189,6 +189,8 @@ main.catalog {
         font-family: "Shadows Into Light", cursive;
         font-weight: 900;
         text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
       }
 
       button.to-cart {
@@ -274,8 +276,8 @@ main.cart {
         position: relative;
         .remove {
           position: absolute;
-          width: 1.2rem;
-          right: 1.5%;
+          width: 1.5rem;
+          right: 1%;
           top: 4%;
         }
         .left {
@@ -496,6 +498,27 @@ main.home {
     border-radius: $image-radius;
   }
 
+  .carousel:before,
+  .carousel:after {
+    position: absolute;
+    top: 0;
+
+    width: 60px;
+    height: 100%;
+    background: linear-gradient(to left, rgba(255, 255, 255, 0), white);
+
+    content: "";
+    z-index: 2;
+  }
+  .carousel:before {
+    left: 0;
+    background: linear-gradient(to left, rgba(255, 255, 255, 0), white);
+  }
+  .carousel:after {
+    right: 0;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), white);
+  }
+
   .first.carousel {
     overflow: hidden;
 
@@ -624,6 +647,12 @@ main.undefined {
     }
     h3 {
       margin-bottom: 0.5rem;
+      background-color: $secondary-color;
+      color: $contras-color;
+      padding: 0.3rem;
+      text-transform: uppercase;
+      display: flex;
+      justify-content: space-between;
     }
     .container {
       display: flex;
@@ -753,5 +782,23 @@ main.undefined {
   }
   .sidebar {
     display: none !important;
+  }
+}
+
+@media (hover: hover) {
+  //targets only devices that can hover
+  .second.carousel:hover .logos-slide,
+  .first.carousel:hover .logos-slide,
+  .third.carousel:hover .logos-slide {
+    animation-play-state: paused !important;
+  }
+}
+
+@media (hover: none) {
+  //targets only devices that can hover
+  .second.carousel:active .logos-slide,
+  .first.carousel:active .logos-slide,
+  .third.carousel:active .logos-slide {
+    animation-play-state: paused !important;
   }
 }

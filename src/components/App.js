@@ -28,7 +28,7 @@ export const App = () => {
 
   //shows checkmark modal on the catalog tab
   useEffect(() => {
-    if (location.pathname === "/catalogo") {
+    if (location.pathname === "/catalogo" && catalog) {
       checkMarkRef.current.showModal();
 
       setTimeout(() => {

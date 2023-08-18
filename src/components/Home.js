@@ -58,15 +58,22 @@ function Carousel2() {
   );
 }
 
-function Carousel3() {
+function Carousel3({ iceCream }) {
+  function getRoundNumber(number) {
+    const lastTwoDigits = number % 100;
+    const redondeo = lastTwoDigits > 50 ? 100 : 50;
+    const roundNumber = Math.floor(number / 100) * 100 + redondeo;
+    return roundNumber;
+  }
+
   const offers = [
     {
       url: "/img/carousel/ofertas.jpg",
     },
     {
-      url: "/img/carousel/promo2.png",
+      url: "/img/carousel/promo-medio.png",
 
-      price: 1000,
+      price: getRoundNumber(iceCream[1].price * 2 * 0.9),
       style: {
         position: "absolute",
         fontSize: "1.2rem",
@@ -79,7 +86,7 @@ function Carousel3() {
       },
     },
     {
-      url: "/img/carousel/promo1.png",
+      url: "/img/carousel/promo-cuarto.png",
       style: {
         position: "absolute",
         fontSize: "1.2rem",
@@ -91,7 +98,7 @@ function Carousel3() {
         color: "#601CA4",
       },
 
-      price: 2000,
+      price: getRoundNumber(iceCream[2].price * 2 * 0.9),
     },
   ];
 
