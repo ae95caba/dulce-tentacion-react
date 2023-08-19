@@ -103,6 +103,7 @@ header {
   align-items: center;
   justify-content: space-between;
   background-color: $primary-color;
+  box-shadow: $cool-shadow;
   a {
     &:hover,
     &.active {
@@ -137,7 +138,7 @@ header {
       a {
         height: min-content;
         color: $contras-color;
-        font-size: 1.2rem;
+
         letter-spacing: 0.2rem;
       }
     }
@@ -156,7 +157,7 @@ header {
 }
 
 main.catalog {
-  padding: 2rem 0rem;
+  padding: 2rem 0rem 4rem 0rem;
 
   align-items: center;
   display: flex;
@@ -171,7 +172,7 @@ main.catalog {
   }
   .cards-container {
     display: grid;
-    width: 700px;
+    width: 900px;
 
     justify-content: center;
     grid-template-columns: repeat(auto-fit, 8rem);
@@ -429,7 +430,7 @@ main.cart {
 }
 
 main.gallery {
-  padding: 2rem 0rem;
+  padding: 2rem 0rem 4rem 0rem;
   h1 {
     margin-bottom: 2rem;
     text-align: center;
@@ -461,7 +462,7 @@ main.home {
     width: 100vw;
     max-width: 600px;
     position: relative;
-    padding-bottom: 2rem;
+    padding-bottom: 6rem;
   }
 
   img.right,
@@ -482,8 +483,8 @@ main.home {
 
   h3 {
     margin-left: 1rem;
-    margin-bottom: 0.5rem;
-    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+    margin-top: 4rem;
     letter-spacing: 0.3rem;
     text-transform: uppercase;
   }
@@ -498,8 +499,10 @@ main.home {
     border-radius: $image-radius;
   }
 
-  .carousel:before,
-  .carousel:after {
+  .second.carousel:before,
+  third.carousel:before,
+  .second.carousel:after,
+  .third.carousel:after {
     position: absolute;
     top: 0;
 
@@ -510,11 +513,13 @@ main.home {
     content: "";
     z-index: 2;
   }
-  .carousel:before {
+  .second.carousel:before,
+  .third.carousel:before {
     left: 0;
     background: linear-gradient(to left, rgba(255, 255, 255, 0), white);
   }
-  .carousel:after {
+  .second.carousel:after,
+  .third.carousel:after {
     right: 0;
     background: linear-gradient(to right, rgba(255, 255, 255, 0), white);
   }
@@ -692,7 +697,7 @@ main.undefined {
   background-color: $primary-color;
   padding: 3rem 1rem;
   text-align: center;
-
+  box-shadow: $cool-shadow;
   display: flex;
   flex-direction: column;
   gap: 3rem;
