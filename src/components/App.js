@@ -5,6 +5,7 @@ import { Home } from "./Home";
 import Footer from "./Footer";
 import { Shop } from "./Shop";
 import { Cart } from "./Cart";
+import Reviews from "./Reviews";
 
 import { useState, useEffect, useRef } from "react";
 import { Header } from "./Header";
@@ -218,6 +219,9 @@ function MainContent({ cartController, catalog, cartItems, location }) {
       case "/helados":
         result = "form";
         break;
+      case "/testimonios":
+        result = "reviews";
+        break;
       case "/":
         result = "home";
         break;
@@ -232,6 +236,7 @@ function MainContent({ cartController, catalog, cartItems, location }) {
       <Routes>
         <Route path="/" exact element={<Home iceCream={catalog.iceCream} />} />
         <Route path="/nosotros" exact element={<We />} />
+        <Route path="/testimonios" exact element={<Reviews />} />
         <Route path="/galeria" exact element={<Gallery />} />
         <Route
           path="/carrito"

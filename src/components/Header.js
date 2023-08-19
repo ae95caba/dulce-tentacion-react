@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-const tabsObj = ["Catalogo", "Nosotros", "Galeria"];
+const tabsObj = ["Catalogo", "Nosotros", "Galeria", "Testimonios"];
 export function Header({ getTotalCartItems }) {
   return (
     <header>
