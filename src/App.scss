@@ -5,6 +5,7 @@ $accent-color: #000000;
 $secondary-filter: invert(99%) sepia(0%) saturate(7500%) hue-rotate(101deg)
   brightness(108%) contrast(100%);
 $cool-shadow: 0 0 5px rgba(0, 0, 0, 0.5019607843);
+$universal-width: 700px;
 
 *,
 *::after,
@@ -172,7 +173,7 @@ main.catalog {
   }
   .cards-container {
     display: grid;
-    width: 700px;
+    width: $universal-width;
 
     justify-content: center;
     grid-template-columns: repeat(auto-fit, 8rem);
@@ -499,10 +500,13 @@ main.gallery {
   .gallery-container {
     display: flex;
     justify-content: center;
-    gap: 1rem;
+    margin: 0rem auto;
+    gap: 2rem;
+    max-width: 100vw;
+    width: $universal-width;
     flex-wrap: wrap;
     .img-loader-container {
-      width: 15rem;
+      width: 13rem;
 
       img {
         height: 100%;
@@ -521,9 +525,9 @@ main.home {
 
   .content {
     width: 100vw;
-    max-width: 600px;
+    max-width: $universal-width;
     position: relative;
-    padding-bottom: 6rem;
+    padding-bottom: 4rem;
   }
 
   img.right,
@@ -536,6 +540,7 @@ main.home {
 
   img.right {
     right: -150px;
+    transform: rotateY(180deg);
   }
   img.left {
     left: -150px;
@@ -561,7 +566,7 @@ main.home {
   }
 
   .second.carousel:before,
-  third.carousel:before,
+  .third.carousel:before,
   .second.carousel:after,
   .third.carousel:after {
     position: absolute;
@@ -611,7 +616,8 @@ main.home {
       }
     }
   }
-  .second.carousel {
+  .second.carousel,
+  .third.carousel {
     overflow: hidden;
 
     display: flex;
@@ -626,9 +632,9 @@ main.home {
       padding: 0.2rem 0.5rem;
 
       img {
-        height: 15rem;
+        height: 14rem;
 
-        width: 15rem;
+        width: 14rem;
 
         display: flex;
         justify-content: center;
@@ -639,29 +645,14 @@ main.home {
       }
     }
   }
+  .second.carousel {
+    .logos-slide {
+      animation: $timing-second slide infinite linear;
+    }
+  }
   .third.carousel {
-    overflow: hidden;
-
-    display: flex;
-
     .logos-slide {
       animation: $timing-third slide infinite linear;
-      display: flex;
-      flex-wrap: nowrap;
-      gap: 1rem;
-      padding: 0.2rem 0.5rem;
-
-      img {
-        height: 15rem;
-        box-shadow: $cool-shadow;
-        width: 15rem;
-        border-radius: 1.5rem;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-weight: 900;
-      }
     }
   }
   @keyframes slide {
@@ -677,7 +668,7 @@ main.home {
 main.we {
   padding: 2rem;
   justify-self: center;
-  max-width: 800px;
+  max-width: $universal-width;
   h1 {
     margin-bottom: 2rem;
     text-align: center;

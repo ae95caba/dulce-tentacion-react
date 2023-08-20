@@ -6,7 +6,7 @@ export function Home({ iceCream }) {
   return (
     <>
       <div className="content">
-        <img className="right" src="/wave.png" />
+        <img className="right" src="/wave2.png" />
         <Carousel1 />
         <h3>#DULCE-TENTACION</h3>
         <Carousel2 />
