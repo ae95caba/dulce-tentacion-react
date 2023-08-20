@@ -172,17 +172,19 @@ main.catalog {
   }
   .cards-container {
     display: grid;
-    width: 900px;
+    width: 700px;
 
     justify-content: center;
     grid-template-columns: repeat(auto-fit, 8rem);
 
-    gap: 1.5rem;
+    gap: 2.3rem;
 
     .card {
-      box-shadow: 2px 2px 2px 2px rgb(44, 42, 42);
+      $border-radius-value: 0.2rem;
+      box-shadow: $cool-shadow;
       width: 8rem;
       display: grid;
+      border-radius: $border-radius-value;
       gap: 0.4rem;
       grid-template-rows: min-content min-content min-content;
 
@@ -196,7 +198,8 @@ main.catalog {
 
       button.to-cart {
         position: relative;
-
+        border-bottom-left-radius: $border-radius-value;
+        border-bottom-right-radius: $border-radius-value;
         padding: 0.4rem 0rem;
         span {
           margin-right: 1rem;
@@ -244,8 +247,6 @@ main.flavours-list {
     flex-direction: column;
     font-weight: 700;
     gap: 0.5rem;
-    li {
-    }
   }
 }
 
@@ -464,6 +465,9 @@ main.reviews {
       justify-content: space-between;
       gap: 2rem;
       background-color: $primary-color;
+      & > p {
+        font-style: italic;
+      }
       section {
         display: grid;
         grid-template-columns: 3rem auto 3rem;
@@ -775,6 +779,7 @@ main.undefined {
 
       p {
         font-size: 0.9rem;
+        font-weight: 500;
       }
     }
   }
@@ -785,7 +790,7 @@ main.undefined {
     text-align: center;
     letter-spacing: 0.4rem;
     font-weight: 900;
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     line-height: 1.6rem;
   }
 }
