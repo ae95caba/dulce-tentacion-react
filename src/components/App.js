@@ -10,8 +10,6 @@ import Reviews from "./Reviews";
 import { useState, useEffect, useRef } from "react";
 import { Header } from "./Header";
 
-import { setDoc, doc, getDoc } from "firebase/firestore";
-import { db, auth } from "../backend/firebase";
 import Gallery from "./Gallery";
 import We from "./We";
 import FlavoursList from "./FlavoursList";
@@ -22,6 +20,33 @@ export const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [catalog, setCatalog] = useState(null);
   const checkMarkRef = useRef();
+
+  async function fetchFlavoursAndSetState() {
+    const requestOptions = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const response = await fetch(
+        `http://localhost:3000/flavours`,
+        requestOptions
+      );
+      if (!response.ok) {
+        throw new Error("Request failed");
+      }
+
+      const products = await response.json();
+      console.log(`the posts content is : ${products}`);
+      // setDbFlavoursArr(products);
+
+      // Process the data or perform other operations
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
+  fetchFlavoursAndSetState();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -44,50 +69,70 @@ export const App = () => {
     const REFRESH_DELAY = 1000; // Delay in milliseconds before each refresh
     let refreshCount = 0;
 
-    function convertStringToArray(string) {
-      // Remove leading and trailing periods and whitespaces
-      string = string.trim().replace(/^\.+|\.+$/g, "");
-
-      // Split the string by periods and whitespaces
-      const items = string.split(/\s*\.\s*/);
-
-      // Filter out any empty items
-      const filteredItems = items.filter((item) => item !== "");
-
-      return filteredItems;
-    }
-
-    async function populateCatalog() {
+    async function fetchProductsAndSetState() {
+      const requestOptions = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
       try {
-        const docRef = doc(db, "shop", "catalog");
-        const docSnap = await getDoc(docRef);
-
-        let iceCream = docSnap.data().products.helados;
-
-        let iceCreamExtras = docSnap.data().iceCreamExtras;
-        let flavoursList = convertStringToArray(docSnap.data().flavours);
-        setCatalog({
-          iceCream,
-          iceCreamExtras,
-          flavoursList,
-        });
-        setIsLoading(false);
-      } catch (error) {
-        if (refreshCount < MAX_REFRESHES) {
-          refreshCount++;
-          setTimeout(() => {
-            window.location.reload();
-          }, REFRESH_DELAY);
-        } else {
-          // Handle the maximum refresh attempts reached
-          console.log(
-            "Maximum refresh attempts reached. Please try again later."
-          );
-          alert("Estamos teniendo problemas. Por favor intenta mas tarde");
+        const response = await fetch(
+          `http://localhost:3000/products`,
+          requestOptions
+        );
+        if (!response.ok) {
+          throw new Error("Request failed");
         }
+
+        const products = await response.json();
+        console.log(`the products   : ${JSON.stringify(products)}`);
+        setCatalog((prev) => ({
+          ...prev,
+          iceCream: [...products],
+        }));
+        setIsLoading(false);
+        // Process the data or perform other operations
+      } catch (error) {
+        console.error("Error:", error);
       }
     }
-    populateCatalog();
+
+    async function fetchFlavoursAndSetState() {
+      const requestOptions = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      try {
+        const response = await fetch(
+          `http://localhost:3000/flavours`,
+          requestOptions
+        );
+        if (!response.ok) {
+          throw new Error("Request failed");
+        }
+
+        const flavours = await response.json();
+
+        const availableFlavours = flavours
+          .filter((obj) => obj.outOfStock === false)
+          .map((obj) => obj.name);
+
+        console.log(
+          `the flavours content is : ${JSON.stringify(availableFlavours)}`
+        );
+        setCatalog((prev) => ({
+          ...prev,
+          flavoursList: [...availableFlavours],
+        }));
+
+        // Process the data or perform other operations
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
+    fetchProductsAndSetState();
+    fetchFlavoursAndSetState();
   }, []);
 
   const cartController = {
@@ -245,11 +290,7 @@ function MainContent({ cartController, catalog, cartItems, location }) {
             <Cart cartItems={cartItems} cartController={cartController} />
           }
         />
-        <Route
-          path="/sabores"
-          exact
-          element={<FlavoursList flavoursList={catalog.flavoursList} />}
-        />
+
         <Route
           path="/catalogo"
           element={
