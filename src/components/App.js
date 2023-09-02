@@ -19,6 +19,7 @@ export const App = () => {
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(true);
   const [catalog, setCatalog] = useState(null);
+
   const checkMarkRef = useRef();
 
   async function fetchFlavoursAndSetState() {
@@ -49,6 +50,13 @@ export const App = () => {
   fetchFlavoursAndSetState();
 
   useEffect(() => {
+    if (typeof catalog === "object" && catalog !== null) {
+      console.log(JSON.stringify(catalog));
+      setIsLoading(false);
+    }
+  }, [catalog]);
+
+  useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
@@ -69,70 +77,56 @@ export const App = () => {
     const REFRESH_DELAY = 1000; // Delay in milliseconds before each refresh
     let refreshCount = 0;
 
-    async function fetchProductsAndSetState() {
+    async function fetchProductsAndFlavorsAndSetState() {
       const requestOptions = {
         headers: {
           "Content-Type": "application/json",
         },
       };
       try {
-        const response = await fetch(
+        const productResponse = await fetch(
           `http://localhost:3000/products`,
           requestOptions
         );
-        if (!response.ok) {
-          throw new Error("Request failed");
-        }
-
-        const products = await response.json();
-        console.log(`the products   : ${JSON.stringify(products)}`);
-        setCatalog((prev) => ({
-          ...prev,
-          iceCream: [...products],
-        }));
-        setIsLoading(false);
-        // Process the data or perform other operations
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    }
-
-    async function fetchFlavoursAndSetState() {
-      const requestOptions = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-      try {
-        const response = await fetch(
+        const flavorsResponse = await fetch(
           `http://localhost:3000/flavours`,
           requestOptions
         );
-        if (!response.ok) {
+
+        if (!productResponse.ok || !flavorsResponse.ok) {
           throw new Error("Request failed");
         }
 
-        const flavours = await response.json();
+        const products = await productResponse.json();
+        const flavours = await flavorsResponse.json();
 
         const availableFlavours = flavours
           .filter((obj) => obj.outOfStock === false)
           .map((obj) => obj.name);
 
-        console.log(
-          `the flavours content is : ${JSON.stringify(availableFlavours)}`
-        );
         setCatalog((prev) => ({
           ...prev,
+          iceCream: [...products],
           flavoursList: [...availableFlavours],
         }));
 
         // Process the data or perform other operations
       } catch (error) {
-        console.error("Error:", error);
+        if (refreshCount < MAX_REFRESHES) {
+          refreshCount++;
+          setTimeout(() => {
+            window.location.reload();
+          }, REFRESH_DELAY);
+        } else {
+          // Handle the maximum refresh attempts reached
+          console.log(
+            "Maximum refresh attempts reached. Please try again later."
+          );
+          alert("Estamos teniendo problemas. Por favor intenta mas tarde");
+        }
       }
     }
-    fetchProductsAndSetState();
-    fetchFlavoursAndSetState();
+    fetchProductsAndFlavorsAndSetState();
   }, []);
 
   const cartController = {
