@@ -22,33 +22,6 @@ export const App = () => {
 
   const checkMarkRef = useRef();
 
-  async function fetchFlavoursAndSetState() {
-    const requestOptions = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    try {
-      const response = await fetch(
-        `http://localhost:3000/flavours`,
-        requestOptions
-      );
-      if (!response.ok) {
-        throw new Error("Request failed");
-      }
-
-      const products = await response.json();
-      console.log(`the posts content is : ${products}`);
-      // setDbFlavoursArr(products);
-
-      // Process the data or perform other operations
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  }
-
-  fetchFlavoursAndSetState();
-
   useEffect(() => {
     if (typeof catalog === "object" && catalog !== null) {
       console.log(JSON.stringify(catalog));
@@ -85,11 +58,11 @@ export const App = () => {
       };
       try {
         const productResponse = await fetch(
-          `http://localhost:3000/products`,
+          `https://colossal-zorah-dasfg2t4gdfsgs.koyeb.app/products`,
           requestOptions
         );
         const flavorsResponse = await fetch(
-          `http://localhost:3000/flavours`,
+          `https://colossal-zorah-dasfg2t4gdfsgs.koyeb.app/flavours`,
           requestOptions
         );
 
