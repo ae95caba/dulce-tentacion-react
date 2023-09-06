@@ -6,13 +6,15 @@ import Footer from "./Footer";
 import { Shop } from "./Shop";
 import { Cart } from "./Cart";
 import Reviews from "./Reviews";
-
+import ReactGA from "react-ga";
 import { useState, useEffect, useRef } from "react";
 import { Header } from "./Header";
 
 import Gallery from "./Gallery";
 import We from "./We";
-import FlavoursList from "./FlavoursList";
+
+const TRACKING_ID = "G-784HFDBC5Z";
+ReactGA.initialize(TRACKING_ID);
 
 export const App = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -57,12 +59,14 @@ export const App = () => {
         },
       };
       try {
+        const apiUrl = process.env.REACT_APP_API_URL;
+        console.log(apiUrl);
         const productResponse = await fetch(
-          `https://colossal-zorah-dasfg2t4gdfsgs.koyeb.app/products`,
+          `${apiUrl}/products`,
           requestOptions
         );
         const flavorsResponse = await fetch(
-          `https://colossal-zorah-dasfg2t4gdfsgs.koyeb.app/flavours`,
+          `${apiUrl}/flavours`,
           requestOptions
         );
 
@@ -187,7 +191,7 @@ export const App = () => {
   return (
     <>
       <dialog tabIndex="-1" ref={checkMarkRef} className="checkmark">
-        <img tabIndex="-1" src="/checkmark.png" alt="" srcset="" />
+        <img tabIndex="-1" src="/checkmark.png" alt="" srcSet="" />
       </dialog>
 
       <Header getTotalCartItems={cartController.getTotalItems} />

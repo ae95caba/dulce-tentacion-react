@@ -62,7 +62,7 @@ function Review({ review }) {
           className="quotes"
           src="/img/reviews/quotes.png"
           alt="as"
-          srcset=""
+          srcSet=""
         />
       </section>
     </div>
