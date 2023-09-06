@@ -1,12 +1,8 @@
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import Image from "./Image";
 import { useState, useEffect } from "react";
-import ReactGA from "react-ga";
-export function Home({ iceCream }) {
-  useEffect(() => {
-    ReactGA.pageview(window.location.pathname);
-  }, []);
 
+export function Home({ iceCream }) {
   return (
     <>
       <div className="content">
