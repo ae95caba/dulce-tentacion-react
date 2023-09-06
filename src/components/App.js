@@ -15,7 +15,7 @@ import We from "./We";
 
 const TRACKING_ID = "G-784HFDBC5Z";
 ReactGA.initialize(TRACKING_ID);
-
+ReactGA.send({ hitType: "pageview", page: "/", title: "Custom Title" });
 export const App = () => {
   const [cartItems, setCartItems] = useState([]);
   const location = useLocation();
