@@ -6,16 +6,13 @@ import Footer from "./Footer";
 import { Shop } from "./Shop";
 import { Cart } from "./Cart";
 import Reviews from "./Reviews";
-import ReactGA from "react-ga4";
+
 import { useState, useEffect, useRef } from "react";
 import { Header } from "./Header";
 
 import Gallery from "./Gallery";
 import We from "./We";
 
-const TRACKING_ID = "G-784HFDBC5Z";
-ReactGA.initialize(TRACKING_ID);
-ReactGA.send({ hitType: "pageview", page: "/", title: "Custom Title" });
 export const App = () => {
   const [cartItems, setCartItems] = useState([]);
   const location = useLocation();
