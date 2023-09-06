@@ -6,7 +6,7 @@ import Footer from "./Footer";
 import { Shop } from "./Shop";
 import { Cart } from "./Cart";
 import Reviews from "./Reviews";
-import ReactGA from "react-ga";
+import ReactGA from "react-ga4";
 import { useState, useEffect, useRef } from "react";
 import { Header } from "./Header";
 
